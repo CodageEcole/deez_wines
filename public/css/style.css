@@ -114,6 +114,11 @@ body>div:first-of-type{
   font-weight: bolder;
 }
 
+.localisation-box {
+  font-size: 26px;
+  font-weight: bolder;
+}
+
 .infos-title h3 {
   font-size: 32px;
   font-weight: bold;

@@ -60,7 +60,7 @@
               <h1>{{$bouteille['titre_en']}}</h1>
             @endif
           </div>
-          <div class="prix-box">
+          <div class="localisation-box">
             <p>{{ $bouteille['attributs_fr']['Couleur'] }} | {{ $bouteille['attributs_fr']['Pays'] }}, {{ $bouteille['attributs_fr']['Région'] }}</p>
           </div>
           <div>
