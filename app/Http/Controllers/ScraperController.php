@@ -75,8 +75,8 @@ class ScraperController extends Controller
 
         try{
         //* Les fichiers à utiliser
-        $bouteilles = Storage::json('bouteillesSAQ.json');
-        $urls = Storage::json('codesSAQ.json');
+        $bouteilles = Storage::json('bouteillestest3.json');
+        $urls = Storage::json('testCodes.json');
 
         //* Instanciation des Http Guzzlers
         $client_fr = new Client();
