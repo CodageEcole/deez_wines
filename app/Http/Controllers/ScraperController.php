@@ -13,7 +13,7 @@ use Symfony\Component\DomCrawler\Crawler;
 class ScraperController extends Controller
 {
 
-    public function scrapeWelcome () {
+    public function welcome () {
 
         // $web = new \Spekulatius\PHPScraper\PHPScraper;
 
@@ -26,7 +26,7 @@ class ScraperController extends Controller
         return view('scraper.accueil', ['mot' => 'Phil scrape le site de la SAQ']);
     }
 
-    public function scrapeKeywords () {
+    public function keywords () {
 
         $web = new \Spekulatius\PHPScraper\PHPScraper;
 
@@ -38,7 +38,7 @@ class ScraperController extends Controller
         return view('scraper.keywords', ['keywords' => $keywords, 'mot' => 'Phil essaye de ramasser les keywords']);
     }
 
-    public function scrapeCodes () {
+    public function codes () {
         $web = new \Spekulatius\PHPScraper\PHPScraper;
 
         $codesSAQ = [];
@@ -69,7 +69,7 @@ class ScraperController extends Controller
         return view('scraper.codes', ['mot' => 'Procédure complétée']);
     }
 
-    public function scrapeListe () {
+    public function liste () {
 
         $erreurs = [];
 
