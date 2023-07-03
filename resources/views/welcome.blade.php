@@ -1,4 +1,7 @@
 @extends('layout.app')
+@push('styles')
+<link href=" {{ asset('css/welcome.css') }}" rel="stylesheet">
+@endpush
 @section('content')
 
     <header>
