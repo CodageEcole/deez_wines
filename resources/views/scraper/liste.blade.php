@@ -13,121 +13,121 @@
 @if(empty($erreurs))
   <p>Aucune erreur détectée!</p>
 @endif
+<h1 class="titre-principal"> INFOS SCRAPPER</h1>
 @if(count($bouteilles) > 0)
-  @php $bouteilles = array_slice($bouteilles, -10) @endphp
+  @php $bouteilles = $bouteilles->slice(-10) @endphp
   @foreach ($bouteilles as $bouteille)
-    <div>
-      <strong>{{ $loop->iteration }}</strong>
-      @if($lang === "fr")
-        <h1>{{$bouteille['titre_fr']}}</h1>
-      @else
-        <h1>{{$bouteille['titre_en']}}</h1>
-      @endif
+    <div class="ensemble">
+      <div class="info-row">
+        {{-- <div class="prix-box">
+          <h3>prix</h3>
+          <p>{{$bouteille['prix']}}</p>
+        </div> --}}
+        <div class="pastilles-bouteilles-images">
+          <div class="pastille-image">
+            {{-- <h3>Pastille de goût</h3> --}}
+            @if(empty($bouteille['image_pastille']))
+              {{-- <p>cette bouteille n'a pas de pastille de goût</p> --}}
+            @else
+                {{-- <p>{{$bouteille['image_pastille_alt']}}</p> --}}
+                <img src="{{asset('pastilles/' . $bouteille['image_pastille']) }}" alt="{{$bouteille['image_pastille_alt']}}" style="max-height: 65px">
+            @endif
+          </div>
+          <div class="bouteille-image">
+            {{-- <h3>image</h3> --}}
+            <img src="{{ asset('images/' . $bouteille['image_bouteille']) }}" alt="{{ $bouteille['image_bouteille_alt'] }}" style="max-height: 350px;">
+          </div>
+        </div>
+        <div class="title-desc">
+          <div>
+            {{-- <strong>{{ $loop->iteration }}</strong> --}}
+              <h1>{{$bouteille['nom']}}</h1>
+          </div>
+          <div class="localisation-box">
+            <p>{{ $bouteille['couleur_fr'] }} | {{ $bouteille['pays_fr'] }}, {{ $bouteille['region_fr'] }}</p>
+          </div>
+          <div>
+            {{-- <h3>Informations pertinentes</h3> --}}
+            @if($lang === "fr")
+              @if(empty($bouteille['description_fr']))
+                <p>cette bouteille n'a pas de texte descriptif</p>
+              @else
+                <p class="infos">{{$bouteille['description_fr']}}</p>
+              @endif
+            @else
+              @if(empty($bouteille['description_en']))
+                <p>this bottle has no descriptive text</p>
+              @else
+                <p class="infos">{{$bouteille['description_en']}}</p>
+              @endif
+            @endif
+          </div>
+          <div class="prix-box">
+            <p>{{$bouteille['prix']}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="infos">
+        <div class="infos-title">
+          <h3>infos Détaillés</h3>
+        </div>
+        <div class="infos-detailles">
+          <div class="infos-detailles-carte">
+            <p class="infos-detailles-title"> Pays </p>
+            <p class="infos-detailles-text">{{ $bouteille['pays_fr'] }}</p>
+          </div>
+          <div class="infos-detailles-carte">
+            <p class="infos-detailles-title"> Couleur </p>
+            <p class="infos-detailles-text">{{ $bouteille['couleur_fr'] }}</p>
+          </div>
+          <div class="infos-detailles-carte">
+            <p class="infos-detailles-title"> Région </p>
+            <p class="infos-detailles-text">{{ $bouteille['region_fr'] }}</p>
+          </div>
+          <div class="infos-detailles-carte">
+            <p class="infos-detailles-title"> Format </p>
+            <p class="infos-detailles-text">{{ $bouteille['format'] }}</p>
+          </div>
+          <div class="infos-detailles-carte">
+            <p class="infos-detailles-title"> Désignation reglementée </p>
+            <p class="infos-detailles-text">{{ $bouteille['designation_reglementee_fr'] }}</p>
+          </div>
+          <div class="infos-detailles-carte">
+            <p class="infos-detailles-title"> Producteur </p>
+            <p class="infos-detailles-text">{{ $bouteille['producteur'] }}</p>
+          </div>
+          <div class="infos-detailles-carte">
+            <p class="infos-detailles-title"> Cépage </p>
+            @if (isset($bouteille['cepage']))
+                {{ $bouteille['cepage'] }}
+            @endif
+          </div>
+          <div class="infos-detailles-carte">
+            <p class="infos-detailles-title"> Agent Promotionnel </p>
+            <p class="infos-detailles-text">{{ $bouteille['agent_promotionnel'] }}</p>
+          </div>
+          <div class="infos-detailles-carte">
+            <p class="infos-detailles-title"> Degrée d'Alcool </p>
+            <p class="infos-detailles-text">{{ $bouteille['degree_alcool'] }}</p>
+          </div>
+          <div class="infos-detailles-carte">
+            <p class="infos-detailles-title"> Code SAQ </p>
+            <p class="infos-detailles-text">{{ $bouteille['code_SAQ'] }}</p>
+          </div>
+          <div class="infos-detailles-carte">
+            <p class="infos-detailles-title"> Taux de Sucre </p>
+            <p class="infos-detailles-text">{{ isset($bouteille['taux_de_sucre']) ? $bouteille['taux_de_sucre'] : 'Non Disponible' }}</p>
+          </div>
+          <div class="infos-detailles-carte">
+            <p class="infos-detailles-title"> Code CUP </p>
+            <p class="infos-detailles-text">{{ $bouteille['code_CUP'] }}</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="info-row">
-      <div>
-        <h3>prix</h3>
-        <p>{{$bouteille['prix']}}</p>
-      </div>
-      <div>
-        <h3>Pastille de goût</h3>
-        @if($lang === "fr")
-          @if(empty($bouteille['imagePastille_fr']))
-            <p>cette bouteille n'a pas de pastille de goût</p>
-          @else
-              <p>{{$bouteille['imagePastille_fr']['alt']}}</p>
-              <img src="{{asset('pastilles/' . $bouteille['imagePastille_fr']['url'])}}" alt="{{$bouteille['imagePastille_fr']['alt']}}">
-          @endif
-        @else
-          @if(empty($bouteille['imagePastille_en']))
-          <p>this bottle has no tasting tag</p>
-          @else
-            <p>{{$bouteille['imagePastille_en']['alt']}}</p>
-            <img src="{{asset('pastilles/' . $bouteille['imagePastille_en']['url'])}}" alt="{{$bouteille['imagePastille_en']['alt']}}">
-          @endif
-        @endif
-      </div>
-      <div>
-        <h3>image</h3>
-        @if($lang === "fr")
-          <img src="{{ asset('images/' . $bouteille['image_fr']['url']) }}" alt="{{ $bouteille['image_fr']['alt'] }}" style="max-height: 300px;">
-        @else
-          <img src="{{ asset('images/' . $bouteille['image_en']['url'])}}" alt="$bouteille['image_en']['alt']" style="max-height: 300px;">
-        @endif
-      </div>
-      <div>
-        <h3>Informations pertinentes</h3>
-        @if($lang === "fr")
-          @if(empty($bouteille['texte_fr']))
-            <p>cette bouteille n'a pas de texte descriptif</p>
-          @else
-            <p class="infos">{{$bouteille['texte_fr']}}</p>
-          @endif
-        @else
-          @if(empty($bouteille['texte_en']))
-            <p>this bottle has no descriptive text</p>
-          @else
-            <p class="infos">{{$bouteille['texte_en']}}</p>
-          @endif
-        @endif
-      </div>
-    </div>
-    <div class="table-row">
-      <table>
-        <tbody>
-          @if($lang === "fr")
-            @if(empty($bouteille['attributs_fr']))
-            <p>aucunes données à afficher</p>
-            @else
-              @foreach ($bouteille['attributs_fr'] as $index => $value)
-              <tr>
-                <td>{{ $index }}: </td>
-                <td><strong>{{ $value }}</strong></td>
-              </tr>
-              @endforeach
-            @endif
-          @else
-            @if(empty($bouteille['attributs_en']))
-            <p>no data to display</p>
-            @else
-              @foreach ($bouteille['attributs_en'] as $index => $value)
-              <tr>
-                <td>{{ $index }}: </td>
-                <td><strong>{{ $value }}</strong></td>
-              </tr>
-              @endforeach
-            @endif
-          @endif
-        </tbody>
-      </table>
-      <table>
-        <tbody>
-          @if($lang === "fr")
-            @if(empty($bouteille['tasting_fr']))
-              <p>aucunes données à afficher</p>
-            @else
-              @foreach ($bouteille['tasting_fr'] as $index => $value)
-              <tr>
-                <td>{{ $index }}: </td>
-                <td><strong>{{ $value }}</strong></td>
-              </tr>
-              @endforeach
-            @endif
-          @else
-            @if(empty($bouteille['tasting_en']))
-              <p>no data to display</p>
-            @else
-              @foreach ($bouteille['tasting_en'] as $index => $value)
-              <tr>
-                <td>{{ $index }}: </td>
-                <td><strong>{{ $value }}</strong></td>
-              </tr>
-              @endforeach
-            @endif
-          @endif
-        </tbody>
-      </table>
-    </div>
+
+    <div class="custom-hr"></div>
+
   @endforeach
-@endif
-@endsection
+  @endif
+  @endsection

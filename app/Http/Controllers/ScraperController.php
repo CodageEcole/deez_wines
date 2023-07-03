@@ -86,149 +86,153 @@ class ScraperController extends Controller
                 $codesExistants = [];
             }
 
-            var_dump($codesExistants);
 
+            //* Les fichiers à utiliser
+            // $bouteilles = Storage::json('bouteillestest3.json');
+            // $urls = Storage::json('testCodes.json');
+            $urls = Storage::json('codesSAQ.json');
 
-        //* Les fichiers à utiliser
-        // $bouteilles = Storage::json('bouteillestest3.json');
-        $urls = Storage::json('testCodes.json');
-        // $urls = Storage::json('codesSAQ.json');
+            //* Instanciation des Http Guzzlers
+            $client_fr = new Client();
+            $client_en = new Client();
 
-        //* Instanciation des Http Guzzlers
-        $client_fr = new Client();
-        $client_en = new Client();
+            //* compteur de bouteilles traitées
+            $codesTraites = 0;
 
-        //* compteur de bouteilles traitées
-        $codesTraites = 0;
+            foreach ($urls as $url) {
 
-        foreach ($urls as $url) {
+                if(in_array($url, $codesExistants)){
+                    // on passe à la bouteille suivante
+                    continue;
+                }
+                else{
+                //* Instanciation de bouteille à storer
+                $bouteille = New Bouteille();
+                //* Fabrication de l'url à scraper
+                $url_fr = 'https://www.saq.com/fr/' . $url;
+                $url_en = 'https://www.saq.com/en/' . $url;
 
-            if(isset($codesExistants[$url])){
-                // on passe à la bouteille suivante
-                continue;
+                //* Requête de la page
+                $reponse_fr = $client_fr->request('GET', $url_fr);
+                $reponse_en = $client_en->request('GET', $url_en);
+
+                //* Stockage de l'information de la page
+                $html_fr = $reponse_fr->getBody()->getContents();
+                $html_en = $reponse_en->getBody()->getContents();
+
+                //* Instanciation du Crawler Symphony
+                $crawler_fr = new Crawler($html_fr);
+                $crawler_en = new Crawler($html_en);
+
+                //* Cibler le nom de la bouteille
+                $titre_fr = $crawler_fr->filter('h1')->first()->text();
+                // $titre_en = $crawler_en->filter('h1')->first()->text();
+
+                //* Cibler le texte descriptif, si présent
+                $texte_fr = $this->getTextFromCrawler($crawler_fr, '.wrapper-content-info');
+                $texte_en = $this->getTextFromCrawler($crawler_en, '.wrapper-content-info');
+
+                //* Cibler la liste d'attributs
+                $listeAttributs_fr = $crawler_fr->filter('ul.list-attributs li');
+                $listeAttributs_en = $crawler_en->filter('ul.list-attributs li');
+
+                //* cibler la liste de tasting
+                $listeTasting_fr = $crawler_fr->filter('ul.tasting-container li');
+                $listeTasting_en = $crawler_en->filter('ul.tasting-container li');
+
+                //* les tableaux d'attributs
+                $attributs_fr = $this->extractInformation($listeAttributs_fr, "fr", false, true);
+                $attributs_en = $this->extractInformation($listeAttributs_en, "en", false, true);
+
+                //* les tableaux de tasting
+                $tasting_fr = $this->extractInformation($listeTasting_fr, "fr", true, false);
+                $tasting_en = $this->extractInformation($listeTasting_en, "en", true, false);
+
+                //* les images
+                $image_fr = $this->extractImageInformation($crawler_fr, $client_fr, '.MagicToolboxContainer img', 'images');
+                // $image_en = $this->extractImageInformation($crawler_en, $client_en, '.MagicToolboxContainer img', 'images');
+
+                //* les pastilles
+                $pastille_fr = $this->extractImageInformation($crawler_fr, $client_fr, '.wrapper-taste-tag img', 'pastilles', true);
+                // $pastille_en = $this->extractImageInformation($crawler_en, $client_en, '.wrapper-taste-tag img', 'pastilles', true);
+
+                //* le prix
+                $prix = null;
+                $prix = $crawler_fr->filter('.price')->first()->text();
+
+                //* SECTION TASTING
+                $bouteille->aromes_fr = $tasting_fr["Arômes"];
+                $bouteille->aromes_en = $tasting_en["Aromas"];
+                $bouteille->acidite_fr = $tasting_fr["Acidité"];
+                $bouteille->acidite_en = $tasting_en["Acidity"];
+                $bouteille->sucrosite_fr = $tasting_fr["Sucrosité"];
+                $bouteille->sucrosite_en = $tasting_en["Sweetness"];
+                $bouteille->corps_fr = $tasting_fr["Corps"];
+                $bouteille->corps_en = $tasting_en["Body"];
+                $bouteille->bouche_fr = $tasting_fr["Bouche"];
+                $bouteille->bouche_en = $tasting_en["Mouthfeel"];
+                $bouteille->bois_fr = $tasting_fr["Bois"];
+                $bouteille->bois_en = $tasting_en["Wood"];
+                $bouteille->temperature_fr = $tasting_fr["Température de service"];
+                $bouteille->temperature_en = $tasting_en["Serving temperature"];
+                $bouteille->millesime = $tasting_fr["Millésime dégusté"];
+                $bouteille->potentiel_de_garde_fr = $tasting_fr["Potentiel de garde"];
+                $bouteille->potentiel_de_garde_en = $tasting_en["Aging potential"];
+
+                //* SECTION ATTRIBUTS
+                $bouteille->pays_fr = $attributs_fr["Pays"];
+                $bouteille->pays_en = $attributs_en["Country"];
+                $bouteille->region_fr = $attributs_fr["Région"];
+                $bouteille->region_en = $attributs_en["Region"];
+                $bouteille->designation_reglementee_fr = $attributs_fr["Désignation réglementée"];
+                $bouteille->designation_reglementee_en = $attributs_en["Regulated designation"];
+                $bouteille->classification_fr = $attributs_fr["Classification"] ?? null;
+                $bouteille->classification_en = $attributs_en["Classification"] ?? null;
+                if (isset($attributs_fr["Cépage"])) {
+                    $bouteille->cepage = $attributs_fr["Cépage"] ?? null;
+                } 
+                elseif (isset($attributs_fr["Cépages"])) {
+                    $bouteille->cepage = $attributs_fr["Cépages"] ?? null;
+                }
+                $bouteille->degree_alcool = $attributs_fr["Degré d'alcool"];
+                $bouteille->taux_de_sucre = $attributs_fr["Taux de sucre"];
+                $bouteille->couleur_fr = $attributs_fr["Couleur"];
+                $bouteille->couleur_en = $attributs_en["Color"];
+                $bouteille->format = $attributs_fr["Format"];
+                $bouteille->producteur = $attributs_fr["Producteur"];
+                $bouteille->agent_promotionnel = $attributs_fr["Agent promotionnel"];
+                $bouteille->code_SAQ = $attributs_fr["Code SAQ"];
+                $bouteille->code_CUP = $attributs_fr["Code CUP"];
+
+                //* DONNÉES SÉPARÉES
+                $bouteille->nom = $titre_fr;
+                $bouteille->image_bouteille = $image_fr["url"];
+                $bouteille->image_bouteille_alt = $image_fr["alt"] ?? null;
+                $bouteille->prix = $prix;
+                $bouteille->image_pastille = $pastille_fr["url"] ?? null;
+                $bouteille->image_pastille_alt = $pastille_fr["alt"] ?? null;
+                $bouteille->description_fr = $texte_fr;
+                $bouteille->description_en = $texte_en;
+
+                $bouteille->save();
+
+                $codesTraites++;
+                $codesExistants[] = $url;
+                echo "codes traités:";
+                var_dump($codesTraites);
+                //* Une petite pause après beaucoup d'effort!
+                sleep(1);
+                } //? la boucle sur les codes SAQ fin du else
             }
-
-            //* Instanciation de bouteille à storer
-            $bouteille = New Bouteille();
-            //* Fabrication de l'url à scraper
-            $url_fr = 'https://www.saq.com/fr/' . $url;
-            $url_en = 'https://www.saq.com/en/' . $url;
-
-            //* Requête de la page
-            $reponse_fr = $client_fr->request('GET', $url_fr);
-            $reponse_en = $client_en->request('GET', $url_en);
-
-            //* Stockage de l'information de la page
-            $html_fr = $reponse_fr->getBody()->getContents();
-            $html_en = $reponse_en->getBody()->getContents();
-
-            //* Instanciation du Crawler Symphony
-            $crawler_fr = new Crawler($html_fr);
-            $crawler_en = new Crawler($html_en);
-
-            //* Cibler le nom de la bouteille
-            $titre_fr = $crawler_fr->filter('h1')->first()->text();
-            $titre_en = $crawler_en->filter('h1')->first()->text();
-
-            //* Cibler le texte descriptif, si présent
-            $texte_fr = $this->getTextFromCrawler($crawler_fr, '.wrapper-content-info');
-            $texte_en = $this->getTextFromCrawler($crawler_en, '.wrapper-content-info');
-
-            //* Cibler la liste d'attributs
-            $listeAttributs_fr = $crawler_fr->filter('ul.list-attributs li');
-            $listeAttributs_en = $crawler_en->filter('ul.list-attributs li');
-
-            //* cibler la liste de tasting
-            $listeTasting_fr = $crawler_fr->filter('ul.tasting-container li');
-            $listeTasting_en = $crawler_en->filter('ul.tasting-container li');
-
-            //* les tableaux d'attributs
-            $attributs_fr = $this->extractInformation($listeAttributs_fr, "fr", false, true);
-            $attributs_en = $this->extractInformation($listeAttributs_en, "en", false, true);
-
-            //* les tableaux de tasting
-            $tasting_fr = $this->extractInformation($listeTasting_fr, "fr", true, false);
-            $tasting_en = $this->extractInformation($listeTasting_en, "en", true, false);
-
-            //* les images
-            $image_fr = $this->extractImageInformation($crawler_fr, $client_fr, '.MagicToolboxContainer img', 'images');
-            $image_en = $this->extractImageInformation($crawler_en, $client_en, '.MagicToolboxContainer img', 'images');
-
-            //* les pastilles
-            $pastille_fr = $this->extractImageInformation($crawler_fr, $client_fr, '.wrapper-taste-tag img', 'pastilles', true);
-            $pastille_en = $this->extractImageInformation($crawler_en, $client_en, '.wrapper-taste-tag img', 'pastilles', true);
-
-            //* le prix
-            $prix = null;
-            $prix = $crawler_fr->filter('.price')->first()->text();
-
-            //* SECTION TASTING
-            $bouteille->aromes_fr = $tasting_fr["Arômes"];
-            $bouteille->aromes_en = $tasting_en["Aromas"];
-            $bouteille->acidite_fr = $tasting_fr["Acidité"];
-            $bouteille->acidite_en = $tasting_en["Acidity"];
-            $bouteille->sucrosite_fr = $tasting_fr["Sucrosité"];
-            $bouteille->sucrosite_en = $tasting_en["Sweetness"];
-            $bouteille->corps_fr = $tasting_fr["Corps"];
-            $bouteille->corps_en = $tasting_en["Body"];
-            $bouteille->bouche_fr = $tasting_fr["Bouche"];
-            $bouteille->bouche_en = $tasting_en["Mouthfeel"];
-            $bouteille->bois_fr = $tasting_fr["Bois"];
-            $bouteille->bois_en = $tasting_en["Wood"];
-            $bouteille->temperature_fr = $tasting_fr["Température de service"];
-            $bouteille->temperature_en = $tasting_en["Serving temperature"];
-            $bouteille->millesime = $tasting_fr["Millésime dégusté"];
-            $bouteille->potentiel_de_garde_fr = $tasting_fr["Potentiel de garde"];
-            $bouteille->potentiel_de_garde_en = $tasting_en["Aging potential"];
-
-            //* SECTION ATTRIBUTS
-            $bouteille->pays_fr = $attributs_fr["Pays"];
-            $bouteille->pays_en = $attributs_en["Country"];
-            $bouteille->region_fr = $attributs_fr["Région"];
-            $bouteille->region_en = $attributs_en["Region"];
-            $bouteille->designation_reglementee_fr = $attributs_fr["Désignation réglementée"];
-            $bouteille->designation_reglementee_en = $attributs_en["Regulated designation"];
-            $bouteille->classification_fr = $attributs_fr["Classification"];
-            $bouteille->classification_en = $attributs_en["Classification"];
-            if (isset($attributs_fr["Cépage"])) {
-                $bouteille->cepage = $attributs_fr["Cépage"];
-            } elseif (isset($attributs_fr["Cépages"])) {
-                $bouteille->cepage = $attributs_fr["Cépages"];
-            }
-            $bouteille->degree_alcool = $attributs_fr["Degré d'alcool"];
-            $bouteille->taux_de_sucre = $attributs_fr["Taux de sucre"];
-            $bouteille->couleur_fr = $attributs_fr["Couleur"];
-            $bouteille->couleur_en = $attributs_en["Color"];
-            $bouteille->format = $attributs_fr["Format"];
-            $bouteille->producteur = $attributs_fr["Producteur"];
-            $bouteille->agent_promotionnel = $attributs_fr["Agent promotionnel"];
-            $bouteille->code_SAQ = $attributs_fr["Code SAQ"];
-            $bouteille->code_CUP = $attributs_fr["Code CUP"];
-
-            //* DONNÉES SÉPARÉES
-            $bouteille->nom = $titre_fr;
-            $bouteille->image_bouteille = $image_fr["url"];
-            $bouteille->image_bouteille_alt = $image_fr["alt"] ?? null;
-            $bouteille->prix = $prix;
-            $bouteille->image_pastille = $pastille_fr["url"] ?? null;
-            $bouteille->image_pastille_alt = $pastille_fr["alt"] ?? null;
-            $bouteille->description_fr = $texte_fr;
-            $bouteille->description_en = $texte_en;
-
-            $bouteille->save();
-
-            $codesTraites++;
-            $codesExistants[$url] = true;
-
-            //* Une petite pause après beaucoup d'effort!
-            sleep(1);
-        } //? la boucle sur les codes SAQ
         }
         catch(\Exception $e){
+
             $erreurs[] = "Erreur lors du traitement du code SAQ $url : " . $e->getMessage();
             Log::error("Erreur lors du traitement du code SAQ $url : " . $e->getMessage());
         }
+
         $afficherBouteilles = Bouteille::all();
+
         return view('scraper.liste', [
             'bouteilles' => $afficherBouteilles,
             'lang' => "fr",
@@ -285,18 +289,24 @@ class ScraperController extends Controller
             if($isAttributs){
                 if($lang == "fr"){
                     $ajoutCle = [
-                        "Classification",
-                        "Taux de sucre",
                         "Région",
-                        "Désignation réglementée"
+                        "Désignation réglementée",
+                        "Classification",
+                        "Cépage",
+                        "Taux de sucre",
+                        "Agent promotionnel",
+                        "Code CUP",
                     ];
                 }
                 elseif($lang == "en"){
                     $ajoutCle = [
-                        "Classification",
-                        "Sugar content",
                         "Region",
-                        "Regulated designation"
+                        "Regulated designation",
+                        "Classification",
+                        "Grape variety",
+                        "Sugar content",
+                        "Promoting agent",
+                        "UPC code",
                     ];
                 }
                 foreach($ajoutCle as $cle){
