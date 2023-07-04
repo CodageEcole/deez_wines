@@ -9,7 +9,7 @@ class CellierQuantiteBouteille extends Model
 {
     use HasFactory;
 
-    private $fillable = [
+    protected $fillable = [
         'cellier_id',
         'bouteille_id',
         'quantite',

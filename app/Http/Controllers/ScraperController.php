@@ -7,8 +7,12 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+
 use GuzzleHttp\Client;
 use Symfony\Component\DomCrawler\Crawler;
+
+use App\Models\Bouteille;
+use Illuminate\Support\Facades\DB;
 
 class ScraperController extends Controller
 {
@@ -74,122 +78,163 @@ class ScraperController extends Controller
         $erreurs = [];
 
         try{
-        //* Les fichiers à utiliser
-        $bouteilles = Storage::json('bouteillestest3.json');
-        $urls = Storage::json('testCodes.json');
 
-        //* Instanciation des Http Guzzlers
-        $client_fr = new Client();
-        $client_en = new Client();
-
-        //* compteur de bouteilles traitées
-        $codesTraites = 0;
-
-        //* on essaie d'accélérer le processus de vérification
-        $codesExistants = [];
-        foreach($bouteilles as $bouteille){
-            //!!! ON DOIT AVOIR AU MOINS UNE BOUTEILLE DANS LE FICHIER !!!
-            $codeSAQ = $bouteille['attributs_fr']['Code SAQ'];
-            $codesExistants[$codeSAQ] = true;
-        }
-
-        foreach ($urls as $url) {
-
-            if(isset($codesExistants[$url])){
-                // on passe à la bouteille suivante
-                continue;
+            if (DB::table('bouteilles')->count() > 0) {
+                // Récupérer tous les codes SAQ existants dans la table "bouteilles"
+                $codesExistants = DB::table('bouteilles')->pluck('code_SAQ')->toArray();
+            } else {
+                $codesExistants = [];
             }
-            //* Fabrication de l'url à scraper
-            $url_fr = 'https://www.saq.com/fr/' . $url;
-            $url_en = 'https://www.saq.com/en/' . $url;
 
-            //* Requête de la page
-            $reponse_fr = $client_fr->request('GET', $url_fr);
-            $reponse_en = $client_en->request('GET', $url_en);
 
-            //* Stockage de l'information de la page
-            $html_fr = $reponse_fr->getBody()->getContents();
-            $html_en = $reponse_en->getBody()->getContents();
+            //* Les fichiers à utiliser
+            // $bouteilles = Storage::json('bouteillestest3.json');
+            // $urls = Storage::json('testCodes.json');
+            $urls = Storage::json('codesSAQ.json');
 
-            //* Instanciation du Crawler Symphony
-            $crawler_fr = new Crawler($html_fr);
-            $crawler_en = new Crawler($html_en);
+            //* Instanciation des Http Guzzlers
+            $client_fr = new Client();
+            $client_en = new Client();
 
-            //* Cibler le nom de la bouteille
-            $titre_fr = $crawler_fr->filter('h1')->first()->text();
-            $titre_en = $crawler_en->filter('h1')->first()->text();
+            //* compteur de bouteilles traitées
+            $codesTraites = 0;
 
-            //* Cibler le texte descriptif, si présent
-            $texte_fr = $this->getTextFromCrawler($crawler_fr, '.wrapper-content-info');
-            $texte_en = $this->getTextFromCrawler($crawler_en, '.wrapper-content-info');
+            foreach ($urls as $url) {
 
-            //* Cibler la liste d'attributs
-            $listeAttributs_fr = $crawler_fr->filter('ul.list-attributs li');
-            $listeAttributs_en = $crawler_en->filter('ul.list-attributs li');
+                if(in_array($url, $codesExistants)){
+                    // on passe à la bouteille suivante
+                    continue;
+                }
+                else{
+                //* Instanciation de bouteille à storer
+                $bouteille = New Bouteille();
+                //* Fabrication de l'url à scraper
+                $url_fr = 'https://www.saq.com/fr/' . $url;
+                $url_en = 'https://www.saq.com/en/' . $url;
 
-            //* cibler la liste de tasting
-            $listeTasting_fr = $crawler_fr->filter('ul.tasting-container li');
-            $listeTasting_en = $crawler_en->filter('ul.tasting-container li');
+                //* Requête de la page
+                $reponse_fr = $client_fr->request('GET', $url_fr);
+                $reponse_en = $client_en->request('GET', $url_en);
 
-            //* les tableaux d'attributs
-            $attributs_fr = $this->extractInformation($listeAttributs_fr, "fr");
-            $attributs_en = $this->extractInformation($listeAttributs_en, "en");
+                //* Stockage de l'information de la page
+                $html_fr = $reponse_fr->getBody()->getContents();
+                $html_en = $reponse_en->getBody()->getContents();
 
-            //* les tableaux de tasting
-            $tasting_fr = $this->extractInformation($listeTasting_fr, "fr", true);
-            $tasting_en = $this->extractInformation($listeTasting_en, "en", true);
+                //* Instanciation du Crawler Symphony
+                $crawler_fr = new Crawler($html_fr);
+                $crawler_en = new Crawler($html_en);
 
-            //* les images
-            $image_fr = $this->extractImageInformation($crawler_fr, $client_fr, '.MagicToolboxContainer img', 'images');
-            $image_en = $this->extractImageInformation($crawler_en, $client_en, '.MagicToolboxContainer img', 'images');
+                //* Cibler le nom de la bouteille
+                $titre_fr = $crawler_fr->filter('h1')->first()->text();
+                // $titre_en = $crawler_en->filter('h1')->first()->text();
 
-            //* les pastilles
-            $pastille_fr = $this->extractImageInformation($crawler_fr, $client_fr, '.wrapper-taste-tag img', 'pastilles', true);
-            $pastille_en = $this->extractImageInformation($crawler_en, $client_en, '.wrapper-taste-tag img', 'pastilles', true);
+                //* Cibler le texte descriptif, si présent
+                $texte_fr = $this->getTextFromCrawler($crawler_fr, '.wrapper-content-info');
+                $texte_en = $this->getTextFromCrawler($crawler_en, '.wrapper-content-info');
 
-            //* le prix
-            $prix = null;
-            $prix = $crawler_fr->filter('.price')->first()->text();
+                //* Cibler la liste d'attributs
+                $listeAttributs_fr = $crawler_fr->filter('ul.list-attributs li');
+                $listeAttributs_en = $crawler_en->filter('ul.list-attributs li');
 
-            //* Stockage des données
-            $bouteilles[] = [
-                'tasting_fr' => $tasting_fr,
-                'tasting_en' => $tasting_en,
-                'attributs_fr' => $attributs_fr,
-                'attributs_en' => $attributs_en,
-                'titre_fr' => $titre_fr,
-                'titre_en' => $titre_en,
-                'image_fr' => $image_fr,
-                'image_en' => $image_en,
-                'prix' => $prix,
-                'imagePastille_fr' => $pastille_fr,
-                'imagePastille_en' => $pastille_en,
-                'texte_fr' => $texte_fr,
-                'texte_en' => $texte_en
-            ];
+                //* cibler la liste de tasting
+                $listeTasting_fr = $crawler_fr->filter('ul.tasting-container li');
+                $listeTasting_en = $crawler_en->filter('ul.tasting-container li');
 
-            //* encodage des données
-            $json = json_encode($bouteilles, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+                //* les tableaux d'attributs
+                $attributs_fr = $this->extractInformation($listeAttributs_fr, "fr", false, true);
+                $attributs_en = $this->extractInformation($listeAttributs_en, "en", false, true);
 
-            //* stockage des données
-            Storage::disk('local')->put('bouteillesSAQ.json', $json);
-            $codesTraites++;
-            $codesExistants[$url] = true;
+                //* les tableaux de tasting
+                $tasting_fr = $this->extractInformation($listeTasting_fr, "fr", true, false);
+                $tasting_en = $this->extractInformation($listeTasting_en, "en", true, false);
 
-            //* Une petite pause après beaucoup d'effort!
-            sleep(1);
-        } //? la boucle sur les codes SAQ
+                //* les images
+                $image_fr = $this->extractImageInformation($crawler_fr, $client_fr, '.MagicToolboxContainer img', 'images');
+                // $image_en = $this->extractImageInformation($crawler_en, $client_en, '.MagicToolboxContainer img', 'images');
 
-        //* Affichage de la vue de confirmation.. Pour fins de test c'est la version 1, pour rouler le script, version 2
-        // return view('scraper.liste', ['bouteilles'=>$bouteilles, 'lang' => "fr"]);
-        // return view('scraper.liste', ['codeTraites' => $codesTraites]);
+                //* les pastilles
+                $pastille_fr = $this->extractImageInformation($crawler_fr, $client_fr, '.wrapper-taste-tag img', 'pastilles', true);
+                $pastille_en = $this->extractImageInformation($crawler_en, $client_en, '.wrapper-taste-tag img', 'pastilles', true);
+
+                //* le prix
+                $prix = null;
+                $prix = $crawler_fr->filter('.price')->first()->text();
+
+                //* SECTION TASTING
+                $bouteille->aromes_fr = $tasting_fr["Arômes"];
+                $bouteille->aromes_en = $tasting_en["Aromas"];
+                $bouteille->acidite_fr = $tasting_fr["Acidité"];
+                $bouteille->acidite_en = $tasting_en["Acidity"];
+                $bouteille->sucrosite_fr = $tasting_fr["Sucrosité"];
+                $bouteille->sucrosite_en = $tasting_en["Sweetness"];
+                $bouteille->corps_fr = $tasting_fr["Corps"];
+                $bouteille->corps_en = $tasting_en["Body"];
+                $bouteille->bouche_fr = $tasting_fr["Bouche"];
+                $bouteille->bouche_en = $tasting_en["Mouthfeel"];
+                $bouteille->bois_fr = $tasting_fr["Bois"];
+                $bouteille->bois_en = $tasting_en["Wood"];
+                $bouteille->temperature_fr = $tasting_fr["Température de service"];
+                $bouteille->temperature_en = $tasting_en["Serving temperature"];
+                $bouteille->millesime = $tasting_fr["Millésime dégusté"];
+                $bouteille->potentiel_de_garde_fr = $tasting_fr["Potentiel de garde"];
+                $bouteille->potentiel_de_garde_en = $tasting_en["Aging potential"];
+
+                //* SECTION ATTRIBUTS
+                $bouteille->pays_fr = $attributs_fr["Pays"];
+                $bouteille->pays_en = $attributs_en["Country"];
+                $bouteille->region_fr = $attributs_fr["Région"];
+                $bouteille->region_en = $attributs_en["Region"];
+                $bouteille->designation_reglementee_fr = $attributs_fr["Désignation réglementée"];
+                $bouteille->designation_reglementee_en = $attributs_en["Regulated designation"];
+                $bouteille->classification_fr = $attributs_fr["Classification"] ?? null;
+                $bouteille->classification_en = $attributs_en["Classification"] ?? null;
+                if (isset($attributs_fr["Cépage"])) {
+                    $bouteille->cepage = $attributs_fr["Cépage"] ?? null;
+                } 
+                elseif (isset($attributs_fr["Cépages"])) {
+                    $bouteille->cepage = $attributs_fr["Cépages"] ?? null;
+                }
+                $bouteille->degree_alcool = $attributs_fr["Degré d'alcool"];
+                $bouteille->taux_de_sucre = $attributs_fr["Taux de sucre"];
+                $bouteille->couleur_fr = $attributs_fr["Couleur"];
+                $bouteille->couleur_en = $attributs_en["Color"];
+                $bouteille->format = $attributs_fr["Format"];
+                $bouteille->producteur = $attributs_fr["Producteur"];
+                $bouteille->agent_promotionnel = $attributs_fr["Agent promotionnel"];
+                $bouteille->code_SAQ = $attributs_fr["Code SAQ"];
+                $bouteille->code_CUP = $attributs_fr["Code CUP"];
+
+                //* DONNÉES SÉPARÉES
+                $bouteille->nom = $titre_fr;
+                $bouteille->image_bouteille = $image_fr["url"];
+                $bouteille->image_bouteille_alt = $image_fr["alt"] ?? null;
+                $bouteille->prix = $prix;
+                $bouteille->image_pastille = $pastille_fr["url"] ?? null;
+                $bouteille->image_pastille_alt = $pastille_fr["alt"] ?? null;
+                $bouteille->description_fr = $texte_fr;
+                $bouteille->description_en = $texte_en;
+
+                $bouteille->save();
+
+                $codesTraites++;
+                $codesExistants[] = $url;
+                echo "codes traités:";
+                var_dump($codesTraites);
+                //* Une petite pause après beaucoup d'effort!
+                sleep(1);
+                } //? la boucle sur les codes SAQ fin du else
+            }
         }
         catch(\Exception $e){
+
             $erreurs[] = "Erreur lors du traitement du code SAQ $url : " . $e->getMessage();
             Log::error("Erreur lors du traitement du code SAQ $url : " . $e->getMessage());
         }
+
+        $afficherBouteilles = Bouteille::all();
+
         return view('scraper.liste', [
-            'bouteilles' => $bouteilles,
+            'bouteilles' => $afficherBouteilles,
             'lang' => "fr",
             'erreurs' => $erreurs,
             'codesTraites' => $codesTraites,
@@ -202,9 +247,9 @@ class ScraperController extends Controller
          * @param $selector la classe à cibler par le crawler
          * @return $texte le texte trouvé dans la classe ciblée, null le cas échéant
          */
-        function getTextFromCrawler($crawler, $selector) {
+        function getTextFromCrawler($crawler, $selecteur) {
 
-            $texte = $crawler->filter($selector)->first();
+            $texte = $crawler->filter($selecteur)->first();
 
             if ($texte->count() > 0) {
 
@@ -221,10 +266,11 @@ class ScraperController extends Controller
          * Récupérateur d'informations
          * @param $elements la liste extraite de la page 
          * @param $lang la langue à traiter, pour ajouter les clés manquantes avec la valeur nulle
-         * @param $isTasting booléen servant à vérifier quel liste de valeurs à traiter on reçoit
+         * @param $isTasting booléen servant à vérifier si on traite les informations de tasting
+         * @param $isAttributs booléen servant à vérifier si on traite les informations d'attributs
          * @return $information tableau associatif avec les valeurs, ou les clés avec une valeur nulle pour chaque
          */
-        function extractInformation($elements, $lang, $isTasting = false) {
+        function extractInformation($elements, $lang, $isTasting = false, $isAttributs = false) {
 
             $information = [];
             $ajoutCle = [];
@@ -238,6 +284,36 @@ class ScraperController extends Controller
             
                     $information[$nom] = $valeur;
                 });
+            }
+
+            if($isAttributs){
+                if($lang == "fr"){
+                    $ajoutCle = [
+                        "Région",
+                        "Désignation réglementée",
+                        "Classification",
+                        "Cépage",
+                        "Taux de sucre",
+                        "Agent promotionnel",
+                        "Code CUP",
+                    ];
+                }
+                elseif($lang == "en"){
+                    $ajoutCle = [
+                        "Region",
+                        "Regulated designation",
+                        "Classification",
+                        "Grape variety",
+                        "Sugar content",
+                        "Promoting agent",
+                        "UPC code",
+                    ];
+                }
+                foreach($ajoutCle as $cle){
+                    if(!array_key_exists($cle, $information)){
+                        $information[$cle] = null;
+                    }
+                }
             }
 
             if($isTasting){

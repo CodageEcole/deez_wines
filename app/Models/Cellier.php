@@ -9,7 +9,7 @@ class Cellier extends Model
 {
     use HasFactory;
 
-    private $fillable = [
+    protected $fillable = [
         'nom',
         'user_id',
     ];

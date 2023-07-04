@@ -13,47 +13,54 @@ return new class extends Migration
     {
         Schema::create('bouteilles', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->text('description_fr');
-            $table->text('description_en');
-            $table->string('prix');
-            $table->string('code_SAQ');
-            $table->string('code_CUP');
-            $table->string('image_bouteille');
-            $table->string('image_bouteille_alt');
-            $table->string('image_pastille');
-            $table->string('image_pastille_alt');
-            $table->string('producteur');
-            $table->string('agent_promotionnel');
-            $table->string('cepage');
-            $table->string('degree_alcool');
-            $table->string('taux_de_sucre');
-            $table->string('format');
-            $table->string('millesime');
-            $table->string('aromes_fr');
-            $table->string('aromes_en');
-            $table->string('acidite_fr');
-            $table->string('acidite_en');
-            $table->string('sucrosite_fr');
-            $table->string('sucrosite_en');
-            $table->string('corps_fr');
-            $table->string('corps_en');
-            $table->string('bouche_fr');
-            $table->string('bouche_en');
-            $table->string('bois_fr');
-            $table->string('bois_en');
-            $table->string('temperature_fr');
-            $table->string('temperature_en');
-            $table->string('potentiel_de_garde_fr');
-            $table->string('potentiel_de_garde_en');
+            // section tasting
+            $table->string('aromes_fr')->nullable();
+            $table->string('aromes_en')->nullable();
+            $table->string('acidite_fr')->nullable();
+            $table->string('acidite_en')->nullable();
+            $table->string('sucrosite_fr')->nullable();
+            $table->string('sucrosite_en')->nullable();
+            $table->string('corps_fr')->nullable();
+            $table->string('corps_en')->nullable();
+            $table->string('bouche_fr')->nullable();
+            $table->string('bouche_en')->nullable();
+            $table->string('bois_fr')->nullable();
+            $table->string('bois_en')->nullable();
+            $table->string('temperature_fr')->nullable();
+            $table->string('temperature_en')->nullable();
+            $table->string('millesime')->nullable();
+            $table->string('potentiel_de_garde_fr')->nullable();
+            $table->string('potentiel_de_garde_en')->nullable();
+            // section attributs
             $table->string('pays_fr');
             $table->string('pays_en');
-            $table->string('region_en');
-            $table->string('region_en');
-            $table->string('designation_reglementee_fr');
-            $table->string('designation_reglementee_en');
+            $table->string('region_fr')->nullable();
+            $table->string('region_en')->nullable();
+            $table->string('designation_reglementee_fr')->nullable();
+            $table->string('designation_reglementee_en')->nullable();
+            $table->string('classification_fr')->nullable();
+            $table->string('classification_en')->nullable();
+            $table->string('cepage')->nullable();
+            $table->string('degree_alcool');
+            $table->string('taux_de_sucre')->nullable();
             $table->string('couleur_fr');
             $table->string('couleur_en'); 
+            $table->string('format');
+            $table->string('producteur');
+            $table->string('agent_promotionnel')->nullable();
+            $table->string('code_SAQ');
+            $table->string('code_CUP')->nullable();
+            // données séparées
+            $table->string('nom');
+            $table->string('image_bouteille');
+            $table->string('image_bouteille_alt')->nullable();
+            $table->string('prix');
+            $table->string('image_pastille')->nullable();
+            $table->string('image_pastille_alt')->nullable();
+            $table->text('description_fr')->nullable();
+            $table->text('description_en')->nullable();
+
+            $table->timestamps();
         });
 
     }

@@ -10,7 +10,7 @@ class Bouteille extends Model
 {
     use HasFactory;
 
-    private $fillable = [ 
+    protected $fillable = [ 
         'nom',
         'description_fr',
         'description_en',
