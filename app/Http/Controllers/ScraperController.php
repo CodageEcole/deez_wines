@@ -154,7 +154,7 @@ class ScraperController extends Controller
 
                 //* les pastilles
                 $pastille_fr = $this->extractImageInformation($crawler_fr, $client_fr, '.wrapper-taste-tag img', 'pastilles', true);
-                // $pastille_en = $this->extractImageInformation($crawler_en, $client_en, '.wrapper-taste-tag img', 'pastilles', true);
+                $pastille_en = $this->extractImageInformation($crawler_en, $client_en, '.wrapper-taste-tag img', 'pastilles', true);
 
                 //* le prix
                 $prix = null;
