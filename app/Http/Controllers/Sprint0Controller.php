@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Storage;
 
 class Sprint0Controller extends Controller
 {
-    //
 
     public function demoListe() {
 

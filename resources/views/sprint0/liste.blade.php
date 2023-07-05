@@ -23,7 +23,7 @@
                 <p>{{ $bouteille->couleur_fr }} | {{ $bouteille->pays_fr }}, {{ $bouteille->region_fr }}</p>
               </div>
               <div>
-                  <p class="infos">{{ $bouteille->texte_fr }}</p>
+                  <p class="infos">{{ $bouteille->description_fr }}</p>
               </div>
               <div class="prix-box">
                 <p>{{ $bouteille->prix }}</p>
@@ -53,7 +53,7 @@
               </div>
               <div class="infos-detailles-carte">
                 <p class="infos-detailles-title"> Désignation reglementée </p>
-                <p class="infos-detailles-text">{{ $bouteille->designation_reglementee }}</p>
+                <p class="infos-detailles-text">{{ $bouteille->designation_reglementee_fr }}</p>
               </div>
               <div class="infos-detailles-carte">
                 <p class="infos-detailles-title"> Producteur </p>
