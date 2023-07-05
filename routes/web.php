@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ScraperController;
 use App\Http\Controllers\Sprint0Controller;
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CellierController;
+use App\Http\Controllers\BouteilleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +23,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+
 
 //* SECTION SCRAPER
 Route::prefix('scraper')->name('scraper.')->group(function () {
@@ -31,3 +46,10 @@ Route::prefix('scraper')->name('scraper.')->group(function () {
 
 //* SECTION SPRINT0
 Route::get('/sprint0', [Sprint0Controller::class, 'demoListe'])->name('sprint0.liste');
+
+//* SECTION APPLICATION DEEZ_WINES
+Route::resource('bouteilles', BouteilleController::class);
+Route::resource('users', UserController::class);
+Route::resource('celliers', CellierController::class);
+
+require __DIR__.'/auth.php';
