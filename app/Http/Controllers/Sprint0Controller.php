@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Bouteille;
 
 class Sprint0Controller extends Controller
 {
-    //
 
     public function demoListe() {
 
-        $bouteilles = Storage::json("bouteillestest3.json");
+        $bouteilles = Bouteille::all();
         $codesTraites = 0;
         $erreur = [];
 

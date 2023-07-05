@@ -17,7 +17,7 @@
 
   <h1 class="titre-principal"> INFOS SCRAPPER</h1>
   @if(count($bouteilles) > 0)
-  @php $bouteilles = array_slice($bouteilles, -10) @endphp
+  @php $bouteilles = $bouteilles->slice(-20) @endphp
   @foreach ($bouteilles as $bouteille)
   <div class="ensemble">
     <div class="info-row">
@@ -27,43 +27,19 @@
         </div> --}}
         <div class="pastilles-bouteilles-images">
           <div class="pastille-image">
-            {{-- <h3>Pastille de goût</h3> --}}
-            @if($lang === "fr")
-            @if(empty($bouteille['imagePastille_fr']))
-            {{-- <p>cette bouteille n'a pas de pastille de goût</p> --}}
-            @else
-            {{-- <p>{{$bouteille['imagePastille_fr']['alt']}}</p> --}}
-            <img src="{{asset('pastilles/' . $bouteille['imagePastille_fr']['url'])}}" alt="{{$bouteille['imagePastille_fr']['alt']}}" style="max-height: 65px">
-            @endif
-            @else
-            @if(empty($bouteille['imagePastille_en']))
-            <p>this bottle has no tasting tag</p>
-            @else
-            <p>{{$bouteille['imagePastille_en']['alt']}}</p>
-            <img src="{{asset('pastilles/' . $bouteille['imagePastille_en']['url'])}}" alt="{{$bouteille['imagePastille_en']['alt']}}">
-            @endif
-            @endif
+            <img src="{{asset('pastilles/' . $bouteille['image_pastille'])}}" alt="{{$bouteille['image_pastille_alt']}}" style="max-height: 65px">
           </div>
           <div class="bouteille-image">
-            {{-- <h3>image</h3> --}}
-            @if($lang === "fr")
-            <img src="{{ asset('images/Vin.png') }}" alt="{{ $bouteille['image_fr']['alt'] }}" style="max-height: 350px;">
-            @else
-            <img src="{{ asset('images/Vin.png') }}" alt="$bouteille['image_en']['alt']" style="max-height: 300px;">
-            @endif
+            <img src="{{ asset('images/'. $bouteille['image_bouteille']) }}" alt="{{ $bouteille['image_bouteille_alt'] }}" style="max-height: 350px;">
           </div>
         </div>
         <div class="title-desc">
           <div>
             {{-- <strong>{{ $loop->iteration }}</strong> --}}
-            @if($lang === "fr")
-            <h1>{{$bouteille['titre_fr']}}</h1>
-            @else
-            <h1>{{$bouteille['titre_en']}}</h1>
-            @endif
+            <h1>{{$bouteille['nom']}}</h1>
           </div>
           <div class="localisation-box">
-            <p>{{ $bouteille['attributs_fr']['Couleur'] }} | {{ $bouteille['attributs_fr']['Pays'] }}, {{ $bouteille['attributs_fr']['Région'] }}</p>
+            <p>{{ $bouteille['couleur_fr'] }} | {{ $bouteille['pays_fr'] }}, {{ $bouteille['region_fr'] }}</p>
           </div>
           <div>
             {{-- <h3>Informations pertinentes</h3> --}}
@@ -93,55 +69,55 @@
         <div class="infos-detailles">
           <div class="infos-detailles-carte">
             <p class="infos-detailles-title"> Pays </p>
-            <p class="infos-detailles-text">{{ $bouteille['attributs_fr']['Pays'] }}</p>
+            <p class="infos-detailles-text">{{ $bouteille['pays_fr']}}</p>
           </div>
           <div class="infos-detailles-carte">
             <p class="infos-detailles-title"> Couleur </p>
-            <p class="infos-detailles-text">{{ $bouteille['attributs_fr']['Couleur'] }}</p>
+            <p class="infos-detailles-text">{{ $bouteille['couleur_fr'] }}</p>
           </div>
           <div class="infos-detailles-carte">
             <p class="infos-detailles-title"> Région </p>
-            <p class="infos-detailles-text">{{ $bouteille['attributs_fr']['Région'] }}</p>
+            <p class="infos-detailles-text">{{ $bouteille['region_fr'] }}</p>
           </div>
           <div class="infos-detailles-carte">
             <p class="infos-detailles-title"> Format </p>
-            <p class="infos-detailles-text">{{ $bouteille['attributs_fr']['Format'] }}</p>
+            <p class="infos-detailles-text">{{ $bouteille['format_fr'] }}</p>
           </div>
           <div class="infos-detailles-carte">
             <p class="infos-detailles-title"> Désignation reglementée </p>
-            <p class="infos-detailles-text">{{ $bouteille['attributs_fr']['Désignation réglementée'] }}</p>
+            <p class="infos-detailles-text">{{ $bouteille['designation_reglementee_fr'] }}</p>
           </div>
           <div class="infos-detailles-carte">
             <p class="infos-detailles-title"> Producteur </p>
-            <p class="infos-detailles-text">{{ $bouteille['attributs_fr']['Producteur'] }}</p>
+            <p class="infos-detailles-text">{{ $bouteille['producteur'] }}</p>
           </div>
           <div class="infos-detailles-carte">
             <p class="infos-detailles-title"> Cépage </p>
-            @if (isset($bouteille['attributs_fr']['Cépage']))
-            {{ $bouteille['attributs_fr']['Cépage'] }}
-            @elseif (isset($bouteille['attributs_fr']['Cépages']))
-            {{ $bouteille['attributs_fr']['Cépages'] }}
+            @if(isset($bouteille['cepage']))
+              {{ $bouteille['cepage'] }}
+            @else
+              <p>Non disponible...</p>
             @endif
           </div>
           <div class="infos-detailles-carte">
             <p class="infos-detailles-title"> Agent Promotionnel </p>
-            <p class="infos-detailles-text">{{ $bouteille['attributs_fr']['Agent promotionnel'] }}</p>
+            <p class="infos-detailles-text">{{ $bouteille['agent_promotionnel'] }}</p>
           </div>
           <div class="infos-detailles-carte">
             <p class="infos-detailles-title"> Degrée d'Alcool </p>
-            <p class="infos-detailles-text">{{ $bouteille['attributs_fr']["Degré d'alcool"] }}</p>
+            <p class="infos-detailles-text">{{ $bouteille['degree_alcool_fr'] }}</p>
           </div>
           <div class="infos-detailles-carte">
             <p class="infos-detailles-title"> Code SAQ </p>
-            <p class="infos-detailles-text">{{ $bouteille['attributs_fr']["Code SAQ"] }}</p>
+            <p class="infos-detailles-text">{{ $bouteille['code_SAQ'] }}</p>
           </div>
           <div class="infos-detailles-carte">
             <p class="infos-detailles-title"> Taux de Sucre </p>
-            <p class="infos-detailles-text">{{ isset($bouteille['attributs_fr']['Taux de sucre']) ? $bouteille['attributs_fr']['Taux de sucre'] : 'Non Disponible' }}</p>
+            <p class="infos-detailles-text">{{ isset($bouteille['taux_de_sucre']) ? $bouteille['taux_de_sucre'] : 'Non Disponible' }}</p>
           </div>
           <div class="infos-detailles-carte">
             <p class="infos-detailles-title"> Code CUP </p>
-            <p class="infos-detailles-text">{{ $bouteille['attributs_fr']["Code CUP"] }}</p>
+            <p class="infos-detailles-text">{{ $bouteille['code_CUP'] }}</p>
           </div>
         </div>
       </div>
