@@ -74,5 +74,5 @@ return [
         public_path('images') => storage_path('app/images'),
         public_path('pastilles') => storage_path('app/pastilles'),
     ],
-
+    
 ];
