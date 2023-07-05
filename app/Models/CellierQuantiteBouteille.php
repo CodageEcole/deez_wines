@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Bouteille;
+use App\Models\Cellier;
 
 class CellierQuantiteBouteille extends Model
 {

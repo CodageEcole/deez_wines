@@ -5,18 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Cellier;
 use Illuminate\Http\Request;
 
-class CellierController extends Controller
+class AdminCellierController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Cellier::class, 'cellier');
-    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('celliers.index');
+        //
     }
 
     /**
@@ -24,7 +20,7 @@ class CellierController extends Controller
      */
     public function create()
     {
-        return view('celliers.create');
+        //
     }
 
     /**
@@ -40,7 +36,7 @@ class CellierController extends Controller
      */
     public function show(Cellier $cellier)
     {
-        return view('celliers.show', compact('cellier'));
+        //
     }
 
     /**
@@ -48,7 +44,7 @@ class CellierController extends Controller
      */
     public function edit(Cellier $cellier)
     {
-        return view('celliers.edit', compact('cellier'));
+        //
     }
 
     /**

@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cellier;
+use App\Models\BouteillePersonnalisee;
 use Illuminate\Http\Request;
 
-class CellierController extends Controller
+class AdminBouteillePersonnaliseeController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Cellier::class, 'cellier');
-    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('celliers.index');
+        //
     }
 
     /**
@@ -24,7 +20,7 @@ class CellierController extends Controller
      */
     public function create()
     {
-        return view('celliers.create');
+        //
     }
 
     /**
@@ -38,23 +34,23 @@ class CellierController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Cellier $cellier)
+    public function show(BouteillePersonnalisee $bouteillePersonnalisee)
     {
-        return view('celliers.show', compact('cellier'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cellier $cellier)
+    public function edit(BouteillePersonnalisee $bouteillePersonnalisee)
     {
-        return view('celliers.edit', compact('cellier'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cellier $cellier)
+    public function update(Request $request, BouteillePersonnalisee $bouteillePersonnalisee)
     {
         //
     }
@@ -62,7 +58,7 @@ class CellierController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cellier $cellier)
+    public function destroy(BouteillePersonnalisee $bouteillePersonnalisee)
     {
         //
     }

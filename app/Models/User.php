@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Cellier;
+use App\Models\BouteillePersonnalisee;
 
 class User extends Authenticatable
 {
@@ -18,9 +20,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'nom',
-        'courriel',
-        'mot_de_passse',
+        'name',
+        'email',
+        'password',
+        'role',
     ];
 
     /**
@@ -46,5 +49,10 @@ class User extends Authenticatable
     public function celliers()
     {
         return $this->hasMany(Cellier::class);
+    }
+
+    public function bouteilles_personnalisees()
+    {
+        return $this->hasMany(BouteillePersonnalisee::class);
     }
 }

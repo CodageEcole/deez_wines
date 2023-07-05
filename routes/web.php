@@ -1,12 +1,22 @@
 <?php
-
+//* Controlleurs de Laravel
 use Illuminate\Support\Facades\Route;
+//* Controlleur Scraper
 use App\Http\Controllers\ScraperController;
+//* Controlleur Sprint0
 use App\Http\Controllers\Sprint0Controller;
-
+//* Controlleurs Normaux
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CellierController;
 use App\Http\Controllers\BouteilleController;
+use App\Http\Controllers\BouteillePersonnaliseeController;
+//* Controlleurs Admin
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminCellierController;
+use App\Http\Controllers\AdminBouteilleController;
+use App\Http\Controllers\AdminBouteillePersonnaliseeController;
+//* Relatif a Breeze
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+require __DIR__.'/auth.php';
 
 //* SECTION SCRAPER
 Route::prefix('scraper')->name('scraper.')->group(function () {
@@ -47,9 +57,16 @@ Route::prefix('scraper')->name('scraper.')->group(function () {
 //* SECTION SPRINT0
 Route::get('/sprint0', [Sprint0Controller::class, 'demoListe'])->name('sprint0.liste');
 
+//* SECTION ADMIN 
+Route::prefix('admin')->middleware('admin')->group(function () {
+    Route::resource('bouteilles', AdminBouteilleController::class);
+    Route::resource('users', AdminUserController::class);
+    Route::resource('celliers', AdminCellierController::class);
+    Route::resource('bouteilles_personnalisees', AdminBouteillePersonnaliseeController::class);
+});
+
 //* SECTION APPLICATION DEEZ_WINES
 Route::resource('bouteilles', BouteilleController::class);
 Route::resource('users', UserController::class);
 Route::resource('celliers', CellierController::class);
-
-require __DIR__.'/auth.php';
+Route::resource('bouteilles_personnalisees', BouteillePersonnaliseeController::class);
