@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class BouteilleController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Bouteille::class, 'bouteille');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -21,7 +25,7 @@ class BouteilleController extends Controller
      */
     public function create()
     {
-        //
+        return view('bouteilles.create');
     }
 
     /**
@@ -37,7 +41,7 @@ class BouteilleController extends Controller
      */
     public function show(Bouteille $bouteille)
     {
-        //
+        return route('bouteilles.show', compact('bouteille'));
     }
 
     /**
