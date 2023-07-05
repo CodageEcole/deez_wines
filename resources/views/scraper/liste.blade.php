@@ -15,7 +15,7 @@
 @endif --}}
 <main class="demo-liste">
 
-  <h1 class="titre-principal"> INFOS SCRAPPER</h1>
+  <h1 class="titre-principal"> INFOS SCRAPER</h1>
   @if(count($bouteilles) > 0)
   @php $bouteilles = $bouteilles->slice(-30) @endphp
   @foreach ($bouteilles as $bouteille)
@@ -68,7 +68,7 @@
       </div>
       <div class="infos">
         <div class="infos-title">
-          <h3>infos Détaillés</h3>
+          <h3>infos Détaillées</h3>
         </div>
         <div class="infos-detailles">
           <div class="infos-detailles-carte">
