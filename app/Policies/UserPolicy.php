@@ -7,11 +7,14 @@ use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
+    //* Les validations de breeze sont faites ailleurs
+    //* On ne passe ici que lorsqu'on est dans le admin pannel
+
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): Response
-    {
+    public function viewAny(User $user): Response    {
+        // Retourne vrai si l'utilisateur est admin
         return $user->role === 'admin'
                     ? Response::allow()
                     : Response::deny('Vous devez être administrateur pour accéder à cette page.');
@@ -22,6 +25,8 @@ class UserPolicy
      */
     public function view(User $user, User $model): Response
     {
+        // Retourne vrai si l'utilisateur est admin ou 
+        // si l'utilisateur connecté est le même que l'utilisateur dont on veut voir le profil
         return $user->role === 'admin' || $user->id === $model->id
                     ? Response::allow()
                     : Response::deny('Vous devez être administrateur pour accéder à cette page.');
@@ -32,6 +37,7 @@ class UserPolicy
      */
     public function create(User $user): Response
     {
+        // Retourne vrai si l'utilisateur est admin
         return $user->role === 'admin'
                     ? Response::allow()
                     : Response::deny('Vous devez être administrateur pour accéder à cette page.');
@@ -42,6 +48,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): Response
     {
+        // Retourne vrai si l'utilisateur est admin
         return $user->role === 'admin' || $user->id === $model->id
                     ? Response::allow()
                     : Response::deny('Vous devez être administrateur pour accéder à cette page.');
@@ -52,6 +59,8 @@ class UserPolicy
      */
     public function delete(User $user, User $model): Response
     {
+        // Retourne vrai si l'utilisateur est admin ou si l'utilisateur connecté est le même 
+        // que l'utilisateur dont on veut voir le profil
         return $user->role === 'admin' || $user->id === $model->id
                     ? Response::allow()
                     : Response::deny('Vous devez être administrateur pour accéder à cette page.');
@@ -62,6 +71,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model): Response
     {
+        // Retourne vrai si l'utilisateur est admin
         return $user->role === 'admin'
                     ? Response::allow()
                     : Response::deny('Vous devez être administrateur pour accéder à cette page.');
@@ -72,6 +82,7 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model): Response
     {
+        // Retourne vrai si l'utilisateur est admin
         return $user->role === 'admin'
                     ? Response::allow()
                     : Response::deny('Vous devez être administrateur pour accéder à cette page.');

@@ -10,12 +10,17 @@ use Illuminate\Auth\Access\AuthorizationException;
 
 class BouteillePolicy
 {
+    //* Seulement les admins peuvent créer, modifier ou supprimer des bouteilles.
+    //* Les utilisateurs connectés peuvent voir les bouteilles. Le Response 
+    //* retourne un message d'erreur à l'utilisateur s'il n'a droit d'
+    //* effectuer l'action. Si oui, il est redirigé vers la page.
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->id !== null;
     }
 
     /**
@@ -23,7 +28,7 @@ class BouteillePolicy
      */
     public function view(User $user, Bouteille $bouteille): bool
     {
-        return true;
+        return $user->id !== null;
     }
 
     /**
