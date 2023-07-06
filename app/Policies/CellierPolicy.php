@@ -8,12 +8,16 @@ use Illuminate\Auth\Access\Response;
 
 class CellierPolicy
 {
+    //* Les regles sont : on peut acceder a la page si on est admin ou si on est le proprietaire du cellier
+    //* On peut évidemment accèder à la page de création de cellier si on est connecté
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        //
+
+        return $user->id !== null;
     }
 
     /**
@@ -21,7 +25,7 @@ class CellierPolicy
      */
     public function view(User $user, Cellier $cellier): bool
     {
-        //
+        return $user->id === $cellier->user_id || $user->role === 'admin';
     }
 
     /**
@@ -29,7 +33,7 @@ class CellierPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->id !== null;
     }
 
     /**
@@ -37,7 +41,7 @@ class CellierPolicy
      */
     public function update(User $user, Cellier $cellier): bool
     {
-        //
+        return $user->id === $cellier->user_id || $user->role === 'admin';
     }
 
     /**
@@ -45,7 +49,7 @@ class CellierPolicy
      */
     public function delete(User $user, Cellier $cellier): bool
     {
-        //
+        return $user->id === $cellier->user_id || $user->role === 'admin';
     }
 
     /**
@@ -53,7 +57,7 @@ class CellierPolicy
      */
     public function restore(User $user, Cellier $cellier): bool
     {
-        //
+        return $user->id === $cellier->user_id || $user->role === 'admin';
     }
 
     /**
@@ -61,6 +65,6 @@ class CellierPolicy
      */
     public function forceDelete(User $user, Cellier $cellier): bool
     {
-        //
+        return $user->id === $cellier->user_id || $user->role === 'admin';
     }
 }

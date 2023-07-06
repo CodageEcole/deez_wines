@@ -17,6 +17,9 @@ use App\Http\Controllers\AdminBouteilleController;
 use App\Http\Controllers\AdminBouteillePersonnaliseeController;
 //* Relatif a Breeze
 use App\Http\Controllers\ProfileController;
+//* Relatif a Glide
+use League\Glide\ServerFactory;
+use League\Glide\Responses\LaravelResponseFactory;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,3 +73,17 @@ Route::resource('bouteilles', BouteilleController::class);
 Route::resource('users', UserController::class);
 Route::resource('celliers', CellierController::class);
 Route::resource('bouteilles_personnalisees', BouteillePersonnaliseeController::class);
+
+//* SECTION GLIDE (manipulation d'images)
+Route::get('img/glide/{path}', function ($path) {
+    $server = ServerFactory::create([
+        'response' => new LaravelResponseFactory(),
+        'source' => storage_path('app'), // Chemin de la source des images originales
+        'cache' => storage_path('app/glide'), // Chemin du cache des images manipulées
+        'base_url' => 'img/glide',
+    ]);
+
+    $params = request()->all();
+
+    return $server->getImageResponse($path, $params);
+})->where('path', '.*');

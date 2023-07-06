@@ -10,7 +10,9 @@
     @foreach ($bouteilles as $bouteille)
         <div class="carte-vin">
             <picture>
-                <img src="{{ asset('images/'. $bouteille->image_bouteille) }}" alt="{{ $bouteille->image_bouteille_alt }}" style="max-height: 350px;">
+                {{--* Ici j'utilise le glide, le chemin est img/glide/images car c'est l'origine de l'image des bouteilles --}}
+                {{--* Pour une pastille, ce serait img/glide/pastilles/ $image_pastille, environ --}}
+                <img src="{{ url('img/glide/images/'. $bouteille->image_bouteille . '?preset=md') }}" alt="{{ $bouteille->image_bouteille_alt }}">
             </picture>
             <section>
                 <h1>{{ $bouteille->nom }}</h1>
