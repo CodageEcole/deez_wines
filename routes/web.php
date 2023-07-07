@@ -80,7 +80,7 @@ Route::get('glide/{path}', function ($path) {
         'response' => new LaravelResponseFactory(),
         'source' => storage_path('app'), // Chemin de la source des images originales
         'cache' => storage_path('app/glide'), // Chemin du cache des images manipulées
-        'base_url' => '',
+        'base_url' => 'glide',
         'presets' => [
             'xs' => [
                 'w' => 100,
