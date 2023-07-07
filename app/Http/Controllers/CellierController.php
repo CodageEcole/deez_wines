@@ -32,7 +32,16 @@ class CellierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required|string|max:255',
+        ]);
+
+        $cellier = Cellier::create([
+            'nom' => $request->nom,
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect()->route('celliers.show', $cellier);
     }
 
     /**
@@ -56,7 +65,15 @@ class CellierController extends Controller
      */
     public function update(Request $request, Cellier $cellier)
     {
-        //
+        $request->validate([
+            'nom' => 'required|string|max:255',
+        ]);
+
+        $cellier->update([
+            'nom' => $request->nom,
+        ]);
+
+        return redirect()->route('celliers.show', $cellier);
     }
 
     /**
@@ -64,6 +81,8 @@ class CellierController extends Controller
      */
     public function destroy(Cellier $cellier)
     {
-        //
+        $cellier->delete();
+
+        return redirect()->route('celliers.index');
     }
 }

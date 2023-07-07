@@ -12,7 +12,7 @@
             <picture>
                 {{--* Ici j'utilise le glide, le chemin est img/glide/images car c'est l'origine de l'image des bouteilles --}}
                 {{--* Pour une pastille, ce serait img/glide/pastilles/ $image_pastille, environ --}}
-                <img src="{{ url('img/glide/images/'. $bouteille->image_bouteille . '?preset=md') }}" alt="{{ $bouteille->image_bouteille_alt }}">
+                <img src="{{ url('glide/images/'. $bouteille->image_bouteille . '?p=xs') }}" alt="{{ $bouteille->image_bouteille_alt }}">
             </picture>
             <section>
                 <h1>{{ $bouteille->nom }}</h1>
