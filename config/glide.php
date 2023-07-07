@@ -1,5 +1,13 @@
 <?php
 
+//* ce n'est pas optimal encore, mais vous pouvez supprimer toutes les images dans storage/app/glide
+//* En utilisant php artisan tinker et cette commande: 
+/* 
+use Illuminate\Support\Facades\File;
+File::cleanDirectory(storage_path('app/glide')); 
+*/
+
+
 return [
     'source' => 'storage/app', // Path to the source directory of original images
     'cache' => 'storage/app/glide', // Path to the cache directory for manipulated images
