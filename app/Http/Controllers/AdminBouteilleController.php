@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Bouteille;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class AdminBouteilleController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(User::class, 'user');
-    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
+        //
     }
 
     /**
@@ -33,29 +28,29 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Bouteille $bouteille)
     {
-        return view('users.show', compact('user'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(Bouteille $bouteille)
     {
-        return view('users.edit', compact('user'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Bouteille $bouteille)
     {
         //
     }
@@ -63,7 +58,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(Bouteille $bouteille)
     {
         //
     }

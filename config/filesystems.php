@@ -56,6 +56,11 @@ return [
             'throw' => false,
         ],
 
+        'gld' => [
+            'driver' => 'local',
+            'root' => public_path('img/glide'),
+            'url' => '/img/glide',
+        ],
     ],
 
     /*

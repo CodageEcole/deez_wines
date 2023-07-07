@@ -5,19 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class AdminUserController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(User::class, 'user');
-    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::all();
-        return view('users.index', compact('users'));
+        //
     }
 
     /**
@@ -33,7 +28,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
@@ -41,7 +36,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        //
     }
 
     /**
@@ -49,7 +44,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        //
     }
 
     /**

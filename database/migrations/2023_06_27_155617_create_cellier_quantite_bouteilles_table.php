@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('quantite');
             $table->bigInteger('cellier_id');
             $table->bigInteger('bouteille_id');
+            $table->timestamps();
         });
     }
 
