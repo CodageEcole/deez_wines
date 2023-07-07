@@ -75,12 +75,39 @@ Route::resource('celliers', CellierController::class);
 Route::resource('bouteilles_personnalisees', BouteillePersonnaliseeController::class);
 
 //* SECTION GLIDE (manipulation d'images)
-Route::get('img/glide/{path}', function ($path) {
+Route::get('glide/{path}', function ($path) {
     $server = ServerFactory::create([
         'response' => new LaravelResponseFactory(),
         'source' => storage_path('app'), // Chemin de la source des images originales
         'cache' => storage_path('app/glide'), // Chemin du cache des images manipulées
-        'base_url' => 'img/glide',
+        'base_url' => '',
+        'presets' => [
+            'xs' => [
+                'w' => 100,
+                'h' => 150,
+                'fit' => 'crop',
+            ],
+            'sm' => [
+                'w' => 320,
+                'h' => 240,
+                'fit' => 'crop',
+            ],
+            'md' => [
+                'w' => 640,
+                'h' => 480,
+                'fit' => 'crop',
+            ],
+            'lg' => [
+                'w' => 800,
+                'h' => 600,
+                'fit' => 'crop',
+            ],
+            'xl' => [
+                'w' => 1024,
+                'h' => 768,
+                'fit' => 'crop',
+            ],
+        ],
     ]);
 
     $params = request()->all();
