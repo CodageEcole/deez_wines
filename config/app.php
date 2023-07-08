@@ -168,6 +168,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
+
     ])->toArray(),
 
     /*
@@ -183,6 +185,15 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'Search' => Laravel\Scout\Facades\Search::class,
+
     ])->toArray(),
+
+    'scout' => [
+    'driver' => env('SCOUT_DRIVER', 'database'),
+    'prefix' => env('SCOUT_PREFIX', ''),
+    'queue' => env('SCOUT_QUEUE', true),
+],
+
 
 ];

@@ -16,6 +16,15 @@ class Cellier extends Model
         'user_id',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+        //* Supprime les bouteilles du cellier lors de la suppression du cellier
+        static::deleting(function (Cellier $cellier) {
+            $cellier->cellierQuantiteBouteille()->delete();
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -25,4 +34,11 @@ class Cellier extends Model
     {
         return $this->hasMany(CellierQuantiteBouteille::class);
     }
+
+    public function bouteilles()
+    {
+        return $this->belongsToMany(Bouteille::class, 'cellier_quantite_bouteilles')
+                    ->withPivot('quantite');
+    }
+
 }

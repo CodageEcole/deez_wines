@@ -26,7 +26,7 @@
                 </div>
             </section>
         </div>
-    @endforeach
+    @endforeach 
     @else
     <p>aucune bouteille trouvée</p>
     @endif
