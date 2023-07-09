@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\CellierQuantiteBouteille;
+use Laravel\Scout\Searchable;
 
 class Bouteille extends Model
 {
     use HasFactory;
+    use Searchable;
 
     protected $fillable = [ 
         'nom',
@@ -56,5 +58,31 @@ class Bouteille extends Model
     public function cellierQuantiteBouteille()
     {
         return $this->hasMany(CellierQuantiteBouteille::class);
+    }
+
+    /**
+     * Fonction qui défini les données qui seront indexées par Scout
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'nom' => $this->nom,
+            'description_fr' => $this->description_fr,
+            'description_en' => $this->description_en,
+            'code_SAQ' => $this->code_SAQ,
+            'millesime' => $this->millesime,
+            'producteur' => $this->producteur,
+            'pays_fr' => $this->pays_fr,
+            'pays_en' => $this->pays_en,
+            'region_fr' => $this->region_fr,
+            'region_en' => $this->region_en,
+            'couleur_fr' => $this->couleur_fr,
+            'couleur_en' => $this->couleur_en,
+            'cepage' => $this->cepage,
+            'prix' => $this->prix,
+            'format' => $this->format,
+            'designation_reglementee_fr' => $this->designation_reglementee_fr,
+            'designation_reglementee_en' => $this->designation_reglementee_en,
+        ];
     }
 }

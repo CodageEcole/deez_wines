@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Aclonica&family=Alata&family=Belanosima&family=Cinzel:wght@700&family=Lilita+One&display=swap');
-
+@import 'carte-vin.css';
 /* ========== Règles générales =========== */
 
 html, body {
@@ -79,7 +79,9 @@ html, body {
 main {
     display: flex;
     justify-content: center;
-    height: calc(100vh - 180.4px);
+    align-items: center;
+    flex-direction: column;
+    /* height: calc(100vh - 180.4px); */
 }
 
 .main-logo {
