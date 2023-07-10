@@ -50,6 +50,13 @@ return new class extends Migration
             $table->string('agent_promotionnel')->nullable();
             $table->string('code_SAQ');
             $table->string('code_CUP')->nullable();
+            $table->string('produit_quebec_fr')->nullable();
+            $table->string('produit_quebec_en')->nullable();
+
+            $table->string('particularite_fr')->nullable();
+            $table->string('particularite_en')->nullable();
+            $table->string('appellation_origine')->nullable();
+
             // données séparées
             $table->string('nom');
             $table->string('image_bouteille');
@@ -59,7 +66,8 @@ return new class extends Migration
             $table->string('image_pastille_alt')->nullable();
             $table->text('description_fr')->nullable();
             $table->text('description_en')->nullable();
-
+            $table->boolean('est_scrape')->default(false);
+            
             $table->timestamps();
         });
 
