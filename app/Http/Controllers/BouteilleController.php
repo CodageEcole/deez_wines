@@ -16,8 +16,6 @@ class BouteilleController extends Controller
      */
     public function index()
     {
-        $bouteilles = Bouteille::all();
-        
         //resultat de la recherche
         $bouteilles = Bouteille::search(request('search'))
             ->paginate(1000);
