@@ -203,6 +203,11 @@ class ScraperController extends Controller
                 $bouteille->agent_promotionnel = $attributs_fr["Agent promotionnel"];
                 $bouteille->code_SAQ = $attributs_fr["Code SAQ"];
                 $bouteille->code_CUP = $attributs_fr["Code CUP"];
+                $bouteille->produit_quebec_fr = $attributs_fr["Produit du Québec"];
+                $bouteille->produit_quebec_en = $attributs_en["Product of Québec"];
+                $bouteille->particularite_fr = $attributs_fr["Particularité"];
+                $bouteille->particularite_en = $attributs_en["Special feature"];
+                $bouteille->appellation_origine = $attributs_fr["Appellation d'origine"];
 
                 //* DONNÉES SÉPARÉES
                 $bouteille->nom = $titre_fr;
@@ -214,6 +219,7 @@ class ScraperController extends Controller
                 $bouteille->description_fr = $texte_fr;
                 $bouteille->description_en = $texte_en;
 
+                $bouteille->est_scrape = true;
                 $bouteille->save();
 
                 $codesTraites++;
@@ -290,23 +296,29 @@ class ScraperController extends Controller
                 if($lang == "fr"){
                     $ajoutCle = [
                         "Région",
+                        "Appellation d'origine",
                         "Désignation réglementée",
                         "Classification",
                         "Cépage",
                         "Taux de sucre",
+                        "Particularité",
                         "Agent promotionnel",
                         "Code CUP",
+                        "Produit du Québec"
                     ];
                 }
                 elseif($lang == "en"){
                     $ajoutCle = [
                         "Region",
+                        "Designation of origin",
                         "Regulated designation",
                         "Classification",
                         "Grape variety",
                         "Sugar content",
+                        "Special feature",
                         "Promoting agent",
                         "UPC code",
+                        "Product of Québec",
                     ];
                 }
                 foreach($ajoutCle as $cle){
