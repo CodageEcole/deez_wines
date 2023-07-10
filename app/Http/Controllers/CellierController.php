@@ -16,7 +16,8 @@ class CellierController extends Controller
      */
     public function index()
     {
-        return view('celliers.index');
+        $celliers = Cellier::where('user_id', auth()->id())->get();
+        return view('celliers.index', compact('celliers'));
     }
 
     /**
@@ -36,12 +37,12 @@ class CellierController extends Controller
             'nom' => 'required|string|max:255',
         ]);
 
-        $cellier = Cellier::create([
+        Cellier::create([
             'nom' => $request->nom,
             'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('celliers.show', $cellier);
+        return redirect()->route('celliers.index');
     }
 
     /**
@@ -49,7 +50,8 @@ class CellierController extends Controller
      */
     public function show(Cellier $cellier)
     {
-        return view('celliers.show', compact('cellier'));
+        $bouteilles = $cellier->bouteilles()->get();
+        return view('celliers.show', compact('cellier', 'bouteilles'));
     }
 
     /**
@@ -81,6 +83,7 @@ class CellierController extends Controller
      */
     public function destroy(Cellier $cellier)
     {
+        
         $cellier->delete();
 
         return redirect()->route('celliers.index');

@@ -33,7 +33,7 @@ use League\Glide\Responses\LaravelResponseFactory;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/dashboard', function () {
