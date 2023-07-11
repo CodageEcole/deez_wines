@@ -9,6 +9,7 @@ use App\Http\Controllers\Sprint0Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CellierController;
 use App\Http\Controllers\BouteilleController;
+use App\Http\Controllers\CellierQuantiteBouteilleController;
 use App\Http\Controllers\BouteillePersonnaliseeController;
 //* Controlleurs Admin
 use App\Http\Controllers\AdminUserController;
@@ -72,6 +73,7 @@ Route::resource('bouteilles', BouteilleController::class);
 Route::resource('users', UserController::class);
 Route::resource('celliers', CellierController::class);
 Route::resource('bouteilles_personnalisees', BouteillePersonnaliseeController::class);
+Route::resource('cellier_quantite_bouteille', CellierQuantiteBouteilleController::class);
 
 //* SECTION GLIDE (manipulation d'images)
 Route::get('glide/{path}', function ($path) {
