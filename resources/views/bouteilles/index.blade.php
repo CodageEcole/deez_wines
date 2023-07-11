@@ -9,26 +9,28 @@
   @if($bouteilles)
     @php $bouteilles = $bouteilles->slice(-50) @endphp
     @foreach ($bouteilles as $bouteille)
+    <a href="{{ route('bouteilles.show', $bouteille->id) }}">
         <div class="carte-vin">
-            <picture>
-                {{--* Ici j'utilise le glide, le chemin est img/glide/images car c'est l'origine de l'image des bouteilles --}}
-                {{--* Pour une pastille, ce serait img/glide/pastilles/ $image_pastille, environ --}}
-                <img src="{{ url('glide/images/'. $bouteille->image_bouteille . '?p=xs') }}" alt="{{ $bouteille->image_bouteille_alt }}">
-            </picture>
-            <section>
-                <h1>{{ $bouteille->nom }}</h1>
-                <hr>
-                <div>
+                <picture>
+                    {{--* Ici j'utilise le glide, le chemin est img/glide/images car c'est l'origine de l'image des bouteilles --}}
+                    {{--* Pour une pastille, ce serait img/glide/pastilles/ $image_pastille, environ --}}
+                    <img src="{{ url('glide/images/'. $bouteille->image_bouteille . '?p=xs') }}" alt="{{ $bouteille->image_bouteille_alt }}">
+                </picture>
+                <section>
+                    <h1>{{ $bouteille->nom }}</h1>
+                    <hr>
                     <div>
-                        <strong>{{ $bouteille->couleur_fr }} </strong>
-                        <p>{{ $bouteille->pays_fr }}, {{ $bouteille->region_fr }}</p>
+                        <div>
+                            <strong>{{ $bouteille->couleur_fr }} </strong>
+                            <p>{{ $bouteille->pays_fr }}, {{ $bouteille->region_fr }}</p>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-details" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
+                            Ajouter
+                        </button>
                     </div>
-                    <button type="button" class="btn btn-primary btn-details" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
-                        Ajouter
-                    </button>
-                </div>
-            </section>
-        </div>
+                </section>
+            </div>
+        </a>
     @endforeach 
     @else
     <p>aucune bouteille trouvée</p>

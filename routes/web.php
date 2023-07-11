@@ -48,7 +48,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
 //* SECTION SCRAPER
 Route::prefix('scraper')->name('scraper.')->group(function () {
     Route::get('/', [ScraperController::class, 'index'])->name('index');
@@ -82,7 +81,7 @@ Route::get('glide/{path}', function ($path) {
         'response' => new LaravelResponseFactory(),
         'source' => storage_path('app'), // Chemin de la source des images originales
         'cache' => storage_path('app/glide'), // Chemin du cache des images manipulées
-        'base_url' => 'glide',
+        'base_url' => '',
         'presets' => [
             'xs' => [
                 'w' => 100,

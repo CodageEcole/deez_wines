@@ -32,7 +32,13 @@ class Cellier extends Model
 
     public function cellierQuantiteBouteille()
     {
-        return $this->hasMany(CellierQuantiteBouteille::class);
+        return $this->hasMany(CellierQuantiteBouteille::class, 'cellier_id');
+    }
+
+    //* retourne la quantité de bouteilles dans le cellier
+    public function getQuantiteBouteillesAttribute()
+    {
+        return $this->cellierQuantiteBouteille()->sum('quantite');
     }
 
     public function bouteilles()

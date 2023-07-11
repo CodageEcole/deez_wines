@@ -57,7 +57,8 @@ class Bouteille extends Model
         'particularite_fr',
         'particularite_en',
         'appellation_origine',
-        'est_scrape'
+        'est_scrape',
+        'est_utilise'
     ];
 
     public function cellierQuantiteBouteille()
