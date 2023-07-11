@@ -45,7 +45,7 @@ class BouteilleController extends Controller
      */
     public function show(Bouteille $bouteille)
     {
-        return route('bouteilles.show', compact('bouteille'));
+        return view('bouteilles.show', compact('bouteille'));
     }
 
     /**
