@@ -52,7 +52,12 @@ class Bouteille extends Model
         'designation_reglementee_fr',
         'designation_reglementee_en',
         'couleur_fr',
-        'couleur_en'
+        'couleur_en',
+        'produit_quebec',
+        'particularite_fr',
+        'particularite_en',
+        'appellation_origine',
+        'est_scrape'
     ];
 
     public function cellierQuantiteBouteille()
@@ -83,6 +88,11 @@ class Bouteille extends Model
             'format' => $this->format,
             'designation_reglementee_fr' => $this->designation_reglementee_fr,
             'designation_reglementee_en' => $this->designation_reglementee_en,
+            'produit_quebec_fr' => $this->produit_quebec_fr,
+            'produit_quebec_en' => $this->produit_quebec_en,
+            'particularite_fr' => $this->particularite_fr,
+            'particularite_en' => $this->particularite_en,
+            'appellation_origine' => $this->appellation_origine,
         ];
     }
 }
