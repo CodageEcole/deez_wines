@@ -17,58 +17,96 @@ use Illuminate\Support\Facades\DB;
 class ScraperController extends Controller
 {
 
-    public function welcome () {
+    // public function welcome () {
 
-        // $web = new \Spekulatius\PHPScraper\PHPScraper;
+    //     // $web = new \Spekulatius\PHPScraper\PHPScraper;
 
-        // $web->go('https://www.saq.com/fr/produits/vin');
+    //     // $web->go('https://www.saq.com/fr/produits/vin');
 
-        // $test = $web->internalLinks;
+    //     // $test = $web->internalLinks;
         
 
-        // return view('scraper.accueil', ['mot' => 'Phil scrape le site de la SAQ', 'tests' => $test]);
-        return view('scraper.accueil', ['mot' => 'Phil scrape le site de la SAQ']);
-    }
+    //     // return view('scraper.accueil', ['mot' => 'Phil scrape le site de la SAQ', 'tests' => $test]);
+    //     return view('scraper.accueil', ['mot' => 'Phil scrape le site de la SAQ']);
+    // }
 
-    public function keywords () {
+    // public function keywords () {
 
-        $web = new \Spekulatius\PHPScraper\PHPScraper;
+    //     $web = new \Spekulatius\PHPScraper\PHPScraper;
 
 
-        $web->go('https://www.saq.com/fr/produits/vin?product_list_limit=96&product_list_order=name_asc');
+    //     $web->go('https://www.saq.com/fr/produits/vin?product_list_limit=96&product_list_order=name_asc');
 
-        $keywords = $web->contentKeywords;
+    //     $keywords = $web->contentKeywords;
 
-        return view('scraper.keywords', ['keywords' => $keywords, 'mot' => 'Phil essaye de ramasser les keywords']);
-    }
+    //     return view('scraper.keywords', ['keywords' => $keywords, 'mot' => 'Phil essaye de ramasser les keywords']);
+    // }
 
     public function codes () {
-        $web = new \Spekulatius\PHPScraper\PHPScraper;
+        // $web = new \Spekulatius\PHPScraper\PHPScraper;
+        // $codesSAQ = [];
 
-        $codesSAQ = [];
+        $clientCodes = new Client();
+        $crawlerCodes = new Crawler();
 
-        // j'ai vérifié le nombre de page total au préalable, avec le maximum de bouteilles par page, 96 ça ne semble pas vouloir fonctionner
-        for($page = 1; $page <= 173; $page++){
+        $reponse = $clientCodes->get('https://www.saq.com/fr/produits/vin?p=1&product_list_limit=96&product_list_order=name_asc');
 
-            $web->go("https://www.saq.com/fr/produits/vin?p=$page&product_list_limit=48&product_list_order=name_asc");
+        $htmlNbPages = $reponse->getBody()->getContents();
 
-            // la balise pour l'information du code de bouteille, qui va servir à fabriquer l'url pour la page de détails de chaque bouteille
-            $codes = $web->filter("//*[@class='saq-code']");
+        $crawlerCodes->addHtmlContent($htmlNbPages);
 
-            foreach($codes as $code){
+        $totalItems = 0;
+        $itemsParPage = 96;
 
-                $textContent = $code->textContent;
+        $calculNbPages = $crawlerCodes->filter('.toolbar-amount')->text();
 
-                // textContent contient ceci: Code SAQ {numéro}, je fais donc une extraction pour conserver uniquement le code numérique
-                $codeNum = preg_replace('/[^0-9]/', '', $textContent);
-
-                $codesSAQ[] = $codeNum;
-            }
+        if(preg_match('/Résultats\s+(\d+)\s*-\s*(\d+)\s*sur\s*(\d+)/', $calculNbPages, $resultats)){
+            $premierItem = (int) $resultats[1];
+            $dernierItem = (int) $resultats[2];
+            $totalItems = (int) $resultats[3];
         }
 
-        $jsonCodes = json_encode($codesSAQ, JSON_PRETTY_PRINT);
+        $totalPages = ceil($totalItems / $itemsParPage);
 
-        File::put('codesSAQ.json', $jsonCodes);
+        for($page = 1; $page <= $totalPages; $page++){
+            
+            $reponse = $clientCodes->get("https://www.saq.com/fr/produits/vin?p=$page&product_list_limit=96&product_list_order=name_asc");
+            $htmlCodes = $reponse->getBody()->getContents();
+            $crawlerCodes->clear();
+            $crawlerCodes->addHtmlContent($htmlCodes);
+
+            $codes = $crawlerCodes->filter('.saq-code');
+
+            foreach($codes as $code){
+                $bouteille = new Bouteille();
+                $codeSAQ = $code->textContent;
+                $numero = preg_replace('/[^0-9]/', '', $codeSAQ);
+                $bouteille->code_saq = $numero;
+                $bouteille->save();
+            }
+        }
+        // j'ai vérifié le nombre de page total au préalable, avec le maximum de bouteilles par page, 96 ça ne semble pas vouloir fonctionner
+        // for($page = 1; $page <= 173; $page++){
+
+        //     $web->go("https://www.saq.com/fr/produits/vin?p=$page&product_list_limit=48&product_list_order=name_asc");
+
+        //     // la balise pour l'information du code de bouteille, qui va servir à fabriquer l'url pour la page de détails de chaque bouteille
+        //     $codes = $web->filter("//*[@class='saq-code']");
+
+        //     foreach($codes as $code){
+
+        //         $textContent = $code->textContent;
+
+        //         // textContent contient ceci: Code SAQ {numéro}, je fais donc une extraction pour conserver uniquement le code numérique
+        //         $codeNum = preg_replace('/[^0-9]/', '', $textContent);
+
+        //         $codesSAQ[] = $codeNum;
+        //     }
+        // }
+
+        // $jsonCodes = json_encode($codesSAQ, JSON_PRETTY_PRINT);
+
+        // File::put('codesSAQ.json', $jsonCodes);
 
         return view('scraper.codes', ['mot' => 'Procédure complétée']);
     }
