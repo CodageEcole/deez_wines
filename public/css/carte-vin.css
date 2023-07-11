@@ -9,6 +9,10 @@
     height: 200px;
     background-color:#f7f7f7;
 }
+.carte-vin a {
+    color: black;
+    text-decoration: none;
+}
 .carte-vin picture {
     width: 150px;
     height: 150px;

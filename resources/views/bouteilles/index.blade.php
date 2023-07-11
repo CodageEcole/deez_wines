@@ -9,7 +9,6 @@
   @if($bouteilles)
     @php $bouteilles = $bouteilles->slice(-50) @endphp
     @foreach ($bouteilles as $bouteille)
-    <a href="{{ route('bouteilles.show', $bouteille->id) }}">
         <div class="carte-vin">
                 <picture>
                     {{--* Ici j'utilise le glide, le chemin est img/glide/images car c'est l'origine de l'image des bouteilles --}}
@@ -17,7 +16,7 @@
                     <img src="{{ url('glide/images/'. $bouteille->image_bouteille . '?p=xs') }}" alt="{{ $bouteille->image_bouteille_alt }}">
                 </picture>
                 <section>
-                    <h1>{{ $bouteille->nom }}</h1>
+                    <a href="{{ route('bouteilles.show', $bouteille->id) }}"><h1>{{ $bouteille->nom }}</h1></a>
                     <hr>
                     <div>
                         <div>
@@ -30,16 +29,15 @@
                     </div>
                 </section>
             </div>
-        </a>
     @endforeach 
     @else
     <p>aucune bouteille trouvée</p>
     @endif
-    <div id="modal" class="modal">
+    <div id="modal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2 id="modal-title"></h2> 
-            <form method="POST" action="{{ route('cellier_quantite_bouteille.store') }}">
+            <form id="modal-form" method="POST" action="{{ route('cellier_quantite_bouteille.store') }}">
             @csrf
             <select name="cellier_id">
                 @foreach ($celliers as $cellier)
@@ -60,6 +58,7 @@
                     Annuler
                 </button>
             </div>
+            </form>
         </div>
     </div>
 </main>
