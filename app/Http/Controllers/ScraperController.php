@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\DB;
 
 class ScraperController extends Controller
 {
-
     // public function welcome () {
 
     //     // $web = new \Spekulatius\PHPScraper\PHPScraper;
@@ -43,8 +42,6 @@ class ScraperController extends Controller
     // }
 
     public function codes () {
-        // $web = new \Spekulatius\PHPScraper\PHPScraper;
-        // $codesSAQ = [];
 
         $clientCodes = new Client();
         $crawlerCodes = new Crawler();
@@ -61,14 +58,23 @@ class ScraperController extends Controller
         $calculNbPages = $crawlerCodes->filter('.toolbar-amount')->text();
 
         if(preg_match('/Résultats\s+(\d+)\s*-\s*(\d+)\s*sur\s*(\d+)/', $calculNbPages, $resultats)){
-            $premierItem = (int) $resultats[1];
-            $dernierItem = (int) $resultats[2];
+            // $premierItem = (int) $resultats[1];
+            // $dernierItem = (int) $resultats[2];
             $totalItems = (int) $resultats[3];
         }
 
         $totalPages = ceil($totalItems / $itemsParPage);
+        if (DB::table('bouteilles')->count() > 0) {
+
+            $codesExistants = DB::table('bouteilles')->pluck('code_SAQ')->toArray();
+        }
+        else {
+
+            $codesExistants = [];
+        }
 
         for($page = 1; $page <= $totalPages; $page++){
+
             
             $reponse = $clientCodes->get("https://www.saq.com/fr/produits/vin?p=$page&product_list_limit=96&product_list_order=name_asc");
             $htmlCodes = $reponse->getBody()->getContents();
@@ -78,35 +84,16 @@ class ScraperController extends Controller
             $codes = $crawlerCodes->filter('.saq-code');
 
             foreach($codes as $code){
-                $bouteille = new Bouteille();
                 $codeSAQ = $code->textContent;
                 $numero = preg_replace('/[^0-9]/', '', $codeSAQ);
-                $bouteille->code_saq = $numero;
-                $bouteille->save();
+                if(!in_array($numero, $codesExistants)){
+                    $bouteille = new Bouteille();
+                    $bouteille->code_saq = $numero;
+                    $bouteille->save();
+                    $codesExistants[] = $numero;
+                }
             }
         }
-        // j'ai vérifié le nombre de page total au préalable, avec le maximum de bouteilles par page, 96 ça ne semble pas vouloir fonctionner
-        // for($page = 1; $page <= 173; $page++){
-
-        //     $web->go("https://www.saq.com/fr/produits/vin?p=$page&product_list_limit=48&product_list_order=name_asc");
-
-        //     // la balise pour l'information du code de bouteille, qui va servir à fabriquer l'url pour la page de détails de chaque bouteille
-        //     $codes = $web->filter("//*[@class='saq-code']");
-
-        //     foreach($codes as $code){
-
-        //         $textContent = $code->textContent;
-
-        //         // textContent contient ceci: Code SAQ {numéro}, je fais donc une extraction pour conserver uniquement le code numérique
-        //         $codeNum = preg_replace('/[^0-9]/', '', $textContent);
-
-        //         $codesSAQ[] = $codeNum;
-        //     }
-        // }
-
-        // $jsonCodes = json_encode($codesSAQ, JSON_PRETTY_PRINT);
-
-        // File::put('codesSAQ.json', $jsonCodes);
 
         return view('scraper.codes', ['mot' => 'Procédure complétée']);
     }
@@ -117,38 +104,43 @@ class ScraperController extends Controller
 
         try{
 
-            if (DB::table('bouteilles')->count() > 0) {
+            // if (DB::table('bouteilles')->count() > 0) {
                 // Récupérer tous les codes SAQ existants dans la table "bouteilles"
                 $codesExistants = DB::table('bouteilles')->pluck('code_SAQ')->toArray();
-            } else {
-                $codesExistants = [];
-            }
+            // } else {
+            //     $codesExistants = [];
+            // }
 
 
             //* Les fichiers à utiliser
             // $bouteilles = Storage::json('bouteillestest3.json');
             // $urls = Storage::json('testCodes.json');
-            $urls = Storage::json('codesSAQ.json');
+            // $urls = Storage::json('codesSAQ.json');
 
             //* Instanciation des Http Guzzlers
             $client_fr = new Client();
             $client_en = new Client();
 
-            //* compteur de bouteilles traitées
-            $codesTraites = 0;
+            // * compteur de bouteilles traitées
+            // $codesTraites = 0;
 
-            foreach ($urls as $url) {
+            foreach ($codesExistants as $codeSAQ) {
 
-                if(in_array($url, $codesExistants)){
+                $bouteille = Bouteille::where('code_SAQ', $codeSAQ)->first();
+                // if(in_array($url, $codesExistants)){
+                //     // on passe à la bouteille suivante
+                //     continue;
+                // }
+                if($bouteille->est_scrape){
                     // on passe à la bouteille suivante
                     continue;
                 }
                 else{
-                //* Instanciation de bouteille à storer
-                $bouteille = New Bouteille();
+                // //* Instanciation de bouteille à storer
+                // $bouteille = New Bouteille();
                 //* Fabrication de l'url à scraper
-                $url_fr = 'https://www.saq.com/fr/' . $url;
-                $url_en = 'https://www.saq.com/en/' . $url;
+                $url_fr = 'https://www.saq.com/fr/' . $codeSAQ;
+                $url_en = 'https://www.saq.com/en/' . $codeSAQ;
 
                 //* Requête de la page
                 $reponse_fr = $client_fr->request('GET', $url_fr);
@@ -223,7 +215,7 @@ class ScraperController extends Controller
                 $bouteille->region_fr = $attributs_fr["Région"];
                 $bouteille->region_en = $attributs_en["Region"];
                 $bouteille->designation_reglementee_fr = $attributs_fr["Désignation réglementée"];
-                $bouteille->designation_reglementee_en = $attributs_en["Regulated designation"];
+                $bouteille->designation_reglementee_en = $attributs_en["Regulated Designation"];
                 $bouteille->classification_fr = $attributs_fr["Classification"] ?? null;
                 $bouteille->classification_en = $attributs_en["Classification"] ?? null;
                 if (isset($attributs_fr["Cépage"])) {
@@ -239,7 +231,7 @@ class ScraperController extends Controller
                 $bouteille->format = $attributs_fr["Format"];
                 $bouteille->producteur = $attributs_fr["Producteur"];
                 $bouteille->agent_promotionnel = $attributs_fr["Agent promotionnel"];
-                $bouteille->code_SAQ = $attributs_fr["Code SAQ"];
+                // $bouteille->code_SAQ = $attributs_fr["Code SAQ"];
                 $bouteille->code_CUP = $attributs_fr["Code CUP"];
                 $bouteille->produit_quebec_fr = $attributs_fr["Produit du Québec"];
                 $bouteille->produit_quebec_en = $attributs_en["Product of Québec"];
@@ -260,10 +252,10 @@ class ScraperController extends Controller
                 $bouteille->est_scrape = true;
                 $bouteille->save();
 
-                $codesTraites++;
-                $codesExistants[] = $url;
-                echo "codes traités:";
-                var_dump($codesTraites);
+                // $codesTraites++;
+                // $codesExistants[] = $url;
+                // echo "codes traités:";
+                // var_dump($codesTraites);
                 //* Une petite pause après beaucoup d'effort!
                 sleep(1);
                 } //? la boucle sur les codes SAQ fin du else
@@ -271,17 +263,17 @@ class ScraperController extends Controller
         }
         catch(\Exception $e){
 
-            $erreurs[] = "Erreur lors du traitement du code SAQ $url : " . $e->getMessage();
-            Log::error("Erreur lors du traitement du code SAQ $url : " . $e->getMessage());
+            $erreurs[] = "Erreur lors du traitement du code SAQ $codeSAQ : " . $e->getMessage();
+            Log::error("Erreur lors du traitement du code SAQ $codeSAQ : " . $e->getMessage());
         }
 
         $afficherBouteilles = Bouteille::all();
-
+        $nbBouteillesTraites = DB::table('bouteilles')->where('est_scrape', true)->count();
         return view('scraper.liste', [
             'bouteilles' => $afficherBouteilles,
             'lang' => "fr",
             'erreurs' => $erreurs,
-            'codesTraites' => $codesTraites,
+            'codesTraites' => $nbBouteillesTraites,
         ]);
     }
 
@@ -349,7 +341,7 @@ class ScraperController extends Controller
                     $ajoutCle = [
                         "Region",
                         "Designation of origin",
-                        "Regulated designation",
+                        "Regulated Designation",
                         "Classification",
                         "Grape variety",
                         "Sugar content",
