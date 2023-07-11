@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bouteille;
 use Illuminate\Http\Request;
+use App\Models\Cellier;
 
 class BouteilleController extends Controller
 {
@@ -19,7 +20,8 @@ class BouteilleController extends Controller
         //resultat de la recherche
         $bouteilles = Bouteille::search(request('search'))
             ->paginate(1000);
-        return view('bouteilles.index', compact('bouteilles'));
+        $celliers = Cellier::where('user_id', auth()->id())->get();
+        return view('bouteilles.index', compact('bouteilles', 'celliers'));
     }
 
     /**
