@@ -37,12 +37,12 @@ class CellierController extends Controller
             'nom' => 'required|string|max:255',
         ]);
 
-        Cellier::create([
+        $cellier = Cellier::create([
             'nom' => $request->nom,
             'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('celliers.index');
+        return redirect()->route('celliers.show' , $cellier);
     }
 
     /**
