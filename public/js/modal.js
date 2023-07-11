@@ -1,17 +1,25 @@
 function openModal(nom, id) {
     var modal = document.getElementById("modal");
     var modalTitle = document.getElementById("modal-title");
-    var modalId = document.getElementById("modal-id");
-    document.getElementById("modal-title").innerText = nom;
-    document.getElementById("bouteille-id").value = id;
-    modal.style.display = "block";
-    modalId.value = id;
-    modalTitle.innerText = nom;
-}
+    var form = document.getElementById("modal-form");
+    var bouteilleIdInput = document.getElementById("bouteille-id");
+    var quantityInput = document.getElementById("quantity");
 
+    modalTitle.innerText = nom;
+    bouteilleIdInput.value = id;
+    quantityInput.value = 1;
+
+    form.reset();
+
+    modal.style.display = "block";
+}
 
 function closeModal() {
     var modal = document.getElementById("modal");
+    var form = document.getElementById("modal-form");
+    
+    form.reset();
+
     modal.style.display = "none";
 }
 
