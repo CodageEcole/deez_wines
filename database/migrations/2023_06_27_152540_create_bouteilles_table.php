@@ -32,8 +32,8 @@ return new class extends Migration
             $table->string('potentiel_de_garde_fr')->nullable();
             $table->string('potentiel_de_garde_en')->nullable();
             // section attributs
-            $table->string('pays_fr');
-            $table->string('pays_en');
+            $table->string('pays_fr')->nullable();
+            $table->string('pays_en')->nullable();
             $table->string('region_fr')->nullable();
             $table->string('region_en')->nullable();
             $table->string('designation_reglementee_fr')->nullable();
@@ -41,15 +41,16 @@ return new class extends Migration
             $table->string('classification_fr')->nullable();
             $table->string('classification_en')->nullable();
             $table->string('cepage')->nullable();
-            $table->string('degree_alcool');
+            $table->string('degree_alcool')->nullable();
             $table->string('taux_de_sucre')->nullable();
-            $table->string('couleur_fr');
-            $table->string('couleur_en'); 
-            $table->string('format');
-            $table->string('producteur');
+            $table->string('couleur_fr')->nullable();
+            $table->string('couleur_en')->nullable(); 
+            $table->string('format')->nullable();
+            $table->string('producteur')->nullable();
             $table->string('agent_promotionnel')->nullable();
-            $table->string('code_SAQ');
+            $table->string('code_SAQ')->nullable();
             $table->string('code_CUP')->nullable();
+
             $table->string('produit_quebec_fr')->nullable();
             $table->string('produit_quebec_en')->nullable();
 
@@ -58,16 +59,20 @@ return new class extends Migration
             $table->string('appellation_origine')->nullable();
 
             // données séparées
-            $table->string('nom');
-            $table->string('image_bouteille');
+            $table->string('nom')->nullable();
+            $table->string('image_bouteille')->nullable();
             $table->string('image_bouteille_alt')->nullable();
-            $table->string('prix');
+            $table->string('prix')->nullable();
             $table->string('image_pastille')->nullable();
             $table->string('image_pastille_alt')->nullable();
             $table->text('description_fr')->nullable();
             $table->text('description_en')->nullable();
+
+            // booléen pour scraper ou non les détails de la bouteille
             $table->boolean('est_scrape')->default(false);
-            
+
+            // booléen pour déterminer si la bouteille est présente dans le cellier d'un usager, pour éviter la suppression de la bouteille de la BD
+            $table->boolean('est_utilise')->default(false);
             $table->timestamps();
         });
 
