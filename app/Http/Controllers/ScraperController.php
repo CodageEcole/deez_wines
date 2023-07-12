@@ -99,7 +99,7 @@ class ScraperController extends Controller
     }
 
     public function liste () {
-
+        set_time_limit(0);
         $erreurs = [];
 
         try{
