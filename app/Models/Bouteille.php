@@ -58,6 +58,8 @@ class Bouteille extends Model
         'particularite_en',
         'appellation_origine',
         'est_scrape',
+        'user_id',
+        'existe_plus',
         'est_utilise'
     ];
 
