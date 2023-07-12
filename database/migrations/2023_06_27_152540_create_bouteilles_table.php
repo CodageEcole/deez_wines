@@ -70,12 +70,12 @@ return new class extends Migration
 
             // booléen pour scraper ou non les détails de la bouteille
             $table->boolean('est_scrape')->default(false);
-
-            // booléen pour déterminer si la bouteille est présente dans le cellier d'un usager, pour éviter la suppression de la bouteille de la BD
+            $table->boolean('est_personnalisee')->default(false);
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->boolean('existe_plus')->default(false);
             $table->boolean('est_utilise')->default(false);
             $table->timestamps();
         });
-
     }
 
     /**
