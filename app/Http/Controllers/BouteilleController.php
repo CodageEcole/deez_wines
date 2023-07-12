@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bouteille;
 use Illuminate\Http\Request;
 use App\Models\Cellier;
+use Illuminate\Support\Facades\Auth;
 
 class BouteilleController extends Controller
 {
@@ -37,7 +38,27 @@ class BouteilleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required|string|max:255',
+            'pays' => 'string|max:255',
+            'region' => 'string|max:255',
+            'description' => 'string|max:255',
+            'image_bouteille' => 'string|max:255',
+            'user_id' => 'exists:users,id',
+        ]);
+
+        $bouteille = Bouteille::create([
+            'nom' => $request->nom,
+            'pays' => $request->pays,
+            'region' => $request->region,
+            'description' => $request->description,
+            'image_bouteille' => $request->image_bouteille,
+            'user_id' => Auth::id(),
+        ]);
+
+        //TODO Ajouter l'image au stockage
+
+        return redirect()->route('bouteilles.show', $bouteille);
     }
 
     /**

@@ -57,15 +57,20 @@ class Bouteille extends Model
         'particularite_fr',
         'particularite_en',
         'appellation_origine',
-        'est_scrape',
+        'est_scrapee',
         'user_id',
         'existe_plus',
-        'est_utilise'
+        'est_utilisee',
     ];
 
     public function cellierQuantiteBouteille()
     {
         return $this->hasMany(CellierQuantiteBouteille::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**

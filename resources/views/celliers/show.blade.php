@@ -12,7 +12,7 @@
     </div>
     <div>
         <h2>Vos bouteilles</h2>
-        <a href="{{ route('bouteilles_personnalisees.create', Auth::id()) }}">Ajouter une bouteille</a>
+        <a href="{{ route('bouteilles.create', Auth::id()) }}">Ajouter une bouteille</a>
         @foreach($bouteilles as $bouteille)
             <div>
                 <a href="{{ route('bouteilles.show', $bouteille->id) }}">{{ $bouteille->nom }}</a>
