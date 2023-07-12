@@ -69,11 +69,11 @@ return new class extends Migration
             $table->text('description_en')->nullable();
 
             // booléen pour scraper ou non les détails de la bouteille
-            $table->boolean('est_scrape')->default(false);
+            $table->boolean('est_scrapee')->default(false);
             $table->boolean('est_personnalisee')->default(false);
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->boolean('existe_plus')->default(false);
-            $table->boolean('est_utilise')->default(false);
+            $table->boolean('est_utilisee')->default(false);
             $table->timestamps();
         });
     }
