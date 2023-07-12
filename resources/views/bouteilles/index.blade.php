@@ -13,7 +13,11 @@
                 <picture>
                     {{--* Ici j'utilise le glide, le chemin est img/glide/images car c'est l'origine de l'image des bouteilles --}}
                     {{--* Pour une pastille, ce serait img/glide/pastilles/ $image_pastille, environ --}}
-                    <img src="{{ url('glide/images/'. $bouteille->image_bouteille . '?p=xs') }}" alt="{{ $bouteille->image_bouteille_alt }}">
+                    @if($bouteille->est_personnalisee)
+                        <img src="{{ url('glide/imagesPersonnalisees/'. $bouteille->image_bouteille . '?p=xs') }}" alt="{{ $bouteille->nom }}">
+                    @else
+                        <img src="{{ url('glide/images/'. $bouteille->image_bouteille . '?p=xs') }}" alt="{{ $bouteille->image_bouteille_alt }}">
+                    @endif
                 </picture>
                 <section>
                     <a href="{{ route('bouteilles.show', $bouteille->id) }}"><h1>{{ $bouteille->nom }}</h1></a>

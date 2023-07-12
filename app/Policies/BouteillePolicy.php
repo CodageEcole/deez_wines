@@ -27,7 +27,13 @@ class BouteillePolicy
      */
     public function view(User $user, Bouteille $bouteille): bool
     {
-        return $user->id === $bouteille->user_id || $user->role === 'admin';
+        if($bouteille->est_personnalisee == 1 && $bouteille->user_id !== $user->id){
+            return false;
+        } else if ($user->id === null){
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**

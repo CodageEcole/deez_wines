@@ -6,6 +6,7 @@ use App\Models\Bouteille;
 use Illuminate\Http\Request;
 use App\Models\Cellier;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BouteilleController extends Controller
 {
@@ -43,23 +44,38 @@ class BouteilleController extends Controller
             'pays' => 'string|max:255',
             'region' => 'string|max:255',
             'description' => 'string|max:255',
-            'image_bouteille' => 'string|max:255',
+            'image_bouteille' => 'image|max:2048',
             'user_id' => 'exists:users,id',
         ]);
 
         $bouteille = Bouteille::create([
             'nom' => $request->nom,
-            'pays' => $request->pays,
-            'region' => $request->region,
+            'pays_fr' => $request->pays,
+            'pays_en' => $request->pays,
+            'region_fr' => $request->region,
+            'region_en' => $request->region,
             'description' => $request->description,
-            'image_bouteille' => $request->image_bouteille,
             'user_id' => Auth::id(),
+            'est_personnalisee' => true,
         ]);
 
-        //TODO Ajouter l'image au stockage
+        if ($request->hasFile('image_bouteille')) {
+            $file = $request->file('image_bouteille');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = time() . '_' . $bouteille->id . '.' . $extension;
+
+            if (!Storage::disk('local')->exists('imagesPersonnalisees')) {
+                Storage::disk('local')->makeDirectory('imagesPersonnalisees');
+            }
+
+            Storage::disk('local')->putFileAs('imagesPersonnalisees', $file, $fileName);
+            $bouteille->image_bouteille = $fileName;
+            $bouteille->save();
+        }
 
         return redirect()->route('bouteilles.show', $bouteille);
     }
+
 
     /**
      * Display the specified resource.
