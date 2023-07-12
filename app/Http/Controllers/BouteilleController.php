@@ -19,7 +19,8 @@ class BouteilleController extends Controller
     {
         //resultat de la recherche
         $bouteilles = Bouteille::search(request('search'))
-            ->paginate(1000);
+            ->orderBy('nom', 'asc')
+            ->paginate(30);
         $celliers = Cellier::where('user_id', auth()->id())->get();
         return view('bouteilles.index', compact('bouteilles', 'celliers'));
     }

@@ -2,12 +2,17 @@
 @section('content')
 @push('styles')
     <link href=" {{ asset('css/carte-vin.css') }}" rel="stylesheet">
+    <link href=" {{ asset('css/paginate.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
 @endpush
 <main class="demo-liste">
   <h1 class="titre-principal"> Toutes les bouteilles!</h1>
   @if($bouteilles)
-    @php $bouteilles = $bouteilles->slice(-50) @endphp
+    @php 
+        $currentpage = request('page') ?? 1;
+        $pagination = $bouteilles->getUrlRange(max($currentpage - 1, 1), min($currentpage + 2, $bouteilles->lastPage()))
+    @endphp
+    {{-- @php $bouteilles = $bouteilles->slice(-10) @endphp --}}
     @foreach ($bouteilles as $bouteille)
         <div class="carte-vin">
                 <picture>
@@ -29,10 +34,35 @@
                     </div>
                 </section>
             </div>
+</div>
     @endforeach 
     @else
     <p>aucune bouteille trouvée</p>
     @endif
+    <nav class="pagination">
+        {{-- Lien précédent --}}
+        @if ($bouteilles->onFirstPage())
+            <a class="pagination-link disabled">&laquo;</a>
+        @else
+            <a href="{{ $bouteilles->previousPageUrl() }}" rel="prev" class="pagination-link">&laquo;</a>
+        @endif
+
+        {{-- Liens de pagination --}}
+        @foreach ($pagination as $page => $url)
+            @if ($page == $currentpage)
+                <span class="pagination-link active">{{ $page }}</span>
+            @else
+                <a href="{{ $url }}" class="pagination-link">{{ $page }}</a>
+            @endif
+        @endforeach
+
+        {{-- Lien suivant --}}
+        @if ($bouteilles->hasMorePages())
+            <a href="{{ $bouteilles->nextPageUrl() }}" rel="next" class="pagination-link">&raquo;</a>
+        @else
+            <span class="pagination-link disabled">&raquo;</span>
+        @endif
+    </nav>
     <div id="modal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
