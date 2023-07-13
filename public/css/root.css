@@ -1,0 +1,24 @@
+:root {
+
+    /* ========= General colors ======== */
+    --light-blue: #7593c5;
+    --light-grey: #d7d8d9;
+
+    /* ========== Palette Champagne ========== */
+    --dark-brown: #a0764b;
+    --light-brown: #d4cd98;
+
+    /* ========= Palette Rouge ========== */
+    --dark-red: #ac1e23;
+    --light-red: #a73135;
+
+    /* ========== Palette Bleu ========== */
+    --dark-blue: #4e4fa1;
+
+    /* ==================== PADDING // MARGIN ================ */
+    --back-to-card-margin: 17px;
+
+    /* ==================== MOBILE WIDTH // HEIGHT ================ */
+    --iphone-14-w: 430px;
+    --iphone-14-h: 900px;
+}
