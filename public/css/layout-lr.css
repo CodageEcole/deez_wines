@@ -9,6 +9,10 @@
 
 /* =========== HEADER =========== */
 
+main {
+    height: 900px;
+}
+
 nav,
 footer {
     width: var(--iphone-14-w);
