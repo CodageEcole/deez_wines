@@ -19,38 +19,43 @@
         <div class="blue-top"></div>
         <nav>
             <div class="logo">
-                <img src="{{ asset('images/logos/deez_wines_logo_small.svg') }}" alt="Logo">
+                <img src="{{ asset('logos/deez_wines_logo_small.svg') }}" alt="Logo">
             </div>
             <div class="search-more">
                 <a href="#">
-                    <img src="{{ asset('images/icons/search_icon.svg') }}" alt="Recherche">
+                    <img src="{{ asset('icons/search_icon.svg') }}" alt="Recherche">
                 </a>
                 <a href="#">
-                    <img src="{{ asset('images/icons/more_icon.svg') }}" alt="Plus">
+                    <img src="{{ asset('icons/more_icon.svg') }}" alt="Plus">
                 </a>
             </div>
         </nav>
         <div class="grey-top"></div>
     </header>
 
-    @yield('content')
+    <main>
+        
+        @yield('content')
+        
+    </main>
+
 
     <footer>
         <div class="footer-icon-tray">
             <a href="#">
-                <img class="footer-icon-img" src="{{ asset('images/icons/profil_icon_white.svg') }}" alt="Profil">
+                <img class="footer-icon-img" src="{{ asset('icons/profil_icon_white.svg') }}" alt="Profil">
                 <p>Profil</p>
             </a>
             <a href="{{ route('bouteilles.index') }}">
-                <img class="footer-icon-img" src="{{ asset('images/icons/catalogue_icon_white.svg') }}" alt="Catalogue">
+                <img class="footer-icon-img" src="{{ asset('icons/catalogue_icon_white.svg') }}" alt="Catalogue">
                 <p>Catalogue</p>
             </a>
             <a href="{{ route('celliers.index') }}">
-                <img class="footer-icon-img" src="{{ asset('images/icons/cellier_icon_white.svg') }}" alt="Celliers">
+                <img class="footer-icon-img" src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Celliers">
                 <p>Celliers</p>
             </a>
             <a href="#">
-                <img class="footer-icon-img" src="{{ asset('images/icons/add_icon_white.svg') }}" alt="Ajouter">
+                <img class="footer-icon-img" src="{{ asset('icons/add_icon_white.svg') }}" alt="Ajouter">
                 <p>Ajouter</p>
             </a>
         </div>
