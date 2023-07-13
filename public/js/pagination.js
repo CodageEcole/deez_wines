@@ -22,10 +22,10 @@ formulairePage.addEventListener("submit", function(event) {
     event.preventDefault();
     
     // attributions des valeurs dans des variables pour rendre le tout plus lisible
-    numeroPage = numeroPage.value;
-    let dernierePage = boutonPage.dataset.dernierePage
+    numeroPage = parseInt(numeroPage.value);
+    let dernierePage = parseInt(boutonPage.dataset.dernierePage)
 
-    if(numeroPage >= 1 && numeroPage <= dernierePage ){
+    if(numeroPage >= 1 && numeroPage <= dernierePage){
         // affichage de la page ciblée
         window.location.href = window.location.origin + '/bouteilles?page=' + numeroPage;
     }
