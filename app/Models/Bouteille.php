@@ -48,6 +48,7 @@ class Bouteille extends Model
         'potentiel_de_garde_en',
         'pays_fr',
         'pays_en',
+        'region_fr',
         'region_en',
         'designation_reglementee_fr',
         'designation_reglementee_en',
@@ -57,16 +58,31 @@ class Bouteille extends Model
         'particularite_fr',
         'particularite_en',
         'appellation_origine',
-        'est_scrape',
+        'est_scrapee',
         'user_id',
         'existe_plus',
-        'est_utilise'
+        'est_utilisee',
+        'est_personnalisee',
     ];
 
     public function cellierQuantiteBouteille()
     {
         return $this->hasMany(CellierQuantiteBouteille::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'est_personnalisee' => 'boolean',
+    ];
 
     /**
      * Fonction qui défini les données qui seront indexées par Scout
@@ -97,5 +113,7 @@ class Bouteille extends Model
             'particularite_en' => $this->particularite_en,
             'appellation_origine' => $this->appellation_origine,
         ];
+
     }
+
 }

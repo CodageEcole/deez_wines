@@ -51,8 +51,8 @@ class User extends Authenticatable
         return $this->hasMany(Cellier::class);
     }
 
-    public function bouteilles_personnalisees()
+    public function bouteilles()
     {
-        return $this->hasMany(BouteillePersonnalisee::class);
+        return $this->hasMany(Bouteille::class);
     }
 }
