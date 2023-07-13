@@ -6,16 +6,33 @@
     font-weight: normal;
     font-style: normal;
 }
+body, html{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
+body{
+    display: flex;
+    flex-direction: column;
+    /** la largeur du téléphone dans le body au lieu de juste le footer? */
+    width: var(--iphone-14-w);
+    
+}
 /* =========== HEADER =========== */
 
 main {
-    height: 900px;
+    /** height retiré pour flex  */
+    /* height: 900px; */
+    flex: 1;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
-nav,
+nav:not(.pagination),
 footer {
-    width: var(--iphone-14-w);
+    /** c'est dans le body à place? */
+    /* width: var(--iphone-14-w); */
 
     padding-left: var(--back-to-card-margin);
     padding-right: var(--back-to-card-margin);
@@ -25,12 +42,12 @@ footer {
     background-color: var(--dark-brown);
 }
 
-nav {
+nav:not(.pagination) {
     display: flex;
     height: 70px;
 }
 
-nav a,
+nav:not(.pagination) a,
 nav .logo img {
     height: 48px;
 }
