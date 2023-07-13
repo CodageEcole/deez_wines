@@ -1,19 +1,67 @@
 .pagination{
     padding-block: 5px;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    line-height: 40px;
 }
 
 .pagination>*{
-    margin-inline: 10px;
+    margin-inline: 5px;
 }
 .pagination a {
+    flex-direction: row;
     text-decoration: none;
-    color: initial;
+    color: #F3F1F1;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #A0764B;
+    
 }
 .pagination a:hover{
     text-decoration: underline;
-    color: aqua;
 }
 
-.pagination .active{
-    color: burlywood;
+.pagination :is(.active, span, a:hover){
+    color: #A0764B;
+    background-color: #F3F1F1;
+    box-shadow: 0 0 0 2px #A0764B;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+
+span.boutonPage:hover{
+    cursor: pointer;
+    background-color: #A0764B;
+    color: #F3F1F1;
+}
+
+.boutonPage{
+    font-size: 2rem;
+}
+/* Styles pour la boîte modale */
+.modalePage {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.formulairePage{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: fit-content;
 }
