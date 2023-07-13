@@ -2,9 +2,10 @@
     padding-block: 5px;
     display: flex;
     align-items: center;
-    justify-items: center;
+    justify-content: center;
     text-align: center;
     line-height: 40px;
+    margin-block: 28px;
 }
 
 .pagination>*{
