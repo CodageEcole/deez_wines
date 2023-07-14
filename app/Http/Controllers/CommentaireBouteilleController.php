@@ -11,24 +11,33 @@ class CommentaireBouteilleController extends Controller
     {
         $this->authorizeResource(CommentaireBouteille::class, 'commentaire_bouteille');
     }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         $request->validate([
-            'bouteille_id' => 'required',
-            'note' => 'required|integer',
-            'commentaire' => 'required|string',
+            'bouteille_id' => 'required|exists:bouteilles,id',
+            'note' => 'nullable|integer|min:0|max:5',
+            'commentaire' => 'nullable|string|max:255',
         ]);
 
-        $commentaireBouteille = CommentaireBouteille::create([
-            'bouteille_id' => $request->bouteille_id,
-            'note' => $request->note,
-            'commentaire' => $request->commentaire,
-            'user_id' => auth()->id(),
-        ]);
-        
+        if($request->filled('note') || $request->filled('commentaire')) {
+            $commentaireBouteille = CommentaireBouteille::create([
+                'bouteille_id' => $request->bouteille_id,
+                'user_id' => auth()->id(),
+            ]);
+    
+            if ($request->filled('note')) {
+                $commentaireBouteille->note = $request->note;
+            }
+    
+            if ($request->filled('commentaire')) {
+                $commentaireBouteille->commentaire = $request->commentaire;
+            }
+        }
+
         $commentaireBouteille->save();
 
         return redirect()->back();

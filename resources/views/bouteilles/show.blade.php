@@ -21,6 +21,34 @@
                 <img src="{{ url('glide/images/'. $bouteille->image_bouteille . '?p=xs') }}" alt="{{ $bouteille->image_bouteille_alt }}">
             @endif
         </div>
+
+        <div>
+            @if(!empty($commentaireBouteille->commentaire))
+                <small>Commentaire</small>
+                <span>{{ $commentaireBouteille->commentaire }}</span>
+            @endif
+            @if(!empty($commentaireBouteille->note))
+                <small>Note</small>
+                <span>{{ $commentaireBouteille->note }}/5</span>
+            @endif
+        </div>
+
+        @if(empty($commentaireBouteille->commentaire) && empty($commentaireBouteille->note))
+            <form action="{{ route('commentaire_bouteille.store') }}" method="POST">
+            @csrf
+        @else
+            <form action="{{ route('commentaire_bouteille.update', $commentaireBouteille->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+        @endif
+                <label for="commentaire">Commentaire</label>
+                <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
+                <input type="hidden" name="bouteille_id" value="{{ $bouteille->id }}">
+                <label for="note">Note</label>
+                <input type="number" name="note" id="note" min="0" max="5">
+                <button type="submit">Ajouter</button>
+            </form>
+        </div>
     </div>
     
 @endsection
