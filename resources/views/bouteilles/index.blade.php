@@ -1,40 +1,69 @@
 @extends('layout.app')
 @section('content')
 @push('styles')
-    <link href=" {{ asset('css/carte-vin.css') }}" rel="stylesheet">
+    <link href=" {{ asset('css/carte-vin-lr.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/paginate.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
 @endpush
 <main class="demo-liste">
-    <h1 class="titre-principal"> Toutes les bouteilles!</h1>
+    {{-- <h1 class="titre-principal"> Toutes les bouteilles!</h1> --}}
     @if($bouteilles)
         @foreach ($bouteilles as $bouteille)
-            <div class="carte-vin">
-                    <picture>
-                        {{--* Ici j'utilise le glide, le chemin est img/glide/images car c'est l'origine de l'image des bouteilles --}}
-                        {{--* Pour une pastille, ce serait img/glide/pastilles/ $image_pastille, environ --}}
-                    @if($bouteille->est_personnalisee)
-                        <img src="{{ url('glide/imagesPersonnalisees/'. $bouteille->image_bouteille . '?p=xs') }}" alt="{{ $bouteille->nom }}">
-                    @else
-                            <img src="{{ url('glide/images/'. $bouteille->image_bouteille . '?p=xs') }}" alt="{{ $bouteille->image_bouteille_alt }}">
-                    @endif
-                    </picture>
-                    <section>
-                        <a href="{{ route('bouteilles.show', $bouteille->id) }}"><h1>{{ $bouteille->nom }}</h1></a>
-                        <hr>
-                        <div>
+
+            <div class="carte-vin-container">
+                @if($bouteille->image_pastille_alt == "Pastille de goût : Fruité et vif")
+                    <div class="bande-de-gout-fv"> <span>Fruité et Vif</span> </div>
+                @elseif($bouteille->image_pastille_alt == "Pastille de goût : Aromatique et charnu")
+                    <div class="bande-de-gout-ac"> <span>Aromatique et Charnu</span> </div>
+                @elseif($bouteille->image_pastille_alt == "Pastille de goût : Aromatique et rond")
+                    <div class="bande-de-gout-ar"> <span>Aromatique et Rond</span> </div>
+                @elseif($bouteille->image_pastille_alt == "Pastille de goût : Aromatique et souple")
+                    <div class="bande-de-gout-as"> <span>Aromatique et Souple</span> </div>
+                @elseif($bouteille->image_pastille_alt == "Pastille de goût : Délicat et léger")
+                    <div class="bande-de-gout-dl">  <span>Délicat et Léger</span></div>
+                @elseif($bouteille->image_pastille_alt == "Pastille de goût : Fruité et doux")
+                    <div class="bande-de-gout-fd"> <span>Fruité et Doux</span> </div>
+                @elseif($bouteille->image_pastille_alt == "Pastille de goût : Fruité et généreux")
+                    <div class="bande-de-gout-fg"> <span>Fruité et Généreux</span> </div>
+                @elseif($bouteille->image_pastille_alt == "Pastille de goût : Fruité et léger")
+                    <div class="bande-de-gout-fl"> <span>Fruité et Léger</span> </div>
+                @elseif($bouteille->image_pastille_alt == "Pastille de goût : Fruité et vif")
+                    <div class="bande-de-gout-fv"> <span>Fruité et Vif</span> </div>
+                @elseif($bouteille->image_pastille_alt == "Pastille de goût : Fruité et extra-doux")
+                    <div class="bande-de-gout-fed"> <span>Fruité et Extra-Doux</span></div>
+                @endif
+
+                <div class="carte-vin @if(!$bouteille->image_pastille_alt) no-pastille @endif">
+                        <picture class="protruding">
+                            {{--* Ici j'utilise le glide, le chemin est img/glide/images car c'est l'origine de l'image des bouteilles --}}
+                            {{--* Pour une pastille, ce serait img/glide/pastilles/ $image_pastille, environ --}}
+                        @if($bouteille->est_personnalisee)
+                            <img src="{{ url('glide/imagesPersonnalisees/'. $bouteille->image_bouteille . '?p=maquette') }}" alt="{{ $bouteille->nom }}">
+                        @else
+                                <img src="{{ url('glide/images/'. $bouteille->image_bouteille . '?p=maquette') }}" alt="{{ $bouteille->image_bouteille_alt }}">
+                        @endif
+                        </picture>
+                        <section>
+                            <a href="{{ route('bouteilles.show', $bouteille->id) }}"><h2>{{ $bouteille->nom }}</h2></a>
                             <div>
-                                <strong>{{ $bouteille->couleur_fr }} </strong>
-                                <p>{{ $bouteille->pays_fr }}, {{ $bouteille->region_fr }}</p>
+                                <div>
+                                    <p>{{ $bouteille->couleur_fr }}  |  {{ $bouteille->format }}  |  {{ $bouteille->pays_fr }}</p>
+                                </div>
+                                {{-- <button type="button" class="btn btn-primary btn-details" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
+                                    Ajouter
+                                </button> --}}
                             </div>
-                            <button type="button" class="btn btn-primary btn-details" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
-                                Ajouter
-                            </button>
-                        </div>
-                    </section>
+                            <div class="overlap" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
+                                <p>Ajouter</p><img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </div>
         @endforeach
+            @if(count($bouteilles) < 30)
+            <nav class="pagination" style="display: none">
+            @else
             <nav class="pagination">
                 @php
                     $pageCourante = $bouteilles->currentPage();
@@ -56,9 +85,6 @@
                 {{-- page actuelle --}}
                 <span class="active">{{ $pageCourante }}</span>
 
-                {{-- Liens de pagination --}}
-
-
                 {{-- Bouton sélecteur de page --}}
                 <span class="boutonPage" data-derniere-page="{{ $dernierePage }}">&#x270E;</span>
 
@@ -76,16 +102,20 @@
                     <a href="{{ $bouteilles->url($dernierePage) }}" class="pagination-link">&raquo;</a>
                 @endif
             </nav>
+            @endif
     @else
         <p>aucune bouteille trouvée</p>
     @endif
 
-
-{{-- la boîte modale de navigation --}}
-@include('components.modals.modale-pagination')
+@if(count($bouteilles) > 30)
+    {{-- la boîte modale de navigation --}}
+    @include('components.modals.modale-pagination')
+@endif
 {{-- la boîte modale d'ajout de bouteilles au cellier --}}
 @include('components.modals.modale-ajout-bouteille')
 </main>
 
-<script src="{{ asset('js/pagination.js') }}"></script>
+@if(count($bouteilles) > 30)
+    <script src="{{ asset('js/pagination.js') }}"></script>
+@endif
 @endsection

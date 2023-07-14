@@ -33,14 +33,17 @@
         </nav>
         
         <nav id="search-bar" style="display: none;">
-            <form action="{{ route('bouteilles.search') }}" method="GET">
+            <form action="{{ route('bouteilles.index') }}" method="GET">
+                <button id="arrow-back" type="button" onclick=goBack()>
+                    <img src="{{ asset('icons/search_icon.svg') }}" alt="Retour">
+                </button>
                 <input type="text" name="search" id="search" placeholder="Recherche">
-                <button type="submit">
+                <button id="recherche" type="submit">
                     <img src="{{ asset('icons/search_icon.svg') }}" alt="Recherche">
                 </button>
             </form>
         </nav>
-        
+
         <div class="grey-top"></div>
     </header>
 

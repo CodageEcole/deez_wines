@@ -4,6 +4,17 @@
     --light-blue: #7593c5;
     --light-grey: #d7d8d9;
 
+        /* pastille */
+        --ac:#660534;
+        --ar:#b9c0de;
+        --as:#c73339;
+        --dl:#edf0c1;
+        --fd:#add2cb;
+        --fed:#c1dcf3;
+        --fg:#dd9527;
+        --fl:#e8c4dc;
+        --fv:#fce41f;
+        
     /* ========== Palette Champagne ========== */
     --dark-brown: #a0764b;
     --light-brown: #d4cd98;
@@ -20,5 +31,6 @@
 
     /* ==================== MOBILE WIDTH // HEIGHT ================ */
     --iphone-14-w: 430px;
-    --iphone-14-h: 900px;
+    --small-phone-w: 320px;
+    --desktop-w: 1920px;
 }
