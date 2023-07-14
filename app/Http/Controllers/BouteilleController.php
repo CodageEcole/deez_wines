@@ -22,6 +22,7 @@ class BouteilleController extends Controller
     {
         //resultat de la recherche
         $bouteilles = Bouteille::search(request('search'))
+            ->where('existe_plus', false)
             ->orderBy('nom', 'asc')
             ->paginate(30);
         $celliers = Cellier::where('user_id', auth()->id())->get();
@@ -113,14 +114,5 @@ class BouteilleController extends Controller
     public function destroy(Bouteille $bouteille)
     {
         //
-    }
-
-    public function search(Request $request)
-    {
-        $bouteilles = Bouteille::search($request->search)
-            ->orderBy('nom', 'asc')
-            ->paginate(30);
-        $celliers = Cellier::where('user_id', auth()->id())->get();
-        return view('bouteilles.index', compact('bouteilles', 'celliers'));
     }
 }
