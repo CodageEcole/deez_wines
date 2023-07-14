@@ -107,21 +107,20 @@ nav .logo img {
 }
 
 /* =========== SEARCH-BAR =========== */
-#search-bar {
+nav {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-#search-bar form {
-    margin-top: 10px;
+
+nav form {
+    max-width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-left: auto;
+    justify-content: space-between
 }
-#search-bar form input[type="text"] {
-    height: 35px;
+nav form input[type="text"] {
+    height: 40px;
     border: none;
     border-radius: 5px;
     padding-left: 10px;
@@ -130,13 +129,23 @@ nav .logo img {
     font-size: 18px;
     color: var(--dark-brown);
     background-color: white;
+    flex: 1;
 }
 
-#search-bar form button {
+nav button {
     background-color: transparent;
     border: none;
 }
-#search-bar form button img {
+#search-bar {
+    justify-content: space-between;
+}
+#search {
+    margin-right: auto;
+}
+#arrow-back {
+    margin-left: auto;
+}
+nav button img {
     width: 100%;
     height: 100%;
     object-fit: cover;
