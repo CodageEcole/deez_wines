@@ -6,7 +6,6 @@
     <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
 @endpush
 <main class="demo-liste">
-    <h1 class="titre-principal"> Toutes les bouteilles!</h1>
     @if($bouteilles)
         @foreach ($bouteilles as $bouteille)
             <div class="carte-vin">
