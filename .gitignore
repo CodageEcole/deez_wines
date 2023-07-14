@@ -5,6 +5,7 @@
 /public/storage
 /public/images
 /public/pastilles
+/public/imagesPersonnalisees
 /public/symlink.php
 /storage/*.key
 /vendor
