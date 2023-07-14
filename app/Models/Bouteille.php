@@ -75,6 +75,11 @@ class Bouteille extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function commentaireBouteille()
+    {
+        return $this->hasMany(CommentaireBouteille::class);
+    }
+
     /**
      * The attributes that should be cast.
      *

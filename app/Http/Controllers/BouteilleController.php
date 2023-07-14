@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Cellier;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\CommentaireBouteille;
 
 class BouteilleController extends Controller
 {
@@ -83,7 +84,11 @@ class BouteilleController extends Controller
      */
     public function show(Bouteille $bouteille)
     {
-        return view('bouteilles.show', compact('bouteille'));
+        $commentaireBouteille = CommentaireBouteille
+            ::where('bouteille_id', $bouteille->id)
+            ->where('user_id', auth()->id())
+            ->get()->first();
+        return view('bouteilles.show', compact('bouteille', 'commentaireBouteille'));
     }
 
     /**
@@ -108,5 +113,14 @@ class BouteilleController extends Controller
     public function destroy(Bouteille $bouteille)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $bouteilles = Bouteille::search($request->search)
+            ->orderBy('nom', 'asc')
+            ->paginate(30);
+        $celliers = Cellier::where('user_id', auth()->id())->get();
+        return view('bouteilles.index', compact('bouteilles', 'celliers'));
     }
 }

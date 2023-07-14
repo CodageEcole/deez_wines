@@ -10,8 +10,10 @@ class CommentaireBouteille extends Model
     use HasFactory;
 
     protected $fillable = [
+        'bouteille_id',
         'commentaire',
         'note',
+        'user_id',
     ];
 
     public function bouteille()

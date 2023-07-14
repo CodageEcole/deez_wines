@@ -10,7 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CellierController;
 use App\Http\Controllers\BouteilleController;
 use App\Http\Controllers\CellierQuantiteBouteilleController;
-use App\Http\Controllers\BouteillePersonnaliseeController;
+use App\Http\Controllers\CommentaireBouteilleController;
 //* Controlleurs Admin
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminCellierController;
@@ -70,10 +70,12 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
 //* SECTION APPLICATION DEEZ_WINES
 Route::resource('bouteilles', BouteilleController::class);
+Route::get('bouteilles', [BouteilleController::class, 'search'])->name('bouteilles.search');
 Route::resource('users', UserController::class);
 Route::resource('celliers', CellierController::class);
 Route::resource('bouteilles_personnalisees', BouteillePersonnaliseeController::class);
 Route::resource('cellier_quantite_bouteille', CellierQuantiteBouteilleController::class);
+Route::resource('commentaire_bouteille', CommentaireBouteilleController::class);
 
 //* SECTION GLIDE (manipulation d'images)
 Route::get('glide/{path}', function ($path) {

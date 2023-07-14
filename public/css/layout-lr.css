@@ -106,6 +106,43 @@ nav .logo img {
     filter: invert(1);
 }
 
+/* =========== SEARCH-BAR =========== */
+#search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#search-bar form {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-left: auto;
+}
+#search-bar form input[type="text"] {
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: 'MabryPro';
+    font-size: 18px;
+    color: var(--dark-brown);
+    background-color: white;
+}
+
+#search-bar form button {
+    background-color: transparent;
+    border: none;
+}
+#search-bar form button img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: invert(1);
+}
+
 /* =========== FOOTER =========== */
 
 .footer-icon-tray {
