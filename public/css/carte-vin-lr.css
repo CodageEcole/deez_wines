@@ -1,0 +1,89 @@
+main {
+    padding-left: var(--back-to-card-margin);
+    padding-right: var(--back-to-card-margin);
+}
+
+.carte-vin-container {
+    height: 200px;
+}
+
+.carte-vin {
+    display: flex;
+    width: 100%;
+    height: 90px;
+    min-width: var(--small-phone-w);
+    max-width: var(--desktop-w);
+    border-radius: 0px 0px 10px 10px;
+
+    background-color: var(--light-brown);
+
+    position: relative;
+}
+
+.carte-vin section {
+    margin-left: 80px;
+}
+
+.protruding {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+
+/* ========== Bande de Gout ========== */
+
+.bande-de-gout-ac,
+.bande-de-gout-ar,
+.bande-de-gout-as,
+.bande-de-gout-dl,
+.bande-de-gout-fd,
+.bande-de-gout-fed,
+.bande-de-gout-fg,
+.bande-de-gout-fl,
+.bande-de-gout-fv {
+    height: 23px;
+    border-radius: 10px 10px 0px 0px;
+    border: 2px solid #a79866;
+    padding-left: 80px;
+    margin-top: 80px;
+}
+
+.bande-de-gout-fv {
+    background-color: var(--fv);
+}
+
+.bande-de-gout-ac {
+    background-color: var(--ac);
+}
+
+.bande-de-gout-ar {
+    background-color: var(--ar);
+}
+
+.bande-de-gout-as {
+    background-color: var(--as);
+}
+
+.bande-de-gout-dl {
+    background-color: var(--dl);
+}
+
+.bande-de-gout-fd {
+    background-color: var(--fd);
+}
+
+.bande-de-gout-fed {
+    background-color: var(--fed);
+}
+
+.bande-de-gout-fg {
+    background-color: var(--fg);
+}
+
+.bande-de-gout-fl {
+    background-color: var(--fl);
+}
+
+.bande-de-gout-fv {
+    background-color: var(--fv);
+}
