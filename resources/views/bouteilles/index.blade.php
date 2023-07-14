@@ -6,7 +6,6 @@
     <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
 @endpush
 <main class="demo-liste">
-    <h1 class="titre-principal"> Toutes les bouteilles!</h1>
     @if($bouteilles)
         @foreach ($bouteilles as $bouteille)
             <div class="carte-vin">
@@ -35,6 +34,9 @@
                 </div>
             </div>
         @endforeach
+            @if(count($bouteilles) < 30)
+            <nav class="pagination" style="display: none">
+            @else
             <nav class="pagination">
                 @php
                     $pageCourante = $bouteilles->currentPage();
@@ -56,9 +58,6 @@
                 {{-- page actuelle --}}
                 <span class="active">{{ $pageCourante }}</span>
 
-                {{-- Liens de pagination --}}
-
-
                 {{-- Bouton sélecteur de page --}}
                 <span class="boutonPage" data-derniere-page="{{ $dernierePage }}">&#x270E;</span>
 
@@ -76,16 +75,20 @@
                     <a href="{{ $bouteilles->url($dernierePage) }}" class="pagination-link">&raquo;</a>
                 @endif
             </nav>
+            @endif
     @else
         <p>aucune bouteille trouvée</p>
     @endif
 
-
-{{-- la boîte modale de navigation --}}
-@include('components.modals.modale-pagination')
+@if(count($bouteilles) > 30)
+    {{-- la boîte modale de navigation --}}
+    @include('components.modals.modale-pagination')
+@endif
 {{-- la boîte modale d'ajout de bouteilles au cellier --}}
 @include('components.modals.modale-ajout-bouteille')
 </main>
 
-<script src="{{ asset('js/pagination.js') }}"></script>
+@if(count($bouteilles) > 30)
+    <script src="{{ asset('js/pagination.js') }}"></script>
+@endif
 @endsection
