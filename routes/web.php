@@ -67,8 +67,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 });
 
 //* SECTION APPLICATION DEEZ_WINES
+Route::get('bouteilles/search', [BouteilleController::class, 'search'])->name('bouteilles.search');
 Route::resource('bouteilles', BouteilleController::class);
-Route::get('bouteilles', [BouteilleController::class, 'search'])->name('bouteilles.search');
 Route::resource('users', UserController::class);
 Route::resource('celliers', CellierController::class);
 Route::resource('cellier_quantite_bouteille', CellierQuantiteBouteilleController::class);
