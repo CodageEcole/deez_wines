@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class AdminBouteilleController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Bouteille::class, 'bouteille');
+    }
     /**
      * Display a listing of the resource.
      */
