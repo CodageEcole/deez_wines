@@ -13,7 +13,7 @@ class CommentaireBouteillePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -21,7 +21,7 @@ class CommentaireBouteillePolicy
      */
     public function view(User $user, CommentaireBouteille $commentaireBouteille): bool
     {
-        //
+        return $user->id === $commentaireBouteille->user_id || $user->role === 'admin';
     }
 
     /**
@@ -29,7 +29,7 @@ class CommentaireBouteillePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->id !== null;
     }
 
     /**
@@ -37,7 +37,7 @@ class CommentaireBouteillePolicy
      */
     public function update(User $user, CommentaireBouteille $commentaireBouteille): bool
     {
-        //
+        return $user->id === $commentaireBouteille->user_id || $user->role === 'admin';
     }
 
     /**
@@ -45,7 +45,7 @@ class CommentaireBouteillePolicy
      */
     public function delete(User $user, CommentaireBouteille $commentaireBouteille): bool
     {
-        //
+        return $user->id === $commentaireBouteille->user_id || $user->role === 'admin';
     }
 
     /**
@@ -53,7 +53,7 @@ class CommentaireBouteillePolicy
      */
     public function restore(User $user, CommentaireBouteille $commentaireBouteille): bool
     {
-        //
+        return $user->id === $commentaireBouteille->user_id || $user->role === 'admin';
     }
 
     /**
@@ -61,6 +61,6 @@ class CommentaireBouteillePolicy
      */
     public function forceDelete(User $user, CommentaireBouteille $commentaireBouteille): bool
     {
-        //
+        return $user->id === $commentaireBouteille->user_id || $user->role === 'admin';
     }
 }
