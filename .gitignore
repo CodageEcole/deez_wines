@@ -5,8 +5,6 @@
 /public/storage
 /public/images
 /public/pastilles
-/public/icons
-/public/logos
 /public/imagesPersonnalisees
 /public/symlink.php
 /storage/*.key
