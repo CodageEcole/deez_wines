@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('commentaire_bouteilles', function (Blueprint $table) {
             $table->id();
-            $table->text('commentaire');
+            $table->text('commentaire')->nullable();
             $table->integer('note')->max(5)->unsigned()->nullable()->default(0)->comment('Note sur 5');
             $table->bigInteger('bouteille_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
