@@ -1,18 +1,24 @@
+/* @import url('fonts.css'); */
+
 main {
     padding-left: var(--back-to-card-margin);
     padding-right: var(--back-to-card-margin);
 }
 
 .carte-vin-container {
-    height: 200px;
+    height: auto;
+    margin-top: 80px;
 }
 
 .carte-vin {
     display: flex;
     width: 100%;
-    height: 90px;
     min-width: var(--small-phone-w);
     max-width: var(--desktop-w);
+    height: auto;
+    min-height: 90px;
+    max-height: 260px;
+    padding-bottom: 10px;
     border-radius: 0px 0px 10px 10px;
 
     background-color: var(--light-brown);
@@ -20,14 +26,65 @@ main {
     position: relative;
 }
 
-.carte-vin section {
-    margin-left: 80px;
-}
-
 .protruding {
     position: absolute;
-    bottom: 10px;
+    bottom: 8px;
     left: 10px;
+}
+
+.overlap {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    border-radius: 5px;
+    background-color: var(--dark-brown);
+}
+
+.overlap p {
+    font-size: 12px;
+    font-family: 'MabryPro';
+    color: white;
+    margin: 0;
+}
+
+.overlap img {
+    width: 15px;
+    height: 15px;
+}
+
+.carte-vin section {
+    margin-left: 80px;
+    /* padding-left: 10px; */
+    padding-right: 10px;
+}
+
+
+h2 {
+    font-family: 'GelicaLight';
+    font-size: 20px;
+    font-weight: normal;
+    color: black;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    font-family: 'MabryPro';
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 0;
 }
 
 /* ========== Bande de Gout ========== */
@@ -41,11 +98,21 @@ main {
 .bande-de-gout-fg,
 .bande-de-gout-fl,
 .bande-de-gout-fv {
+    display: flex;
+    align-items: center;
+
     height: 23px;
     border-radius: 10px 10px 0px 0px;
     border: 2px solid #a79866;
     padding-left: 80px;
-    margin-top: 80px;
+    /* margin-top: 80px; */
+    font-family: BebasNeue;
+    color: white;
+}
+
+.no-pastille {
+    border-radius: 10px 10px 10px 10px;
+    /* height: 110px !important; */
 }
 
 .bande-de-gout-fv {

@@ -6,3 +6,38 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'GelicaRegular';
+    src: url('/fonts/gelica-regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GelicaLight';
+    src: url('/fonts/gelica-light.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Dillan';
+    src: url('/fonts/Dillan.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Bonobo';
+    src: url('/fonts/onobo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BebasNeue';
+    src: url('/fonts/BebasNeue-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
