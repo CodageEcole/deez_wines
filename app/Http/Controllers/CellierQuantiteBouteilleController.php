@@ -32,6 +32,16 @@ class CellierQuantiteBouteilleController extends Controller
      */
     public function store(Request $request)
     {
+        $cellierQuantiteBouteille = CellierQuantiteBouteille::where('cellier_id', $request->cellier_id)
+            ->where('bouteille_id', $request->bouteille_id)
+            ->first();
+
+        if($cellierQuantiteBouteille){
+            $cellierQuantiteBouteille->quantite += $request->quantite;
+            $cellierQuantiteBouteille->save();
+            return redirect()->route('celliers.show', $request->cellier_id);
+        }
+        
         $request->validate([
             'cellier_id' => 'required|integer',
             'bouteille_id' => 'required|integer',
