@@ -1,11 +1,5 @@
-@font-face {
-    font-family: 'MabryPro';
-    src: url('/fonts/MabryPro-Regular.ttf') format('ttf'),
-         url('/fonts/MabryPro-Regular.woff') format('woff'),
-         url('/fonts/MabryPro-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
+@import url('fonts.css');
+
 body, html{
     height: 100%;
     margin: 0;
@@ -16,7 +10,9 @@ body{
     display: flex;
     flex-direction: column;
     /** la largeur du téléphone dans le body au lieu de juste le footer? */
-    width: var(--iphone-14-w);
+    width: 100%;
+    min-width: var(--smoll-phone-w);
+    max-width: var(--desktop-w);
     
 }
 /* =========== HEADER =========== */
@@ -52,15 +48,20 @@ nav .logo img {
     height: 48px;
 }
 
+.grey-top,
+.blue-top {
+    width: 100%;
+    min-width: var(--smoll-phone-w);
+    max-width: var(--desktop-w);
+}
+
 .blue-top {
     height: 6px;
-    width: var(--iphone-14-w);
     background-color: var(--light-blue);
 }
 
 .grey-top {
     height: 4px;
-    width: var(--iphone-14-w);
     background-color: var(--light-grey);
 }
 
@@ -172,9 +173,25 @@ nav button img {
     color: white;
 
     margin-bottom: 0;
+    margin-top: 0;
 }
 
 .footer-icon-img {
     width: 60px;
     height: 60px;
+}
+
+/* ========== MEDIA ========== */
+
+@media (max-width: 385px) {
+
+    /* Footer */
+    .footer-icon-img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .footer-icon-tray p {
+        font-size: 14px;
+    }
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\CommentaireBouteilleController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminCellierController;
 use App\Http\Controllers\AdminBouteilleController;
+use App\Http\Controllers\AdminBouteillePersonnaliseeController;
 //* Relatif a Breeze
 use App\Http\Controllers\ProfileController;
 //* Relatif a Glide
@@ -64,6 +65,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
     Route::resource('bouteilles', AdminBouteilleController::class);
     Route::resource('users', AdminUserController::class);
     Route::resource('celliers', AdminCellierController::class);
+    Route::resource('bouteilles_personnalisees', AdminBouteillePersonnaliseeController::class);
 });
 
 //* SECTION APPLICATION DEEZ_WINES
@@ -71,6 +73,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 Route::resource('bouteilles', BouteilleController::class);
 Route::resource('users', UserController::class);
 Route::resource('celliers', CellierController::class);
+Route::resource('bouteilles_personnalisees', BouteillePersonnaliseeController::class);
 Route::resource('cellier_quantite_bouteille', CellierQuantiteBouteilleController::class);
 Route::resource('commentaire_bouteille', CommentaireBouteilleController::class);
 
@@ -82,6 +85,11 @@ Route::get('glide/{path}', function ($path) {
         'cache' => storage_path('app/glide'), // Chemin du cache des images manipulées
         'base_url' => '',
         'presets' => [
+            'maquette' => [
+                'w' => 50,
+                'h' => 160,
+                'fit' => 'crop',
+            ],
             'xs' => [
                 'w' => 100,
                 'h' => 150,
