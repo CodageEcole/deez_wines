@@ -65,10 +65,8 @@ class ScraperController extends Controller
                     $bouteille = new Bouteille();
                     $bouteille->code_SAQ = $code;
                     $bouteille->save();
-                    // comparateur de codes
+                    // ajout du code_SAQ de la nouvelle bouteille dans la variable codesExistants, on s'assure de jamais avoir de doublons car on compare le code suivant avec la liste des codes de la BDgs à jour
                     $codesExistants[] = $code;
-                    // traitement des erreurs
-                    $codeSAQ = $code;
                 }
             }
         }
