@@ -17,7 +17,13 @@
             <div>
                 <a href="{{ route('bouteilles.show', $bouteille->id) }}">{{ $bouteille->nom }}</a>
                 <span>Quantité : {{ $bouteille->pivot->quantite }}</span>
+                <button type="button" class="btn btn-primary btn-details" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
+                    Modifier
+                </button>
             </div>
         @endforeach
     </div>
 @endsection
+
+{{-- la boîte modale d'ajout de bouteilles au cellier --}}
+@include('components.modals.modale-modifier-bouteille')
