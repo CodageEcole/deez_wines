@@ -31,17 +31,17 @@ class ScraperController extends Controller
      */
     public function codes () {
 
-        // on récupère le total de pages avec 96 bouteilles par page
+        //* on récupère le nombre total de pages avec 96 bouteilles par page
         $totalPages = $this->getNombreTotalPages();
 
-        // récupération des codes de la SAQ déjà dans la base de données
+        //* récupération des codes de la SAQ déjà dans la base de données
         $codesExistants = [];
         if (DB::table('bouteilles')->count() > 0) {
 
             $codesExistants = DB::table('bouteilles')->pluck('code_SAQ')->toArray();
         }
 
-        //* instanciation de la variable contenant tous les codes de la BD, incluant les nouveaux ajoutés par cette fonction
+        //* instanciation de la variable contenant tous les codes reçus au fil des pages du catalogue, sert à comparer les codes reçus à ceux de la BD pour désactiver les bouteilles non présentes dans le catalogue
         $codes = [];
 
         for($page = 1; $page <= $totalPages; $page++){
@@ -95,21 +95,19 @@ class ScraperController extends Controller
      * fonction de récupération des informations détaillées de chaques nouvelles bouteilles dans la base de données
      */
     public function liste () {
+        // limite de temps à 0 pour la désactiver et ainsi potentiellement éliminer les erreurs de timeout
         set_time_limit(0);
         $erreurs = [];
+        // variable pour pouvoir afficher le code de la bouteille qui aurait déclenché une erreur dans le catch
+        $codeSAQ = "";
 
         try{
 
             $bouteillesNonScrapees = Bouteille::where('est_scrapee', false)->get();
 
-            //* Instanciation des Http Guzzlers
-            // $client_fr = new Client();
-            // $client_en = new Client();
-
-            // * compteur de bouteilles traitées
-            // $codesTraites = 0;
-            $codeSAQ = "";
+            // récupération des codes SAQ des bouteilles traitées, afin de les afficher dans la vue du résultat du scraper
             $listeCodesTraites = [];
+
             if(!$bouteillesNonScrapees->isEmpty()){
                 foreach ($bouteillesNonScrapees as $bouteille) {
                     $codeSAQ = $bouteille->code_SAQ;
@@ -285,8 +283,6 @@ class ScraperController extends Controller
          * @param $selecteur la classe à cibler par le crawler
          * @return $texte le texte trouvé dans la classe ciblée, null le cas échéant
          */
-        // function getTextFromCrawler($crawler, $selecteur) {
-            // $texte = $crawler->filter($selecteur)->first();
         function getTextFromCrawler($selecteur) {
 
             $texte = $this->crawler->filter($selecteur)->first();
@@ -494,5 +490,7 @@ class ScraperController extends Controller
                     $bouteille->save();
                 }
             }
+
+            return view("à compléter");
         }
 }
