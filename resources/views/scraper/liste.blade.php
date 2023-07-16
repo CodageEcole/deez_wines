@@ -10,7 +10,7 @@
     </div>
 @endif
 <p>Nombre de codes SAQ traités : {{ $codesTraites }}</p>
-<p>Nombre de bouteilles dans la BD : {{ $bouteilles->count() }}</p>
+<p>Nombre de bouteilles dans la BD : {{ $totalBouteilles }}</p>
 @if(empty($erreurs))
   <p>Aucune erreur détectée!</p>
 @endif
