@@ -1,34 +1,12 @@
-@push('styles') 
-<link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
-<link href=" {{ asset('css/detail-lr.css') }}" rel="stylesheet">
-@endpush
-
 @extends('layout.app')
 @section('title', 'Bouteille')
 @section('content')
-    
-    <main>
-        <div class="bouteille-container">
-            <!-- image bouteille cropped -->
-        </div>
-        <div class="description-container">
-            <div class="carte-titre">
-                <h2>{{ $bouteille->nom }}</h2>
-                <p>{{ $bouteille->couleur_fr }}  |  {{ $bouteille->format }}  |  {{ $bouteille->pays_fr }}</p>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
+    @push('styles') 
+    <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
+    @endpush
+    <div>
+        <h1>{{ $bouteille->nom }}</h1>
+        <hr>
         <div>
             <div>
                 <strong>{{ $bouteille->couleur_fr }} </strong>
@@ -70,6 +48,7 @@
                 <input type="number" name="note" id="note" min="0" max="5">
                 <button type="submit">Ajouter</button>
             </form>
-</main>
+        </div>
+    </div>
     
 @endsection

@@ -1,0 +1,44 @@
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+/* ========= Bouteille / image ========== */
+
+.bouteille-container {
+    width: 100%;
+    min-width: 95px;
+    max-width: 95px;
+}
+
+/* =========== Description =========== */
+
+.description-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 335px;
+    max-width: 335px;
+
+    padding-top: 25px;
+}
+
+.carte-titre {
+    display: flex;
+    flex-direction: column;
+}
+
+.carte-titre p {
+    margin-top: 10px;
+    margin-bottom: 0;
+
+    font-family: 'MabryPro';
+    font-size: 16px;
+}
+
+.carte-titre h2 {
+    margin: 0;
+
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
+    font-size: 28px;
+}
