@@ -1,0 +1,34 @@
+.celliers{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(187px, 1fr));
+    grid-auto-rows: 187px;
+    grid-gap: var(--back-to-card-margin);
+    margin: var(--back-to-card-margin);
+}
+.celliers>div{
+    background-color: var(--light-brown);
+    border-radius: 10px;
+}
+
+.celliers>div:last-of-type a{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    text-decoration: none;
+    color: #FFFFFF;
+    font-size: 28px;
+    
+    background-color: #A0764B;
+    border-radius: 10px;
+}
+
+
+
+.celliers img{
+    width: 95px;
+    height: 95px;
+}
