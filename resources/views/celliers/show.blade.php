@@ -27,3 +27,6 @@
 
 {{-- la boîte modale d'ajout de bouteilles au cellier --}}
 @include('components.modals.modale-modifier-bouteille')
+@push('scripts')
+<script src="{{ asset('js/modal.js')}}"></script>
+@endpush

@@ -1,4 +1,4 @@
-.modal {
+/* .modal {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -18,10 +18,10 @@
         padding: 20px;
         border: 1px solid #888;
         width: 80%;
-        max-width: 500px; /* Optional: Set a maximum width for the modal */
-    }
+        max-width: 500px;  Optional: Set a maximum width for the modal
+    } */
 
-    .close {
+    /* .close {
         color: #aaa;
         float: right;
         font-size: 28px;
@@ -31,4 +31,55 @@
 
     .close:hover {
         color: black;
-    }
+    } */
+
+.formulairePage>h2{
+    background-color: var(--light-brown);
+    margin-top: initial;
+    padding: 5px;
+    border-radius: 10px 10px 0 0;
+}
+.formulairePage hr{
+    color: #E2E2E3 ;
+}
+
+dialog :is(input, button, span, select){
+    color: #848484;
+}
+
+dialog button{
+    width: 100%;
+    padding-block: 30px;
+    cursor: pointer;
+}
+dialog button:hover{
+    background-color: #000000;
+}
+.modaleActions{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    gap: 5px;
+}
+
+.quantity-input{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding-inline: 5px;
+}
+.quantity-input>input{
+    height: min-content;
+    width: min-content;
+}
+.quantity-input>div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.plusMinus span{
+    padding: 20px;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px #E2E2E3;
+}

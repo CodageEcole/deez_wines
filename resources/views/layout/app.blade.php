@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-Ms5qXNxHPT+B0DnH6X60r0Z9Cxsijp5ecUTM/Lm5prMwQ7PJhqW8wDjhWcSLgG9m" crossorigin="anonymous">
     <link href=" {{ asset('css/layout-lr.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/root.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/modal.js') }}"></script>
-    <script src="{{ asset('js/search.js') }}"></script>
     <title>Layout</title>
 </head>
 {{-- {{ asset('images/icons/add_icon_white.svg') }} --}}
@@ -69,5 +67,6 @@
             </a>
         </div>
     </footer>
+    @stack('scripts')
 </body>
 </html>
