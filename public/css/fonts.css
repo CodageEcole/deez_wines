@@ -30,9 +30,20 @@
 
 @font-face {
     font-family: 'Bonobo';
-    src: url('/fonts/onobo.ttf') format('truetype');
+    src: url('/fonts/Bonobo.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+    unicode-range: U+00E9, /* é */
+                   U+00E8, /* è */
+                   U+00EB, /* ë */
+                   U+00E0, /* à */
+                   U+00E4, /* ä */
+                   U+00F6, /* ö */
+                   U+00F3, /* ó */
+                   U+00E7, /* ç */
+                   U+002D, /* - */
+                   U+002F, /* / */
+                   U+0034; /* 4 */
 }
 
 @font-face {

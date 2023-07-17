@@ -13,7 +13,7 @@ main {
 .carte-vin {
     display: flex;
     width: 100%;
-    min-width: var(--small-phone-w);
+    min-width: var(--small-phone-w-paddingIncluded);
     max-width: var(--desktop-w);
     height: auto;
     min-height: 90px;
@@ -67,7 +67,7 @@ main {
 
 
 h2 {
-    font-family: 'GelicaLight';
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
     font-size: 20px;
     font-weight: normal;
     color: black;
@@ -153,4 +153,26 @@ p {
 
 .bande-de-gout-fv {
     background-color: var(--fv);
+}
+
+/* ========== MEDIA ========== */
+
+@media (max-width: 385px) {
+
+    h2 {
+        font-size: 16px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    .invisible-385px {
+        display: none;
+    }
+
+    .overlap img {
+        width: 18px;
+        height: 18px;
+    }
 }

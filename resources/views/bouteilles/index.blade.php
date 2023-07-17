@@ -54,7 +54,7 @@
                                 </button> --}}
                             </div>
                             <div class="overlap" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
-                                <p>Ajouter</p><img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
+                                <p class="invisible-385px">Ajouter</p><img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
                             </div>
                         </section>
                     </div>

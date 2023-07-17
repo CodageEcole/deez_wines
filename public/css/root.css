@@ -32,5 +32,6 @@
     /* ==================== MOBILE WIDTH // HEIGHT ================ */
     --iphone-14-w: 430px;
     --small-phone-w: 320px;
+    --small-phone-w-paddingIncluded: 287px;
     --desktop-w: 1920px;
 }
