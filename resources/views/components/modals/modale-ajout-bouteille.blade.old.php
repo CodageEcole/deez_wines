@@ -1,8 +1,14 @@
-<dialog id="modal" class="modalePage">
-    {{-- <span class="close" onclick="closeModal()">&times;</span>--}}
-    <form id="modal-form" method="POST" action="{{ route('cellier_quantite_bouteille.store') }}">
-        <h2 id="modal-title"></h2>
+<div id="modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modal-title"></h2> 
+        <form id="modal-form" method="POST" action="{{ route('cellier_quantite_bouteille.store') }}">
         @csrf
+        <select name="cellier_id">
+            @foreach ($celliers as $cellier)
+                <option value="{{ $cellier->id }}">{{ $cellier->nom }}</option>
+            @endforeach
+        </select>
         <div class="quantity-input">
             <span class="quantity-btn minus-btn" onclick="decrementQuantity()">&#8722;</span>
             <input name="quantite" type="number" id="quantity" value="1" min="1">
@@ -17,5 +23,6 @@
                 Annuler
             </button>
         </div>
-    </form>
-</dialog>
+        </form>
+    </div>
+</div>
