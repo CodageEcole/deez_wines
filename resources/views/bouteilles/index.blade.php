@@ -107,15 +107,17 @@
         <p>aucune bouteille trouvée</p>
     @endif
 
-@if(count($bouteilles) > 30)
+@if(count($bouteilles) >= 30)
     {{-- la boîte modale de navigation --}}
     @include('components.modals.modale-pagination')
+    @push('scripts')
+        <script src="{{ asset('js/pagination.js') }}"></script>
+    @endpush
 @endif
 {{-- la boîte modale d'ajout de bouteilles au cellier --}}
 @include('components.modals.modale-ajout-bouteille')
+@push('scripts')
+<script src="{{ asset('js/modal.js')}}"></script>
+@endpush
 </main>
-
-@if(count($bouteilles) > 30)
-    <script src="{{ asset('js/pagination.js') }}"></script>
-@endif
 @endsection

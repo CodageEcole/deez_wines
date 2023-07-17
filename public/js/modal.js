@@ -1,3 +1,13 @@
+var modal = document.getElementById("modal");
+
+window.addEventListener("click", function(event) {
+
+    if (event.target === modal) {
+        // fermeture de la boîte modale
+        modal.close();
+    }
+});
+
 function openModal(nom, id) {
     var modal = document.getElementById("modal");
     var modalTitle = document.getElementById("modal-title");
@@ -11,7 +21,8 @@ function openModal(nom, id) {
 
     form.reset();
 
-    modal.style.display = "block";
+    modal.showModal();
+    // modal.style.display = "block";
 }
 
 function closeModal() {
@@ -20,7 +31,8 @@ function closeModal() {
     
     form.reset();
 
-    modal.style.display = "none";
+    // modal.style.display = "none";
+    modal.close();
 }
 
 function decrementQuantity() {

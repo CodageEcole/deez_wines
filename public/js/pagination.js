@@ -4,6 +4,7 @@ const formulairePage = document.querySelector(".formulairePage");
 let numeroPage = document.querySelector(".numeroPage");
 
 boutonPage.addEventListener("click", function() {
+    console.log("test");
     // affichage de la boîte modale
     modalePage.showModal();
 });
@@ -15,8 +16,6 @@ window.addEventListener("click", function(event) {
         modalePage.close();
     }
 });
-
-
 
 formulairePage.addEventListener("submit", function(event) {
     event.preventDefault();
