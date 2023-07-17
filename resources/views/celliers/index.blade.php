@@ -1,6 +1,7 @@
 @extends('layout.app')
 @section('title', 'Vos Celliers')
 @section('content')
+<main>
     <div>
         @foreach($celliers as $cellier)
             <div class="cellier">
@@ -12,4 +13,5 @@
         @endforeach
     </div>
     <a href="{{ route('celliers.create') }}">Ajouter un cellier</a>
+</main>
 @endsection

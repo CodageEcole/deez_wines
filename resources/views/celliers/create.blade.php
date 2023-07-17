@@ -1,6 +1,7 @@
 @extends('layout.app')
 @section('title', 'Ajouter un cellier')
 @section('content')
+<main>
     <form action="{{ route('celliers.store') }}" method="POST">
         @csrf
         <div>
@@ -11,4 +12,5 @@
             <button type="submit">Ajouter</button>
         </div>
     </form>
+</main>
 @endsection
