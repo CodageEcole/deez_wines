@@ -1,6 +1,7 @@
 @extends('layout.app')
 @section('title', $cellier->nom)
 @section('content')
+<main>
     <div>
         <h1>{{ $cellier->nom }}</h1>
         <a href="{{ route('celliers.edit', $cellier->id) }}">Modifier</a>
@@ -23,6 +24,7 @@
             </div>
         @endforeach
     </div>
+</main>
 @endsection
 
 {{-- la boîte modale d'ajout de bouteilles au cellier --}}

@@ -1,6 +1,5 @@
 <dialog id="modal" class="modalePage">
     <form id="modal-form" class="formulairePage" method="POST" action="{{ route('cellier_quantite_bouteille.store') }}">
-        {{-- <span class="close" onclick="closeModal()">&times;</span> --}}
         <h2 id="modal-title"></h2>
         <hr>
         @csrf
