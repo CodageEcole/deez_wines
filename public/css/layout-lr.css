@@ -187,11 +187,25 @@ nav button img {
 
     /* Footer */
     .footer-icon-img {
-        width: 45px;
-        height: 45px;
+        width: 35px;
+        height: 35px;
     }
 
     .footer-icon-tray p {
-        font-size: 14px;
+        font-size: 13px;
+    }
+
+    /* Header */
+    nav:not(.pagination) {
+        height: 40px;
+    }
+
+    nav:not(.pagination) a, nav .logo img {
+        height: 35px;
+    }
+
+    .search-more a:first-child {
+        height: 38px;
+        width: 38px;
     }
 }

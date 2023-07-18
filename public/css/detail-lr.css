@@ -1,0 +1,160 @@
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+/* ========= Bouteille / image ========== */
+
+.bouteille-container {
+    position: absolute;
+    width: 100%;
+    min-width: 95px;
+    max-width: 95px;
+}
+
+.bouteille-container img {
+    position: absolute;
+    top: 110px;
+    left: -180px;
+
+    height: 540px;
+
+    pointer-events: none;
+}
+
+/* =========== Description =========== */
+
+.description-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    min-width: 335px;
+    max-width: 335px;
+
+    margin-left: 95px;
+
+    gap: 40px;
+
+    padding-top: 25px;
+}
+
+/* titre */
+.carte-titre {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-right: 45px;
+}
+
+.carte-titre p {
+    margin: 0;
+
+    font-family: 'MabryPro';
+    font-size: 16px;
+}
+
+.carte-titre h2 {
+    margin: 0;
+
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
+    font-size: 28px;
+}
+
+/* Bouton Ajouter */
+.bouton-ajouter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    min-width: 200px;
+    max-width: 290px;
+    height: 50px;
+    flex-shrink: 0;
+
+    background-color: var(--light-brown);
+    text-decoration: none;
+    border-radius: 5px;
+
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
+    font-size: 20px;
+    color: white;
+}
+
+.bouton-ajouter img {
+    height: 25px;
+}
+
+/* == informations == */
+.informations {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: 'MabryPro';
+    letter-spacing: 0.7px;
+
+    padding-right: 45px;
+}
+
+/* info-double */
+.info-double {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.info-double div {
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+}
+
+.info-double h3,
+.info-double p,
+.info-simple h3,
+.info-simple p,
+.info-detaillee h3,
+.info-detaillee p {
+    margin: 0;
+}
+
+.info-double h3,
+.info-simple h3 {
+    font-weight: normal;
+}
+
+.info-double p,
+.info-simple p {
+    font-weight: bold;
+}
+
+/* info-simple */
+.info-simple,
+.info-detaillee {
+    display: flex;
+    flex-direction: column;
+}
+
+/* info detaillée */
+.info-detaillee h3 {
+    font-weight: bold;
+}
+
+.info-detaillee {
+    gap: 5px;
+}
+
+/* division */
+.division {
+    width: 100%;
+    min-width: 275px;
+    max-width: 400px;
+
+    height: 2px;
+    border-radius: 5px;
+    background-color: var(--light-grey);
+}

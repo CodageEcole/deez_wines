@@ -5,7 +5,7 @@
     <link href=" {{ asset('css/paginate.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
 @endpush
-<main class="demo-liste">
+<main>
     {{-- <h1 class="titre-principal"> Toutes les bouteilles!</h1> --}}
     @if($bouteilles)
         @foreach ($bouteilles as $bouteille)

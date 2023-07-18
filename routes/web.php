@@ -85,6 +85,11 @@ Route::get('glide/{path}', function ($path) {
         'cache' => storage_path('app/glide'), // Chemin du cache des images manipulées
         'base_url' => '',
         'presets' => [
+            'detail' => [
+                'w' => 360,
+                'h' => 540,
+                'fit' => 'crop',
+            ],
             'maquette' => [
                 'w' => 50,
                 'h' => 160,
