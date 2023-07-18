@@ -66,20 +66,10 @@
                                     <p>Quantité : <span class="nombreBouteilles">{{ $quantiteBouteille->quantite }}</span></p>
                                 </div>
                             </div>
+                            <div>
+                                <button class="modifierQuantite" data-id="{{ $quantiteBouteille->id }}" data-nombre="{{ $quantiteBouteille->quantite }}">Modifier</button>
+                            </div>
 
-                            <form action="{{ route('cellier_quantite_bouteille.store') }}">
-                                @csrf
-                                <div class="overlap boireBouteille" data-nom="{{ $quantiteBouteille->bouteille->nom }}" data-id="{{ $quantiteBouteille->bouteille->id }}"><button style="appearance:none;" type="submit">Boire</button></div>
-                            </form>
-                            @if($quantiteBouteille->quantite > 1)
-                            <form action="{{ route('cellier_quantite_bouteille.update', $quantiteBouteille->id) }}">
-                            @else
-                            <form action="{{ route('cellier_quantite_bouteille.destroy', $quantiteBouteille->id) }}">
-                            @endif
-                                @csrf
-                                <div class="overlap boireBouteille" data-nom="{{ $quantiteBouteille->bouteille->nom }}" data-id="{{ $quantiteBouteille->bouteille->id }}"><button type="submit">Boire</button></div>
-                                
-                            </form>
                             {{-- <div class="overlap boireBouteille" dataNom="{{ $quantiteBouteille->bouteille->nom }} dataId="{{ $quantiteBouteille->bouteille->id }}"onclick="openModal('{{ $quantiteBouteille->bouteille->nom }}', '{{ $quantiteBouteille->bouteille->id }}')">
                                 <p>Boire</p>
                             </div>
@@ -104,10 +94,10 @@
 
 
 {{-- la boîte modale d'ajout de bouteilles au cellier --}}
-@include('components.modals.modale-modifier-bouteille')
+@include('components.modals.modale-changer-qte-bouteille')
 @include('components.modals.modale-confirmer-suppression')
 @push('scripts')
 {{-- <script src="{{ asset('js/modal.js')}}"></script> --}}
-<script src="{{ asset('js/boireBouteille.js') }}"></script>
+<script src="{{ asset('js/changerQuantiteBouteille.js') }}"></script>
 <script src="{{ asset('js/confirmerSupp.js') }}"></script>
 @endpush
