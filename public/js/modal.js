@@ -8,16 +8,21 @@ window.addEventListener("click", function(event) {
     }
 });
 
-function openModal(nom, id) {
+function openModal(nom, id, cellierId) {
     var modal = document.getElementById("modal");
     var modalTitle = document.getElementById("modal-title");
     var form = document.getElementById("modal-form");
     var bouteilleIdInput = document.getElementById("bouteille-id");
     var quantityInput = document.getElementById("quantity");
+    var quantiteActuelle = document.getElementById("quantite-actuelle");
+    var cellierIdInput = document.getElementById("cellier-id");
 
     modalTitle.innerText = nom;
     bouteilleIdInput.value = id;
-    quantityInput.value = 1;
+    if(cellierIdInput != null){
+        cellierIdInput.value = cellierId;
+    }
+    quantityInput.value = parseInt(quantiteActuelle.innerHTML);
 
     form.reset();
 

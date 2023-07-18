@@ -36,26 +36,29 @@ class CellierQuantiteBouteilleController extends Controller
             ->where('bouteille_id', $request->bouteille_id)
             ->first();
 
-        if($cellierQuantiteBouteille){
-            $cellierQuantiteBouteille->quantite += $request->quantite;
+        // Check if the bottle quantity already exists in the cellar
+        if ($cellierQuantiteBouteille) {
+            // Update the existing quantity based on the source page
+            if ($request->source_page == 'bouteilles.index') {
+                $cellierQuantiteBouteille->quantite += $request->quantite;
+            } else {
+                $cellierQuantiteBouteille->quantite = $request->quantite;
+            }
             $cellierQuantiteBouteille->save();
-            return redirect()->route('celliers.show', $request->cellier_id);
+        } else {
+            // Create a new quantity entry in the cellar
+            $request->validate([
+                'cellier_id' => 'required|integer',
+                'bouteille_id' => 'required|integer',
+                'quantite' => 'required|integer',
+            ]);
+
+            $cellierQuantiteBouteille = CellierQuantiteBouteille::create([
+                'cellier_id' => $request->cellier_id,
+                'bouteille_id' => $request->bouteille_id,
+                'quantite' => $request->quantite,
+            ]);
         }
-        
-        $request->validate([
-            'cellier_id' => 'required|integer',
-            'bouteille_id' => 'required|integer',
-            'quantite' => 'required|integer',
-        ]);
-        
-        $cellierQuantiteBouteille = CellierQuantiteBouteille::create([
-            'cellier_id' => $request->cellier_id,
-            'bouteille_id' => $request->bouteille_id,
-            'quantite' => $request->quantite,
-        ]);
-
-        $cellierQuantiteBouteille->save();
-
 
         return redirect()->route('celliers.show', $request->cellier_id);
     }
