@@ -28,7 +28,7 @@
                 Ajouter <img src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Ajouter">
             </a> --}}
             <a class="bouton-ajouter" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
-                <p class="invisible-385px">Ajouter</p><img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
+                Ajouter<img src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Plus">
             </a>
 
             <div class="informations">
