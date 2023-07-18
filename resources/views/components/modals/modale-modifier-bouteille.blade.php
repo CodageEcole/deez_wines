@@ -10,10 +10,12 @@
             <span class="quantity-btn plus-btn" onclick="incrementQuantity()">&#43;</span>
         </div>
         <input type="hidden" name="bouteille_id" id="bouteille-id">
+        <input type="hidden" name="cellier_id" id="cellier-id">
+        <input type="hidden" name="source_page" value="celliers.show">
         <hr>
         <div>
             <button type="submit" class="btn btn-primary btn-details">
-                Ajouter
+                Sauvegarder
             </button>
             <button type="button" class="btn btn-secondary btn-details" onclick="closeModal()">
                 Annuler

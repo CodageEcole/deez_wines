@@ -17,8 +17,8 @@
         @foreach($bouteilles as $bouteille)
             <div>
                 <a href="{{ route('bouteilles.show', $bouteille->id) }}">{{ $bouteille->nom }}</a>
-                <span>Quantité : {{ $bouteille->pivot->quantite }}</span>
-                <button type="button" class="btn btn-primary btn-details" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
+                <span>Quantité : <strong id="quantite-actuelle">{{ $bouteille->pivot->quantite }}</strong></span>
+                <button type="button" class="btn btn-primary btn-details" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}', '{{ $cellier->id }}')">
                     Modifier
                 </button>
             </div>

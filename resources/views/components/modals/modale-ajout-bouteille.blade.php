@@ -21,6 +21,7 @@
             </div>
         </div>
         <input type="hidden" name="bouteille_id" id="bouteille-id">
+        <input type="hidden" name="source_page" value="bouteilles.index">
         <hr>
         <div class="modaleActions">
             <button type="submit" class="btn btn-primary btn-details">Ajouter</button>
