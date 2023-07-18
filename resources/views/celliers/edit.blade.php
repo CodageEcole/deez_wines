@@ -1,6 +1,7 @@
 @extends('layout.app')
 @section('title', 'Modifier' . $cellier->nom)
 @section('content')
+<main>
     <form action="{{ route('celliers.update', $cellier->id) }}" method="POST">
         @csrf
         @method('PUT')
@@ -12,4 +13,5 @@
             <button type="submit">Modifier</button>
         </div>
     </form>
+</main>
 @endsection

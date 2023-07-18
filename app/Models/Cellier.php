@@ -41,6 +41,31 @@ class Cellier extends Model
         return $this->cellierQuantiteBouteille()->sum('quantite');
     }
 
+    //*Retourne les couleurs
+    public function quantiteBouteillesRouges()
+    {
+        return $this->cellierQuantiteBouteille()
+        ->join('bouteilles', 'cellier_quantite_bouteilles.bouteille_id', '=', 'bouteilles.id')
+        ->where('bouteilles.couleur_fr', 'Rouge')
+        ->sum('quantite');
+    }
+
+    public function quantiteBouteillesRoses()
+    {
+        return $this->cellierQuantiteBouteille()
+        ->join('bouteilles', 'cellier_quantite_bouteilles.bouteille_id', '=', 'bouteilles.id')
+        ->where('bouteilles.couleur_fr', 'Rosé')
+        ->sum('quantite');
+    }
+
+    public function quantiteBouteillesBlanches()
+    {
+        return $this->cellierQuantiteBouteille()
+        ->join('bouteilles', 'cellier_quantite_bouteilles.bouteille_id', '=', 'bouteilles.id')
+        ->where('bouteilles.couleur_fr', 'Blanc')
+        ->sum('quantite');
+    }
+
     public function bouteilles()
     {
         return $this->belongsToMany(Bouteille::class, 'cellier_quantite_bouteilles')
