@@ -22,6 +22,7 @@ use App\Http\Controllers\ProfileController;
 use League\Glide\ServerFactory;
 use League\Glide\Responses\LaravelResponseFactory;
 
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,98 +33,111 @@ use League\Glide\Responses\LaravelResponseFactory;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+/* Route::group(
+[
+	'prefix' => LaravelLocalization::setLocale(),
+	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+], function(){ //...
+}); */
+//How to have the locale set to fr-CA be default
+Route::group(
+[
+    'prefix' => LaravelLocalization::setLocale(),
+    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+], function()
+{
+    Route::get('/', function () {
+        return view('auth.login');
+    });
 
-Route::get('/', function () {
-    return view('auth.login');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+
+    require __DIR__.'/auth.php';
+    //* SECTION SCRAPER
+    Route::prefix('scraper')->name('scraper.')->group(function () {
+        Route::get('/', [ScraperController::class, 'index'])->name('index');
+        Route::get('/welcome', [ScraperController::class, 'welcome'])->name('welcome');
+        Route::get('/keywords', [ScraperController::class, 'keywords'])->name('keywords');
+        Route::get('/codes', [ScraperController::class, 'codes'])->name('codes');
+        Route::get('/liste', [ScraperController::class, 'liste'])->name('liste');
+    });
+
+    //* SECTION SPRINT0
+    Route::get('/sprint0', [Sprint0Controller::class, 'demoListe'])->name('sprint0.liste');
+
+    //* SECTION ADMIN 
+    Route::prefix('admin')->middleware('admin')->group(function () {
+        Route::resource('bouteilles', AdminBouteilleController::class);
+        Route::resource('users', AdminUserController::class);
+        Route::resource('celliers', AdminCellierController::class);
+        Route::resource('bouteilles_personnalisees', AdminBouteillePersonnaliseeController::class);
+    });
+
+    //* SECTION APPLICATION DEEZ_WINES
+    //Route::get('bouteilles/search', [BouteilleController::class, 'search'])->name('bouteilles.search');
+    Route::resource('bouteilles', BouteilleController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('celliers', CellierController::class);
+    Route::resource('bouteilles_personnalisees', BouteillePersonnaliseeController::class);
+    Route::resource('cellier_quantite_bouteille', CellierQuantiteBouteilleController::class);
+    Route::resource('commentaire_bouteille', CommentaireBouteilleController::class);
+
+    //* SECTION GLIDE (manipulation d'images)
+    Route::get('glide/{path}', function ($path) {
+        $server = ServerFactory::create([
+            'response' => new LaravelResponseFactory(),
+            'source' => storage_path('app'), // Chemin de la source des images originales
+            'cache' => storage_path('app/glide'), // Chemin du cache des images manipulées
+            'base_url' => '',
+            'presets' => [
+                'detail' => [
+                    'w' => 360,
+                    'h' => 540,
+                    'fit' => 'crop',
+                ],
+                'maquette' => [
+                    'w' => 50,
+                    'h' => 160,
+                    'fit' => 'crop',
+                ],
+                'xs' => [
+                    'w' => 100,
+                    'h' => 150,
+                    'fit' => 'crop',
+                ],
+                'sm' => [
+                    'w' => 320,
+                    'h' => 240,
+                    'fit' => 'crop',
+                ],
+                'md' => [
+                    'w' => 640,
+                    'h' => 480,
+                    'fit' => 'crop',
+                ],
+                'lg' => [
+                    'w' => 800,
+                    'h' => 600,
+                    'fit' => 'crop',
+                ],
+                'xl' => [
+                    'w' => 1024,
+                    'h' => 768,
+                    'fit' => 'crop',
+                ],
+            ],
+        ]);
+
+        $params = request()->all();
+
+        return $server->getImageResponse($path, $params);
+    })->where('path', '.*');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
-//* SECTION SCRAPER
-Route::prefix('scraper')->name('scraper.')->group(function () {
-    Route::get('/', [ScraperController::class, 'index'])->name('index');
-    Route::get('/welcome', [ScraperController::class, 'welcome'])->name('welcome');
-    Route::get('/keywords', [ScraperController::class, 'keywords'])->name('keywords');
-    Route::get('/codes', [ScraperController::class, 'codes'])->name('codes');
-    Route::get('/liste', [ScraperController::class, 'liste'])->name('liste');
-});
-
-//* SECTION SPRINT0
-Route::get('/sprint0', [Sprint0Controller::class, 'demoListe'])->name('sprint0.liste');
-
-//* SECTION ADMIN 
-Route::prefix('admin')->middleware('admin')->group(function () {
-    Route::resource('bouteilles', AdminBouteilleController::class);
-    Route::resource('users', AdminUserController::class);
-    Route::resource('celliers', AdminCellierController::class);
-    Route::resource('bouteilles_personnalisees', AdminBouteillePersonnaliseeController::class);
-});
-
-//* SECTION APPLICATION DEEZ_WINES
-//Route::get('bouteilles/search', [BouteilleController::class, 'search'])->name('bouteilles.search');
-Route::resource('bouteilles', BouteilleController::class);
-Route::resource('users', UserController::class);
-Route::resource('celliers', CellierController::class);
-Route::resource('bouteilles_personnalisees', BouteillePersonnaliseeController::class);
-Route::resource('cellier_quantite_bouteille', CellierQuantiteBouteilleController::class);
-Route::resource('commentaire_bouteille', CommentaireBouteilleController::class);
-
-//* SECTION GLIDE (manipulation d'images)
-Route::get('glide/{path}', function ($path) {
-    $server = ServerFactory::create([
-        'response' => new LaravelResponseFactory(),
-        'source' => storage_path('app'), // Chemin de la source des images originales
-        'cache' => storage_path('app/glide'), // Chemin du cache des images manipulées
-        'base_url' => '',
-        'presets' => [
-            'detail' => [
-                'w' => 360,
-                'h' => 540,
-                'fit' => 'crop',
-            ],
-            'maquette' => [
-                'w' => 50,
-                'h' => 160,
-                'fit' => 'crop',
-            ],
-            'xs' => [
-                'w' => 100,
-                'h' => 150,
-                'fit' => 'crop',
-            ],
-            'sm' => [
-                'w' => 320,
-                'h' => 240,
-                'fit' => 'crop',
-            ],
-            'md' => [
-                'w' => 640,
-                'h' => 480,
-                'fit' => 'crop',
-            ],
-            'lg' => [
-                'w' => 800,
-                'h' => 600,
-                'fit' => 'crop',
-            ],
-            'xl' => [
-                'w' => 1024,
-                'h' => 768,
-                'fit' => 'crop',
-            ],
-        ],
-    ]);
-
-    $params = request()->all();
-
-    return $server->getImageResponse($path, $params);
-})->where('path', '.*');

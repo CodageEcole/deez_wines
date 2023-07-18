@@ -7,14 +7,14 @@
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
+            <x-input-label for="email" :value="__('messages.email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <x-input-label for="password" :value="__('messages.password')" />
 
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
@@ -28,21 +28,30 @@
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                <span class="ml-2 text-sm text-gray-600">{{ __('messages.remember_me') }}</span>
             </label>
         </div>
         <div class="flex items-center justify-end mt-4">
             <div class="flex flex-col items-center justify-end">
                 @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Oublié votre mot de passe?') }}
+                    {{ __('messages.forgot_password') }}
                 </a>
                 @endif
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register')}}">Créer un compte</a></a>
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register')}}">{{ __('messages.create_account') }}</a></a>
             </div>
             <x-primary-button class="ml-3">
-                {{ __('Log in') }}
+                {{ __('messages.log_in') }}
             </x-primary-button>
         </div>
     </form>
+    <ul>
+        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+            @if($localeCode != LaravelLocalization::getCurrentLocale())
+                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                    {{ $properties['native'] }}
+                </a>
+            @endif
+        @endforeach
+    </ul>
 </x-guest-layout>
