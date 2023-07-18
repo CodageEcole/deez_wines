@@ -62,6 +62,7 @@ class CellierQuantiteBouteilleController extends Controller
 
         return redirect()->route('celliers.show', $request->cellier_id);
     }
+    
 
     /**
      * Display the specified resource.
