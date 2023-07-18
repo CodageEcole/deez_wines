@@ -5,10 +5,10 @@
     <div>
         <h1>{{ $cellier->nom }}</h1>
         <a href="{{ route('celliers.edit', $cellier->id) }}">Modifier</a>
-        <form action="{{ route('celliers.destroy', $cellier->id) }}" method="POST">
+        <form class="formulaireDel" action="{{ route('celliers.destroy', $cellier->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button type="submit">Supprimer</button>
+            <button class="boutonSupp" type="submit">Supprimer</button>
         </form>
     </div>
     <div>
@@ -29,6 +29,8 @@
 
 {{-- la boîte modale d'ajout de bouteilles au cellier --}}
 @include('components.modals.modale-modifier-bouteille')
+@include('components.modals.modale-confirmer-suppression')
 @push('scripts')
 <script src="{{ asset('js/modal.js')}}"></script>
+<script src="{{ asset('js/confirmerSupp.js') }}"></script>
 @endpush
