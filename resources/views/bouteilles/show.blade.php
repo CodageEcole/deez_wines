@@ -2,7 +2,9 @@
 <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
 <link href=" {{ asset('css/detail-lr.css') }}" rel="stylesheet">
 @endpush
-
+@push('scripts')
+<script src="{{ asset('js/modal.js')}}"></script>
+@endpush
 @extends('layout.app')
 @section('title', 'Bouteille')
 @section('content')
@@ -22,8 +24,11 @@
                 <p>{{ $bouteille->couleur_fr }}  |  {{ $bouteille->format }}  |  {{ $bouteille->pays_fr }}</p>
             </div>
 
-            <a class="bouton-ajouter" href="">
+            {{-- <a class="bouton-ajouter" href="">
                 Ajouter <img src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Ajouter">
+            </a> --}}
+            <a class="bouton-ajouter" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
+                <p class="invisible-385px">Ajouter</p><img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
             </a>
 
             <div class="informations">
@@ -135,4 +140,8 @@
             </form>
 </main>
     
+@include('components.modals.modale-ajout-bouteille')
+@push('scripts')
+<script src="{{ asset('js/modal.js')}}"></script>
+@endpush
 @endsection

@@ -89,7 +89,8 @@ class BouteilleController extends Controller
             ::where('bouteille_id', $bouteille->id)
             ->where('user_id', auth()->id())
             ->get()->first();
-        return view('bouteilles.show', compact('bouteille', 'commentaireBouteille'));
+        $celliers = Cellier::where('user_id', auth()->id())->get();
+        return view('bouteilles.show', compact('bouteille', 'commentaireBouteille', 'celliers'));
     }
 
     /**

@@ -21,8 +21,8 @@ function openModal(nom, id, cellierId) {
     bouteilleIdInput.value = id;
     if(cellierIdInput != null){
         cellierIdInput.value = cellierId;
+        quantityInput.value = parseInt(quantiteActuelle.innerHTML);
     }
-    quantityInput.value = parseInt(quantiteActuelle.innerHTML);
 
     form.reset();
 
