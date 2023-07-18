@@ -6,18 +6,18 @@
 @section('content')
 <main class="celliers">
     @foreach($celliers as $cellier)
-        <div>
-            <div class="cellier">
-                <a href="{{ route('celliers.show', $cellier->id) }}">{{ $cellier->nom }}
-                    <div>
-                        <span>Bouteilles : {{ $cellier->quantite_bouteilles }}</span>
+        <div class="cellier">
+            <a href="{{ route('celliers.show', $cellier->id) }}"> <span>{{ $cellier->nom }}</span>
+                <div class="infosCellier">
+                    <span>Bouteilles : {{ $cellier->quantite_bouteilles }}</span>
+                    @if($cellier->quantite_bouteilles > 0)
+                    <div >
                         <hr>
-                        @if($cellier->quantite_bouteilles > 0)
                         <span>Rouge : {{ $cellier->quantiteBouteillesRouges() ?? 0 }} Rosé : {{ $cellier->quantiteBouteillesRoses() ?? 0 }} Blanc : {{ $cellier->quantiteBouteillesBlanches() ?? 0 }}</span>
-                        @endif
                     </div>
-                </a>
-            </div>
+                    @endif
+                </div>
+            </a>
         </div>
     @endforeach
     <div>

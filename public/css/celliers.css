@@ -26,9 +26,39 @@
     border-radius: 10px;
 }
 
-
-
 .celliers img{
     width: 95px;
     height: 95px;
+}
+
+.cellier a{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    text-decoration: none;
+    color: #FFFFFF;
+    margin: 10px 0 0 10px;
+}
+
+.cellier>a>span:first-of-type{
+    font-size: 28px;
+}
+
+.cellier span{
+    text-decoration: none;
+    font-size: 11px;
+}
+
+.infosCellier{
+    width: fit-content;
+    padding: 0 0 20px 0;
+}
+
+.infosCellier>span{
+    font-size: 14px;
+}
+
+.infosCellier hr{
+    color: #FFFFFF;
 }

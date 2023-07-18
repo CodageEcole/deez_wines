@@ -31,14 +31,15 @@
                 <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
             </label>
         </div>
-
         <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
+            <div class="flex flex-col items-center justify-end">
+                @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                     {{ __('Oublié votre mot de passe?') }}
                 </a>
-            @endif
-
+                @endif
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register')}}">Créer un compte</a></a>
+            </div>
             <x-primary-button class="ml-3">
                 {{ __('Log in') }}
             </x-primary-button>

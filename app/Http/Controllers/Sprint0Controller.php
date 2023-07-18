@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Bouteille;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Bouteille;
 
 class Sprint0Controller extends Controller
 {
