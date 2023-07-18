@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
     <script src="{{ asset('js/search.js') }}" defer></script>
     <title>Layout</title>
 </head>
-{{-- {{ asset('images/icons/add_icon_white.svg') }} --}}
+
 <body>
 
     <header>
@@ -50,7 +50,7 @@
 
     <footer>
         <div class="footer-icon-tray">
-            <a href="dashboard">
+            <a href="{{ route('profile.edit') }}">
                 <img class="footer-icon-img" src="{{ asset('icons/profil_icon_white.svg') }}" alt="Profil">
                 <p>Profil</p>
             </a>

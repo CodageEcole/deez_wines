@@ -12,5 +12,6 @@
             <button type="submit">Ajouter</button>
         </div>
     </form>
+
 </main>
 @endsection

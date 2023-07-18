@@ -34,7 +34,7 @@
     </main>
 
     <footer>
-        <p>Projet Réalisé par : Philippe Malo, Émile Daigneault, Louis Roby et Fataki Nsimba</p>
+        <p>Projet Réalisé par : Philippe Malo, Émile Daigneaul et Louis Roby</p>
         <p>Tous Droits Réservés © DW 2023</p>
     </footer>
 </html>
