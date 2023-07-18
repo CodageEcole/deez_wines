@@ -90,6 +90,7 @@ class CellierQuantiteBouteilleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    // public function destroy(CellierQuantiteBouteille $cellierQuantiteBouteille)
     public function destroy(CellierQuantiteBouteille $cellierQuantiteBouteille)
     {
         //

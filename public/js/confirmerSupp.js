@@ -17,3 +17,11 @@ boutonConfirmer.addEventListener("click", function(e){
 boutonAnnuler.addEventListener("click", function(e){
     boiteModale.close();
 })
+
+window.addEventListener("click", function(event) {
+
+    if (event.target === boiteModale) {
+        // fermeture de la boîte modale
+        boiteModale.close();
+    }
+});
