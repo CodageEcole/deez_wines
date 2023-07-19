@@ -13,7 +13,6 @@ modifierQuantite.forEach((bouteille) =>{
     bouteille.addEventListener('click', (e) => {
         console.log(inputBouteilles.value);
         inputBouteilles.value = bouteille.dataset.nombre;
-        // quantiteBouteilleId.value = bouteille.dataset.id;
         formulaire.action = formulaire.action.replace('0', bouteille.dataset.id)
         modaleModifier.showModal();
     })
