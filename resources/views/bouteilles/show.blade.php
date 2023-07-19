@@ -81,63 +81,134 @@
                         <h3>Infos détaillées</h3>
                         <p>{{ $bouteille->description_fr }}</p>
                     </div>
+                    
+                    <div class="division"></div>
                 @endif
 
+                <section class="info-gouts-container">
+
+                    @php
+                        $valeurs = [$bouteille->acidite_fr, $bouteille->sucrosite_fr, $bouteille->corps_fr, $bouteille->bouche_fr, $bouteille->bois_fr];
+                        $nom = ['Acidité', 'Sucrosité', 'Corps', 'Bouche', 'Bois'];
+                        $un = ['discrète', 'demi-sec', 'léger', 'délicate', 'discret'];
+                        $deux = ['présente','doux','mi-corsé','généreuse','équilibré'];
+                        $trois = ['vive','extra-doux','corsé','enveloppante','marqué'];
+
+                        $position = 0;
+                    @endphp
+
+                    @for($i = 0; $i < count($valeurs); $i++)
+                        <div class="info-gouts">
+                            @if($valeurs[$position] != null)
+                                <div class="texte-gouts">
+                                    <h3>{{ $nom[$position] }}</h3><p>{{ $valeurs[$position] }}</p>
+                                </div>
+                                <div class="ligne-container">
+                                    <div class="ligne-gauche" @if(in_array($valeurs[$position], $un) || in_array($valeurs[$position], $deux) || in_array($valeurs[$position], $trois)) style="background-color: var(--ligne-gout);" @endif></div>
+                                    <div class="ligne-centre" @if(in_array($valeurs[$position], $deux) || in_array($valeurs[$position], $trois)) style="background-color: var(--ligne-gout);" @endif></div>
+                                    <div class="ligne-droite" @if(in_array($valeurs[$position], $trois)) style="background-color: var(--ligne-gout);" @endif></div>
+                                </div>
+                            @endif
+                        </div>
+                        @php $position++; @endphp
+                    @endfor
+
+                    @if($bouteille->acidite_fr != null)
+                        <div class="division"></div>
+                    @endif
+
+                    {{-- <div class="info-gouts">
+                        @if($bouteille->acidite_fr != null)
+                            <div class="texte-gouts">
+                                <h3>Acidité</h3><p>{{ $bouteille->acidite_fr }}</p>
+                            </div>
+                            <div class="ligne-container">
+                                <div class="ligne-gauche" @if($bouteille->acidite_fr == 'discrète' || $bouteille->acidite_fr == 'présente' || $bouteille->acidite_fr == 'vive') style="background-color: var(--ligne-gout); @endif"></div>
+                                <div class="ligne-centre" @if($bouteille->acidite_fr == 'présente' || $bouteille->acidite_fr == 'vive') style="background-color: var(--ligne-gout);" @endif></div>
+                                <div class="ligne-droite" @if($bouteille->acidite_fr == 'vive') style="background-color: var(--ligne-gout);" @endif></div>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="info-gouts">
+                        @if($bouteille->sucrosite_fr != null)
+                            <div class="texte-gouts">
+                                <h3>Sucrosité</h3><p>{{ $bouteille->sucrosite_fr }}</p>
+                            </div>
+                            <div class="ligne-container">
+                                <div class="ligne-gauche" @if($bouteille->sucrosite_fr == 'demi-sec' || $bouteille->sucrosite_fr == 'doux' || $bouteille->sucrosite_fr == 'extra-doux') style="background-color: var(--ligne-gout); @endif"></div>
+                                <div class="ligne-centre" @if($bouteille->sucrosite_fr == 'doux' || $bouteille->sucrosite_fr == 'extra-doux') style="background-color: var(--ligne-gout);" @endif></div>
+                                <div class="ligne-droite" @if($bouteille->sucrosite_fr == 'extra-doux') style="background-color: var(--ligne-gout);" @endif></div>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="info-gouts">
+                        @if($bouteille->corps_fr != null)
+                            <div class="texte-gouts">
+                                <h3>Corps</h3><p>{{ $bouteille->corps_fr }}</p>
+                            </div>
+                            <div class="ligne-container">
+                                <div class="ligne-gauche" @if($bouteille->corps_fr == 'léger' || $bouteille->corps_fr == 'mi-corsé' || $bouteille->corps_fr == 'corsé') style="background-color: var(--ligne-gout); @endif"></div>
+                                <div class="ligne-centre" @if($bouteille->corps_fr == 'mi-corsé' || $bouteille->corps_fr == 'corsé') style="background-color: var(--ligne-gout);" @endif></div>
+                                <div class="ligne-droite" @if($bouteille->corps_fr == 'corsé') style="background-color: var(--ligne-gout);" @endif></div>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="info-gouts">
+                        @if($bouteille->bouche_fr != null)
+                            <div class="texte-gouts">
+                                <h3>Bouche</h3><p>{{ $bouteille->bouche_fr }}</p>
+                            </div>
+                            <div class="ligne-container">
+                                <div class="ligne-gauche" @if($bouteille->bouche_fr == 'délicate' || $bouteille->bouche_fr == 'généreuse' || $bouteille->bouche_fr == 'enveloppante') style="background-color: var(--ligne-gout); @endif"></div>
+                                <div class="ligne-centre" @if($bouteille->bouche_fr == 'généreuse' || $bouteille->bouche_fr == 'enveloppante') style="background-color: var(--ligne-gout);" @endif></div>
+                                <div class="ligne-droite" @if($bouteille->bouche_fr == 'enveloppante') style="background-color: var(--ligne-gout);" @endif></div>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="info-gouts">
+                        @if($bouteille->bois_fr != null)
+                            <div class="texte-gouts">
+                                <h3>Bois</h3><p>{{ $bouteille->bois_fr }}</p>
+                            </div>
+                            <div class="ligne-container">
+                                <div class="ligne-gauche" @if($bouteille->bois_fr == 'discret' || $bouteille->bois_fr == 'équilibré' || $bouteille->bois_fr == 'marqué') style="background-color: var(--ligne-gout); @endif"></div>
+                                <div class="ligne-centre" @if($bouteille->bois_fr == 'équilibré' || $bouteille->bois_fr == 'marqué') style="background-color: var(--ligne-gout);" @endif></div>
+                                <div class="ligne-droite" @if($bouteille->bois_fr == 'marqué') style="background-color: var(--ligne-gout);" @endif></div>
+                            </div>
+                        @endif
+                    </div> --}}
+                </section>
+            </div>
+
+            <div class="commentaires">
+                <div>
+                    @if(!empty($commentaireBouteille->commentaire))
+                        <small>Commentaire</small>
+                        <span>{{ $commentaireBouteille->commentaire }}</span>
+                    @endif
+                    @if(!empty($commentaireBouteille->note))
+                        <small>Note</small>
+                        <span>{{ $commentaireBouteille->note }}/5</span>
+                    @endif
+                </div>
+        
+                @if(empty($commentaireBouteille->commentaire) && empty($commentaireBouteille->note))
+                    <form action="{{ route('commentaire_bouteille.store') }}" method="POST">
+                    @csrf
+                @else
+                    <form action="{{ route('commentaire_bouteille.update', $commentaireBouteille->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                @endif
+                        <label for="commentaire">Commentaire</label>
+                        <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
+                        <input type="hidden" name="bouteille_id" value="{{ $bouteille->id }}">
+                        <label for="note">Note</label>
+                        <input type="number" name="note" id="note" min="0" max="5">
+                        <button type="submit">Ajouter</button>
+                    </form>
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-        <div>
-            <div>
-                <strong>{{ $bouteille->couleur_fr }} </strong>
-                <p>{{ $bouteille->pays_fr }}, {{ $bouteille->region_fr }}</p>
-            </div>
-            <button type="button" class="btn btn-primary btn-details" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
-                Ajouter
-            </button>
-            @if($bouteille->est_personnalisee)
-                <img src="{{ url('glide/imagesPersonnalisees/'. $bouteille->image_bouteille . '?p=xs') }}" alt="{{ $bouteille->image_bouteille_alt }}">
-            @else
-                <img src="{{ url('glide/images/'. $bouteille->image_bouteille . '?p=xs') }}" alt="{{ $bouteille->image_bouteille_alt }}">
-            @endif
-        </div>
-
-        <div>
-            @if(!empty($commentaireBouteille->commentaire))
-                <small>Commentaire</small>
-                <span>{{ $commentaireBouteille->commentaire }}</span>
-            @endif
-            @if(!empty($commentaireBouteille->note))
-                <small>Note</small>
-                <span>{{ $commentaireBouteille->note }}/5</span>
-            @endif
-        </div>
-
-        @if(empty($commentaireBouteille->commentaire) && empty($commentaireBouteille->note))
-            <form action="{{ route('commentaire_bouteille.store') }}" method="POST">
-            @csrf
-        @else
-            <form action="{{ route('commentaire_bouteille.update', $commentaireBouteille->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-        @endif
-                <label for="commentaire">Commentaire</label>
-                <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
-                <input type="hidden" name="bouteille_id" value="{{ $bouteille->id }}">
-                <label for="note">Note</label>
-                <input type="number" name="note" id="note" min="0" max="5">
-                <button type="submit">Ajouter</button>
-            </form>
 </main>
     
 @include('components.modals.modale-ajout-bouteille')

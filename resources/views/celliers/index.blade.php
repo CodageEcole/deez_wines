@@ -11,9 +11,9 @@
                 <div class="infosCellier">
                     <span>Bouteilles : {{ $cellier->quantite_bouteilles }}</span>
                     @if($cellier->quantite_bouteilles > 0)
-                    <div >
-                        <hr>
-                        <span>Rouge : {{ $cellier->quantiteBouteillesRouges() ?? 0 }} Rosé : {{ $cellier->quantiteBouteillesRoses() ?? 0 }} Blanc : {{ $cellier->quantiteBouteillesBlanches() ?? 0 }}</span>
+                    <div class="division-blanc"></div>
+                    <div>
+                        <span>Rouge : {{ $cellier->quantiteBouteillesRouges() ?? 0 }}</span><span>Rosé : {{ $cellier->quantiteBouteillesRoses() ?? 0 }}</span><span>Blanc : {{ $cellier->quantiteBouteillesBlanches() ?? 0 }}</span>
                     </div>
                     @endif
                 </div>
