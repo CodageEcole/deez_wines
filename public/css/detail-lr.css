@@ -99,6 +99,7 @@ main {
     letter-spacing: 0.7px;
 
     padding-right: 45px;
+    /* padding-bottom: 40px; */
 }
 
 /* info-double */
@@ -119,7 +120,9 @@ main {
 .info-simple h3,
 .info-simple p,
 .info-detaillee h3,
-.info-detaillee p {
+.info-detaillee p,
+.texte-gouts h3,
+.texte-gouts p {
     margin: 0;
 }
 
@@ -152,10 +155,127 @@ main {
 /* division */
 .division {
     width: 100%;
-    min-width: 275px;
+    min-width: 230px;
     max-width: 400px;
 
     height: 2px;
     border-radius: 5px;
     background-color: var(--light-grey);
+}
+
+/* == information gouts == */
+
+
+.info-gouts-container,
+.info-gouts {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-gouts-container {
+    gap: 25px;
+}
+
+.info-gouts {
+    gap: 10px;
+}
+
+.texte-gouts {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.texte-gouts h3,
+.texte-gouts p {
+    font-size: 16px;
+}
+
+.texte-gouts h3 {
+    font-weight: normal;
+}
+
+.texte-gouts p {
+    font-weight: bold;
+}
+
+/* lignes */
+.ligne-container {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.ligne-gauche,
+.ligne-centre,
+.ligne-droite {
+    width: 90px;
+    height: 8px;
+    background-color: #d1d3d6;
+}
+
+.ligne-gauche {
+    border-radius: 5px 0 0 5px;
+}
+
+.ligne-droite {
+    border-radius: 0 5px 5px 0;
+}
+
+/* == commentaires == */
+
+.commentaires {
+    padding-bottom: 40px;
+}
+
+/* ========== MEDIA ========== */
+
+@media (max-width: 385px) {
+
+    /* Bouteille */
+    .bouteille-container {
+        min-width: 65px;
+        max-width: 65px;
+    }
+
+    .bouteille-container img {
+        top: 60px;
+        left: -110px;
+        height: 345px;
+    }
+
+    /* description */
+    .description-container {
+        margin-left: 65px;
+        max-width: 255px;
+        min-width: 255px;
+        gap: 30px;
+    }
+
+    .carte-titre {
+        margin-right: 20px;
+    }
+
+    .carte-titre h2 {
+        font-size: 22px;
+    }
+
+    /* bouton */
+    .bouton-ajouter {
+        width: 93%;
+    }
+
+    /* information */
+    .informations {
+        padding-right: 20px;
+        font-size: 14px;
+    }
+
+    /* gouts */
+    .texte-gouts h3,
+    .texte-gouts p {
+        font-size: 14px;
+    }
+
 }

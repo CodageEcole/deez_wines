@@ -1,3 +1,7 @@
+a {
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
+}
+
 .celliers{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(187px, 1fr));
@@ -47,7 +51,8 @@
 
 .cellier span{
     text-decoration: none;
-    font-size: 11px;
+    font-size: 12px;
+    margin-right: 5px;
 }
 
 .infosCellier{
@@ -56,9 +61,19 @@
 }
 
 .infosCellier>span{
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .infosCellier hr{
     color: #FFFFFF;
+}
+
+.division-blanc {
+    border-radius: 5px;
+    height: 1px;
+    width: 150px;
+    background-color: white;
+
+    margin-top: 5px;
+    margin-bottom: 0px;
 }
