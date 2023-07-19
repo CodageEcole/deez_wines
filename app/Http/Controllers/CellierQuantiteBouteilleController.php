@@ -89,11 +89,25 @@ class CellierQuantiteBouteilleController extends Controller
             'nouvelleQuantite' => 'required|integer'
         ]);
 
-        $cellierQuantiteBouteille->quantite = $validation['nouvelleQuantite'];
+        $ancienneQuantite = $cellierQuantiteBouteille->quantite;
+        $nouvelleQuantite = $validation['nouvelleQuantite'];
+        $difference = abs($nouvelleQuantite - $ancienneQuantite);
+
+        $cellierQuantiteBouteille->quantite = $nouvelleQuantite;
         $cellierQuantiteBouteille->save();
 
+        $cellierQuantiteBouteille->load('bouteille');
 
-        return redirect()->route('celliers.show', $cellierQuantiteBouteille->cellier_id)->with('success', "Vous avez maintenant $request->nouvelleQuantite bouteilles de ");
+        $nomBouteille = $cellierQuantiteBouteille->bouteille->nom;
+
+        $message = "Vous avez ";
+        if ($nouvelleQuantite > $ancienneQuantite) {
+            $message .= "ajouté $difference bouteille(s)";
+        } else {
+            $message .= "retiré $difference bouteille(s)";
+        }
+        $message .= " de $nomBouteille.";
+        return redirect()->route('celliers.show', $cellierQuantiteBouteille->cellier_id)->with('success', $message);
     }
 
     /**
@@ -102,8 +116,12 @@ class CellierQuantiteBouteilleController extends Controller
     // public function destroy(CellierQuantiteBouteille $cellierQuantiteBouteille)
     public function destroy(CellierQuantiteBouteille $cellierQuantiteBouteille)
     {
+        
+        $cellierQuantiteBouteille->load('bouteille');
+        $nomBouteille = $cellierQuantiteBouteille->bouteille->nom;
+        
         $cellierQuantiteBouteille->delete();
-
-        return redirect()->route('celliers.show', $cellierQuantiteBouteille->cellier_id)->with('success', 'La bouteille a été supprimée avec succès.');
+        
+        return redirect()->route('celliers.show', $cellierQuantiteBouteille->cellier_id)->with('success', "La bouteille $nomBouteille a été supprimée avec succès.");
     }
 }

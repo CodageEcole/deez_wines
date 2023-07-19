@@ -14,11 +14,12 @@
 .pagination a {
     flex-direction: row;
     text-decoration: none;
-    color: #F3F1F1;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    background-color: #A0764B;
+    appearance: initial;
+    color:unset;
+    /* height: 40px; */
+    /* width: 40px; */
+    /* border-radius: 50%; */
+    /* background-color: #A0764B; */
     
 }
 .pagination a:hover{
@@ -26,14 +27,23 @@
 }
 
 .pagination :is(.active, span, a:hover){
-    color: #A0764B;
-    background-color: #F3F1F1;
-    box-shadow: 0 0 0 2px #A0764B;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
+    /* text-decoration: underline; */
+    /* color: #A0764B; */
+    /* background-color: #F3F1F1; */
+    /* box-shadow: 0 0 0 2px #A0764B; */
+    /* height: 40px; */
+    /* width: 40px; */
+    /* border-radius: 50%; */
+}
+.pagination .disabled{
+    color: grey;
 }
 
+.pagination input{
+    outline: none;
+    appearance: textfield;
+    width: 3ch;
+}
 
 span.boutonPage:hover{
     cursor: pointer;

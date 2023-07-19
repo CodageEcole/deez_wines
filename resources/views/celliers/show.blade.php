@@ -2,22 +2,25 @@
 @section('title', $cellier->nom)
 @push('styles')
     <link href=" {{ asset('css/carte-vin-lr.css') }}" rel="stylesheet">
+    <link href=" {{ asset('css/cellier-show.css') }}" rel="stylesheet">
+    <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
+
 @endpush
 @section('content')
 <main>
     
     <div>
         <h1>{{ $cellier->nom }}</h1>
-        <a href="{{ route('celliers.edit', $cellier->id) }}">Modifier</a>
+        <a class="boutonCellier" href="{{ route('celliers.edit', $cellier->id) }}">Modifier</a>
         <form class="formulaireDel" action="{{ route('celliers.destroy', $cellier->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button class="boutonSupp" type="submit">Supprimer</button>
+            <button class="boutonCellier espace boutonSupp" type="submit">Supprimer</button>
         </form>
     </div>
     <div>
         <h2>Vos bouteilles</h2>
-        <a href="{{ route('bouteilles.create', Auth::id()) }}">Ajouter une bouteille</a>
+        <a class="boutonCellier espace" href="{{ route('bouteilles.create', Auth::id()) }}">Ajouter une bouteille personnalisée</a>
         {{-- @foreach($bouteilles as $bouteille) --}}
         @if (session('success'))
             <div>{{ session('success') }}</div>
@@ -70,23 +73,16 @@
                                 </div>
                             </div>
                             <div>
-                                <button class="modifierQuantite" data-id="{{ $quantiteBouteille->id }}" data-nombre="{{ $quantiteBouteille->quantite }}">Modifier</button>
+                                <button class="modifierQuantite boutonCellier espace" data-id="{{ $quantiteBouteille->id }}" data-nombre="{{ $quantiteBouteille->quantite }}">Modifier</button>
                             </div>
                             <div>
                                 <form action="{{ route('cellier_quantite_bouteille.destroy', $quantiteBouteille->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="hidden" name="cellier_id" value="{{ $cellier->id }}">
-                                    <button type="submit">Supprimer</button>
+                                    <input type="hidden"  name="cellier_id" value="{{ $cellier->id }}">
+                                    <button class="boutonCellier espace" type="submit">Supprimer</button>
                                 </form>
                             </div>
-
-                            {{-- <div class="overlap boireBouteille" dataNom="{{ $quantiteBouteille->bouteille->nom }} dataId="{{ $quantiteBouteille->bouteille->id }}"onclick="openModal('{{ $quantiteBouteille->bouteille->nom }}', '{{ $quantiteBouteille->bouteille->id }}')">
-                                <p>Boire</p>
-                            </div>
-                            <div class="overlap boireBouteille" dataNom="{{ $quantiteBouteille->bouteille->nom }} dataId="{{ $quantiteBouteille->bouteille->id }}"onclick="openModal('{{ $quantiteBouteille->bouteille->nom }}', '{{ $quantiteBouteille->bouteille->id }}')">
-                                <p>Boire</p>
-                            </div> --}}
                         </section>
                     </div>
                 </div>

@@ -2,10 +2,12 @@
     <form action="{{ route('cellier_quantite_bouteille.update', 0)}}" method="POST">
         @csrf
         @method('PUT')
-        <span class="plus">&#43;</span>
-        <input  name="nouvelleQuantite" class="inputQuantite" type="number" value="" min="1">
-        <span class="moins">&#8722;</span>
-        <button type="submit">Appliquer</button>
-        <button>Annuler</button>
+        <div>
+            <span class="plus">&#43;</span>
+            <input  name="nouvelleQuantite" class="inputQuantite" type="number" value="" min="1">
+            <span class="moins">&#8722;</span>
+        </div>
+        <button class="boutonCellier espace" type="submit">Appliquer</button>
+        <button class="boutonCellier espace">Annuler</button>
     </form>
 </dialog>
