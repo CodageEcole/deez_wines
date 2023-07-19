@@ -96,9 +96,6 @@ class Bouteille extends Model
     {
         return [
             'nom' => $this->nom,
-            'description_fr' => $this->description_fr,
-            'description_en' => $this->description_en,
-            'code_SAQ' => $this->code_SAQ,
             'millesime' => $this->millesime,
             'producteur' => $this->producteur,
             'pays_fr' => $this->pays_fr,
