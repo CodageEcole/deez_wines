@@ -51,11 +51,10 @@ class CellierController extends Controller
      */
     public function show(Cellier $cellier)
     {
-        // $bouteilles = $cellier->bouteilles()->get();
-        $cellierQuantiteBouteille = CellierQuantiteBouteille::with('bouteille')->where('cellier_id', $cellier->id)->get();
         
+        $cellierQuantiteBouteille = CellierQuantiteBouteille::with('bouteille')->where('cellier_id', $cellier->id)->get();
         return view('celliers.show', compact('cellier', 'cellierQuantiteBouteille'));
-        // return view('celliers.show', compact('cellier', 'cellierQuantiteBouteille', 'bouteilles'));
+
     }
 
     /**

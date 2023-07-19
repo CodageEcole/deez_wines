@@ -85,7 +85,15 @@ class CellierQuantiteBouteilleController extends Controller
      */
     public function update(Request $request, CellierQuantiteBouteille $cellierQuantiteBouteille)
     {
-        //
+        $validation = $request->validate([
+            'nouvelleQuantite' => 'required|integer'
+        ]);
+
+        $cellierQuantiteBouteille->quantite = $validation['nouvelleQuantite'];
+        $cellierQuantiteBouteille->save();
+
+
+        return redirect()->route('celliers.show', $cellierQuantiteBouteille->cellier_id)->with('success', "Vous avez maintenant $request->nouvelleQuantite bouteilles de ");
     }
 
     /**
@@ -94,6 +102,8 @@ class CellierQuantiteBouteilleController extends Controller
     // public function destroy(CellierQuantiteBouteille $cellierQuantiteBouteille)
     public function destroy(CellierQuantiteBouteille $cellierQuantiteBouteille)
     {
-        //
+        $cellierQuantiteBouteille->delete();
+
+        return redirect()->route('celliers.show', $cellierQuantiteBouteille->cellier_id)->with('success', 'La bouteille a été supprimée avec succès.');
     }
 }

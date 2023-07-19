@@ -19,6 +19,9 @@
         <h2>Vos bouteilles</h2>
         <a href="{{ route('bouteilles.create', Auth::id()) }}">Ajouter une bouteille</a>
         {{-- @foreach($bouteilles as $bouteille) --}}
+        @if (session('success'))
+            <div>{{ session('success') }}</div>
+        @endif
         @foreach($cellierQuantiteBouteille as $quantiteBouteille)
         <div class="carte-vin-container">
             @if($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Fruité et vif")
@@ -68,6 +71,14 @@
                             </div>
                             <div>
                                 <button class="modifierQuantite" data-id="{{ $quantiteBouteille->id }}" data-nombre="{{ $quantiteBouteille->quantite }}">Modifier</button>
+                            </div>
+                            <div>
+                                <form action="{{ route('cellier_quantite_bouteille.destroy', $quantiteBouteille->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="cellier_id" value="{{ $cellier->id }}">
+                                    <button type="submit">Supprimer</button>
+                                </form>
                             </div>
 
                             {{-- <div class="overlap boireBouteille" dataNom="{{ $quantiteBouteille->bouteille->nom }} dataId="{{ $quantiteBouteille->bouteille->id }}"onclick="openModal('{{ $quantiteBouteille->bouteille->nom }}', '{{ $quantiteBouteille->bouteille->id }}')">
