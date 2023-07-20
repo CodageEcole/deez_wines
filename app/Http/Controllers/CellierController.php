@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cellier;
+use App\Models\CellierQuantiteBouteille;
 use Illuminate\Http\Request;
 
 class CellierController extends Controller
@@ -42,7 +43,9 @@ class CellierController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('celliers.show' , $cellier);
+        $celliers = Cellier::where('user_id', auth()->id())->get();
+        return redirect()->route('celliers.index', compact('celliers'));
+        // return redirect()->route('celliers.show' , $cellier);
     }
 
     /**
@@ -50,8 +53,10 @@ class CellierController extends Controller
      */
     public function show(Cellier $cellier)
     {
-        $bouteilles = $cellier->bouteilles()->get();
-        return view('celliers.show', compact('cellier', 'bouteilles'));
+
+        $cellierQuantiteBouteille = CellierQuantiteBouteille::with('bouteille')->where('cellier_id', $cellier->id)->get();
+        return view('celliers.show', compact('cellier', 'cellierQuantiteBouteille'));
+
     }
 
     /**
