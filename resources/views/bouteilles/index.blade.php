@@ -4,6 +4,7 @@
     <link href=" {{ asset('css/carte-vin-lr.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/paginate.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
+    <link href=" {{ asset('css/cellier-show.css') }}" rel="stylesheet">
 @endpush
 <main>
     {{-- <h1 class="titre-principal"> Toutes les bouteilles!</h1> --}}
@@ -60,46 +61,50 @@
                     </div>
                 </div>
             </div>
-        @endforeach
-            @if(count($bouteilles) < 30)
+            @endforeach
+            @php
+                $pageCourante = $bouteilles->currentPage();
+                $dernierePage = $bouteilles->lastPage();
+            @endphp
+            @if (!(count($bouteilles) >= 30) && !$bouteilles->hasPages())
             <nav class="pagination" style="display: none">
             @else
             <nav class="pagination">
-                @php
-                    $pageCourante = $bouteilles->currentPage();
-                    $dernierePage = $bouteilles->lastPage();
-                @endphp
                 {{-- Lien première page --}}
                 @if ($bouteilles->onFirstPage())
-                    <a class="pagination-link disabled">&laquo;</a>
+                    <a class="pagination-link disabled">prem.</a>
                 @else
-                    <a href="{{ $bouteilles->url(1) }}" rel="prev" class="pagination-link">&laquo;</a>
+                    <a href="{{ $bouteilles->url(1) }}" rel="prev" class="pagination-link">prem.</a>
                 @endif
 
                 {{-- Lien page précédente --}}
                 @if ($bouteilles->onFirstPage())
-                    <a class="pagination-link disabled">&lsaquo;</a>
+                    <a class="pagination-link disabled">préc.</a>
                 @else
-                    <a href="{{ $bouteilles->previousPageUrl() }}" rel="prev" class="pagination-link">&lsaquo;</a>
+                    <a href="{{ $bouteilles->previousPageUrl() }}" rel="prev" class="pagination-link">préc.</a>
                 @endif
                 {{-- page actuelle --}}
                 <span class="active">{{ $pageCourante }}</span>
 
-                {{-- Bouton sélecteur de page --}}
-                <span class="boutonPage" data-derniere-page="{{ $dernierePage }}">&#x270E;</span>
+                {{-- Bouton sélecteur de page 
+                <span class="boutonPage" data-derniere="{{ $dernierePage }}">&#x270E;</span>--}}
+
+                    <input class="numeroPage" data-derniere-page="{{ $dernierePage }}" type="number" name="page" min="1" value="de">
+
+
 
                 {{-- Lien page suivante --}}
                 @if ($bouteilles->hasMorePages())
-                    <a href="{{ $bouteilles->nextPageUrl() }}" rel="next" class="pagination-link">&rsaquo;</a>
+                    <a href="{{ $bouteilles->nextPageUrl() }}" rel="next" class="pagination-link">suiv.</a>
                 @else
-                    <a class="pagination-link disabled">&rsaquo;</a>
+                    <a class="pagination-link disabled">suiv.</a>
                 @endif
 
                 {{-- Lien dernière page --}}
                 @if ($pageCourante == $dernierePage)
-                    <a class="pagination-link disabled">&raquo;</a>
+                    <a class="pagination-link disabled">dern.</a>
                 @else
-                    <a href="{{ $bouteilles->url($dernierePage) }}" class="pagination-link">&raquo;</a>
+                    <a href="{{ $bouteilles->url($dernierePage) }}" class="pagination-link">dern.</a>
                 @endif
             </nav>
             @endif
