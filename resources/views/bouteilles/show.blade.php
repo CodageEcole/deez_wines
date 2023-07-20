@@ -211,10 +211,10 @@
                         @csrf
                         @method('PUT')
                 @endif
-                        <label for="commentaire">Commentaire</label>
+                        <label for="commentaire">Commentaire : </label>
                         <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
                         <input type="hidden" name="bouteille_id" value="{{ $bouteille->id }}">
-                        <label for="note">Note</label>
+                        <label for="note">Note : </label>
                         <input type="number" name="note" id="note" min="0" max="5"> /5
                         <button type="submit">Ajouter</button>
                     </form>

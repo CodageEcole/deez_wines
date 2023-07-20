@@ -5,6 +5,8 @@ formCommentaire.style.display = 'none';
 boutonModifier.addEventListener('click', function (e) {
     formCommentaire.style.display = 'block';
     boutonModifier.style.display = 'none';
+    formCommentaire.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+
 });
 
 formCommentaire.addEventListener('submit', function (e) {
