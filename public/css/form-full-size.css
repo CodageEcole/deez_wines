@@ -1,0 +1,50 @@
+.form-full-size {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
+.form-input {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 1rem; /* Add the drop shadow */
+}
+
+/* Style the input file */
+.form-input input,
+.form-input textarea {
+  /*   box-shadow: 0 2px 4px rgba(72, 40, 40, 0.4); */
+  border: var(--dark-brown) 2px solid;
+  padding-block: 0.5em;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: black;
+  background-color: transparent;
+  text-indent: 10px;
+}
+.form-input input:focus, .form-input textarea:focus {
+    outline: none;
+    border-color: var(--light-brown);
+}
+.form-input input::placeholder, .form-input textarea::placeholder {
+    color: grey;
+}
+.form-input label {
+    font-weight: bold;
+    margin-block: 0.5em;
+}
+    
+.form-submit {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding-block: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    line-height: 1.5;
+    color: black;
+    background-color: var(--light-brown);
+    cursor: pointer;
+}

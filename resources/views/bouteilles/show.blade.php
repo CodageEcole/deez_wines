@@ -180,23 +180,34 @@
                 </section>
             </div>
 
-            <div class="commentaires">
-                <div>
-                    @if(!empty($commentaireBouteille->commentaire))
-                        <small>Commentaire</small>
-                        <span>{{ $commentaireBouteille->commentaire }}</span>
-                    @endif
-                    @if(!empty($commentaireBouteille->note))
-                        <small>Note</small>
-                        <span>{{ $commentaireBouteille->note }}/5</span>
-                    @endif
+            <div class="commentaire-note">
+
+                @if(!empty($commentaireBouteille->commentaire))
+                <div class="commentaire">
+                    <h3>Commentaire</h3>
+                    <span>{{ $commentaireBouteille->commentaire }}</span>
                 </div>
-        
+                @endif
+                @if(!empty($commentaireBouteille->note))
+                <div class="note">
+                    <h3>Note</h3>
+                    <span>{{ $commentaireBouteille->note }}/5</span>
+                </div>
+                @endif
+
+                @if(!empty($commentaireBouteille->note) || !empty($commentaireBouteille->commentaire))
+                    <div>
+                        <button id="btn-modifier-commentaire" type="button" class="btn btn-primary btn-details" onclick="showForm()">
+                            Modifer 
+                        </button>
+                    </div>  
+                @endif
+
                 @if(empty($commentaireBouteille->commentaire) && empty($commentaireBouteille->note))
-                    <form action="{{ route('commentaire_bouteille.store') }}" method="POST">
+                    <form id="form-commentaire" action="{{ route('commentaire_bouteille.store') }}" method="POST">
                     @csrf
                 @else
-                    <form action="{{ route('commentaire_bouteille.update', $commentaireBouteille->id) }}" method="POST">
+                    <form id="form-commentaire" action="{{ route('commentaire_bouteille.update', $commentaireBouteille->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                 @endif
@@ -204,7 +215,7 @@
                         <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
                         <input type="hidden" name="bouteille_id" value="{{ $bouteille->id }}">
                         <label for="note">Note</label>
-                        <input type="number" name="note" id="note" min="0" max="5">
+                        <input type="number" name="note" id="note" min="0" max="5"> /5
                         <button type="submit">Ajouter</button>
                     </form>
             </div>
@@ -214,5 +225,6 @@
 @include('components.modals.modale-ajout-bouteille')
 @push('scripts')
 <script src="{{ asset('js/modal.js')}}"></script>
+<script src="{{ asset('js/form-commentaire.js')}}"></script>
 @endpush
 @endsection
