@@ -163,6 +163,37 @@ main {
     background-color: var(--light-grey);
 }
 
+/* == commentaire et note == */
+
+.commentaire-note {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 40px;
+    padding-right: 20px;
+}
+.commentaire-note h3 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.commentaire-note > div {
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    font-family: 'MabryPro';
+}
+.commentaire-note span {
+    padding-bottom: 0.5em;
+}
+.form-commentaire {
+    padding-right: 20px;
+}
+.form-commentaire textarea {
+    max-width: 100px;
+}
 /* == information gouts == */
 
 
@@ -221,12 +252,6 @@ main {
 
 .ligne-droite {
     border-radius: 0 5px 5px 0;
-}
-
-/* == commentaires == */
-
-.commentaires {
-    padding-bottom: 40px;
 }
 
 /* ========== MEDIA ========== */
