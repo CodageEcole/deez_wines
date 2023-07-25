@@ -21,9 +21,9 @@
     <div>
         <h2>Vos bouteilles</h2>
         <a class="boutonCellier espace" href="{{ route('bouteilles.create', Auth::id()) }}">Ajouter une bouteille personnalisée</a>
-        <!-- Replace your custom success message div with the Bootstrap alert -->
+    
         @if (session('success'))
-            <div class="alert alert-success" role="alert">{{ session('success') }}</div>
+            <div class="alert-success" role="alert">{{ session('success') }}</div>
         @endif
 
         @foreach($cellierQuantiteBouteille as $quantiteBouteille)
