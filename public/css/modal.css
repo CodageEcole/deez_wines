@@ -67,8 +67,6 @@ dialog button:hover{
     align-items: center;
     justify-content: center;
 }
-
-
 /* Styles pour la boîte modale */
 .modalePage {
     position: fixed;

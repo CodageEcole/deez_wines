@@ -21,10 +21,11 @@
     <div>
         <h2>Vos bouteilles</h2>
         <a class="boutonCellier espace" href="{{ route('bouteilles.create', Auth::id()) }}">Ajouter une bouteille personnalisée</a>
-        {{-- @foreach($bouteilles as $bouteille) --}}
+        <!-- Replace your custom success message div with the Bootstrap alert -->
         @if (session('success'))
-            <div>{{ session('success') }}</div>
+            <div class="alert alert-success" role="alert">{{ session('success') }}</div>
         @endif
+
         @foreach($cellierQuantiteBouteille as $quantiteBouteille)
         <div class="carte-vin-container">
             @if($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Fruité et vif")
@@ -62,20 +63,18 @@
                         <section>
                             <a href="{{ route('bouteilles.show', $quantiteBouteille->bouteille->id) }}"><h2>{{ $quantiteBouteille->bouteille->nom }}</h2></a>
                             <div>
-                                <div>
-                                    <p>{{ $quantiteBouteille->bouteille->couleur_fr }}  |  {{ $quantiteBouteille->bouteille->format }}  |  {{ $quantiteBouteille->bouteille->pays_fr }}</p>
-                                </div>
-                                {{-- <button type="button" class="btn btn-primary btn-details" onclick="openModal('{{ $quantiteBouteille->bouteille->nom }}', '{{ $quantiteBouteille->bouteille->id }}')">
-                                    Ajouter
-                                </button> --}}
-                                <div>
-                                    <p>Quantité : <span class="nombreBouteilles">{{ $quantiteBouteille->quantite }}</span></p>
-                                </div>
+                                {{--* Comme ca on ne voit pas les "|" si il n'y a pas de couleur ou de format --}} 
+                                <p>
+                                    {{ $quantiteBouteille->bouteille->couleur_fr ? $quantiteBouteille->bouteille->couleur_fr . " | " : $quantiteBouteille->bouteille->couleur_fr }}
+                                    {{ $quantiteBouteille->bouteille->format ? $quantiteBouteille->bouteille->format . " | " : $quantiteBouteille->bouteille->format }}
+                                    {{ $quantiteBouteille->bouteille->pays_fr }}
+                                </p>
+                                <p>Quantité : <span class="nombreBouteilles">{{ $quantiteBouteille->quantite }}</span></p>
                             </div>
-                            <div>
-                                <button class="modifierQuantite boutonCellier espace" data-id="{{ $quantiteBouteille->id }}" data-nombre="{{ $quantiteBouteille->quantite }}">Modifier</button>
-                            </div>
-                            <div>
+                            <div class="sectionBoutons">
+                                <div>
+                                    <button class="modifierQuantite boutonCellier espace" data-id="{{ $quantiteBouteille->id }}" data-nombre="{{ $quantiteBouteille->quantite }}">Modifier</button>
+                                </div>
                                 <form action="{{ route('cellier_quantite_bouteille.destroy', $quantiteBouteille->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -87,18 +86,10 @@
                     </div>
                 </div>
             </div>
-            {{-- <div>
-                <a href="{{ route('bouteilles.show', $quantiteBouteille->bouteille->id) }}">{{ $quantiteBouteille->bouteille->nom }}</a>
-                <span>Quantité : <strong id="quantite-actuelle">{{ $quantiteBouteille->bouteille->pivot->quantite }}</strong></span>
-                <button type="button" class="btn btn-primary btn-details" onclick="openModal('{{ $quantiteBouteille->bouteille->nom }}', '{{ $quantiteBouteille->bouteille->id }}', '{{ $cellier->id }}')">
-                    Modifier
-                </button>
-            </div> --}}
         @endforeach
     </div>
 </main>
 @endsection
-
 
 {{-- la boîte modale d'ajout de bouteilles au cellier --}}
 @include('components.modals.modale-changer-qte-bouteille')
@@ -106,5 +97,6 @@
 @push('scripts')
 {{-- <script src="{{ asset('js/modal.js')}}"></script> --}}
 <script src="{{ asset('js/changerQuantiteBouteille.js') }}"></script>
-<script src="{{ asset('js/confirmerSupp.js') }}"></script>
+<script src="{{ asset('js/messages.js')}}"></script>
+
 @endpush

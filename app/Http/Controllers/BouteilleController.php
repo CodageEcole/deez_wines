@@ -74,6 +74,9 @@ class BouteilleController extends Controller
             Storage::disk('local')->putFileAs('imagesPersonnalisees', $file, $fileName);
             $bouteille->image_bouteille = $fileName;
             $bouteille->save();
+        } else {
+            $bouteille->image_bouteille = '06.png';
+            $bouteille->save();
         }
 
         return redirect()->route('bouteilles.show', $bouteille);
