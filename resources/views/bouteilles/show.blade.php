@@ -23,10 +23,6 @@
                 <h2>{{ $bouteille->nom }}</h2>
                 <p>{{ $bouteille->couleur_fr }}  |  {{ $bouteille->format }}  |  {{ $bouteille->pays_fr }}</p>
             </div>
-
-            {{-- <a class="bouton-ajouter" href="">
-                Ajouter <img src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Ajouter">
-            </a> --}}
             <a class="bouton-ajouter" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
                 Ajouter<img src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Plus">
             </a>
