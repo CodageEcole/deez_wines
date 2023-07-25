@@ -9,7 +9,6 @@
     <link href=" {{ asset('css/layout-lr.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/root.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/messages.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/search.js') }}" defer></script>
     <title>Layout</title>
 </head>
 
@@ -22,25 +21,10 @@
                 <img src="{{ asset('logos/deez_wines_logo_small.svg') }}" alt="Logo">
             </div>
             <div class="search-more">
-                <a href="#" id="search-icon">
-                    <img src="{{ asset('icons/search_icon.svg') }}" alt="Recherche">
-                </a>
                 <a href="#">
                     <img src="{{ asset('icons/more_icon.svg') }}" alt="Plus">
                 </a>
             </div>
-        </nav>
-        
-        <nav id="search-bar" style="display: none;">
-            <form action="{{ route('bouteilles.index') }}" method="GET">
-                <button id="arrow-back" type="button" onclick=goBack()>
-                    <img src="{{ asset('icons/search_icon.svg') }}" alt="Retour">
-                </button>
-                <input type="text" name="search" id="search" placeholder="Recherche">
-                <button id="recherche" type="submit">
-                    <img src="{{ asset('icons/search_icon.svg') }}" alt="Recherche">
-                </button>
-            </form>
         </nav>
 
         <div class="grey-top"></div>
