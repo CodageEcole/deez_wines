@@ -1,0 +1,22 @@
+.alert-success {
+    color: #4F8A10;
+    background-color: #d9f0b3;
+    border: 1px solid #4F8A10;
+    padding: 10px;
+    padding-block: 15px;
+    margin-block: 1em;
+    border-radius: 7.25px;
+}
+
+.alert-success.fadeOut {
+    animation: fadeOut 1s ease 4s;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.fade-out-animation {
+    animation: fadeOut 1s ease 5s;
+}
