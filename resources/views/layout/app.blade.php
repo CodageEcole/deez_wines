@@ -18,7 +18,7 @@
         <div class="blue-top"></div>
         <nav>
             <div class="logo">
-                <img src="{{ asset('logos/deez_wines_logo_small.svg') }}" alt="Logo">
+                {{-- <img src="{{ asset('logos/deez_wines_logo_small.svg') }}" alt="Logo"> --}}
             </div>
             <div class="search-more">
                 <a href="#">
