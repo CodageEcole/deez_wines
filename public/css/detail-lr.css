@@ -31,9 +31,10 @@ main {
     display: flex;
     flex-direction: column;
     position: relative;
-    width: 100%;
+    /* width: 100%;
     min-width: 335px;
-    max-width: 335px;
+    max-width: 335px; */
+    width: 60dvh;
 
     margin-left: 95px;
 
@@ -79,7 +80,7 @@ main {
     height: 50px;
     flex-shrink: 0;
 
-    background-color: var(--light-brown);
+    background-color: rgb(45, 215, 45);
     text-decoration: none;
     border-radius: 5px;
 
@@ -274,11 +275,13 @@ main {
     } */
 
     /* description */
-    /* .description-container {
-        margin-left: 65px;
+    .description-container {
+        /* margin-left: 65px;
         max-width: 255px;
-        min-width: 255px;
+        min-width: 255px; */
         gap: 30px;
+        margin-left: 25%;
+        width: 70vw; /* Chiffres magiques, j'en convient, mais c'est ce qui parrait le mieux*/
     }
 
     .carte-titre {
@@ -286,24 +289,19 @@ main {
     }
 
     .carte-titre h2 {
-        font-size: 22px;
-    } */
-
-    /* bouton */
-    /* .bouton-ajouter {
-        width: 93%;
-    } */
+        font-size: 20px;
+    }
 
     /* information */
-    /* .informations {
+    .informations {
         padding-right: 20px;
         font-size: 14px;
-    } */
+    }
 
     /* gouts */
-    /* .texte-gouts h3,
+    .texte-gouts h3,
     .texte-gouts p {
         font-size: 14px;
-    } */
+    }
 
 }
