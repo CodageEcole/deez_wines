@@ -7,17 +7,20 @@ main {
 
 .bouteille-container {
     position: absolute;
-    width: 100%;
-    min-width: 95px;
-    max-width: 95px;
+    top: 15%;
+    width: 40dvw;
+    height: 65dvh;
+    overflow: hidden;
 }
 
 .bouteille-container img {
     position: absolute;
-    top: 110px;
-    left: -180px;
+    left: -50%;
 
     height: 540px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 
     pointer-events: none;
 }
@@ -259,7 +262,7 @@ main {
 @media (max-width: 385px) {
 
     /* Bouteille */
-    .bouteille-container {
+    /* .bouteille-container {
         min-width: 65px;
         max-width: 65px;
     }
@@ -268,10 +271,10 @@ main {
         top: 60px;
         left: -110px;
         height: 345px;
-    }
+    } */
 
     /* description */
-    .description-container {
+    /* .description-container {
         margin-left: 65px;
         max-width: 255px;
         min-width: 255px;
@@ -284,23 +287,23 @@ main {
 
     .carte-titre h2 {
         font-size: 22px;
-    }
+    } */
 
     /* bouton */
-    .bouton-ajouter {
+    /* .bouton-ajouter {
         width: 93%;
-    }
+    } */
 
     /* information */
-    .informations {
+    /* .informations {
         padding-right: 20px;
         font-size: 14px;
-    }
+    } */
 
     /* gouts */
-    .texte-gouts h3,
+    /* .texte-gouts h3,
     .texte-gouts p {
         font-size: 14px;
-    }
+    } */
 
 }
