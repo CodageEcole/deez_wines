@@ -5,7 +5,7 @@ main {
 
 .carte-vin-container {
     height: auto;
-    margin-top: 80px;
+    margin-top: 45px;
 }
 
 .carte-vin {
@@ -26,8 +26,8 @@ main {
 
 .protruding {
     position: absolute;
-    bottom: 8px;
-    left: 10px;
+    bottom: 4px;
+    left: -17px;
 }
 
 .overlap {
@@ -58,7 +58,7 @@ main {
 }
 
 .carte-vin section {
-    margin-left: 80px;
+    margin-left: 75px;
     /* padding-left: 10px; */
     padding-right: 10px;
 }
@@ -94,6 +94,10 @@ p {
 
 /* ========== Bande de Gout ========== */
 
+.bande-de-gout-vide {
+    height: 23px;
+}
+
 .bande-de-gout-ac,
 .bande-de-gout-ar,
 .bande-de-gout-as,
@@ -117,7 +121,8 @@ p {
 
 .no-pastille {
     border-radius: 10px 10px 10px 10px;
-    /* height: 110px !important; */
+    min-height: 100px;
+    padding-bottom: 23px;
 }
 
 .bande-de-gout-fv {

@@ -104,8 +104,8 @@ Route::group(
                     'fit' => 'crop',
                 ],
                 'maquette' => [
-                    'w' => 50,
-                    'h' => 160,
+                    // 'w' => 50,
+                    'h' => 145,
                     'fit' => 'crop',
                 ],
                 'xs' => [
