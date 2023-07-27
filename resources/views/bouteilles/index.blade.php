@@ -5,9 +5,21 @@
     <link href=" {{ asset('css/paginate.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/cellier-show.css') }}" rel="stylesheet">
+    <link href=" {{ asset('css/recherche.css') }}" rel="stylesheet">
 @endpush
-<main>
-    {{-- <h1 class="titre-principal"> Toutes les bouteilles!</h1> --}}
+<main class="indexBouteilles">
+    {{-- Barre de recherche --}}
+    <form class="rechercheConteneur" action="{{ route('bouteilles.index') }}" method="GET">
+        <input class="rechercheInput" type="text" name="search" id="search" placeholder="Recherche">
+        <button class="rechercheSubmit" id="recherche" type="submit">
+            Rechercher
+        </button>
+        <span>{!! request('search') ? "Résultats pour : <strong>" . request('search') . "</strong>" : '' !!}</span>
+    </form>
+    {{-- show the search 
+    @if($search)
+        <p>Vous avez recherché : {{ $search }}</p>
+    @endif --}}
     @if($bouteilles)
         @foreach ($bouteilles as $bouteille)
 
@@ -49,9 +61,11 @@
                         <section>
                             <a href="{{ route('bouteilles.show', $bouteille->id) }}"><h2>{{ $bouteille->nom }}</h2></a>
                             <div>
-                                <div>
-                                    <p>{{ $bouteille->couleur_fr }}  |  {{ $bouteille->format }}  |  {{ $bouteille->pays_fr }}</p>
-                                </div>
+                                <p>
+                                    {{ $bouteille->couleur_fr ? $bouteille->couleur_fr . " | " : $bouteille->couleur_fr }}
+                                    {{ $bouteille->format ? $bouteille->format . " | " : $bouteille->format }}
+                                    {{ $bouteille->pays_fr }}
+                                </p>
                                 {{-- <button type="button" class="btn btn-primary btn-details" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
                                     Ajouter
                                 </button> --}}
