@@ -11,21 +11,6 @@ class CellierQuantiteBouteilleController extends Controller
     {
         $this->authorizeResource(CellierQuantiteBouteille::class, 'cellier_quantite_bouteille');
     }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -60,26 +45,10 @@ class CellierQuantiteBouteilleController extends Controller
             ]);
         }
 
-        return redirect()->route('celliers.show', $request->cellier_id);
+        $message = "Vous avez ajouté $request->quantite bouteille(s) de" . $cellierQuantiteBouteille->bouteille->nom;
+        return redirect()->route('celliers.show', $request->cellier_id)->with('success', $message);
     }
     
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(CellierQuantiteBouteille $cellierQuantiteBouteille)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(CellierQuantiteBouteille $cellierQuantiteBouteille)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */

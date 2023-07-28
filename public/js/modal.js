@@ -1,24 +1,23 @@
-var modal = document.getElementById("modal");
+const modal = document.querySelector("#modal");
 
 window.addEventListener("click", function(event) {
-
     if (event.target === modal) {
-        // fermeture de la boîte modale
         modal.close();
     }
 });
 
 function openModal(nom, id, cellierId) {
-    var modal = document.getElementById("modal");
-    var modalTitle = document.getElementById("modal-title");
-    var form = document.getElementById("modal-form");
-    var bouteilleIdInput = document.getElementById("bouteille-id");
-    var quantityInput = document.getElementById("quantity");
-    var quantiteActuelle = document.getElementById("quantite-actuelle");
-    var cellierIdInput = document.getElementById("cellier-id");
+    let modal = document.querySelector("#modal");
+    let modalTitle = document.querySelector("#modal-title");
+    let form = document.querySelector("#modal-form");
+    let bouteilleIdInput = document.querySelector("#bouteille-id");
+    let quantityInput = document.querySelector("#quantity");
+    let quantiteActuelle = document.querySelector("#quantite-actuelle");
+    let cellierIdInput = document.querySelector("#cellier-id");
 
     modalTitle.innerText = nom;
     bouteilleIdInput.value = id;
+    
     if(cellierIdInput != null){
         cellierIdInput.value = cellierId;
         quantityInput.value = parseInt(quantiteActuelle.innerHTML);
@@ -27,22 +26,20 @@ function openModal(nom, id, cellierId) {
     form.reset();
 
     modal.showModal();
-    // modal.style.display = "block";
 }
 
 function closeModal() {
-    var modal = document.getElementById("modal");
-    var form = document.getElementById("modal-form");
+    let modal = document.querySelector("#modal");
+    let form = document.querySelector("#modal-form");
     
     form.reset();
 
-    // modal.style.display = "none";
     modal.close();
 }
 
 function decrementQuantity() {
-    var quantityInput = document.getElementById("quantity");
-    var currentQuantity = parseInt(quantityInput.value);
+    let quantityInput = document.querySelector("#quantity");
+    let currentQuantity = parseInt(quantityInput.value);
 
     if (currentQuantity > 1) {
         quantityInput.value = currentQuantity - 1;
@@ -50,8 +47,8 @@ function decrementQuantity() {
 }
 
 function incrementQuantity() {
-    var quantityInput = document.getElementById("quantity");
-    var currentQuantity = parseInt(quantityInput.value);
+    let quantityInput = document.querySelector("#quantity");
+    let currentQuantity = parseInt(quantityInput.value);
 
     quantityInput.value = currentQuantity + 1;
 }

@@ -8,19 +8,16 @@ let formulaire = modaleModifier.querySelector('form');
 let ajout = modaleModifier.querySelector('.plus');
 let retrait = modaleModifier.querySelector('.moins');
 
-
 modifierQuantite.forEach((bouteille) =>{
     bouteille.addEventListener('click', (e) => {
-        console.log(inputBouteilles.value);
         inputBouteilles.value = bouteille.dataset.nombre;
-        formulaire.action = formulaire.action.replace('0', bouteille.dataset.id)
+        formulaire.action = formulaire.action.replace('id-bouteille', bouteille.dataset.id)
         modaleModifier.showModal();
     })
 })
 
 ajout.addEventListener('click', (e) => {
     inputBouteilles.value = parseInt(inputBouteilles.value) + 1;
-    console.log(parseInt(inputBouteilles.value) + 1)
 })
 
 retrait.addEventListener('click', (e) => {
@@ -30,7 +27,6 @@ retrait.addEventListener('click', (e) => {
     else{
         inputBouteilles.value = parseInt(inputBouteilles.value) - 1;
     }
-    console.log(parseInt(inputBouteilles.value) - 1)
 })
 
 fermerModale.addEventListener('click', (e) => {

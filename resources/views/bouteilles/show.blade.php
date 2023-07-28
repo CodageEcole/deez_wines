@@ -4,7 +4,6 @@
 @endpush
 @push('scripts')
 <script src="{{ asset('js/modal.js')}}"></script>
-<script src="{{ asset('js/modal.js')}}"></script>
 <script src="{{ asset('js/form-commentaire.js')}}"></script>
 @endpush
 @extends('layout.app')
@@ -23,7 +22,11 @@
         <div class="description-container">
             <div class="carte-titre">
                 <h2>{{ $bouteille->nom }}</h2>
-                <p>{{ $bouteille->couleur_fr }}  |  {{ $bouteille->format }}  |  {{ $bouteille->pays_fr }}</p>
+                <p>
+                    {{ $bouteille->couleur_fr ? $bouteille->couleur_fr . " | " : $bouteille->couleur_fr }}
+                    {{ $bouteille->format ? $bouteille->format . " | " : $bouteille->format }}
+                    {{ $bouteille->pays_fr }}
+                </p>
             </div>
             <a class="bouton-ajouter" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
                 Ajouter<img src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Plus">
@@ -114,67 +117,6 @@
                     @if($bouteille->acidite_fr != null)
                         <div class="division"></div>
                     @endif
-
-                    {{-- <div class="info-gouts">
-                        @if($bouteille->acidite_fr != null)
-                            <div class="texte-gouts">
-                                <h3>Acidité</h3><p>{{ $bouteille->acidite_fr }}</p>
-                            </div>
-                            <div class="ligne-container">
-                                <div class="ligne-gauche" @if($bouteille->acidite_fr == 'discrète' || $bouteille->acidite_fr == 'présente' || $bouteille->acidite_fr == 'vive') style="background-color: var(--ligne-gout); @endif"></div>
-                                <div class="ligne-centre" @if($bouteille->acidite_fr == 'présente' || $bouteille->acidite_fr == 'vive') style="background-color: var(--ligne-gout);" @endif></div>
-                                <div class="ligne-droite" @if($bouteille->acidite_fr == 'vive') style="background-color: var(--ligne-gout);" @endif></div>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="info-gouts">
-                        @if($bouteille->sucrosite_fr != null)
-                            <div class="texte-gouts">
-                                <h3>Sucrosité</h3><p>{{ $bouteille->sucrosite_fr }}</p>
-                            </div>
-                            <div class="ligne-container">
-                                <div class="ligne-gauche" @if($bouteille->sucrosite_fr == 'demi-sec' || $bouteille->sucrosite_fr == 'doux' || $bouteille->sucrosite_fr == 'extra-doux') style="background-color: var(--ligne-gout); @endif"></div>
-                                <div class="ligne-centre" @if($bouteille->sucrosite_fr == 'doux' || $bouteille->sucrosite_fr == 'extra-doux') style="background-color: var(--ligne-gout);" @endif></div>
-                                <div class="ligne-droite" @if($bouteille->sucrosite_fr == 'extra-doux') style="background-color: var(--ligne-gout);" @endif></div>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="info-gouts">
-                        @if($bouteille->corps_fr != null)
-                            <div class="texte-gouts">
-                                <h3>Corps</h3><p>{{ $bouteille->corps_fr }}</p>
-                            </div>
-                            <div class="ligne-container">
-                                <div class="ligne-gauche" @if($bouteille->corps_fr == 'léger' || $bouteille->corps_fr == 'mi-corsé' || $bouteille->corps_fr == 'corsé') style="background-color: var(--ligne-gout); @endif"></div>
-                                <div class="ligne-centre" @if($bouteille->corps_fr == 'mi-corsé' || $bouteille->corps_fr == 'corsé') style="background-color: var(--ligne-gout);" @endif></div>
-                                <div class="ligne-droite" @if($bouteille->corps_fr == 'corsé') style="background-color: var(--ligne-gout);" @endif></div>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="info-gouts">
-                        @if($bouteille->bouche_fr != null)
-                            <div class="texte-gouts">
-                                <h3>Bouche</h3><p>{{ $bouteille->bouche_fr }}</p>
-                            </div>
-                            <div class="ligne-container">
-                                <div class="ligne-gauche" @if($bouteille->bouche_fr == 'délicate' || $bouteille->bouche_fr == 'généreuse' || $bouteille->bouche_fr == 'enveloppante') style="background-color: var(--ligne-gout); @endif"></div>
-                                <div class="ligne-centre" @if($bouteille->bouche_fr == 'généreuse' || $bouteille->bouche_fr == 'enveloppante') style="background-color: var(--ligne-gout);" @endif></div>
-                                <div class="ligne-droite" @if($bouteille->bouche_fr == 'enveloppante') style="background-color: var(--ligne-gout);" @endif></div>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="info-gouts">
-                        @if($bouteille->bois_fr != null)
-                            <div class="texte-gouts">
-                                <h3>Bois</h3><p>{{ $bouteille->bois_fr }}</p>
-                            </div>
-                            <div class="ligne-container">
-                                <div class="ligne-gauche" @if($bouteille->bois_fr == 'discret' || $bouteille->bois_fr == 'équilibré' || $bouteille->bois_fr == 'marqué') style="background-color: var(--ligne-gout); @endif"></div>
-                                <div class="ligne-centre" @if($bouteille->bois_fr == 'équilibré' || $bouteille->bois_fr == 'marqué') style="background-color: var(--ligne-gout);" @endif></div>
-                                <div class="ligne-droite" @if($bouteille->bois_fr == 'marqué') style="background-color: var(--ligne-gout);" @endif></div>
-                            </div>
-                        @endif
-                    </div> --}}
                 </section>
             </div>
 
@@ -222,4 +164,5 @@
 </main>
     
 @include('components.modals.modale-ajout-bouteille')
+
 @endsection

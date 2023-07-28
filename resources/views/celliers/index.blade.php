@@ -4,10 +4,16 @@
     <link href="{{ asset('css/celliers.css') }}" rel="stylesheet">
 @endpush
 @section('content')
+
+
+@if (session('success'))
+    <div class="alert-success" role="alert">{{ session('success') }}</div>
+@endif
 <main class="celliers">
     @foreach($celliers as $cellier)
         <div class="cellier">
-            <a href="{{ route('celliers.show', $cellier->id) }}"> <span>{{ $cellier->nom }}</span>
+            <a href="{{ route('celliers.show', $cellier->id) }}">
+                <span>{{ ucfirst($cellier->nom) }}</span>
                 <div class="infosCellier">
                     <span>Bouteilles : {{ $cellier->quantite_bouteilles }}</span>
                     @if($cellier->quantite_bouteilles > 0)
@@ -25,3 +31,6 @@
     </div>
 </main>
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/messages.js') }}"></script>
+@endpush
