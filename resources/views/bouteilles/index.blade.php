@@ -14,12 +14,9 @@
         <button class="rechercheSubmit" id="recherche" type="submit">
             Rechercher
         </button>
-        <span>{!! request('search') ? "Résultats pour : <strong>" . request('search') . "</strong>" : '' !!}</span>
+        {!! request('search') ? "<span> Résultats pour : <strong>" . request('search') . "</strong></span>" : '' . "</span>" !!}
     </form>
-    {{-- show the search 
-    @if($search)
-        <p>Vous avez recherché : {{ $search }}</p>
-    @endif --}}
+    
     @if($bouteilles)
         @foreach ($bouteilles as $bouteille)
 

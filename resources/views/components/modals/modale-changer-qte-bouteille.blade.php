@@ -1,5 +1,5 @@
 <dialog class="changerQteBout">
-    <form action="{{ route('cellier_quantite_bouteille.update', 0)}}" method="POST">
+    <form action="{{ route('cellier_quantite_bouteille.update', 'id-bouteille' )}}" method="POST">
         @csrf
         @method('PUT')
         <div>
