@@ -1,10 +1,12 @@
 @push('styles') 
 <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
 <link href=" {{ asset('css/detail-lr.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 @endpush
 @push('scripts')
 <script src="{{ asset('js/modal.js')}}"></script>
 <script src="{{ asset('js/form-commentaire.js')}}"></script>
+<script src="{{ asset('js/note-etoile.js')}}"></script>
 @endpush
 @extends('layout.app')
 @section('title', 'Bouteille')
@@ -156,7 +158,25 @@
                         <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
                         <input type="hidden" name="bouteille_id" value="{{ $bouteille->id }}">
                         <label for="note">Note : </label>
-                        <input type="number" name="note" id="note" min="0" max="5"> /5
+                        {{-- <input type="number" name="note" id="note" min="0" max="5"> /5 --}}
+
+                        {{-- <div class="note-etoile">
+                            <span class="etoile material-symbols-outlined" data-note="1"> star </span>
+                            <span class="etoile material-symbols-outlined" data-note="2"> star </span>
+                            <span class="etoile material-symbols-outlined" data-note="3"> star </span>
+                            <span class="etoile material-symbols-outlined" data-note="4"> star </span>
+                            <span class="etoile material-symbols-outlined" data-note="5"> star </span>
+                          </div> --}}
+                          <div class="note-etoile">
+                            <span class="etoile material-symbols-outlined" data-note="1">wine_bar</span>
+                            <span class="etoile material-symbols-outlined" data-note="2">wine_bar</span>
+                            <span class="etoile material-symbols-outlined" data-note="3">wine_bar</span>
+                            <span class="etoile material-symbols-outlined" data-note="4">wine_bar</span>
+                            <span class="etoile material-symbols-outlined" data-note="5">wine_bar</span>
+                          </div>
+                          
+                          <input type="hidden" name="note" id="note" value="0">
+
                         <button type="submit">Ajouter</button>
                     </form>
             </div>

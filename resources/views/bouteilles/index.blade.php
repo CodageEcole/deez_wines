@@ -41,8 +41,6 @@
                     <div class="bande-de-gout-fv"> <span>Fruité et Vif</span> </div>
                 @elseif($bouteille->image_pastille_alt == "Pastille de goût : Fruité et extra-doux")
                     <div class="bande-de-gout-fed"> <span>Fruité et Extra-Doux</span></div>
-                {{-- @else
-                    <div class="carte-vin no-pastille"> --}}
                 @endif
 
                 <div class="carte-vin @if(!$bouteille->image_pastille_alt) no-pastille @endif">
