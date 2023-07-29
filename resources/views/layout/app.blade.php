@@ -40,7 +40,7 @@
             </a>
             <a href="{{ route('bouteilles.index') }}">
                 <img class="footer-icon-img" src="{{ asset('icons/catalogue_icon_white.svg') }}" alt="Catalogue">
-                <p>Catalogue</p>
+                <p>Recherche</p>
             </a>
             <a href="{{ route('celliers.index') }}">
                 <img class="footer-icon-img" src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Celliers">
