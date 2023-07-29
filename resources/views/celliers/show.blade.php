@@ -11,16 +11,17 @@
         <div class="alert-success" role="alert">{{ session('edit-cellier') }}</div>
     @endif
     <div class="header-nom-cellier">
-        <form action="{{ route('celliers.update', $cellier->id) }}" method="POST">
+        <form class="form-modifier" action="{{ route('celliers.update', $cellier->id) }}" method="POST">
             @csrf
             @method('PUT')
             <input class="input-edit-nom" type="text" name="nom" id="nom" value="{{ $cellier->nom }}">
             <button class="crayon-edit-icon" type="submit"><img src="{{ asset('icons/edit_pen.svg') }}" alt="crayon modification"></button>
+            <button type="submit" class="bouton-modifier">Modifier</button>
         </form>
         <form class="formulaireDel" action="{{ route('celliers.destroy', $cellier->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button class="x-icon" type="submit"><img src="{{ asset('icons/x.svg') }}" alt=""></button>
+            <button class="x-icon boutonSupp" type="submit"><img src="{{ asset('icons/x.svg') }}" alt=""></button>
         </form>
     </div>
     <div>
@@ -84,7 +85,7 @@
                             @csrf
                             @method('DELETE')
                             <input type="hidden"  name="cellier_id" value="{{ $cellier->id }}">
-                            <button class="boutonCellier espace" type="submit">Supprimer</button>
+                            <button class="boutonCellier espace {{-- boutonSupp --}}" type="submit">Supprimer</button>
                         </form>
                     </div>
                 </section>
@@ -101,4 +102,6 @@
 @push('scripts')
     <script src="{{ asset('js/changerQuantiteBouteille.js') }}"></script>
     <script src="{{ asset('js/messages.js')}}"></script>
+    <script src="{{ asset('js/modifierCellier.js')}}"></script>
+    <script src="{{ asset('js/confirmerSupp.js')}}"></script>
 @endpush

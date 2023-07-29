@@ -39,6 +39,7 @@
     color: white;
     padding-block: 0.5em;
     background-color: var(--dark-brown);
+    cursor: pointer;
 }
 .rechercheInput::placeholder {
     color: var(--dark-brown);

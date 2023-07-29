@@ -6,19 +6,34 @@
 .formulairePage hr{
     color: #E2E2E3 ;
 }
-
+dialog {
+    border: 2px solid var(--dark-brown);
+    background-color: var(--light-brown);
+    border-radius: 10px;
+}
+dialog p {
+    padding: 5px;
+    margin: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--dark-brown);
+}
 dialog :is(input, button, span, select){
     color: #848484;
 }
 
 dialog button{
     width: 100%;
-    padding-block: 30px;
+    border-radius: 10px;
+    border: 2px solid white;
+    padding-block: 25px;
+    margin-block: 7px;
     cursor: pointer;
+    color: white;
+    background-color: var(--dark-brown);
+    font-size: 1.15em;
 }
-dialog button:hover{
-    background-color: #000000;
-}
+
 .modaleActions{
     display: flex;
     justify-content: center;

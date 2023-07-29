@@ -18,17 +18,17 @@
             <label for="quantite">Quantité</label>
         </div>
                 <div class="plusMinus">
-                    <span class="quantity-btn plus-btn" onclick="incrementQuantity()">&#43;</span>
-                    <input name="quantite" type="number" id="quantity" value="1" min="1">
                     <span class="quantity-btn minus-btn" onclick="decrementQuantity()">&#8722;</span>
+                    <input name="quantite" type="number" id="quantity" value="1" min="1">
+                    <span class="quantity-btn plus-btn" onclick="incrementQuantity()">&#43;</span>
                 </div>
 
         <input type="hidden" name="bouteille_id" id="bouteille-id">
         <input type="hidden" name="source_page" value="bouteilles.index">
         <hr>
         <div class="modaleActions">
-            <button type="submit" class="boutonCellier">Ajouter</button>
             <button type="button" class="boutonCellier" onclick="closeModal()">Annuler</button>
+            <button type="submit" class="boutonCellier">Ajouter</button>
         </div>
     </form>
 </dialog>
