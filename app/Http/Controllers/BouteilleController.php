@@ -21,10 +21,16 @@ class BouteilleController extends Controller
     public function index()
     {
         //resultat de la recherche
-        $bouteilles = Bouteille::search(request('search'))
-            ->where('existe_plus', false)
-            ->orderBy('nom', 'asc')
-            ->paginate(30);
+        if(request('search')){
+            $bouteilles = Bouteille::search(request('search'))
+                ->where('existe_plus', false)
+                ->orderBy('nom', 'asc')
+                ->paginate(30);
+        } else {
+            $bouteilles = Bouteille::where('existe_plus', false)
+                ->orderBy('nom', 'asc')
+                ->paginate(30);
+        }
         $celliers = Cellier::where('user_id', auth()->id())->get();
         return view('bouteilles.index', compact('bouteilles', 'celliers'));
     }
