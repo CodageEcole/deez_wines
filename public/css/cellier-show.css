@@ -40,13 +40,33 @@
     margin-top: 2em;
 
 }
+
+.form-modifier {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 10px;
+}
 .crayon-edit-icon img {
     width: 20px;
     height: 20px;
+    
+}
+.crayon-edit-icon {
+    margin-right: auto;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 .x-icon img {
     width: 20px;
     height: 20px;
+}
+.x-icon {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 .input-edit-nom {
     height: 30px;
@@ -54,5 +74,17 @@
     outline: none;
     background-color: transparent;
     font-size: 1.5em;
+    max-width: 50%;
     width: max-content;
+}
+.bouton-modifier {
+    background-color: var(--dark-brown);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1em;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 1.5em;
 }

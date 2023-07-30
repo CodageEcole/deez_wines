@@ -10,6 +10,9 @@
 <main class="indexBouteilles">
     {{-- Barre de recherche --}}
     <form class="rechercheConteneur" action="{{ route('bouteilles.index') }}" method="GET">
+        @if( !request('search'))
+            <h3>Chercher quelque chose!</h3>
+        @endif
         <input class="rechercheInput" type="text" name="search" id="search" placeholder="Recherche">
         <button class="rechercheSubmit" id="recherche" type="submit">
             Rechercher
@@ -17,7 +20,7 @@
         {!! request('search') ? "<span> Résultats pour : <strong>" . request('search') . "</strong></span>" : '' . "</span>" !!}
     </form>
     
-    @if($bouteilles)
+    @if(request('search') && count($bouteilles) > 0)
         @foreach ($bouteilles as $bouteille)
 
             <div class="carte-vin-container">
@@ -121,21 +124,31 @@
                 @endif
             </nav>
             @endif
-    @else
-        <p>aucune bouteille trouvée</p>
-    @endif
 
-@if(count($bouteilles) >= 30)
-    {{-- la boîte modale de navigation --}}
-    @include('components.modals.modale-pagination')
-    @push('scripts')
-        <script src="{{ asset('js/pagination.js') }}"></script>
-    @endpush
-@endif
+        @if(count($bouteilles) >= 30)
+            {{-- la boîte modale de navigation --}}
+            @include('components.modals.modale-pagination')
+            @push('scripts')
+                <script src="{{ asset('js/pagination.js') }}"></script>
+            @endpush
+        @endif
+    @elseif(request('search') == "")
+        <div class="aucun-resultat">
+            <h2>Aucun résultat</h2>
+            <p>Vous devez taper quelque chose dans la barre de recherche!</p>
+        </div>
+        <a href="{{ route('bouteilles.index') }}">Voir toutes les bouteilles</a>
+    @else
+        <div class="aucun-resultat">
+            <h2>Aucun résultat</h2>
+            <p>Il n'y a aucune bouteille correspondant à {{ request('search') }}</p>
+        </div>
+    @endif
+    
+</main>
 {{-- la boîte modale d'ajout de bouteilles au cellier --}}
 @include('components.modals.modale-ajout-bouteille')
 @push('scripts')
 <script src="{{ asset('js/modal.js')}}"></script>
 @endpush
-</main>
 @endsection
