@@ -124,27 +124,28 @@
 
             <div class="commentaire-note">
 
-                @if(!empty($commentaireBouteille->commentaire))
-                    <div class="commentaire">
-                        <h3>Commentaire</h3>
-                        <span>{{ $commentaireBouteille->commentaire }}</span>
-                    </div>
-                @endif
-                
-                @if(!empty($commentaireBouteille->note))
-                    <div class="note">
-                        <h3>Note</h3>
-                        <span>{{ $commentaireBouteille->note }}/5</span>
-                    </div>
-                @endif
-
-                @if(!empty($commentaireBouteille->note) || !empty($commentaireBouteille->commentaire))
-                    <div>
-                        <button id="btn-modifier-commentaire" type="button" class="btn btn-primary btn-details">
-                            Modifer 
-                        </button>
-                    </div>  
-                @endif
+                <div class="commentaire-existant">
+                    @if(!empty($commentaireBouteille->commentaire))
+                        <div class="commentaire">
+                            <h3>Commentaire : </h3>
+                            <p>{{ $commentaireBouteille->commentaire }}</p>
+                        </div>
+                    @endif
+                    
+                    @if(!empty($commentaireBouteille->note))
+                        <div class="note">
+                            <h3>Note</h3>
+                            <p>{{ $commentaireBouteille->note }}/5</p>
+                        </div>
+                    @endif
+                    @if(!empty($commentaireBouteille->note) || !empty($commentaireBouteille->commentaire))
+                        <div>
+                            <button id="btn-modifier-commentaire" type="button" class="bouton-modifier">
+                                Modifer
+                            </button>
+                        </div>
+                    @endif
+                </div>
 
                 @if(empty($commentaireBouteille->commentaire) && empty($commentaireBouteille->note))
                     <form id="form-commentaire" action="{{ route('commentaire_bouteille.store') }}" method="POST">
@@ -158,15 +159,7 @@
                         <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
                         <input type="hidden" name="bouteille_id" value="{{ $bouteille->id }}">
                         <label for="note">Note : </label>
-                        {{-- <input type="number" name="note" id="note" min="0" max="5"> /5 --}}
 
-                        {{-- <div class="note-etoile">
-                            <span class="etoile material-symbols-outlined" data-note="1"> star </span>
-                            <span class="etoile material-symbols-outlined" data-note="2"> star </span>
-                            <span class="etoile material-symbols-outlined" data-note="3"> star </span>
-                            <span class="etoile material-symbols-outlined" data-note="4"> star </span>
-                            <span class="etoile material-symbols-outlined" data-note="5"> star </span>
-                          </div> --}}
                           <div class="note-etoile">
                             <span class="etoile material-symbols-outlined" data-note="1">wine_bar</span>
                             <span class="etoile material-symbols-outlined" data-note="2">wine_bar</span>

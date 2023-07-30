@@ -36,7 +36,7 @@ main {
     /* width: 100%;
     min-width: 335px;
     max-width: 335px; */
-    width: 60dvh;
+    width: 80dvw;
 
     margin-left: 95px;
 
@@ -76,9 +76,9 @@ main {
     align-items: center;
     gap: 10px;
 
-    width: 100%;
+    width: 90%;
     min-width: 200px;
-    max-width: 290px;
+    max-width: 700px;
     height: 50px;
     flex-shrink: 0;
 
@@ -171,12 +171,17 @@ main {
 
 /* == commentaire et note == */
 
+.commentaire-existant {
+    display: flex;
+    flex-direction: column;
+}
+
 .commentaire-note {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding-bottom: 40px;
-    padding-right: 45px;
+    width: 90%;
 }
 
 .commentaire-note form {
@@ -184,21 +189,26 @@ main {
     flex-direction: column;
 }
 
-/* .commentaire-note h3,
-.comemntaire-note form {
-    font-family: 'Bonobo', 'GelicaLight', sans-serif;
-    font-size: 16px;
-} */
-
-form {
+form,
+.commentaire-existant {
     border-radius: 5px;
     padding: 10px;
     background-color: var(--light-brown);
     gap: 10px;
 }
 
-form label {
+form label,
+.commentaire > h3,
+.note > h3 {
     font-family: 'Bonobo', 'GelicaLight', sans-serif;
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.commentaire > h3,
+.note > h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 form textarea {
@@ -207,14 +217,26 @@ form textarea {
     border-radius: 5px;
     padding: 10px;
     resize: none;
+}
 
+form textarea,
+.commentaire > p,
+.note > p {
     font-family: 'MabryPro';
-    font-size: 14px;
+    font-size: 18px;
 }
 
 textarea {
     padding: 0;
     border: none;
+}
+
+.bouton-modifier {
+    background-color: (var(--dark-brown));
+    border-radius: 25%;
+
+    font-family: 'MabryPro';
+    font-size: 18px;
 }
 
 /* Note */
@@ -310,16 +332,6 @@ textarea {
 @media (max-width: 385px) {
 
     /* Bouteille */
-    /* .bouteille-container {
-        min-width: 65px;
-        max-width: 65px;
-    }
-
-    .bouteille-container img {
-        top: 60px;
-        left: -110px;
-        height: 345px;
-    } */
 
     /* description */
     .description-container {
