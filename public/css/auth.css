@@ -1,0 +1,68 @@
+/* section page login */
+
+.login{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.loginLogo{
+    width: 100%;
+}
+
+.loginForm{
+    background-color: var(--light-brown);
+    width: 80%;
+    margin-inline: auto;
+    padding: 20px;
+    border: 1px solid var(--dark-brown);
+    border-radius: 10px;
+}
+
+.loginForm>div:not(:last-of-type){
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.loginForm>div>:first-child{
+    margin-top: 5px;
+}
+
+.loginForm a{
+    color: unset;
+}
+
+.loginForm button{
+    padding: 10px 5px;
+    color: white;
+    width: fit-content;
+    background-color: var(--dark-brown);
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.loginActions{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.loginActions>div{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* hover section login */
+
+.loginForm a:hover{
+    color: gray;
+}
+.loginForm button:hover{
+    color: var(--dark-brown);
+    background-color: white;
+    border: 1px solid var(--dark-brown);
+}
+/* fin section page login */

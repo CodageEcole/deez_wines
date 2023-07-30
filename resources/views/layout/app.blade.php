@@ -9,30 +9,42 @@
     <link href=" {{ asset('css/layout-lr.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/root.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/messages.css') }}" rel="stylesheet">
-    <title>Layout</title>
+    <title>@yield('title')</title>
+    @vite(['resources/js/app.js'])
 </head>
 
-<body>
 
+<body>
     <header>
         <div class="blue-top"></div>
         <nav>
             <div class="logo">
                 {{-- <img src="{{ asset('logos/deez_wines_logo_small.svg') }}" alt="Logo"> --}}
             </div>
-            <div class="search-more">
-                <a href="#">
-                    <img src="{{ asset('icons/more_icon.svg') }}" alt="Plus">
-                </a>
-            </div>
+            <ul>
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    @if($localeCode != LaravelLocalization::getCurrentLocale())
+                        <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                            {{ $properties['native'] }}
+                        </a>
+                    @endif
+                @endforeach
+            </ul>
+            @if(!isset($cacherLayout))
+                <div class="search-more">
+                    <a href="#">
+                        <img src="{{ asset('icons/more_icon.svg') }}" alt="Plus">
+                    </a>
+                </div>
+            @endif
         </nav>
-
         <div class="grey-top"></div>
     </header>
 
         @yield('content')
 
     <footer>
+    @if(!isset($cacherLayout))
         <div class="footer-icon-tray">
             <a href="{{ route('profile.edit') }}">
                 <img class="footer-icon-img" src="{{ asset('icons/profil_icon_white.svg') }}" alt="Profil">
@@ -51,6 +63,7 @@
                 <p>Ajouter</p>
             </a>
         </div>
+    @endif
     </footer>
     @stack('scripts')
 </body>
