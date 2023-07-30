@@ -1,57 +1,50 @@
-<x-guest-layout>
+@extends('layout.app')
+@section('title', __('messages.log_in'))
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/auth.css')}}">
+@endpush
+<!-- variable pour cacher la navigation du layout -->
+@php $cacherLayout = true @endphp
+@section('content')
+<main class="login">
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('login') }}">
+    <x-auth-session-status class="" :status="session('status')" />
+    <!-- le logo -->
+    <div>
+        <a href="/">
+            <x-application-logo/>
+        </a>
+    </div>
+    <form class="loginForm" method="POST" action="{{ route('login') }}">
         @csrf
-
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('messages.email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')"/>
         </div>
-
         <!-- Password -->
-        <div class="mt-4">
+        <div>
             <x-input-label for="password" :value="__('messages.password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-text-input id="password" type="password" name="password" required autocomplete="current-password" />
+            <x-input-error :messages="$errors->get('password')" />
         </div>
-
         <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('messages.remember_me') }}</span>
+        <div>
+            <label for="remember_me">
+                <input id="remember_me" type="checkbox" name="remember">
+                <span>{{ __('messages.remember_me') }}</span>
             </label>
         </div>
-        <div class="flex items-center justify-end mt-4">
-            <div class="flex flex-col items-center justify-end">
+        <div class="loginActions">
+            <div>
                 @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('messages.forgot_password') }}
-                </a>
+                <a href="{{ route('password.request') }}">{{ __('messages.forgot_password') }}</a>
                 @endif
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register')}}">{{ __('messages.create_account') }}</a></a>
+                <a href="{{ route('register')}}">{{ __('messages.create_account') }}</a>
             </div>
-            <x-primary-button class="ml-3">
-                {{ __('messages.log_in') }}
-            </x-primary-button>
+            <x-primary-button>{{ __('messages.log_in') }}</x-primary-button>
         </div>
     </form>
-    <ul>
-        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-            @if($localeCode != LaravelLocalization::getCurrentLocale())
-                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                    {{ $properties['native'] }}
-                </a>
-            @endif
-        @endforeach
-    </ul>
-</x-guest-layout>
+</main>
+@endsection

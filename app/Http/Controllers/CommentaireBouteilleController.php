@@ -27,6 +27,8 @@ class CommentaireBouteilleController extends Controller
             $commentaireBouteille = CommentaireBouteille::create([
                 'bouteille_id' => $request->bouteille_id,
                 'user_id' => auth()->id(),
+                'note' => null,
+                'commentaire' => "",
             ]);
     
             if ($request->filled('note')) {
