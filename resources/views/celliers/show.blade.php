@@ -16,7 +16,7 @@
             @method('PUT')
             <input class="input-edit-nom" type="text" name="nom" id="nom" value="{{ $cellier->nom }}">
             <button class="crayon-edit-icon" type="submit"><img src="{{ asset('icons/edit_pen.svg') }}" alt="crayon modification"></button>
-            <button type="submit" class="bouton-modifier">Modifier</button>
+            <button type="submit" class="bouton-modifier">Annuler</button>
         </form>
         <form class="formulaireDel" action="{{ route('celliers.destroy', $cellier->id) }}" method="POST">
             @csrf

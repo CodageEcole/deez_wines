@@ -2,6 +2,7 @@ let inputNom = document.querySelector('.input-edit-nom');
 let boutonCrayon = document.querySelector('.crayon-edit-icon');
 let boutonModifier = document.querySelector('.bouton-modifier');
 let formModifier = document.querySelector('.form-modifier');
+let nomCellier = inputNom.value;
 let change = false;
 
 inputNom.disabled = true;
@@ -10,8 +11,7 @@ inputNom.style.padding = '5px';
 
 boutonCrayon.addEventListener('click', function() {
     boutonCrayon.disabled = true;
-    inputNom.style.border = '1px solid var(--light-brown)';
-    inputNom.style.borderRadius = '5px';
+    inputNom.classList.add('clickable');
     inputNom.disabled = false;
     boutonModifier.style.display = 'block';
     boutonCrayon.style.display = 'none';
@@ -19,6 +19,14 @@ boutonCrayon.addEventListener('click', function() {
 
 inputNom.addEventListener('input', function() {
     change = true;
+    boutonModifier.innerHTML = 'Enregistrer';
+    boutonModifier.classList.add('active');
+
+    if(inputNom.value == nomCellier) {
+        change = false;
+        boutonModifier.innerHTML = 'Annuler';
+        boutonModifier.classList.remove('active');
+    }
 })
 
 boutonModifier.addEventListener('click', function(event) {
@@ -27,11 +35,10 @@ boutonModifier.addEventListener('click', function(event) {
     if (change) {
         formModifier.submit();
     } else {
-        inputNom.disabled = true;
-        boutonCrayon.disabled = false;
-        inputNom.style.display = '1px solid transparent';
         boutonModifier.style.display = 'none';
         boutonCrayon.style.display = 'block';
-        inputNom.style.border = 'none';
+        inputNom.disabled = true;
+        boutonCrayon.disabled = false;
+        inputNom.classList.remove('clickable');
     }
 })
