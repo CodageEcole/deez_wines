@@ -139,10 +139,10 @@
                         </div>
                     @endif
                     @if(!empty($commentaireBouteille->note) || !empty($commentaireBouteille->commentaire))
-                        <div>
-                            <button id="btn-modifier-commentaire" type="button" class="bouton-modifier">
-                                Modifer
-                            </button>
+                        <div class="bouton-modifier">
+                            <a id="btn-modifier-commentaire" type="button">
+                                Modifer <span class="material-symbols-outlined exclure">edit_note</span>
+                            </a>
                         </div>
                     @endif
                 </div>
@@ -170,7 +170,9 @@
                           
                           <input type="hidden" name="note" id="note" value="0">
 
-                        <button type="submit">Ajouter</button>
+                          <div class="bouton-submit">
+                            <button type="submit" class="invisible-385px">Ajouter</button><img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
+                        </div>
                     </form>
             </div>
         </div>
