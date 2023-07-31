@@ -77,7 +77,7 @@
     max-width: 50%;
     width: max-content;
 }
-.clickable {
+.input-edit-nom.clickable {
     border: 1px solid var(--light-brown);
     border-radius: 5px;
 }
@@ -92,7 +92,7 @@
     cursor: pointer;
     font-weight: 1.5em;
 }
-.active {
+.bouton-modifier.active {
     background-color: rgba(51, 206, 0, 0.861);
     color: black;
 }
