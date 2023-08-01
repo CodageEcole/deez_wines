@@ -15,10 +15,10 @@
         <hr>
         <div>
             <button type="submit" class="btn btn-primary btn-details">
-                Sauvegarder
+                @lang('messages.save')
             </button>
             <button type="button" class="btn btn-secondary btn-details" onclick="closeModal()">
-                Annuler
+                @lang('messages.cancel')
             </button>
         </div>
     </form>

@@ -4,7 +4,7 @@
         <hr>
         @csrf
         <div class="quantity-input">
-            <label for="cellier_id">Cellier</label>
+            <label for="cellier_id">@lang('messages.cellar')</label>
         </div>
         <div class="quantity-input">
             <select name="cellier_id">
@@ -15,20 +15,19 @@
         </div>
         <hr>
         <div class="quantity-input">
-            <label for="quantite">Quantité</label>
+            <label for="quantite">@lang('messages.quantity')</label>
         </div>
-                <div class="plusMinus">
-                    <span class="quantity-btn minus-btn" onclick="decrementQuantity()">&#8722;</span>
-                    <input name="quantite" type="number" id="quantity" value="1" min="1">
-                    <span class="quantity-btn plus-btn" onclick="incrementQuantity()">&#43;</span>
-                </div>
-
+        <div class="plusMinus">
+            <span class="quantity-btn minus-btn" onclick="decrementQuantity()">&#8722;</span>
+            <input name="quantite" type="number" id="quantity" value="1" min="1">
+            <span class="quantity-btn plus-btn" onclick="incrementQuantity()">&#43;</span>
+        </div>
         <input type="hidden" name="bouteille_id" id="bouteille-id">
         <input type="hidden" name="source_page" value="bouteilles.index">
         <hr>
         <div class="modaleActions">
-            <button type="button" class="boutonCellier" onclick="closeModal()">Annuler</button>
-            <button type="submit" class="boutonCellier">Ajouter</button>
+            <button type="button" class="boutonCellier" onclick="closeModal()">@lang('messages.cancel')</button>
+            <button type="submit" class="boutonCellier">@lang('messages.add')</button>
         </div>
     </form>
 </dialog>

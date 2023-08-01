@@ -2,11 +2,10 @@
     <form action="{{ route('celliers.store') }}" method="POST">
         @csrf
         <div>
-            <label for="nom">Nom de votre cellier</label>
-            <input type="text" name="nom" id="nom">
+            <input type="text" name="nom" id="nom" placeholder="@lang('messages.name_your_cellar')">
         </div>
         <div>
-            <button class="" type="submit">Ajouter</button>
+            <button class="" type="submit">@lang('messages.add')</button>
         </div>
     </form>
 </dialog>

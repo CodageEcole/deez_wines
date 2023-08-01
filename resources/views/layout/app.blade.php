@@ -48,19 +48,19 @@
         <div class="footer-icon-tray">
             <a href="{{ route('profile.edit') }}">
                 <img class="footer-icon-img" src="{{ asset('icons/profil_icon_white.svg') }}" alt="Profil">
-                <p>Profil</p>
+                <p>@lang('messages.profile')</p>
             </a>
             <a href="{{ route('bouteilles.index') }}">
                 <img class="footer-icon-img" src="{{ asset('icons/catalogue_icon_white.svg') }}" alt="Catalogue">
-                <p>Recherche</p>
+                <p>@lang('messages.search')</p>
             </a>
             <a href="{{ route('celliers.index') }}">
                 <img class="footer-icon-img" src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Celliers">
-                <p>Celliers</p>
+                <p>@lang('messages.cellars')</p>
             </a>
             <a href="#">
                 <img class="footer-icon-img" src="{{ asset('icons/add_icon_white.svg') }}" alt="Ajouter">
-                <p>Ajouter</p>
+                <p>@lang('messages.add')</p>
             </a>
         </div>
     @endif

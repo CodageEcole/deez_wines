@@ -81,18 +81,20 @@
     border: 1px solid var(--light-brown);
     border-radius: 5px;
 }
-.bouton-modifier {
-    background-color: var(--dark-brown);
+.form-modifier button {
     border: none;
     outline: none;
     border-radius: 5px;
-    color: white;
     font-size: 1em;
     padding: 10px 15px;
     cursor: pointer;
     font-weight: 1.5em;
 }
-.bouton-modifier.active {
+.bouton-annuler {
+    background-color: var(--dark-brown);
+    color: white;
+}
+.bouton-enregistrer {
     background-color: rgba(51, 206, 0, 0.861);
     color: black;
 }

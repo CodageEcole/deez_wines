@@ -7,10 +7,11 @@
     color: #E2E2E3 ;
 }
 
-dialog {
+dialog:not(.modalePage) {
     border: 2px solid var(--dark-brown);
     background-color: var(--light-brown);
     border-radius: 10px;
+    min-width: 250px;
 }
 dialog::backdrop{
     background-color: rgba(0, 0, 0, 0.5);
@@ -27,7 +28,7 @@ dialog :is(input, button, span, select){
     color: #848484;
 }
 
-dialog button{
+dialog button {
     width: 100%;
     border-radius: 10px;
     border: 2px solid white;
@@ -48,6 +49,9 @@ dialog input {
     padding: 0;
     height: 30px;
     font-size: 1.15em;
+}
+dialog input::placeholder {
+    padding: 10px;
 }
 
 dialog label {
