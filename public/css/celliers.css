@@ -1,5 +1,6 @@
-a {
+button {
     font-family: 'Bonobo', 'GelicaLight', sans-serif;
+    cursor: pointer;
 }
 
 .celliers{
@@ -14,13 +15,15 @@ a {
     border-radius: 10px;
 }
 
-.celliers>div:last-of-type a{
+.celliers>div:last-of-type button{
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: center;
     justify-content: center;
     height: 100%;
+    width: 100%;
+    border: none;
 
     text-decoration: none;
     color: #FFFFFF;

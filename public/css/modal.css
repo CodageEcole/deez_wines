@@ -6,11 +6,17 @@
 .formulairePage hr{
     color: #E2E2E3 ;
 }
-dialog {
+
+dialog:not(.modalePage) {
     border: 2px solid var(--dark-brown);
     background-color: var(--light-brown);
     border-radius: 10px;
+    min-width: 250px;
 }
+dialog::backdrop{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 dialog p {
     padding: 5px;
     margin: 5px;
@@ -22,16 +28,36 @@ dialog :is(input, button, span, select){
     color: #848484;
 }
 
-dialog button{
+dialog button {
     width: 100%;
     border-radius: 10px;
     border: 2px solid white;
-    padding-block: 25px;
+    padding-block: 15px;
     margin-block: 7px;
     cursor: pointer;
     color: white;
     background-color: var(--dark-brown);
     font-size: 1.15em;
+}
+
+dialog input {
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid var(--dark-brown);
+    padding: 10px;
+    margin-block: 7px;
+    padding: 0;
+    height: 30px;
+    font-size: 1.15em;
+}
+dialog input::placeholder {
+    padding: 10px;
+}
+
+dialog label {
+    font-size: 1.15em;
+    font-weight: bold;
+    color: var(--dark-brown);
 }
 
 .modaleActions{

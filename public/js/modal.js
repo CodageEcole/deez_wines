@@ -53,3 +53,7 @@ function incrementQuantity() {
     quantityInput.value = currentQuantity + 1;
 }
 
+function nouveauCellier(){
+    modal.showModal();
+}
+
