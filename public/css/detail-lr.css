@@ -185,8 +185,16 @@ main {
 }
 
 .commentaire-note form {
-    display: flex !important;
+    display: flex; /* important */
     flex-direction: column;
+}
+
+.form-visible {
+    display: flex;
+}
+
+div .form-invisible {
+    display: none;
 }
 
 form,

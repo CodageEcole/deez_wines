@@ -5,8 +5,9 @@
 @endpush
 @push('scripts')
 <script src="{{ asset('js/modal.js')}}"></script>
-<script src="{{ asset('js/form-commentaire.js')}}"></script>
+{{-- <script src="{{ asset('js/form-commentaire.js')}}"></script> --}}
 <script src="{{ asset('js/note-etoile.js')}}"></script>
+<script src="{{ asset('js/form-modification.js')}}" defer></script>
 @endpush
 @extends('layout.app')
 @section('title', 'Bouteille')
@@ -124,7 +125,7 @@
 
             <div class="commentaire-note">
 
-                <div class="commentaire-existant">
+                <div class="commentaire-existant form-visible">
                     @if(!empty($commentaireBouteille->commentaire))
                         <div class="commentaire">
                             <h3>Commentaire : </h3>
@@ -146,34 +147,34 @@
                         </div>
                     @endif
                 </div>
-
-                @if(empty($commentaireBouteille->commentaire) && empty($commentaireBouteille->note))
-                    <form id="form-commentaire" action="{{ route('commentaire_bouteille.store') }}" method="POST">
-                    @csrf
-                @else
-                    <form id="form-commentaire" action="{{ route('commentaire_bouteille.update', $commentaireBouteille->id) }}" method="POST">
+                    @if(empty($commentaireBouteille->commentaire) && empty($commentaireBouteille->note))
+                            <form id="form-commentaire" class="{{ empty($commentaireBouteille) ? 'form-visible' : 'form-invisible' }}" action="{{ route('commentaire_bouteille.store') }}" method="POST">
                         @csrf
-                        @method('PUT')
-                @endif
+                    @else
+                        <form id="form-commentaire" class="form-invisible" action="{{ route('commentaire_bouteille.update', $commentaireBouteille->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                    @endif
+
                         <label for="commentaire">Commentaire : </label>
-                        <textarea name="commentaire" id="commentaire" cols="30" rows="10"></textarea>
+                        <textarea name="commentaire" id="commentaire" cols="30" rows="10" data-commentaire="{{ $commentaireBouteille->commentaire ?? '' }}"></textarea>
                         <input type="hidden" name="bouteille_id" value="{{ $bouteille->id }}">
                         <label for="note">Note : </label>
 
-                          <div class="note-etoile">
+                            <div class="note-etoile">
                             <span class="etoile material-symbols-outlined" data-note="1">wine_bar</span>
                             <span class="etoile material-symbols-outlined" data-note="2">wine_bar</span>
                             <span class="etoile material-symbols-outlined" data-note="3">wine_bar</span>
                             <span class="etoile material-symbols-outlined" data-note="4">wine_bar</span>
                             <span class="etoile material-symbols-outlined" data-note="5">wine_bar</span>
-                          </div>
-                          
-                          <input type="hidden" name="note" id="note" value="0">
+                            </div>
+                            
+                            <input type="hidden" name="note" id="note" value="0">
 
-                          <div class="bouton-submit">
-                            <button type="submit" class="invisible-385px">Ajouter</button><img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
-                        </div>
-                    </form>
+                            <div class="bouton-submit">
+                                <button type="submit" class="invisible-385px">Ajouter</button><img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
+                            </div>
+                        </form>
             </div>
         </div>
 </main>
