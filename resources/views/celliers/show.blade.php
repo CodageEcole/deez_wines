@@ -16,17 +16,18 @@
             @method('PUT')
             <input class="input-edit-nom" type="text" name="nom" id="nom" value="{{ $cellier->nom }}">
             <button class="crayon-edit-icon" type="submit"><img src="{{ asset('icons/edit_pen.svg') }}" alt="crayon modification"></button>
-            <button type="submit" class="bouton-modifier">Modifier</button>
+            <button type="submit" class="bouton-annuler">@lang('messages.cancel')</button>
+            <button type="submit" class="bouton-enregistrer">@lang('messages.save')</button>
         </form>
         <form class="formulaireDel" action="{{ route('celliers.destroy', $cellier->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button class="x-icon boutonSupp" type="submit"><img src="{{ asset('icons/x.svg') }}" alt=""></button>
+            <button class="x-icon boutonSupp" type="submit" onclick="openModal()"><img src="{{ asset('icons/x.svg') }}" alt=""></button>
         </form>
     </div>
     <div>
-        <h2>Vos bouteilles</h2>
-        <a class="boutonCellier espace" href="{{ route('bouteilles.create', Auth::id()) }}">Ajouter une bouteille personnalisée</a>
+        <h2>@lang('messages.your_bottles')</h2>
+        <a class="boutonCellier espace" href="{{ route('bouteilles.create', Auth::id()) }}">@lang('messages.add_custom_bottle')</a>
     
         @if (session('success'))
             <div class="alert-success" role="alert">{{ session('success') }}</div>
@@ -75,17 +76,17 @@
                             {{ $quantiteBouteille->bouteille->format ? $quantiteBouteille->bouteille->format . " | " : $quantiteBouteille->bouteille->format }}
                             {{ $quantiteBouteille->bouteille->pays_fr }}
                         </p>
-                        <p>Quantité : <span class="nombreBouteilles">{{ $quantiteBouteille->quantite }}</span></p>
+                        <p>@lang('messages.quantity') : <span class="nombreBouteilles">{{ $quantiteBouteille->quantite }}</span></p>
                     </div>
                     <div class="sectionBoutons">
                         <div>
-                            <button class="modifierQuantite boutonCellier espace" data-id="{{ $quantiteBouteille->id }}" data-nombre="{{ $quantiteBouteille->quantite }}">Modifier</button>
+                            <button class="modifierQuantite boutonCellier espace" data-id="{{ $quantiteBouteille->id }}" data-nombre="{{ $quantiteBouteille->quantite }}">@lang('messages.modify')</button>
                         </div>
                         <form action="{{ route('cellier_quantite_bouteille.destroy', $quantiteBouteille->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <input type="hidden"  name="cellier_id" value="{{ $cellier->id }}">
-                            <button class="boutonCellier espace {{-- boutonSupp --}}" type="submit">Supprimer</button>
+                            <button class="boutonCellier espace" type="submit">@lang('messages.delete')</button>
                         </form>
                     </div>
                 </section>

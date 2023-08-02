@@ -2,6 +2,7 @@
 @section('title', 'Vos Celliers')
 @push('styles')
     <link href="{{ asset('css/celliers.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/modal.css') }}" rel="stylesheet">
 @endpush
 @section('content')
 
@@ -27,10 +28,12 @@
         </div>
     @endforeach
     <div>
-        <a href="{{ route('celliers.create') }}"><img src="{{ asset('icons/plus_icon.svg') }}" alt="Ajouter">Ajouter</a>
+        <button onclick="nouveauCellier()"><img src="{{ asset('icons/plus_icon.svg') }}" alt="Ajouter">Ajouter</button>
     </div>
 </main>
-@endsection
+@include('components.modals.modale-ajout-cellier')
 @push('scripts')
-    <script src="{{ asset('js/messages.js') }}"></script>
+<script src="{{ asset('js/messages.js') }}"></script>
+<script src="{{ asset('js/modal.js') }}"></script>
 @endpush
+@endsection

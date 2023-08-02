@@ -1,5 +1,5 @@
 <dialog class="confirmerDel">
-    <p>Êtes-vous sûr de vouloir supprimer ?</p>
-    <button>Confirmer la suppression</button>
-    <button>Annuler</button>
+    <p>@lang('messages.sure_to_delete')</p>
+    <button>@lang('messages.confirm_deletion')</button>
+    <button>@lang('messages.cancel')</button>
 </dialog>

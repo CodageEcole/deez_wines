@@ -40,6 +40,9 @@ return [
     'delete_account_text' => "Une fois votre compte supprimé, toutes ses ressources et données seront définitivement supprimées. Avant de supprimer votre compte, veuillez télécharger toutes les données ou informations que vous souhaitez conserver.",
     'cancel' => 'Annuler',
 
+    //Recherche
+    'search_message' => 'Cherchez quelque chose!',
+
     'back_to_site' => 'Retour au site',
 
     //

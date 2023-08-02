@@ -10,14 +10,15 @@
 <main class="indexBouteilles">
     {{-- Barre de recherche --}}
     <form class="rechercheConteneur" action="{{ route('bouteilles.index') }}" method="GET">
-        @if( !request('search'))
-            <h3>Chercher quelque chose!</h3>
-        @endif
-        <input class="rechercheInput" type="text" name="search" id="search" placeholder="Recherche">
+        <input class="rechercheInput" type="text" name="search" id="search" placeholder="@lang('messages.search_bar_message')">
         <button class="rechercheSubmit" id="recherche" type="submit">
-            Rechercher
+            @lang('messages.search')
         </button>
-        {!! request('search') ? "<span> Résultats pour : <strong>" . request('search') . "</strong></span>" : '' . "</span>" !!}
+        @if (request('search') && count($bouteilles) > 0)
+            <span> @lang('messages.results_for') : <strong>{{ request('search') }} </strong></span>
+        @elseif (request('search') && count($bouteilles) == 0)
+            <span> @lang('messages.no_results_message') : <strong>{{ request('search') }} </strong></span>
+        @endif
     </form>
     
     @if(request('search') && count($bouteilles) > 0)
@@ -69,7 +70,7 @@
                                 </button> --}}
                             </div>
                             <div class="overlap" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
-                                <p class="invisible-385px">Ajouter</p><img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
+                                <p class="invisible-385px">@lang('messages.add')</p><img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
                             </div>
                         </section>
                     </div>
@@ -86,39 +87,32 @@
             <nav class="pagination">
                 {{-- Lien première page --}}
                 @if ($bouteilles->onFirstPage())
-                    <a class="pagination-link disabled">prem.</a>
+                    <a class="pagination-link disabled">@lang('messages.first')</a>
                 @else
-                    <a href="{{ $bouteilles->url(1) }}" rel="prev" class="pagination-link">prem.</a>
+                    <a href="{{ $bouteilles->url(1) }}" rel="prev" class="pagination-link">@lang('messages.first')</a>
                 @endif
 
                 {{-- Lien page précédente --}}
                 @if ($bouteilles->onFirstPage())
-                    <a class="pagination-link disabled">préc.</a>
+                    <a class="pagination-link disabled">@lang('messages.previous')</a>
                 @else
-                    <a href="{{ $bouteilles->previousPageUrl() }}" rel="prev" class="pagination-link">préc.</a>
+                    <a href="{{ $bouteilles->previousPageUrl() }}" rel="prev" class="pagination-link">@lang('messages.previous')</a>
                 @endif
                 {{-- page actuelle --}}
                 <span class="active">{{ $pageCourante }}</span>
 
-                {{-- Bouton sélecteur de page 
-                <span class="boutonPage" data-derniere="{{ $dernierePage }}">&#x270E;</span>--}}
-
-                    <input class="numeroPage" data-derniere-page="{{ $dernierePage }}" type="number" name="page" min="1" value="de">
-
-
-
                 {{-- Lien page suivante --}}
                 @if ($bouteilles->hasMorePages())
-                    <a href="{{ $bouteilles->nextPageUrl() }}" rel="next" class="pagination-link">suiv.</a>
+                    <a href="{{ $bouteilles->nextPageUrl() }}" rel="next" class="pagination-link">@lang('messages.next')</a>
                 @else
-                    <a class="pagination-link disabled">suiv.</a>
+                    <a class="pagination-link disabled">@lang('messages.next')</a>
                 @endif
 
                 {{-- Lien dernière page --}}
                 @if ($pageCourante == $dernierePage)
-                    <a class="pagination-link disabled">dern.</a>
+                    <a class="pagination-link disabled">@lang('messages.last')</a>
                 @else
-                    <a href="{{ $bouteilles->url($dernierePage) }}" class="pagination-link">dern.</a>
+                    <a href="{{ $bouteilles->url($dernierePage) }}" class="pagination-link">@lang('messages.last')</a>
                 @endif
             </nav>
             @endif
@@ -132,15 +126,9 @@
         @endif
     @elseif(request('search') == "")
         <div class="aucun-resultat">
-            <h2>Aucun résultat</h2>
-            <p>Vous devez taper quelque chose dans la barre de recherche!</p>
+            <h2>@lang('messages.no_search_message')</h2>
         </div>
-        <a href="{{ route('bouteilles.index') }}">Voir toutes les bouteilles</a>
-    @else
-        <div class="aucun-resultat">
-            <h2>Aucun résultat</h2>
-            <p>Il n'y a aucune bouteille correspondant à {{ request('search') }}</p>
-        </div>
+        <a href="{{ route('bouteilles.index') }}">@lang('messages.view_all_bottles')</a>
     @endif
     
 </main>

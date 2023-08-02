@@ -7,7 +7,7 @@
             <input  name="nouvelleQuantite" class="inputQuantite" type="number" value="" min="1">
             <span class="plus">&#43;</span>
         </div>
-        <button class="boutonCellier espace" type="submit">Appliquer</button>
-        <button class="boutonCellier espace">Annuler</button>
+        <button class="boutonCellier espace" type="submit">@lang('messages.save')</button>
+        <button class="boutonCellier espace">@lang('messages.cancel')</button>
     </form>
 </dialog>

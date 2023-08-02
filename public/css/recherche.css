@@ -1,6 +1,7 @@
 /* =========== Barre de recherche =========== */
 .rechercheConteneur {
-    margin-inline: auto;
+    margin-inline: 0;
+    min-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

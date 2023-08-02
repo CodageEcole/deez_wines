@@ -44,8 +44,8 @@ class CellierController extends Controller
         ]);
 
         $celliers = Cellier::where('user_id', auth()->id())->get();
-        $message = "Le cellier " . $cellier->nom . " a été ajouté avec succès";
-        return redirect()->route('celliers.index', compact('celliers'))->with('success', $message);
+        $nomCellier = $cellier->nom;
+        return redirect()->route('celliers.index', compact('celliers'))->with('success', trans('messages.create_cellar', compact('nomCellier')));
     }
 
     /**
@@ -82,7 +82,9 @@ class CellierController extends Controller
             'nom' => $request->nom,
         ]);
 
-        return redirect()->route('celliers.show', $cellier)->with('edit-cellier', "Vous avez changé le nom du cellier $vieuxNomCellier pour $cellier->nom");
+        $nouveauNomCellier = $cellier->nom;
+
+        return redirect()->route('celliers.show', $cellier)->with('edit-cellier', trans('messages.edit_cellar', compact('vieuxNomCellier', 'nouveauNomCellier')));
     }
 
     /**
@@ -92,7 +94,7 @@ class CellierController extends Controller
     {
         
         $cellier->delete();
-        $message = "Le cellier " . $cellier->nom . " a été supprimé avec succès";
-        return redirect()->route('celliers.index')->with('success', $message);
+        $nomCellier = $cellier->nom;
+        return redirect()->route('celliers.index')->with('success', trans('messages.delete_cellar', compact('nomCellier')));
     }
 }
