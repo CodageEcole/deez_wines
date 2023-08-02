@@ -25,13 +25,17 @@ main {
     box-sizing: border-box;
 }
 
+nav {
+    align-items: center;
+}
+
 nav:not(.pagination),
 footer {
     /** c'est dans le body à place? */
     /* width: var(--iphone-14-w); */
 
     padding-left: var(--back-to-card-margin);
-    padding-right: var(--back-to-card-margin);
+    padding-right: 5px;
     padding-top: 10px;
     padding-bottom: 10px;
 
@@ -74,7 +78,10 @@ nav .logo img {
     margin-left: auto;
 }
 
-
+.more-icon {
+    fill: white;
+}
+/* 
 .search-more a:first-child,
 .search-more a:nth-child(2) {
     display: flex;
@@ -104,7 +111,7 @@ nav .logo img {
     height: 100%;
     object-fit: cover;
     filter: invert(1);
-}
+} */
 /* =========== FOOTER =========== */
 
 .footer-icon-tray {

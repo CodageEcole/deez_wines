@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @push('scripts')
+        <script src="{{ asset('js/hamburger.js')}}"></script>
+    @endpush
     @stack('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-Ms5qXNxHPT+B0DnH6X60r0Z9Cxsijp5ecUTM/Lm5prMwQ7PJhqW8wDjhWcSLgG9m" crossorigin="anonymous">
     <link href=" {{ asset('css/layout-lr.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/root.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/messages.css') }}" rel="stylesheet">
+    <link href=" {{ asset('css/hamburger.css') }}" rel="stylesheet">
+    
     <title>@yield('title')</title>
     @vite(['resources/js/app.js'])
 </head>
@@ -32,14 +37,23 @@
             </ul>
             @if(!isset($cacherLayout))
                 <div class="search-more">
-                    <a href="#">
+                    {{-- <a href="#">
                         <img src="{{ asset('icons/more_icon.svg') }}" alt="Plus">
-                    </a>
+                    </a> --}}
                 </div>
+                <a class="hamburger">
+                    <img src="{{ asset('icons/more_icon.svg') }}" alt="Plus">
+                </a>
             @endif
         </nav>
         <div class="grey-top"></div>
     </header>
+    <section class="mobile-nav">
+        <a href="#">Home</a>
+        <a href="#">Services</a>
+        <a href="#">Projects</a>
+        <a href="#">Contact</a>
+    </section>
 
         @yield('content')
 

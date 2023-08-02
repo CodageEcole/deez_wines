@@ -1,0 +1,34 @@
+.hamburger {
+    height: 60px !important;
+    cursor: pointer;
+}
+
+.hamburger img {
+    height: 60px;
+}
+
+.mobile-nav {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    margin-top: 100px;
+    min-height: 100vh;
+    z-index: 2;
+    transition: 0.2s;
+}
+
+.is-active {
+    left: 0;
+}
+
+.mobile-nav a {
+    display: block;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    padding: 15px;
+    margin: 0 auto 15px;
+    color: red;
+}

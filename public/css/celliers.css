@@ -9,6 +9,8 @@ button {
     grid-auto-rows: 187px;
     grid-gap: var(--back-to-card-margin);
     margin: var(--back-to-card-margin);
+
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
 }
 .celliers>div{
     background-color: var(--light-brown);
