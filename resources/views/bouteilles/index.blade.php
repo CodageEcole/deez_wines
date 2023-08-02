@@ -10,18 +10,18 @@
 <main class="indexBouteilles">
     {{-- Barre de recherche --}}
     <form class="rechercheConteneur" action="{{ route('bouteilles.index') }}" method="GET">
-        <input class="rechercheInput" type="text" name="search" id="search" placeholder="@lang('messages.search_bar_message')">
+        <input class="rechercheInput" type="text" name="query" id="search" placeholder="@lang('messages.search_bar_message')">
         <button class="rechercheSubmit" id="recherche" type="submit">
             @lang('messages.search')
         </button>
-        @if (request('search') && count($bouteilles) > 0)
-            <span> @lang('messages.results_for') : <strong>{{ request('search') }} </strong></span>
-        @elseif (request('search') && count($bouteilles) == 0)
-            <span> @lang('messages.no_results_message') : <strong>{{ request('search') }} </strong></span>
+        @if (request('query') && count($bouteilles) > 0)
+            <span> @lang('messages.results_for') : <strong>{{ request('query') }} </strong></span>
+        @elseif (request('query') && count($bouteilles) == 0)
+            <span> @lang('messages.no_results_message') : <strong>{{ request('query') }} </strong></span>
         @endif
     </form>
     
-    @if(request('search') && count($bouteilles) > 0)
+    @if(request('query') && count($bouteilles) > 0)
         @foreach ($bouteilles as $bouteille)
 
             <div class="carte-vin-container">
@@ -82,6 +82,9 @@
             @php
                 $pageCourante = $bouteilles->currentPage();
                 $dernierePage = $bouteilles->lastPage();
+                var_dump($dernierePage);
+                var_dump($bouteilles->hasMorePages());
+                var_dump($bouteilles->nextPageUrl());
             @endphp
             @if (!(count($bouteilles) >= 30) && !$bouteilles->hasPages())
             <nav class="pagination" style="display: none">
@@ -126,7 +129,7 @@
                 <script src="{{ asset('js/pagination.js') }}"></script>
             @endpush
         @endif
-    @elseif(request('search') == "")
+    @elseif(request('query') == "")
         <div class="aucun-resultat">
             <h2>@lang('messages.no_search_message')</h2>
         </div>
