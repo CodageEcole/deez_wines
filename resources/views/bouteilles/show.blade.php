@@ -57,30 +57,44 @@
                     </div>
                 </div>
 
-                <div class="info-simple">
-                    <h3>Température de service</h3>
-                    <p>{{ $bouteille->temperature_fr }}</p>
-                </div>
-                <div class="info-simple">
-                    <h3>Arômes</h3>
-                    <p>{{ $bouteille->aromes_fr }}</p>
-                </div>
-                <div class="info-simple">
-                    <h3>Désignation reglementée</h3>
-                    <p>{{ $bouteille->designation_reglementee_fr }}</p>
-                </div>
-                <div class="info-simple">
-                    <h3>Producteur</h3>
-                    <p>{{ $bouteille->producteur }}</p>
-                </div>
-                <div class="info-simple">
-                    <h3>Agent romotionnel</h3>
-                    <p>{{ $bouteille->agent_promotionnel }}</p>
-                </div>
+                @if(!empty($bouteille->temperature_fr))
+                    <div class="info-simple">
+                        <h3>Température de service</h3>
+                        <p>{{ $bouteille->temperature_fr }}</p>
+                    </div>
+                @endif
+
+                @if(!empty($bouteille->aromes_fr))
+                    <div class="info-simple">
+                        <h3>Arômes</h3>
+                        <p>{{ $bouteille->aromes_fr }}</p>
+                    </div>
+                @endif
+                
+                @if(!empty($bouteille->designation_reglementee_fr))
+                    <div class="info-simple">
+                        <h3>Désignation reglementée</h3>
+                        <p>{{ $bouteille->designation_reglementee_fr }}</p>
+                    </div>
+                @endif
+
+                @if(!empty($bouteille->producteur))
+                    <div class="info-simple">
+                        <h3>Producteur</h3>
+                        <p>{{ $bouteille->producteur }}</p>
+                    </div>
+                @endif
+
+                @if(!empty($bouteille->agent_promotionnel))
+                    <div class="info-simple">
+                        <h3>Agent romotionnel</h3>
+                        <p>{{ $bouteille->agent_promotionnel }}</p>
+                    </div>
+                @endif
 
                 <div class="division"></div>
 
-                @if($bouteille->description_fr)
+                @if(!empty($bouteille->description_fr))
                     <div class="info-detaillee">
                         <h3>Infos détaillées</h3>
                         <p>{{ $bouteille->description_fr }}</p>
@@ -88,65 +102,68 @@
                     
                     <div class="division"></div>
                 @endif
+                
+                @if(!empty($bouteille->acidite_fr)) {{-- pourrait etre n'importe quel valeur de gout --}}
+                    <section class="info-gouts-container">
 
-                <section class="info-gouts-container">
+                        @php
+                            $valeurs = [$bouteille->acidite_fr, $bouteille->sucrosite_fr, $bouteille->corps_fr, $bouteille->bouche_fr, $bouteille->bois_fr];
+                            $nom = ['Acidité', 'Sucrosité', 'Corps', 'Bouche', 'Bois'];
+                            $un = ['discrète', 'demi-sec', 'léger', 'délicate', 'discret'];
+                            $deux = ['présente','doux','mi-corsé','généreuse','équilibré'];
+                            $trois = ['vive','extra-doux','corsé','enveloppante','marqué'];
 
-                    @php
-                        $valeurs = [$bouteille->acidite_fr, $bouteille->sucrosite_fr, $bouteille->corps_fr, $bouteille->bouche_fr, $bouteille->bois_fr];
-                        $nom = ['Acidité', 'Sucrosité', 'Corps', 'Bouche', 'Bois'];
-                        $un = ['discrète', 'demi-sec', 'léger', 'délicate', 'discret'];
-                        $deux = ['présente','doux','mi-corsé','généreuse','équilibré'];
-                        $trois = ['vive','extra-doux','corsé','enveloppante','marqué'];
+                            $position = 0;
+                        @endphp
 
-                        $position = 0;
-                    @endphp
+                        @for($i = 0; $i < count($valeurs); $i++)
+                            <div class="info-gouts">
+                                @if($valeurs[$position] != null)
+                                    <div class="texte-gouts">
+                                        <h3>{{ $nom[$position] }}</h3><p>{{ $valeurs[$position] }}</p>
+                                    </div>
+                                    <div class="ligne-container">
+                                        <div class="ligne-gauche" @if(in_array($valeurs[$position], $un) || in_array($valeurs[$position], $deux) || in_array($valeurs[$position], $trois)) style="background-color: var(--ligne-gout);" @endif></div>
+                                        <div class="ligne-centre" @if(in_array($valeurs[$position], $deux) || in_array($valeurs[$position], $trois)) style="background-color: var(--ligne-gout);" @endif></div>
+                                        <div class="ligne-droite" @if(in_array($valeurs[$position], $trois)) style="background-color: var(--ligne-gout);" @endif></div>
+                                    </div>
+                                @endif
+                            </div>
+                            @php $position++; @endphp
+                        @endfor
 
-                    @for($i = 0; $i < count($valeurs); $i++)
-                        <div class="info-gouts">
-                            @if($valeurs[$position] != null)
-                                <div class="texte-gouts">
-                                    <h3>{{ $nom[$position] }}</h3><p>{{ $valeurs[$position] }}</p>
-                                </div>
-                                <div class="ligne-container">
-                                    <div class="ligne-gauche" @if(in_array($valeurs[$position], $un) || in_array($valeurs[$position], $deux) || in_array($valeurs[$position], $trois)) style="background-color: var(--ligne-gout);" @endif></div>
-                                    <div class="ligne-centre" @if(in_array($valeurs[$position], $deux) || in_array($valeurs[$position], $trois)) style="background-color: var(--ligne-gout);" @endif></div>
-                                    <div class="ligne-droite" @if(in_array($valeurs[$position], $trois)) style="background-color: var(--ligne-gout);" @endif></div>
-                                </div>
-                            @endif
-                        </div>
-                        @php $position++; @endphp
-                    @endfor
-
-                    @if($bouteille->acidite_fr != null)
-                        <div class="division"></div>
-                    @endif
-                </section>
+                        @if($bouteille->acidite_fr != null)
+                            <div class="division"></div>
+                        @endif
+                    </section>
+                @endif
             </div>
 
             <div class="commentaire-note">
 
-                <div class="commentaire-existant form-visible">
-                    @if(!empty($commentaireBouteille->commentaire))
-                        <div class="commentaire">
-                            <h3>Commentaire : </h3>
-                            <p>{{ $commentaireBouteille->commentaire }}</p>
+                @if(!empty($commentaireBouteille->commentaire))
+                    <div class="commentaire-existant form-visible">
+                            <div class="commentaire">
+                                <h3>Commentaire : </h3>
+                                <p>{{ $commentaireBouteille->commentaire }}</p>
+                            </div>
+                        @endif
+                        
+                        @if(!empty($commentaireBouteille->note))
+                            <div class="note">
+                                <h3>Note</h3>
+                                <p>{{ $commentaireBouteille->note }}/5</p>
+                            </div>
+                        @endif
+                        @if(!empty($commentaireBouteille->note) || !empty($commentaireBouteille->commentaire))
+                            <div class="bouton-modifier">
+                                <a id="btn-modifier-commentaire" type="button">
+                                    Modifer <span class="material-symbols-outlined exclure">edit_note</span>
+                                </a>
+                            </div>
                         </div>
                     @endif
-                    
-                    @if(!empty($commentaireBouteille->note))
-                        <div class="note">
-                            <h3>Note</h3>
-                            <p>{{ $commentaireBouteille->note }}/5</p>
-                        </div>
-                    @endif
-                    @if(!empty($commentaireBouteille->note) || !empty($commentaireBouteille->commentaire))
-                        <div class="bouton-modifier">
-                            <a id="btn-modifier-commentaire" type="button">
-                                Modifer <span class="material-symbols-outlined exclure">edit_note</span>
-                            </a>
-                        </div>
-                    @endif
-                </div>
+
                     @if(empty($commentaireBouteille->commentaire) && empty($commentaireBouteille->note))
                             <form id="form-commentaire" class="{{ empty($commentaireBouteille) ? 'form-visible' : 'form-invisible' }}" action="{{ route('commentaire_bouteille.store') }}" method="POST">
                         @csrf
@@ -157,7 +174,7 @@
                     @endif
 
                         <label for="commentaire">Commentaire : </label>
-                        <textarea name="commentaire" id="commentaire" cols="30" rows="10" data-commentaire="{{ $commentaireBouteille->commentaire ?? '' }}"></textarea>
+                        <textarea name="commentaire" id="commentaire" cols="30" rows="6" data-commentaire="{{ $commentaireBouteille->commentaire ?? '' }}"></textarea>
                         <input type="hidden" name="bouteille_id" value="{{ $bouteille->id }}">
                         <label for="note">Note : </label>
 
