@@ -85,7 +85,7 @@ class BouteilleController extends Controller
             $bouteille->save();
         }
 
-        return redirect()->route('bouteilles.show', $bouteille);
+        return redirect()->route('bouteilles.show', $bouteille);  
     }
 
 

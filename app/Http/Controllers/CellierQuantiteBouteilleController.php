@@ -45,8 +45,11 @@ class CellierQuantiteBouteilleController extends Controller
             ]);
         }
 
-        $message = "Vous avez ajouté $request->quantite bouteille(s) de" . $cellierQuantiteBouteille->bouteille->nom;
-        return redirect()->route('celliers.show', $request->cellier_id)->with('success', $message);
+        $quantite = $cellierQuantiteBouteille->quantite;
+        $nomBouteille = $cellierQuantiteBouteille->bouteille->nom;
+        $nomCellier = $cellierQuantiteBouteille->cellier->nom;
+
+        return redirect()->route('celliers.show', $request->cellier_id)->with('success', trans('messages.add_bottle', compact('quantite', 'nomBouteille', 'nomCellier')));
     }
     
     /**
@@ -68,15 +71,13 @@ class CellierQuantiteBouteilleController extends Controller
         $cellierQuantiteBouteille->load('bouteille');
 
         $nomBouteille = $cellierQuantiteBouteille->bouteille->nom;
+        $nomCellier = $cellierQuantiteBouteille->cellier->nom;
 
-        $message = "Vous avez ";
-        if ($nouvelleQuantite > $ancienneQuantite) {
-            $message .= "ajouté $difference bouteille(s)";
-        } else {
-            $message .= "retiré $difference bouteille(s)";
-        }
-        $message .= " de $nomBouteille.";
+        $messageKey = ($nouvelleQuantite > $ancienneQuantite) ? 'edit_bottle_more' : 'edit_bottle_less';
+        $message = trans("messages.$messageKey", compact('difference', 'nomBouteille', 'nomCellier'));
+
         return redirect()->route('celliers.show', $cellierQuantiteBouteille->cellier_id)->with('success', $message);
+
     }
 
     /**
@@ -90,7 +91,7 @@ class CellierQuantiteBouteilleController extends Controller
         $nomBouteille = $cellierQuantiteBouteille->bouteille->nom;
         
         $cellierQuantiteBouteille->delete();
-        
-        return redirect()->route('celliers.show', $cellierQuantiteBouteille->cellier_id)->with('success', "La bouteille $nomBouteille a été supprimée avec succès.");
+        $nomCellier = $cellierQuantiteBouteille->cellier->nom;
+        return redirect()->route('celliers.show', $cellierQuantiteBouteille->cellier_id)->with('success', trans('messages.delete_bottle', compact('nomBouteille', 'nomCellier')));
     }
 }
