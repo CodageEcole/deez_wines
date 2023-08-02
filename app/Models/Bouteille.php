@@ -105,7 +105,6 @@ class Bouteille extends Model
             'couleur_fr' => $this->couleur_fr,
             'couleur_en' => $this->couleur_en,
             'cepage' => $this->cepage,
-            'prix' => $this->prix,
             'format' => $this->format,
             'designation_reglementee_fr' => $this->designation_reglementee_fr,
             'designation_reglementee_en' => $this->designation_reglementee_en,
