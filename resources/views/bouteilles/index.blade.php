@@ -89,35 +89,32 @@
             <nav class="pagination">
                 {{-- Lien première page --}}
                 @if ($bouteilles->onFirstPage())
-                    <a class="pagination-link disabled">prem.</a>
+                    <a class="pagination-link disabled">@lang('messages.first')</a>
                 @else
-                    <a href="{{ $bouteilles->url(1) }}" rel="prev" class="pagination-link">prem.</a>
+                    <a href="{{ $bouteilles->url(1) }}" rel="prev" class="pagination-link">@lang('messages.first')</a>
                 @endif
 
                 {{-- Lien page précédente --}}
                 @if ($bouteilles->onFirstPage())
-                    <a class="pagination-link disabled">préc.</a>
+                    <a class="pagination-link disabled">@lang('messages.previous')</a>
                 @else
-                    <a href="{{ $bouteilles->previousPageUrl() }}" rel="prev" class="pagination-link">préc.</a>
+                    <a href="{{ $bouteilles->previousPageUrl() }}" rel="prev" class="pagination-link">@lang('messages.previous')</a>
                 @endif
                 {{-- page actuelle --}}
                 <span class="active">{{ $pageCourante }}</span>
 
-                {{-- Bouton sélecteur de page 
-                <input class="numeroPage" data-derniere-page="{{ $dernierePage }}" type="number" name="page" min="1" value="de">
-
                 {{-- Lien page suivante --}}
                 @if ($bouteilles->hasMorePages())
-                    <a href="{{ $bouteilles->nextPageUrl() }}" rel="next" class="pagination-link">suiv.</a>
+                    <a href="{{ $bouteilles->nextPageUrl() }}" rel="next" class="pagination-link">@lang('messages.next')</a>
                 @else
-                    <a class="pagination-link disabled">suiv.</a>
+                    <a class="pagination-link disabled">@lang('messages.next')</a>
                 @endif
 
                 {{-- Lien dernière page --}}
                 @if ($pageCourante == $dernierePage)
-                    <a class="pagination-link disabled">dern.</a>
+                    <a class="pagination-link disabled">@lang('messages.last')</a>
                 @else
-                    <a href="{{ $bouteilles->url($dernierePage) }}" class="pagination-link">dern.</a>
+                    <a href="{{ $bouteilles->url($dernierePage) }}" class="pagination-link">@lang('messages.last')</a>
                 @endif
             </nav>
             @endif

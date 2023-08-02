@@ -58,6 +58,18 @@ return [
     //Modal - Add Cellar
     'name_your_cellar' => 'Name your cellar',
 
+    //Modal - Confirm Delete
+    'sure_to_delete' => 'Are you sure you want to delete?',
+    'confirm_deletion' => 'Confirm deletion',
+
+    //Modal - Page Selector
+    'page_selector' => 'Page selector',
+    'go' => 'Go',
+    'first' => 'first',
+    'previous' => 'prev.',
+    'next' => 'next',
+    'last' => 'last',
+
     //Cellar
     'add_custom_bottle' => 'Add custom bottle',
     'modify' => 'Modify',
@@ -66,4 +78,17 @@ return [
     'cellars' => 'Cellars',
 
     'back_to_site' => 'Back to site',
-];
+
+    //Validation messages
+    'edit_cellar' => "You changed the cellar's name from :vieuxNomCellier to :nouveauNomCellier.",
+    'create_cellar' => "The cellar :nomCellier has been created succesfully.",
+    'delete_cellar' => "The cellar :nomCellier has been deleted succesfully.",
+
+    'add_bottle' => "You added :quantite bottle(s) of :nomBouteille to :nomCellier.",
+    'edit_bottle_less' => "You took out :difference :nomBouteille from :nomCellier.",
+    'edit_bottle_more' => "You added :difference :nomBouteille to :nomCellier.",
+    'delete_bottle' => "You deleled :nomBouteille from :nomCellier.",
+
+    'new_custom_bottle' => "Your :nomBouteille bottle has been added succesfully.",
+
+ ];
