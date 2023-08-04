@@ -28,7 +28,7 @@
         </div>
     @endforeach
     <div>
-        <button onclick="nouveauCellier()"><img src="{{ asset('icons/plus_icon.svg') }}" alt="Ajouter">Ajouter</button>
+        <button onclick="nouveauCellier()"><img src="{{ asset('icons/plus_icon.svg') }}" alt="Ajouter">@lang('messages.add')</button>
     </div>
 </main>
 @include('components.modals.modale-ajout-cellier')
