@@ -33,7 +33,7 @@
     color: unset;
 }
 
-.loginForm button{
+.loginForm button, .profilSupprimer{
     padding: 10px 5px;
     color: white;
     width: fit-content;
@@ -41,6 +41,10 @@
     border: 1px solid white;
     border-radius: 5px;
     cursor: pointer;
+}
+
+section .profilSupprimer{
+    background-color: var(--dark-red);
 }
 
 .loginActions{

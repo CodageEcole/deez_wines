@@ -19,6 +19,5 @@
 <script src="{{ asset('js/modal.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{{ asset('js/search.js')}}"></script>
-{{-- <script src="{{ asset('js/pagination.js')}}"></script> --}}
 @endpush
 @endsection

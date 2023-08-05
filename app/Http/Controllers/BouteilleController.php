@@ -21,8 +21,8 @@ class BouteilleController extends Controller
     /* public function index()
     {
         //resultat de la recherche
-        if(request('search')){
-            $bouteilles = Bouteille::search(request('search'))
+        if(request('query')){
+            $bouteilles = Bouteille::search(request('query'))
                 ->where('existe_plus', false)
                 ->orderBy('nom', 'asc')
                 ->paginate(30);
