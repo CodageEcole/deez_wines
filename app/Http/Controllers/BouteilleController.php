@@ -18,7 +18,7 @@ class BouteilleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    /* public function index()
     {
         //resultat de la recherche
         if(request('search')){
@@ -33,6 +33,28 @@ class BouteilleController extends Controller
         }
         $celliers = Cellier::where('user_id', auth()->id())->get();
         return view('bouteilles.index', compact('bouteilles', 'celliers'));
+    } */
+
+    public function index(Request $request)
+    {
+        $searchTerm = $request->input('query');
+        // Check if there is a search term in the request
+        if ($searchTerm) {
+            $bouteilles = Bouteille::search($searchTerm)
+                ->where('existe_plus', false)
+                ->orderBy('nom', 'asc')
+                ->paginate(30);
+            $message = __('messages.add');
+
+            foreach ($bouteilles as $bouteille) {
+                $bouteille->message = $message;
+            }
+
+            return response()->json($bouteilles);
+        } else {
+            $celliers = Cellier::where('user_id', auth()->id())->get();
+            return view('bouteilles.index', compact('celliers'));
+        }
     }
 
     /**
