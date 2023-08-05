@@ -30,7 +30,7 @@
 
 @font-face {
     font-family: 'Bonobo';
-    src: url('/fonts/Bonobo.ttf') format('truetype');
+    src: url('/fonts/Bonobo-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     unicode-range: U+00E9, /* é */

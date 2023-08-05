@@ -1,0 +1,194 @@
+.hamburger {
+    height: 60px !important;
+    cursor: pointer;
+}
+
+.hamburger img {
+    height: 60px;
+}
+
+.mobile-nav div > a {
+    text-decoration: none;
+}
+
+.mobile-nav > .deconnexion-div > .deconnexion-button a {
+    color: white;
+}
+
+.mobile-nav .deconnexion-menu > a,
+.mobile-nav > .deconnexion-menu > a,
+.mobile-nav .deconnexion-app-info {
+    font-family: 'MabryPro';
+    color: grey;
+}
+
+.mobile-nav {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    width: 80%;
+    margin-top: 100px;
+    min-height: calc(100vh - 100px);
+    z-index: 2;
+    transition: 0.2s;
+    background-color: white;
+}
+
+.is-active {
+    left: 20%;
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1); /* Adjust values as needed */
+}
+
+.is-grey {
+    background-color: rgba(128, 128, 128, 0.5);
+}
+
+/* .mobile-nav div > a {
+    display: block;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+} */
+
+.mobile-nav > div > a,
+.mobile-nav p,
+.mobile-nav div > p {
+    padding: 15px;
+}
+
+.mobile-nav > div > a {
+    margin: 0 auto 10px;
+}
+
+.mobile-nav p,
+.mobile-nav div > p {
+    margin: 0;
+}
+
+.mobile-nav div:nth-child(3) {
+    margin-top: auto;
+}
+
+.deconnexion-div {
+    border-bottom: 2px solid lightgrey;
+    padding: 15px;
+}
+
+.deconnexion-menu a {
+    display: block;
+    width: 100%;
+    font-size: 18px;
+}
+
+.deconnexion-button > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark-brown);
+    border-radius: 5px;
+    height: 60px;
+
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
+    font-size: 26px;
+}
+
+.deconnexion-app-info {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.deconnexion-app-info div:first-child {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 14px;
+}
+
+.deconnexion-app-info div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.deconnexion-app-info > div:last-child {
+    border-top: 2px solid lightgrey;
+}
+
+.mobile-nav .deconnexion-app-info > div:first-child p {
+    font-size: 14px;
+}
+
+.mobile-nav .deconnexion-app-info > div:last-child p {
+    font-size: 18px;
+}
+
+/* Overlay */
+
+/* .overlay {
+    position: relative;
+}
+
+.overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+} */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 100px);
+    margin-top: 100px;
+    background-color: rgba(0, 0, 0, 0.3); /* Grey with 50% opacity */
+    display: none; 
+}
+
+.overlay.show {
+    display: block;
+    z-index: 1;
+}
+
+/* ========== MEDIA ========== */
+
+@media (max-width: 385px) {
+
+    .mobile-nav {
+        margin-top: 70px;
+        min-height: calc(100vh - 70px);
+        width: 100%;
+    }
+
+    .is-active {
+        left: 0%;
+    }
+
+    .deconnexion-menu a,
+    .mobile-nav .deconnexion-app-info > div:last-child p {
+        font-size: 16px;
+    }
+
+    .mobile-nav > div > a {
+        margin: 0;
+    }
+
+    .deconnexion-button > a {
+        font-size: 22px;
+    }
+
+    .hamburger {
+        height: 40px !important;
+    }
+
+    .hamburger img {
+        height: 40px;
+    }
+}

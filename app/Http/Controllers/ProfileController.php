@@ -38,6 +38,16 @@ class ProfileController extends Controller
     }
 
     /**
+     * Logout the user
+     */
+
+    public function logout()
+    {
+        Auth::logout(); // Log out the authenticated user
+        return redirect('/'); // Redirect to a desired page after logout
+    }
+
+    /**
      * Delete the user's account.
      */
     public function destroy(Request $request): RedirectResponse

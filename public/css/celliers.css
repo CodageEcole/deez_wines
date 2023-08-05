@@ -8,7 +8,9 @@ button {
     grid-template-columns: repeat(auto-fit, minmax(187px, 1fr));
     grid-auto-rows: 187px;
     grid-gap: var(--back-to-card-margin);
-    margin: var(--back-to-card-margin);
+    padding: var(--back-to-card-margin);
+
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
 }
 .celliers>div{
     background-color: var(--light-brown);
