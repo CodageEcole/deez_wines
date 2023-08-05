@@ -7,7 +7,7 @@
     <link href=" {{ asset('css/cellier-show.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/recherche.css') }}" rel="stylesheet">
 @endpush
-<main class="index-bouteilles">
+<main class="indexBouteilles">
     {{-- Barre de recherche --}}
     <form class="rechercheConteneur" action="{{ route('bouteilles.index') }}" method="GET">
         <input class="rechercheInput" type="text" name="search" id="search" placeholder="@lang('messages.search_bar_message')">
@@ -136,5 +136,7 @@
 @include('components.modals.modale-ajout-bouteille')
 @push('scripts')
 <script src="{{ asset('js/modal.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{{ asset('js/search.js')}}"></script>
 @endpush
 @endsection
