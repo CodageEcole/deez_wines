@@ -6,7 +6,7 @@ window.addEventListener("click", function(event) {
     }
 });
 
-function openModal(nom, id, cellierId) {
+function openModal(nom, id/* , cellierId */) {
     let modal = document.querySelector("#modal");
     let modalTitle = document.querySelector("#modal-title");
     let form = document.querySelector("#modal-form");
