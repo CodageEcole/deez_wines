@@ -12,7 +12,6 @@
     <div class="carte-vin-container">
         
     </div>
-
 </main>
 {{-- la boîte modale d'ajout de bouteilles au cellier --}}
 @include('components.modals.modale-ajout-bouteille')
