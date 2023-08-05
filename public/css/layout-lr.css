@@ -35,7 +35,7 @@ footer {
     /* width: var(--iphone-14-w); */
 
     padding-left: var(--back-to-card-margin);
-    padding-right: 5px;
+    padding-right: var(--back-to-card-margin);
     padding-top: 10px;
     padding-bottom: 10px;
 

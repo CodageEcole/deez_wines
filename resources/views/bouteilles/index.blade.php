@@ -7,7 +7,7 @@
     <link href=" {{ asset('css/cellier-show.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/recherche.css') }}" rel="stylesheet">
 @endpush
-<main class="indexBouteilles">
+<main class="index-bouteilles">
     {{-- Barre de recherche --}}
     <form class="rechercheConteneur" action="{{ route('bouteilles.index') }}" method="GET">
         <input class="rechercheInput" type="text" name="search" id="search" placeholder="@lang('messages.search_bar_message')">

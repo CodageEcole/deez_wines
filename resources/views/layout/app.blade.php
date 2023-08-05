@@ -10,9 +10,9 @@
     @stack('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-Ms5qXNxHPT+B0DnH6X60r0Z9Cxsijp5ecUTM/Lm5prMwQ7PJhqW8wDjhWcSLgG9m" crossorigin="anonymous">
     <link href=" {{ asset('css/layout-lr.css') }}" rel="stylesheet">
+    <link href=" {{ asset('css/hamburger.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/root.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/messages.css') }}" rel="stylesheet">
-    <link href=" {{ asset('css/hamburger.css') }}" rel="stylesheet">
     
     <title>@yield('title')</title>
     @vite(['resources/js/app.js'])
@@ -49,10 +49,25 @@
         <div class="grey-top"></div>
     </header>
     <section class="mobile-nav">
-        <a href="#">Home</a>
-        <a href="#">Services</a>
-        <a href="#">Projects</a>
-        <a href="#">Contact</a>
+        <div class="deconnexion-div">
+            <div class="deconnexion-button">
+                <a href="#">Déconnexion</a>
+            </div>
+        </div>
+        <div class="deconnexion-menu">
+            <a href="{{ route('profile.edit') }}">Profil</a>
+            <a href="#">Changer vos infos personnelles</a>
+            <a href="#">Changer votre mot de passe</a>
+            <a href="#">Ajouter une bouteille au répertoire</a>
+        </div>
+        <div class="deconnexion-app-info">
+            <div>
+                <p>DW © Tous Droits Réservés</p>
+            </div>
+            <div>
+                <p>App Version 0.1</p>
+            </div>
+        </div>
     </section>
 
         @yield('content')
