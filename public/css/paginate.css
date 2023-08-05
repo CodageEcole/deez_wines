@@ -24,6 +24,7 @@
 
 .pagination .disabled{
     color: grey;
+    pointer-events: none;
 }
 
 .pagination input{
