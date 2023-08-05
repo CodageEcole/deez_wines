@@ -51,7 +51,7 @@
     <section class="mobile-nav">
         <div class="deconnexion-div">
             <div class="deconnexion-button">
-                <a href="#">Déconnexion</a>
+                <a href="{{ route('logout') }}">Déconnexion</a>
             </div>
         </div>
         <div class="deconnexion-menu">
@@ -69,6 +69,7 @@
             </div>
         </div>
     </section>
+    <div class="overlay"></div>
 
         @yield('content')
 
