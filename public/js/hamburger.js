@@ -1,16 +1,12 @@
 window.onload = function() {
     const menuMobile = document.querySelector(".mobile-nav");
     const menuBouton = document.querySelector(".hamburger");
-    // const main = document.querySelector("main");
-    // const footer = document.querySelector("footer")
-    const overlay = document.querySelector(".overlay")
+    const overlayGrey = document.querySelector(".overlay-grey");
     
 
     menuBouton.addEventListener("click", function() {
         console.log("Allo")
         menuMobile.classList.toggle("is-active");
-        // main.classList.toggle("overlay");
-        // footer.classList.toggle("overlay");
-        overlay.classList.toggle("show");
+        overlayGrey.classList.toggle("show");
     })
 }

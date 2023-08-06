@@ -69,11 +69,11 @@
             </div>
         </div>
     </section>
-    <div class="overlay"></div>
+    <div class="overlay-grey"></div>
 
         @yield('content')
 
-    <footer>
+    <footer class="footer">
     @if(!isset($cacherLayout))
         <div class="footer-icon-tray">
             <a href="{{ route('profile.edit') }}">

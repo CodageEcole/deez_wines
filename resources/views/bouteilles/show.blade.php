@@ -8,6 +8,7 @@
 {{-- <script src="{{ asset('js/form-commentaire.js')}}"></script> --}}
 <script src="{{ asset('js/note-etoile.js')}}"></script>
 <script src="{{ asset('js/form-modification.js')}}" defer></script>
+<script src="{{ asset('js/form-zoom.js')}}" defer></script>
 @endpush
 @extends('layout.app')
 @section('title', 'Bouteille')
@@ -16,9 +17,9 @@
     <main>
         <picture class="bouteille-container">
             @if($bouteille->est_personnalisee)
-                <img src="{{ url('glide/imagesPersonnalisees/'. $bouteille->image_bouteille . '?p=detail') }}" alt="{{ $bouteille->image_bouteille_alt }}">
+                <img class="bouteille-img" src="{{ url('glide/imagesPersonnalisees/'. $bouteille->image_bouteille . '?p=detail') }}" alt="{{ $bouteille->image_bouteille_alt }}">
             @else
-                <img src="{{ url('glide/images/'. $bouteille->image_bouteille . '?p=detail') }}" alt="{{ $bouteille->image_bouteille_alt }}">
+                <img class="bouteille-img" src="{{ url('glide/images/'. $bouteille->image_bouteille . '?p=detail') }}" alt="{{ $bouteille->image_bouteille_alt }}">
             @endif
         </picture>
 
