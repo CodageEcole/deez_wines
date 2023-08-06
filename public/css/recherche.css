@@ -1,36 +1,31 @@
 /* =========== Barre de recherche =========== */
 .rechercheConteneur {
+    position: sticky; /* Set the position to sticky */
+    top: 0; /* Stick the element at the top of the container */
+    z-index: 2;
     margin-inline: 0;
     min-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 200px;
-    gap: 10px;
-    margin-block: 1em;
-    border-radius: 10px;
-    border: 1px solid var(--dark-brown);
-    background-color: var(--light-brown);
-    max-width: 400px;
-}
-.rechercheConteneur span {
-    margin-inline: 2em;
-    margin-top: 1em;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: var(--dark-brown);
-    margin-right: auto;
-}
-.rechercheConteneur strong {
-    color: black;
+    min-height: 70px;
+    border-bottom: 1px solid var(--dark-brown);
+    background-color: var(--light-grey);
 }
 
 .rechercheInput {   
     min-width: 80%;
     height: 30px;
     border-radius: 5px;
-    border: none;
+    border: 1px solid var(--dark-brown);
+    padding-left: 1em;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: var(--dark-brown);
+}
+.rechercheInput::placeholder {
+    color: var(--dark-brown);
 }
 .rechercheSubmit {
     min-width: 80%;
@@ -41,8 +36,4 @@
     padding-block: 0.5em;
     background-color: var(--dark-brown);
     cursor: pointer;
-}
-.rechercheInput::placeholder {
-    color: var(--dark-brown);
-    padding-left: 1em;
 }

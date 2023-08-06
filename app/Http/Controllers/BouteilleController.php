@@ -11,45 +11,34 @@ use App\Models\CommentaireBouteille;
 
 class BouteilleController extends Controller
 {
+    // Gestion de l'autorisation avec la politique
     public function __construct()
     {
         $this->authorizeResource(Bouteille::class, 'bouteille');
     }
-    /**
-     * Display a listing of the resource.
-     */
-    /* public function index()
-    {
-        //resultat de la recherche
-        if(request('query')){
-            $bouteilles = Bouteille::search(request('query'))
-                ->where('existe_plus', false)
-                ->orderBy('nom', 'asc')
-                ->paginate(30);
-        } else {
-            $bouteilles = Bouteille::where('existe_plus', false)
-                ->orderBy('nom', 'asc')
-                ->paginate(30);
-        }
-        $celliers = Cellier::where('user_id', auth()->id())->get();
-        return view('bouteilles.index', compact('bouteilles', 'celliers'));
-    } */
 
+    /**
+     * Ici on ne rentre pas dans le if quand on arrive sur la page, 
+     * c'est seulement axios qui va faire une requête quand on tape dans la barre de recherche
+     * En tant qu'usager on entre toujours dans le else
+     */
     public function index(Request $request)
     {
         $searchTerm = $request->input('query');
-        // Check if there is a search term in the request
+        // On verifie si on a un terme de recherche
         if ($searchTerm) {
             $bouteilles = Bouteille::search($searchTerm)
                 ->where('existe_plus', false)
                 ->orderBy('nom', 'asc')
                 ->paginate(30);
-            $message = __('messages.add');
 
+            $message = __('messages.add');
+            // On ajoute le message afin de l'avoir dans la bonne langue dans la vue
             foreach ($bouteilles as $bouteille) {
                 $bouteille->message = $message;
             }
 
+            // On retourne les bouteilles en json
             return response()->json($bouteilles);
         } else {
             $celliers = Cellier::where('user_id', auth()->id())->get();
@@ -70,6 +59,7 @@ class BouteilleController extends Controller
      */
     public function store(Request $request)
     {
+        // On valide les champs
         $request->validate([
             'nom' => 'required|string|max:255',
             'pays' => 'string|max:255',
@@ -79,6 +69,7 @@ class BouteilleController extends Controller
             'user_id' => 'exists:users,id',
         ]);
 
+        // On crée la bouteille
         $bouteille = Bouteille::create([
             'nom' => $request->nom,
             'pays_fr' => $request->pays,
@@ -90,61 +81,44 @@ class BouteilleController extends Controller
             'est_personnalisee' => true,
         ]);
 
+        // On ajoute l'image si il y en a une
         if ($request->hasFile('image_bouteille')) {
             $file = $request->file('image_bouteille');
             $extension = $file->getClientOriginalExtension();
             $fileName = time() . '_' . $bouteille->id . '.' . $extension;
-
+            // On crée le dossier si il n'existe pas
             if (!Storage::disk('local')->exists('imagesPersonnalisees')) {
                 Storage::disk('local')->makeDirectory('imagesPersonnalisees');
             }
-
+            // On enregistre l'image
             Storage::disk('local')->putFileAs('imagesPersonnalisees', $file, $fileName);
             $bouteille->image_bouteille = $fileName;
+            // On sauvegarde la bouteille
             $bouteille->save();
         } else {
+            // On met une image par défaut si il n'y en a pas
             $bouteille->image_bouteille = '06.png';
+            // On sauvegarde la bouteille
             $bouteille->save();
         }
 
-        return redirect()->route('bouteilles.show', $bouteille);  
+        return redirect()
+                ->route('bouteilles.show', $bouteille);  
     }
-
 
     /**
      * Display the specified resource.
      */
     public function show(Bouteille $bouteille)
     {
-        $commentaireBouteille = CommentaireBouteille
-            ::where('bouteille_id', $bouteille->id)
+        // On récupère le commentaire de l'usager connecté
+        $commentaireBouteille = CommentaireBouteille::
+            where('bouteille_id', $bouteille->id)
             ->where('user_id', auth()->id())
             ->get()->first();
+        // On récupère les celliers de l'usager connecté
         $celliers = Cellier::where('user_id', auth()->id())->get();
+
         return view('bouteilles.show', compact('bouteille', 'commentaireBouteille', 'celliers'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Bouteille $bouteille)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Bouteille $bouteille)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Bouteille $bouteille)
-    {
-        //
     }
 }
