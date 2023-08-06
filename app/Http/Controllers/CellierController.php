@@ -8,25 +8,20 @@ use Illuminate\Http\Request;
 
 class CellierController extends Controller
 {
+    // Gestion de l'autorisation avec la politique
     public function __construct()
     {
         $this->authorizeResource(Cellier::class, 'cellier');
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $celliers = Cellier::where('user_id', auth()->id())->get();
+        
         return view('celliers.index', compact('celliers'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('celliers.create');
     }
 
     /**
@@ -34,18 +29,23 @@ class CellierController extends Controller
      */
     public function store(Request $request)
     {
+        // On valide les données
         $request->validate([
             'nom' => 'required|string|max:255',
         ]);
 
+        // On crée une nouvelle entrée dans la table celliers
         $cellier = Cellier::create([
             'nom' => $request->nom,
             'user_id' => auth()->id(),
         ]);
 
+        // On créer les variables pour le message de succès
         $celliers = Cellier::where('user_id', auth()->id())->get();
         $nomCellier = $cellier->nom;
-        return redirect()->route('celliers.index', compact('celliers'))->with('success', trans('messages.create_cellar', compact('nomCellier')));
+        return redirect()
+                ->route('celliers.index', compact('celliers'))
+                ->with('success', trans('messages.create_cellar', compact('nomCellier')));
     }
 
     /**
@@ -53,10 +53,10 @@ class CellierController extends Controller
      */
     public function show(Cellier $cellier)
     {
-
-        $cellierQuantiteBouteille = CellierQuantiteBouteille::with('bouteille')->where('cellier_id', $cellier->id)->get();
+        $cellierQuantiteBouteille = CellierQuantiteBouteille::with('bouteille')
+                                    ->where('cellier_id', $cellier->id)
+                                    ->get();
         return view('celliers.show', compact('cellier', 'cellierQuantiteBouteille'));
-
     }
 
     /**
@@ -74,17 +74,14 @@ class CellierController extends Controller
     {
         $vieuxNomCellier = $cellier->nom;
 
-        $request->validate([
-            'nom' => 'required|string|max:255',
-        ]);
-
-        $cellier->update([
-            'nom' => $request->nom,
-        ]);
+        $request->validate(['nom' => 'required|string|max:255']);
+        $cellier->update(['nom' => $request->nom]);
 
         $nouveauNomCellier = $cellier->nom;
 
-        return redirect()->route('celliers.show', $cellier)->with('edit-cellier', trans('messages.edit_cellar', compact('vieuxNomCellier', 'nouveauNomCellier')));
+        return redirect()
+                ->route('celliers.show', $cellier)
+                ->with('edit-cellier', trans('messages.edit_cellar', compact('vieuxNomCellier', 'nouveauNomCellier')));
     }
 
     /**
@@ -92,9 +89,11 @@ class CellierController extends Controller
      */
     public function destroy(Cellier $cellier)
     {
-        
         $cellier->delete();
         $nomCellier = $cellier->nom;
-        return redirect()->route('celliers.index')->with('success', trans('messages.delete_cellar', compact('nomCellier')));
+
+        return redirect()
+                ->route('celliers.index')
+                ->with('success', trans('messages.delete_cellar', compact('nomCellier')));
     }
 }
