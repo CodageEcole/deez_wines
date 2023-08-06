@@ -7,17 +7,18 @@
     <link href=" {{ asset('css/cellier-show.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/recherche.css') }}" rel="stylesheet">
 @endpush
+
+<header class="rechercheConteneur">
+    <input class="rechercheInput" type="text" name="query" id="searchInput" placeholder="@lang('messages.search_bar_message')">
+</header>
+
 <main class="indexBouteilles">
-    <input type="text" name="query" id="searchInput" placeholder="Start typing to search">
-    <div class="carte-vin-container">
-        
-    </div>
+
 </main>
-{{-- la boîte modale d'ajout de bouteilles au cellier --}}
+
 @include('components.modals.modale-ajout-bouteille')
 @push('scripts')
 <script src="{{ asset('js/modal.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{{ asset('js/search.js')}}"></script>
 @endpush
 @endsection

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class CommentaireBouteilleController extends Controller
 {
+    // Gestion de l'autorisation avec la politique
     public function __construct()
     {
         $this->authorizeResource(CommentaireBouteille::class, 'commentaire_bouteille');
@@ -50,37 +51,24 @@ class CommentaireBouteilleController extends Controller
      */
     public function update(Request $request, CommentaireBouteille $commentaireBouteille)
     {
+        // Si on a une note
         if($request->note) {
-            $request->validate([
-                'note' => '|integer',
-            ]);
-
+            $request->validate(['note' => '|integer']);
+            // On verifie si la note a changée
             if($request->note != $commentaireBouteille->note){
-                $commentaireBouteille->update([
-                    'note' => $request->note,
-                ]);
+                $commentaireBouteille->update(['note' => $request->note]);
             }
         }
-        if($request->commentaire) {
-            $request->validate([
-                'commentaire' => 'string',
-            ]);
 
+        // Si on a un commentaire
+        if($request->commentaire) {
+            $request->validate(['commentaire' => 'string']);
+            // On verifie si le commentaire a changé
             if($request->commentaire != $commentaireBouteille->commentaire){
-                $commentaireBouteille->update([
-                    'commentaire' => $request->commentaire,
-                ]);
+                $commentaireBouteille->update(['commentaire' => $request->commentaire]);
             }
         }
         
         return redirect()->back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(CommentaireBouteille $commentaireBouteille)
-    {
-        //
     }
 }
