@@ -15,7 +15,7 @@ main {
     overflow: hidden;
 }
 
-.bouteille-container img {
+.bouteille-img {
     position: absolute;
     left: -50%;
 
@@ -25,6 +25,60 @@ main {
     object-fit: cover;
 
     pointer-events: none;
+}
+
+/* Bouteille Zoom */
+
+.bouteille-container-zoom {
+    position: absolute;
+    top: 11%;
+    width: 100dvw;
+    height: 88dvh;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.bouteille-img-zoom {
+    position: absolute;
+    left: 0;
+    height: 540px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.description-container-zoom {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 80dvw;
+    margin-left: 100%;
+    gap: 40px;
+    padding-top: 25px;
+}
+
+.footer {
+    position: relative;
+    top: 0%;
+    transition: top 0.4s ease;
+}
+
+.footer-zoom {
+    position: relative;
+    top: 15%;
+    transition: top 0.4s ease;
+}
+ .footer-none {
+    display: none;
+ }
+
+.bouteille-container,
+.bouteille-container-zoom,
+.bouteille-img,
+.bouteille-img-zoom,
+.description-container,
+.description-container-zoom {
+    transition: all 0.4s ease; /* pour une transition dans l'animation JS */
 }
 
 /* =========== Description =========== */
