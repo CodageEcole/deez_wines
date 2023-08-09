@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @push('scripts')
+        @vite(['resources/js/app.js'])
         <script src="{{ asset('js/hamburger.js')}}"></script>
     @endpush
     @stack('styles')
@@ -13,9 +14,7 @@
     <link href=" {{ asset('css/hamburger.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/root.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/messages.css') }}" rel="stylesheet">
-    
     <title>@yield('title')</title>
-    @vite(['resources/js/app.js'])
 </head>
 
 
@@ -48,6 +47,7 @@
         </div>
         <div class="deconnexion-menu">
             <a href="{{ route('profile.edit') }}">Profil</a>
+            <a href="{{ route('admin.stats.index') }}">Administration</a>
             <a href="#">Changer vos infos personnelles</a>
             <a href="#">Changer votre mot de passe</a>
             <a href="#">Ajouter une bouteille au répertoire</a>

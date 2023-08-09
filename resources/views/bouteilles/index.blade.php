@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('title', 'Recherche')
 @section('content')
 @push('styles')
     <link href=" {{ asset('css/carte-vin-lr.css') }}" rel="stylesheet">

@@ -76,7 +76,9 @@ Route::group(
     //* SECTION ADMIN 
     Route::prefix('admin')->middleware('admin')->group(function () {
         Route::resource('bouteilles', AdminBouteilleController::class);
-        Route::resource('users', AdminUserController::class);
+        // Route::resource('stats', AdminUserController::class)->names(['index' => 'admin.stats.index', 'destroy' => 'admin.stats.destroy']);
+        Route::get('stats', [AdminUserController::class, 'index'])->name('admin.stats.index');
+        Route::delete('stats/{user}', [AdminUserController::class, 'destroy'])->name('admin.stats.destroy');
         Route::resource('celliers', AdminCellierController::class);
         Route::resource('bouteilles_personnalisees', AdminBouteillePersonnaliseeController::class);
     });
