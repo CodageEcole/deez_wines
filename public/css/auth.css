@@ -13,34 +13,84 @@
 
 .loginForm{
     background-color: var(--light-brown);
-    width: 80%;
+    width: auto;
     margin-inline: auto;
-    padding: 20px;
-    border: 1px solid var(--dark-brown);
-    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 45px;
+    border-radius: 5px;
+
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
+    font-size: 18px;
+}
+
+.loginForm > p {
+    margin-bottom: 20px;
+}
+
+.loginForm > .attention {
+    font-weight: bolder;
+    text-decoration: underline;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
 }
 
 .loginForm>div:not(:last-of-type){
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    /* gap: 5px; */
+    margin-bottom: 10px;
 }
-.loginForm>div>:first-child{
-    margin-top: 5px;
+
+label {
+    margin-bottom: 5px;
 }
 
 .loginForm a{
     color: unset;
 }
 
-.loginForm button, .profilSupprimer{
-    padding: 10px 5px;
-    color: white;
+.loginForm > :last-child {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+.loginForm > .delete-friction {
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.loginForm button,
+.profilSupprimergs,
+.cancel-button{
+    display: flex;
+    gap: 5px;
+    padding: 5px;
     width: fit-content;
-    background-color: var(--dark-brown);
-    border: 1px solid white;
     border-radius: 5px;
     cursor: pointer;
+
+    font-family: "MabryPro";
+    font-size: 16px;
+    color: white;
+}
+
+form > div > .profilSupprimergs,
+form > div > .cancel-button {
+    margin-top: 15px;
+}
+
+.supprimer-container {
+    display: flex;
+    justify-content: center;
+}
+
+.loginForm button {
+    background-color: var(--dark-brown);
+}
+
+.profilSupprimergs {
+    background-color: rgb(206, 29, 29) !important;
 }
 
 section .profilSupprimer{
@@ -59,14 +109,10 @@ section .profilSupprimer{
     gap: 8px;
 }
 
-/* hover section login */
-
-.loginForm a:hover{
-    color: gray;
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 24
 }
-.loginForm button:hover{
-    color: var(--dark-brown);
-    background-color: white;
-    border: 1px solid var(--dark-brown);
-}
-/* fin section page login */

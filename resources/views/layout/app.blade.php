@@ -26,7 +26,7 @@
             <div class="logo">
                 {{-- <img src="{{ asset('logos/deez_wines_logo_small.svg') }}" alt="Logo"> --}}
             </div>
-            <ul>
+            {{-- <ul>
                 @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                     @if($localeCode != LaravelLocalization::getCurrentLocale())
                         <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
@@ -34,7 +34,7 @@
                         </a>
                     @endif
                 @endforeach
-            </ul>
+            </ul> --}}
             @if(!isset($cacherLayout))
                 <div class="search-more">
                     {{-- <a href="#">
@@ -59,7 +59,15 @@
             <a href="#">Changer vos infos personnelles</a>
             <a href="#">Changer votre mot de passe</a>
             <a href="#">Ajouter une bouteille au répertoire</a>
+            @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                @if($localeCode != LaravelLocalization::getCurrentLocale())
+                    <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                        {{ $properties['native'] }}
+                    </a>
+                @endif
+            @endforeach
         </div>
+
         <div class="deconnexion-app-info">
             <div>
                 <p>DW © Tous Droits Réservés</p>

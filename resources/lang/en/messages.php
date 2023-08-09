@@ -36,9 +36,10 @@ return [
 
     //Profile - Delete Account
     'delete_account' => 'Delete Account',
-    'delete_account_text_small' => "Are you sure you want to delete your account?",
-    'delete_account_text' => "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.",
+    'delete_account_text_small' => "Are you sure you want to <strong>delete</strong> your account?",
+    'delete_account_text' => "Once your account is deleted, all of its resources and data will be <strong>permanently deleted</strong>. Before deleting your account, please download any data or information that you wish to retain.",
     'cancel' => 'Cancel',
+    'warning' => 'WARNING !',
 
     //Search 
     'search_bar_message' => 'Type something here',

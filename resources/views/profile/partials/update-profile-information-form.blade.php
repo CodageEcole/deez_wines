@@ -34,7 +34,7 @@
         </div>
 
         <div>
-            <x-primary-button>{{ __('messages.save') }}</x-primary-button>
+            <x-primary-button>{{ __('messages.save') }}<span class="material-symbols-outlined">check</span></x-primary-button>
 
             @if (session('status') === 'profile-updated')
                 <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)">{{ __('messages.saved') }}</p>
