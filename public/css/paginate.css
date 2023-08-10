@@ -6,6 +6,7 @@
     text-align: center;
     line-height: 40px;
     margin-block: 28px;
+    padding-left: 0;
 }
 
 .pagination>*{

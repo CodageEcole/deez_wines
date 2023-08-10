@@ -25,24 +25,43 @@ class BouteilleController extends Controller
     public function index(Request $request)
     {
         $searchTerm = $request->input('query');
+        $rouge = $request->rouge;
+        $blanc = $request->blanc;
+        $rose = $request->rose;
+        $orange = $request->orange;
+        $pays = $request->pays;
+
         // On verifie si on a un terme de recherche
-        if ($searchTerm) {
+        if ($searchTerm || $rouge || $blanc || $rose || $orange || $pays) {
+            
+            // On verifie si on a une couleur, une catégorie, un pays ou une région
             $bouteilles = Bouteille::search($searchTerm)
-                ->where('existe_plus', false)
                 ->orderBy('nom', 'asc')
+                ->when($pays, function ($query) use ($pays) {
+                    return $query->where('pays_fr', $pays);
+                })
+                ->when(($rouge || $blanc || $rose || $orange), function ($query) use ($rouge, $blanc, $rose, $orange) {
+                    $colors = array_filter([$rouge, $blanc, $rose, $orange]);
+                    return $query->whereIn('couleur_fr', $colors);
+                })
                 ->paginate(30);
 
             $message = __('messages.add');
             // On ajoute le message afin de l'avoir dans la bonne langue dans la vue
             foreach ($bouteilles as $bouteille) {
                 $bouteille->message = $message;
+                $bouteille->nombreBouteilles = $bouteilles->total();
             }
-
             // On retourne les bouteilles en json
             return response()->json($bouteilles);
+
         } else {
             $celliers = Cellier::where('user_id', auth()->id())->get();
-            return view('bouteilles.index', compact('celliers'));
+            //filter pays by alphabetical order
+            $pays = Bouteille::select('pays_fr')->distinct()->get()->sortBy('pays_fr');
+            $regions = Bouteille::select('region_fr')->distinct()->get()->sortBy('region_fr');
+            $prix = Bouteille::select('prix')->distinct()->get();
+            return view('bouteilles.index', compact('celliers', 'pays', 'regions', 'prix'));
         }
     }
 
