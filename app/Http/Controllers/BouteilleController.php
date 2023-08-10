@@ -8,6 +8,8 @@ use App\Models\Cellier;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\CommentaireBouteille;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class BouteilleController extends Controller
 {
@@ -30,22 +32,36 @@ class BouteilleController extends Controller
         $rose = $request->rose;
         $orange = $request->orange;
         $pays = $request->pays;
+        $prix = $request->prix;
+        $cepage = $request->cepage;
+
+        if ($prix) {
+            list($minPrice, $maxPrice) = explode('-', $prix);
+        } else {
+            $minPrice = 0;
+            $maxPrice = 0;
+        }
 
         // On verifie si on a un terme de recherche
-        if ($searchTerm || $rouge || $blanc || $rose || $orange || $pays) {
-            
+        if ($searchTerm || $rouge || $blanc || $rose || $orange || $pays || $cepage || $prix) {
             // On verifie si on a une couleur, une catégorie, un pays ou une région
             $bouteilles = Bouteille::search($searchTerm)
                 ->orderBy('nom', 'asc')
                 ->when($pays, function ($query) use ($pays) {
                     return $query->where('pays_fr', $pays);
                 })
+                ->when($prix, function ($query) use ($minPrice, $maxPrice) {
+                    dd($query->where('prix', 'CAST(REPLACE(REPLACE(prix," $",""),",",".")','AS','DECIMAL(10,2))','BETWEEN',$minPrice,'AND',$maxPrice));
+                })
                 ->when(($rouge || $blanc || $rose || $orange), function ($query) use ($rouge, $blanc, $rose, $orange) {
                     $colors = array_filter([$rouge, $blanc, $rose, $orange]);
                     return $query->whereIn('couleur_fr', $colors);
                 })
+                ->when(request()->has('filtre-prix'), function ($query) {
+                    $prix = request('filtre-prix');
+                    return $query->where('prix', '<=', $prix);
+                })
                 ->paginate(30);
-
             $message = __('messages.add');
             // On ajoute le message afin de l'avoir dans la bonne langue dans la vue
             foreach ($bouteilles as $bouteille) {
@@ -54,16 +70,13 @@ class BouteilleController extends Controller
             }
             // On retourne les bouteilles en json
             return response()->json($bouteilles);
-
         } else {
             $celliers = Cellier::where('user_id', auth()->id())->get();
-            //filter pays by alphabetical order
             $pays = Bouteille::select('pays_fr')->distinct()->get()->sortBy('pays_fr');
-            $regions = Bouteille::select('region_fr')->distinct()->get()->sortBy('region_fr');
-            $prix = Bouteille::select('prix')->distinct()->get();
-            return view('bouteilles.index', compact('celliers', 'pays', 'regions', 'prix'));
+            return view('bouteilles.index', compact('celliers', 'pays'));
         }
     }
+
 
     /**
      * Show the form for creating a new resource.
