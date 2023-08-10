@@ -48,6 +48,20 @@
             @endforeach
         </select>
     </div>
+    <div class="filtre">
+        <label for="filtre-prix"></label>
+        <select name="filtre-prix" id="filtre-prix">
+            <option value="" selected>@lang('messages.all')</option>
+            <option id="filtre-00-10" value="00-10">00-10</option>
+            <option id="filtre-10-20" value="10-20">10-20</option>
+            <option id="filtre-20-30" value="20-30">20-30</option>
+            <option id="filtre-30-40" value="30-40">30-40</option>
+            <option id="filtre-40-50" value="40-50">40-50</option>
+            <option id="filtre-50-60" value="50-60">50-60</option>
+            <option id="filtre-60+" value="60+">60+</option>
+        </select>
+    </div>
+
 </form>
 <main class="indexBouteilles">
 

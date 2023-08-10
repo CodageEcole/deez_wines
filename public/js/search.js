@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         filtresSideBar.style.display = "block";
     });
     searchInput.addEventListener('input', fetchSearchResults);
-    filtresSideBar.addEventListener('input', fetchSearchResults);    
+    filtresSideBar.addEventListener('input', fetchSearchResults);
 
     // Fonction qui récupère les images de pastille
     function getPastilleClass(image_pastille_alt) {
@@ -173,20 +173,17 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectedCouleurs = document.querySelectorAll("#couleurs input[type=checkbox]:checked");
 
         selectedCouleurs.forEach(selectedCouleur => {
-            let pilluleCouleur = document.querySelector("#pillule-" + selectedCouleur.value);
-            if (pilluleCouleur) {
-                pilluleCouleur.remove();
-            }
             url = createPillHtml(selectedCouleur, url);
         });
 
         const selectedPays = document.querySelector("#filtre-pays");
         if (selectedPays.value !== "") {
-            let pillulePays = document.querySelector("#pillule-pays");
-            if (pillulePays) {
-                pillulePays.remove();
-            }
             url = createPillHtml(selectedPays, url);
+        }
+
+        const selectedPrix = document.querySelector("#filtre-prix");
+        if (selectedPrix.value !== "") {
+            url = createPillHtml(selectedPrix, url);
         }
         setupPilluleClickListeners(url);
 
@@ -194,13 +191,12 @@ document.addEventListener('DOMContentLoaded', function () {
         existingPillules.forEach(pillule => {
             const filterValue = pillule.id.split("-")[1];
             const filterInput = document.querySelector(`#filtre-${filterValue}`);
-            const isChecked = filterInput && filterInput.checked;
+            const isChecked = filterInput.selectedIndex || filterInput.checked;
 
             if (!isChecked) {
                 pillule.remove();
             }
         });
-
         // Call fetchPaginatedResults only if there's a searchTerm or if filters are applied
         if (searchTerm || selectedCouleurs.length > 0 || selectedPays.value) {
             fetchPaginatedResults(url);
@@ -210,48 +206,42 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-function createPillHtml(pillule, url) {
-    if (!pillule) {
+    function createPillHtml(pillule, url) {
+        if (!pillule) {
+            return url;
+        }
+
+        let valeurFiltre = pillule.value;
+        let nomFiltre;
+        if (pillule.type === "checkbox" || pillule.type === "radio") {
+            nomFiltre = pillule.name.split("-")[1];
+        } else if (pillule.tagName === "SELECT") {
+            nomFiltre = pillule.id.split("-")[1];
+        }
+        let zonePillules = document.querySelector(".zone-pillules");
+        let existingPillule = document.querySelector(`#pillule-${nomFiltre}`);
+
+        // console.log(zonePillules.children, nomFiltre, valeurFiltre);
+        
+        if (existingPillule) {
+            existingPillule.remove();
+        }
+        
+        let newPillule = document.createElement("div");
+        newPillule.id = `pillule-${nomFiltre}`;
+        newPillule.innerHTML = `
+        <p>${valeurFiltre}</p>
+        <button>
+        <img src="/icons/x.svg" alt="Croix">
+        </button>
+        `;
+
+
+        zonePillules.appendChild(newPillule);
+        url += `${encodeURIComponent(nomFiltre)}=${encodeURIComponent(valeurFiltre)}&`;
+        console.log(url);
         return url;
     }
-
-    let valeurFiltre = pillule.value;
-    let nomFiltre;
-    if (pillule.type === "checkbox" || pillule.type === "radio") {
-        nomFiltre = pillule.name.split("-")[1];
-    } else if (pillule.tagName === "SELECT") {
-        nomFiltre = pillule.id.split("-")[1];
-    }
-    //console.log(nomFiltre, valeurFiltre);
-
-    let zonePillules = document.querySelector(".zone-pillules");
-    let existingPillule = document.querySelector(`#pillule-${nomFiltre}`);
-
-    console.log(existingPillule, nomFiltre, valeurFiltre);
-    
-    if (existingPillule) {
-        existingPillule.remove();
-    }
-    
-    let newPillule = document.createElement("div");
-    newPillule.id = `pillule-${nomFiltre}`;
-    //console.log(newPillule);
-    newPillule.innerHTML = `
-    <p>${valeurFiltre}</p>
-    <button>
-    <img src="/icons/x.svg" alt="Croix">
-    </button>
-    `;
-    
-    zonePillules.appendChild(newPillule);
-    url += `${encodeURIComponent(nomFiltre)}=${encodeURIComponent(valeurFiltre)}&`;
-    console.log(url);
-    return url;
-}
-
-
-
-
 
     function resetFilterInput(filterValue) {
         let filterInput = document.querySelector("#filtre-" + filterValue);
@@ -279,7 +269,7 @@ function createPillHtml(pillule, url) {
                 resetFilterInput(filterValue);
                 pillule.remove();
                 fetchSearchResults();
-                url = createPillHtml(filterValue, url);
+                // url = createPillHtml(filterValue, url);
             }
         });
     }
