@@ -50,6 +50,19 @@ return [
     'add' => 'Add',
     'no_results_message' => 'No results for',
 
+    //Filters
+    'filters' => 'Filters',
+    'filter' => 'Filter',
+    'all' => 'All',
+    'red' => 'Red',
+    'white' => 'White',
+    'rose' => 'Rosé',
+    'orange' => 'Orange',
+    'country' => 'Country',
+
+    //Sort
+    'sort' => 'Sort',
+
     //Modal - Add Bottle
     'cellar' => 'Cellar',
     'quantity' => 'Quantity',

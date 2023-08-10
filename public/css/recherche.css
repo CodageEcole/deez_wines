@@ -2,7 +2,7 @@
 .rechercheConteneur {
     position: sticky; /* Set the position to sticky */
     top: 0; /* Stick the element at the top of the container */
-    z-index: 2;
+    z-index: 1;
     margin-inline: 0;
     min-width: 100%;
     display: flex;
