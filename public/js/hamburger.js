@@ -5,7 +5,6 @@ window.onload = function() {
     
 
     menuBouton.addEventListener("click", function() {
-        console.log("Allo")
         menuMobile.classList.toggle("is-active");
         overlayGrey.classList.toggle("show");
     })

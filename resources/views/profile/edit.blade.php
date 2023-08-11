@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', __('messages.log_in'))
+@section('title', __('messages.dashboard'))
 @push('styles')
     @vite(['resources/css/app.css'])
     <link rel="stylesheet" href="{{ asset('css/auth.css')}}">

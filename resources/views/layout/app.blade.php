@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @push('scripts')
+        @vite(['resources/js/app.js'])
         <script src="{{ asset('js/hamburger.js')}}"></script>
     @endpush
     @stack('styles')
@@ -13,9 +14,7 @@
     <link href=" {{ asset('css/hamburger.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/root.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/messages.css') }}" rel="stylesheet">
-    
     <title>@yield('title')</title>
-    @vite(['resources/js/app.js'])
 </head>
 
 
@@ -26,15 +25,7 @@
             <div class="logo">
                 {{-- <img src="{{ asset('logos/deez_wines_logo_small.svg') }}" alt="Logo"> --}}
             </div>
-            {{-- <ul>
-                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                    @if($localeCode != LaravelLocalization::getCurrentLocale())
-                        <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                            {{ $properties['native'] }}
-                        </a>
-                    @endif
-                @endforeach
-            </ul> --}}
+            
             @if(!isset($cacherLayout))
                 <div class="search-more">
                     {{-- <a href="#">
@@ -56,6 +47,7 @@
         </div>
         <div class="deconnexion-menu">
             <a href="{{ route('profile.edit') }}">Profil</a>
+            <a href="{{ route('admin.stats.index') }}">Administration</a>
             <a href="#">Changer vos infos personnelles</a>
             <a href="#">Changer votre mot de passe</a>
             <a href="#">Ajouter une bouteille au répertoire</a>

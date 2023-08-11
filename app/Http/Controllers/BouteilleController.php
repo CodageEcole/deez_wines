@@ -8,6 +8,7 @@ use App\Models\Cellier;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\CommentaireBouteille;
+use Illuminate\Support\Facades\Log;
 
 class BouteilleController extends Controller
 {
@@ -25,26 +26,95 @@ class BouteilleController extends Controller
     public function index(Request $request)
     {
         $searchTerm = $request->input('query');
-        // On verifie si on a un terme de recherche
-        if ($searchTerm) {
-            $bouteilles = Bouteille::search($searchTerm)
-                ->where('existe_plus', false)
-                ->orderBy('nom', 'asc')
-                ->paginate(30);
+        $rouge = $request->rouge;
+        $blanc = $request->blanc;
+        $rose = $request->rose;
+        $orange = $request->orange;
+        $pays = $request->pays;
+        $prix = $request->prix;
+        $cepage = $request->cepage;
 
-            $message = __('messages.add');
-            // On ajoute le message afin de l'avoir dans la bonne langue dans la vue
-            foreach ($bouteilles as $bouteille) {
-                $bouteille->message = $message;
+        // Eloquent query builder
+        $query = Bouteille::query();
+
+        // La recherche en soit
+        if ($searchTerm) {
+
+            $query->where('nom', 'like', "%$searchTerm%");
+        }
+
+        // Par pays
+        if ($pays) {
+
+            $query->where('pays_fr', $pays);
+        }
+
+        // Par couleur, avec recherche dans un autre champ pour les vins orange
+        if ($rouge || $blanc || $rose || $orange) {
+
+            $query->where(function ($subquery) use ($rouge, $blanc, $rose, $orange) {
+
+                $colors = array_filter([$rouge, $blanc, $rose]);
+                $subquery->whereIn('couleur_fr', $colors);
+
+                if ($orange) {
+
+                    $subquery->orWhere('particularite_fr', 'LIKE', "%$orange%");
+                }
+            });
+        }
+
+        // Filtrer par gamme de prix
+        if ($prix) {
+
+            list($minPrice, $maxPrice) = explode('-', $prix);
+            $query->whereBetween('prix', [$minPrice, $maxPrice]);
+        }
+        
+        if($cepage){
+            $query->where('cepage', 'like', '%' . $cepage . '%');
+        }
+    
+        // Get paginated results
+        $bouteilles = $query->orderBy('nom', 'asc')->paginate(30);
+    
+        $message = __('messages.add');
+        foreach ($bouteilles as $bouteille) {
+            $bouteille->message = $message;
+            $bouteille->nombreBouteilles = $bouteilles->total();
+        }
+    
+        if ($request->ajax()) {
+            return response()->json($bouteilles);
+        }
+        else {
+
+            $celliers = Cellier::where('user_id', auth()->id())->get();
+            $pays = Bouteille::select('pays_fr')->distinct()->get()->sortBy('pays_fr');
+            $pastilles = Bouteille::select('image_pastille_alt')->distinct()->get()->sortBy('image_pastille_alt');
+            $cepagesJson = Bouteille::select('cepage')->distinct()->get()->sortBy('cepage');
+
+            $uniqueCepage = [];
+
+            foreach ($cepagesJson as $cepageJson) {
+                $cepageEntries = explode(', ', $cepageJson->cepage);
+                foreach ($cepageEntries as $cepageEntry) {
+                    $cepage = preg_replace('/[0-9%]+/', '', $cepageEntry);
+                    $cepage = trim(strtolower($cepage));
+                    if (!empty($cepage) && !in_array($cepage, $uniqueCepage)) {
+                        array_push($uniqueCepage, $cepage);
+                    }
+                }
             }
 
-            // On retourne les bouteilles en json
-            return response()->json($bouteilles);
-        } else {
-            $celliers = Cellier::where('user_id', auth()->id())->get();
-            return view('bouteilles.index', compact('celliers'));
+            // Sort the array in alphabetical order
+            sort($uniqueCepage);
+            $cepages = $uniqueCepage;
+            
+            return view('bouteilles.index', compact('celliers', 'pays', 'cepages', 'pastilles'));
         }
     }
+
 
     /**
      * Show the form for creating a new resource.

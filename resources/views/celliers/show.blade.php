@@ -15,7 +15,7 @@
             @csrf
             @method('PUT')
             <input class="input-edit-nom" type="text" name="nom" id="nom" value="{{ $cellier->nom }}">
-            <button class="crayon-edit-icon" type="submit"><img src="{{ asset('icons/edit_pen.svg') }}" alt="crayon modification"></button>
+            <div class="crayon-edit-icon"><img src="{{ asset('icons/edit_pen.svg') }}" alt="crayon modification"></div>
             <button type="submit" class="bouton-annuler">@lang('messages.cancel')</button>
             <button type="submit" class="bouton-enregistrer">@lang('messages.save')</button>
         </form>
