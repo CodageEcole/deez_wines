@@ -45,9 +45,17 @@ class BouteilleController extends Controller
         }
 
         // Par pays
-        if ($pays) {
+        // if ($pays) {
 
-            $query->where('pays_fr', $pays);
+        //     $query->where('pays_fr', $pays);
+        // }
+
+        // Par pays, avec recherche dans un autre champ pour les pays en anglais
+        if ($pays) {
+            $query->where(function ($subquery) use ($pays) {
+                $subquery->whereIn('pays_fr', $pays)
+                         ->orWhere('pays_en', $pays);
+            });
         }
 
         // Par couleur, avec recherche dans un autre champ pour les vins orange

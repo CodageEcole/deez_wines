@@ -23,6 +23,11 @@
     max-height: 40px;
 }
 
+.filtres-side-bar {
+    /* display: flex; */
+    flex-direction: column;
+}
+
 .resultats {
     margin-inline: auto;
 }
@@ -59,4 +64,41 @@
 }
 .zone-pillules > div img {
     max-height: 100%;
+}
+
+/* dropdown */
+
+.label-simple {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.options-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+}
+
+.filtre-dropdown-couleurs,
+.filtre-dropdown-pays {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+
+    width: 100%;
+}
+
+.filtre-dropdown-couleurs.show {
+    max-height: 300px;
+}
+
+.filtre-dropdown-pays.show {
+    max-height: 1000px;
 }

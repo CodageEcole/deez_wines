@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const filtresSideBar = document.querySelector('.filtres-side-bar');
     filtresSideBar.style.display = "none";
     filtresTrigger.addEventListener('click', function() {
-        filtresSideBar.style.display = "block";
+        filtresSideBar.style.display = "flex";
     });
     let nombreFiltres = document.querySelector('.filtres-trigger span');
     searchInput.addEventListener('input', fetchSearchResults);
