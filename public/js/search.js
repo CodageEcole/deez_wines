@@ -65,7 +65,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     <p>
                         ${bouteille.couleur_fr ? bouteille.couleur_fr + " | " : ""}
                         ${bouteille.format ? bouteille.format + " | " : ""}
-                        ${bouteille.pays_fr ? bouteille.pays_fr : ""}
+                        ${bouteille.pays_fr ? bouteille.pays_fr + " | " : ""}
+                        ${bouteille.prix ? bouteille.prix + " $" : ""}
                     </p>
                     </section>
                     <div class="overlap" data-nom="${bouteille.nom}" data-id="${bouteille.id}" onclick='openModal("${bouteille.nom.replace(/'/g, '&#39;')}","${bouteille.id}")'>
@@ -87,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
             const responseData = response.data;
             const bouteilles = responseData.data;
-            //console.log(bouteilles[0].nombreBouteilles);
             let resultatsHtml = document.querySelector('.resultats');
             resultatsHtml.innerHTML = bouteilles[0].nombreBouteilles + " résultats";
             // Générer le HTML des résultats de recherche
@@ -165,9 +165,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         const searchTerm = searchInput?.value.trim() || "";
-        let url = "/bouteilles?";
+        let url = "/bouteilles";
         if (searchTerm) {
-            url += `query=${encodeURIComponent(searchTerm)}&`;
+            url += `?query=${encodeURIComponent(searchTerm)}`;
         }
         
         const selectedCouleurs = document.querySelectorAll("#couleurs input[type=checkbox]:checked");
@@ -227,8 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let zonePillules = document.querySelector(".zone-pillules");
         let existingPillule = document.querySelector(`#pillule-${nomFiltre}`);
 
-        // console.log(zonePillules.children, nomFiltre, valeurFiltre);
-        
+
         if (existingPillule) {
             existingPillule.remove();
         }
@@ -244,8 +243,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         zonePillules.appendChild(newPillule);
-        url += `${encodeURIComponent(nomFiltre)}=${encodeURIComponent(valeurFiltre)}&`;
-        console.log(url);
+        console.log("pré modif url", url);
+        url += url.includes("?") ? `&` : `?`;
+        url += `${encodeURIComponent(nomFiltre)}=${encodeURIComponent(valeurFiltre)}`;
+        // url += url.includes("?") ? `&${encodeURIComponent(nomFiltre)}=${encodeURIComponent(valeurFiltre)}` : `?${encodeURIComponent(nomFiltre)}=${encodeURIComponent(valeurFiltre)}`;
+        console.log("les couleurs url modif", url);
         return url;
     }
 
@@ -279,6 +281,4 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
-
 });

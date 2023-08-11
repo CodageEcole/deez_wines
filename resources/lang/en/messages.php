@@ -20,6 +20,8 @@ return [
 
     // Dashboard
     'dashboard' => 'Dashboard',
+    'admin' => 'Administration',
+    'delete_user' => "The user :nomUsager has been deleted succesfully.",
 
     //Profile - Profile information
     'profile' => 'Profile',

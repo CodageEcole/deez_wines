@@ -1,4 +1,5 @@
 @extends('layout.app')
+@section('title', 'Recherche')
 @section('content')
 @push('styles')
     <link href=" {{ asset('css/carte-vin-lr.css') }}" rel="stylesheet">
@@ -31,11 +32,11 @@
     @csrf
     <div id="couleurs" class="filtre">
         <label for="filtre-rouge">@lang('messages.red')</label>
-        <input type="checkbox" name="filtre-rouge" id="filtre-rouge" value="rouge">
+        <input type="checkbox" name="filtre-rouge" id="filtre-rouge" value="Rouge">
         <label for="filtre-blanc">@lang('messages.white')</label>
-        <input type="checkbox" name="filtre-blanc" id="filtre-blanc" value="blanc">
+        <input type="checkbox" name="filtre-blanc" id="filtre-blanc" value="Blanc">
         <label for="filtre-rose">@lang('messages.rose')</label>
-        <input type="checkbox" name="filtre-rose" id="filtre-rose" value="rose">
+        <input type="checkbox" name="filtre-rose" id="filtre-rose" value="Rosé">
         <label for="filtre-orange">@lang('messages.orange')</label>
         <input type="checkbox" name="filtre-orange" id="filtre-orange" value="orange">
     </div>

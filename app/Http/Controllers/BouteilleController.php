@@ -33,28 +33,40 @@ class BouteilleController extends Controller
         $pays = $request->pays;
         $prix = $request->prix;
         $cepage = $request->cepage;
-    
-        // Start with the Eloquent query builder
+
+        // Eloquent query builder
         $query = Bouteille::query();
-    
-        // Apply search and other filters
+
+        // La recherche en soit
         if ($searchTerm) {
-            // Adjust this part based on your actual search implementation
-            // For example, if you are using LIKE search:
-            $query->where('nom', 'like', '%' . $searchTerm . '%');
+
+            $query->where('nom', 'like', "%$searchTerm%");
         }
-    
+
+        // Par pays
         if ($pays) {
+
             $query->where('pays_fr', $pays);
         }
-    
+
+        // Par couleur, avec recherche dans un autre champ pour les vins orange
         if ($rouge || $blanc || $rose || $orange) {
-            $colors = array_filter([$rouge, $blanc, $rose, $orange]);
-            $query->whereIn('couleur_fr', $colors);
+
+            $query->where(function ($subquery) use ($rouge, $blanc, $rose, $orange) {
+
+                $colors = array_filter([$rouge, $blanc, $rose]);
+                $subquery->whereIn('couleur_fr', $colors);
+
+                if ($orange) {
+
+                    $subquery->orWhere('particularite_fr', 'LIKE', "%$orange%");
+                }
+            });
         }
-    
-        // Apply the price range filter
+
+        // Filtrer par gamme de prix
         if ($prix) {
+
             list($minPrice, $maxPrice) = explode('-', $prix);
             $query->whereBetween('prix', [$minPrice, $maxPrice]);
         }
@@ -74,7 +86,9 @@ class BouteilleController extends Controller
     
         if ($request->ajax()) {
             return response()->json($bouteilles);
-        } else {
+        }
+        else {
+
             $celliers = Cellier::where('user_id', auth()->id())->get();
             $pays = Bouteille::select('pays_fr')->distinct()->get()->sortBy('pays_fr');
             $pastilles = Bouteille::select('image_pastille_alt')->distinct()->get()->sortBy('image_pastille_alt');
