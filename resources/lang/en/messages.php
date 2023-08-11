@@ -61,7 +61,9 @@ return [
     'rose' => 'Rosé',
     'orange' => 'Orange',
     'country' => 'Country',
-
+    'price' => 'Price',
+    'grape_variety' => 'Grape variety',
+    'taste_pill' => 'Pastille de goût',
     //Sort
     'sort' => 'Sort',
 

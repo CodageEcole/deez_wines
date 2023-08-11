@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\CommentaireBouteille;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
 
 class BouteilleController extends Controller
 {
@@ -69,31 +68,50 @@ class BouteilleController extends Controller
         if ($prix) {
 
             list($minPrice, $maxPrice) = explode('-', $prix);
-
             $query->whereBetween('prix', [$minPrice, $maxPrice]);
         }
+        
+        if($cepage){
+            $query->where('cepage', 'like', '%' . $cepage . '%');
+        }
     
-        // Pagination des résultats
+        // Get paginated results
         $bouteilles = $query->orderBy('nom', 'asc')->paginate(30);
-
+    
         $message = __('messages.add');
-
         foreach ($bouteilles as $bouteille) {
-
             $bouteille->message = $message;
             $bouteille->nombreBouteilles = $bouteilles->total();
         }
-
+    
         if ($request->ajax()) {
-
             return response()->json($bouteilles);
         }
         else {
 
             $celliers = Cellier::where('user_id', auth()->id())->get();
             $pays = Bouteille::select('pays_fr')->distinct()->get()->sortBy('pays_fr');
+            $pastilles = Bouteille::select('image_pastille_alt')->distinct()->get()->sortBy('image_pastille_alt');
+            $cepagesJson = Bouteille::select('cepage')->distinct()->get()->sortBy('cepage');
 
-            return view('bouteilles.index', compact('celliers', 'pays'));
+            $uniqueCepage = [];
+
+            foreach ($cepagesJson as $cepageJson) {
+                $cepageEntries = explode(', ', $cepageJson->cepage);
+                foreach ($cepageEntries as $cepageEntry) {
+                    $cepage = preg_replace('/[0-9%]+/', '', $cepageEntry);
+                    $cepage = trim(strtolower($cepage));
+                    if (!empty($cepage) && !in_array($cepage, $uniqueCepage)) {
+                        array_push($uniqueCepage, $cepage);
+                    }
+                }
+            }
+
+            // Sort the array in alphabetical order
+            sort($uniqueCepage);
+            $cepages = $uniqueCepage;
+            
+            return view('bouteilles.index', compact('celliers', 'pays', 'cepages', 'pastilles'));
         }
     }
 
