@@ -33,6 +33,7 @@ class BouteilleController extends Controller
         $pays = $request->pays;
         $prix = $request->prix;
         $cepage = $request->cepage;
+        $pastille = $request->pastille;
 
         // Eloquent query builder
         $query = Bouteille::query();
@@ -74,6 +75,10 @@ class BouteilleController extends Controller
         if($cepage){
             $query->where('cepage', 'like', '%' . $cepage . '%');
         }
+
+        if($pastille){
+            $query->where('image_pastille_alt', 'like', '%' . $pastille . '%');
+        }
     
         // Get paginated results
         $bouteilles = $query->orderBy('nom', 'asc')->paginate(30);
@@ -92,25 +97,44 @@ class BouteilleController extends Controller
             $celliers = Cellier::where('user_id', auth()->id())->get();
             $pays = Bouteille::select('pays_fr')->distinct()->get()->sortBy('pays_fr');
             $pastilles = Bouteille::select('image_pastille_alt')->distinct()->get()->sortBy('image_pastille_alt');
-            $cepagesJson = Bouteille::select('cepage')->distinct()->get()->sortBy('cepage');
+            $similarityThreshold = 80;
+            $cepageEntries = Bouteille::select('cepage')
+                ->distinct()
+                ->get()
+                ->pluck('cepage')
+                ->flatMap(function ($cepage) {
+                    $cepageArray = explode(', ', $cepage);
+                    return array_map(function ($entry) {
+                        return trim(preg_replace('/[0-9%]+/', '', $entry));
+                    }, $cepageArray);
+                })
+                ->filter()
+                ->unique()
+                ->sort()
+                ->values();
 
             $uniqueCepage = [];
 
-            foreach ($cepagesJson as $cepageJson) {
-                $cepageEntries = explode(', ', $cepageJson->cepage);
-                foreach ($cepageEntries as $cepageEntry) {
-                    $cepage = preg_replace('/[0-9%]+/', '', $cepageEntry);
-                    $cepage = trim(strtolower($cepage));
-                    if (!empty($cepage) && !in_array($cepage, $uniqueCepage)) {
-                        array_push($uniqueCepage, $cepage);
+            foreach ($cepageEntries as $cepage) {
+                $isSimilar = false;
+                
+                // Compare the current cepage with existing unique cepages
+                foreach ($uniqueCepage as $existingCepage) {
+                    similar_text($cepage, $existingCepage, $similarityPercentage);
+
+                    // If similarity is above the threshold, mark as similar
+                    if ($similarityPercentage >= $similarityThreshold) {
+                        $isSimilar = true;
+                        break;
                     }
+                }
+
+                if (!$isSimilar) {
+                    $uniqueCepage[] = $cepage;
                 }
             }
 
-            // Sort the array in alphabetical order
-            sort($uniqueCepage);
             $cepages = $uniqueCepage;
-            
             return view('bouteilles.index', compact('celliers', 'pays', 'cepages', 'pastilles'));
         }
     }

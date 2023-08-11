@@ -18,7 +18,7 @@
 <div class="filtres-tris-conteneur">
     <div class="filtres-trigger">
         <img src="{{ asset('icons/filter.svg') }}" alt="filtres">
-        <p>@lang('messages.filters')</p>
+        <p>@lang('messages.filters')<span></span></p>
     </div>
     <div class="tris-trigger">
         <img src="{{ asset('icons/sort.svg') }}" alt="tri">
@@ -76,7 +76,13 @@
         <select name="filtre-pastille" id="filtre-pastille">
             <option value="" selected>@lang('messages.all')</option>
             @foreach($pastilles as $p)
-                <option id="filtre-{{$p->image_pastille_alt}}" value="{{$p->image_pastille_alt}}">{{$p->image_pastille_alt}}</option>
+                @php
+                    $parts = explode(' : ', $p->image_pastille_alt);
+                    $pastilleValue = isset($parts[1]) ? $parts[1] : ''; // Get the second part if available
+                @endphp
+                @if($pastilleValue != '')
+                    <option id="filtre-{{$pastilleValue}}" value="{{$pastilleValue}}">{{$pastilleValue}}</option>
+                @endif
             @endforeach
         </select>
     </div>
