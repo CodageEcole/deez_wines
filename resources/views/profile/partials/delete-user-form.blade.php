@@ -1,7 +1,7 @@
 <section>
     <header>
         <h2>{{ __('messages.delete_account') }}</h2>
-        <p>{{ __('messages.delete_account_text') }}</p>
+        <p>{!! __('messages.delete_account_text') !!}</p>
     </header>
 
         <div class="supprimer-container">
@@ -19,7 +19,7 @@
 
             <div>
                 <x-input-label for="password" value="{{ __('messages.password') }}" />
-                <x-text-input id="password" name="password" type="password" placeholder="{{ __('Password') }}" />
+                <x-text-input id="password" name="password" type="password" placeholder="" />
                 <x-input-error :messages="$errors->userDeletion->get('password')" />
             </div>
 

@@ -1,12 +1,3 @@
-.formulairePage>h2{
-    padding-top: 10px;
-    padding: 5px;
-    border-radius: 10px 10px 0 0;
-}
-.formulairePage hr{
-    color: #E2E2E3 ;
-}
-
 dialog:not(.modalePage) {
     border: 2px solid var(--dark-brown);
     background-color: var(--light-brown);
@@ -74,6 +65,7 @@ dialog label {
     align-items: center;
     justify-content: center;
     padding-inline: 5px;
+    width: 100%;
 }
 .quantity-input>input{
     height: min-content;
@@ -108,6 +100,7 @@ dialog label {
     align-items: center;
     justify-content: center;
 }
+
 /* Styles pour la boîte modale */
 .modalePage {
     position: fixed;
@@ -127,15 +120,40 @@ dialog label {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #f3F1F1;
+    /* background-color: #f3F1F1; */
     /* padding: 20px; */
     /* border: 1px solid #888; */
     border-radius: 10px;
-    width: fit-content;
+    width: 90%;
 }
+
 .formulairePage select{
     display: flex;
     justify-content: center;
+}
+
+.formulairePage>h2{
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
+    font-size: 22px;
+    color: white;
+    padding-top: 10px;
+    padding: 5px;
+    margin: 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.formulairePage hr{
+    color: #E2E2E3 ;
+}
+
+.cellar-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cellar-input {
+    margin: auto;
 }
 
 .changerQteBout>form{
