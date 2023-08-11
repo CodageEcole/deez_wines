@@ -49,7 +49,7 @@
         </select>
     </div>
     <div class="filtre">
-        <label for="filtre-prix"></label>
+        <label for="filtre-prix">@lang('messages.price')</label>
         <select name="filtre-prix" id="filtre-prix">
             <option value="" selected>@lang('messages.all')</option>
             <option id="filtre-00-10" value="00-10">00-10</option>
@@ -61,7 +61,24 @@
             <option id="filtre-60+" value="60+">60+</option>
         </select>
     </div>
-
+    <div class="filtre">
+        <label for="filtre-cepage">@lang('messages.grape_variety')</label>
+        <select name="filtre-cepage" id="filtre-cepage">
+            <option value="" selected>@lang('messages.all')</option>
+            @foreach($cepages as $c)
+                <option id="filtre-{{$c}}" value="{{$c}}">{{$c}}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="filtre">
+        <label for="filtre-pastille">@lang('messages.taste_pill')</label>
+        <select name="filtre-pastille" id="filtre-pastille">
+            <option value="" selected>@lang('messages.all')</option>
+            @foreach($pastilles as $p)
+                <option id="filtre-{{$p->image_pastille_alt}}" value="{{$p->image_pastille_alt}}">{{$p->image_pastille_alt}}</option>
+            @endforeach
+        </select>
+    </div>
 </form>
 <main class="indexBouteilles">
 

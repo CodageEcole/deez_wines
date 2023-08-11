@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\CommentaireBouteille;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
 
 class BouteilleController extends Controller
 {
@@ -34,46 +33,71 @@ class BouteilleController extends Controller
         $pays = $request->pays;
         $prix = $request->prix;
         $cepage = $request->cepage;
-
+    
+        // Start with the Eloquent query builder
+        $query = Bouteille::query();
+    
+        // Apply search and other filters
+        if ($searchTerm) {
+            // Adjust this part based on your actual search implementation
+            // For example, if you are using LIKE search:
+            $query->where('nom', 'like', '%' . $searchTerm . '%');
+        }
+    
+        if ($pays) {
+            $query->where('pays_fr', $pays);
+        }
+    
+        if ($rouge || $blanc || $rose || $orange) {
+            $colors = array_filter([$rouge, $blanc, $rose, $orange]);
+            $query->whereIn('couleur_fr', $colors);
+        }
+    
+        // Apply the price range filter
         if ($prix) {
             list($minPrice, $maxPrice) = explode('-', $prix);
-        } else {
-            $minPrice = 0;
-            $maxPrice = 0;
+            $query->whereBetween('prix', [$minPrice, $maxPrice]);
         }
-
-        // On verifie si on a un terme de recherche
-        if ($searchTerm || $rouge || $blanc || $rose || $orange || $pays || $cepage || $prix) {
-            // On verifie si on a une couleur, une catégorie, un pays ou une région
-            $bouteilles = Bouteille::search($searchTerm)
-                ->orderBy('nom', 'asc')
-                ->when($pays, function ($query) use ($pays) {
-                    return $query->where('pays_fr', $pays);
-                })
-                ->when($prix, function ($query) use ($minPrice, $maxPrice) {
-                    dd($query->where('prix', 'CAST(REPLACE(REPLACE(prix," $",""),",",".")','AS','DECIMAL(10,2))','BETWEEN',$minPrice,'AND',$maxPrice));
-                })
-                ->when(($rouge || $blanc || $rose || $orange), function ($query) use ($rouge, $blanc, $rose, $orange) {
-                    $colors = array_filter([$rouge, $blanc, $rose, $orange]);
-                    return $query->whereIn('couleur_fr', $colors);
-                })
-                ->when(request()->has('filtre-prix'), function ($query) {
-                    $prix = request('filtre-prix');
-                    return $query->where('prix', '<=', $prix);
-                })
-                ->paginate(30);
-            $message = __('messages.add');
-            // On ajoute le message afin de l'avoir dans la bonne langue dans la vue
-            foreach ($bouteilles as $bouteille) {
-                $bouteille->message = $message;
-                $bouteille->nombreBouteilles = $bouteilles->total();
-            }
-            // On retourne les bouteilles en json
+        
+        if($cepage){
+            $query->where('cepage', 'like', '%' . $cepage . '%');
+        }
+    
+        // Get paginated results
+        $bouteilles = $query->orderBy('nom', 'asc')->paginate(30);
+    
+        $message = __('messages.add');
+        foreach ($bouteilles as $bouteille) {
+            $bouteille->message = $message;
+            $bouteille->nombreBouteilles = $bouteilles->total();
+        }
+    
+        if ($request->ajax()) {
             return response()->json($bouteilles);
         } else {
             $celliers = Cellier::where('user_id', auth()->id())->get();
             $pays = Bouteille::select('pays_fr')->distinct()->get()->sortBy('pays_fr');
-            return view('bouteilles.index', compact('celliers', 'pays'));
+            $pastilles = Bouteille::select('image_pastille_alt')->distinct()->get()->sortBy('image_pastille_alt');
+            $cepagesJson = Bouteille::select('cepage')->distinct()->get()->sortBy('cepage');
+
+            $uniqueCepage = [];
+
+            foreach ($cepagesJson as $cepageJson) {
+                $cepageEntries = explode(', ', $cepageJson->cepage);
+                foreach ($cepageEntries as $cepageEntry) {
+                    $cepage = preg_replace('/[0-9%]+/', '', $cepageEntry);
+                    $cepage = trim(strtolower($cepage));
+                    if (!empty($cepage) && !in_array($cepage, $uniqueCepage)) {
+                        array_push($uniqueCepage, $cepage);
+                    }
+                }
+            }
+
+            // Sort the array in alphabetical order
+            sort($uniqueCepage);
+            $cepages = $uniqueCepage;
+            
+            return view('bouteilles.index', compact('celliers', 'pays', 'cepages', 'pastilles'));
         }
     }
 

@@ -185,6 +185,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if (selectedPrix.value !== "") {
             url = createPillHtml(selectedPrix, url);
         }
+
+        const selectedCepage = document.querySelector("#filtre-cepage");
+        console.log(selectedCepage.value);
+        if (selectedCepage.value !== "") {
+            url = createPillHtml(selectedCepage, url);
+        }
         setupPilluleClickListeners(url);
 
         const existingPillules = document.querySelectorAll(".zone-pillules > div");
@@ -198,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
         // Call fetchPaginatedResults only if there's a searchTerm or if filters are applied
-        if (searchTerm || selectedCouleurs.length > 0 || selectedPays.value) {
+        if (searchTerm || selectedCouleurs.length > 0 || selectedPays.value || selectedPrix.value || selectedCepage.value) {
             fetchPaginatedResults(url);
         } else {
             // Clear the search results if no searchTerm or filters are applied
