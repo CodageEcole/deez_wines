@@ -3,15 +3,17 @@
         <h2 id="modal-title"></h2>
         <hr>
         @csrf
-        <div class="quantity-input">
-            <label for="cellier_id">@lang('messages.cellar')</label>
-        </div>
-        <div class="quantity-input">
-            <select name="cellier_id">
-                @foreach ($celliers as $cellier)
-                    <option value="{{ $cellier->id }}">{{ $cellier->nom }}</option>
-                @endforeach
-            </select>
+        <div class="cellar-group">
+            <div class="cellar-input">
+                <label for="cellier_id">@lang('messages.cellar')</label>
+            </div>
+            <div class="cellar-input">
+                <select name="cellier_id">
+                    @foreach ($celliers as $cellier)
+                        <option value="{{ $cellier->id }}">{{ $cellier->nom }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
         <hr>
         <div class="quantity-input">

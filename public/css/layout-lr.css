@@ -15,6 +15,24 @@ body{
     max-width: var(--desktop-w);
     
 }
+
+button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+  }
+
+input {
+    font-family: "MabryPro";
+    font-size: 16px !important;
+    border-radius: 5px;
+}
+
 /* =========== HEADER =========== */
 
 main {
@@ -44,7 +62,7 @@ footer {
 
 nav:not(.pagination) {
     display: flex;
-    height: 70px;
+    /* height: 70px; */
 }
 
 nav:not(.pagination) a,

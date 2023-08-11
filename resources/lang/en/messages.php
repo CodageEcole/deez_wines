@@ -20,8 +20,6 @@ return [
 
     // Dashboard
     'dashboard' => 'Dashboard',
-    'admin' => 'Administration',
-    'delete_user' => "The user :nomUsager has been deleted succesfully.",
 
     //Profile - Profile information
     'profile' => 'Profile',
@@ -38,9 +36,10 @@ return [
 
     //Profile - Delete Account
     'delete_account' => 'Delete Account',
-    'delete_account_text_small' => "Are you sure you want to delete your account?",
-    'delete_account_text' => "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.",
+    'delete_account_text_small' => "Are you sure you want to <strong>delete</strong> your account?",
+    'delete_account_text' => "Once your account is deleted, all of its resources and data will be <strong>permanently deleted</strong>. Before deleting your account, please download any data or information that you wish to retain.",
     'cancel' => 'Cancel',
+    'warning' => 'WARNING !',
 
     //Search 
     'search_bar_message' => 'Type something here',
@@ -51,21 +50,6 @@ return [
     'view_all_bottles' => 'View all bottles',
     'add' => 'Add',
     'no_results_message' => 'No results for',
-
-    //Filters
-    'filters' => 'Filters',
-    'filter' => 'Filter',
-    'all' => 'All',
-    'red' => 'Red',
-    'white' => 'White',
-    'rose' => 'Rosé',
-    'orange' => 'Orange',
-    'country' => 'Country',
-    'price' => 'Price',
-    'grape_variety' => 'Grape variety',
-    'taste_pill' => 'Pastille de goût',
-    //Sort
-    'sort' => 'Sort',
 
     //Modal - Add Bottle
     'cellar' => 'Cellar',

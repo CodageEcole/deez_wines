@@ -27,68 +27,69 @@
             <div class="carte-titre">
                 <h2>{{ $bouteille->nom }}</h2>
                 <p>
-                    {{ $bouteille->couleur_fr ? $bouteille->couleur_fr . " | " : $bouteille->couleur_fr }}
+                    {{-- {{ $bouteille->couleur_fr ? $bouteille->couleur_fr . " | " : $bouteille->couleur_fr }} --}}
+                    {{ $bouteille->{"couleur_" . LaravelLocalization::getCurrentLocale()} ? $bouteille->{"couleur_" . LaravelLocalization::getCurrentLocale()} . " | " : $bouteille->{"couleur_" . LaravelLocalization::getCurrentLocale()} }}
                     {{ $bouteille->format ? $bouteille->format . " | " : $bouteille->format }}
-                    {{ $bouteille->pays_fr }}
+                    {{ $bouteille->{"pays_" . LaravelLocalization::getCurrentLocale()} }}
                 </p>
             </div>
             <a class="bouton-ajouter" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
-                Ajouter<img src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Plus">
+                @lang('details.add')<img src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Plus">
             </a>
 
             <div class="informations">
                 <div class="info-double">
                     <div>
-                        <h3>Région</h3>
-                        <p>{{ $bouteille->region_fr }}</p>
+                        <h3>@lang('details.region')</h3>
+                        <p>{{ $bouteille->{"region_" . LaravelLocalization::getCurrentLocale()} }}</p>
                     </div>
                     <div>
-                        <h3>Format</h3>
+                        <h3>@lang('details.size')</h3>
                         <p>{{ $bouteille->format }}</p>
                     </div>
                 </div>
                 <div class="info-double">
                     <div>
-                        <h3>Degrée d'alcool</h3>
+                        <h3>@lang('details.degreeofalcohol')</h3>
                         <p>{{ $bouteille->degree_alcool }}</p>
                     </div>
                     <div>
-                        <h3>Taux de sucre</h3>
+                        <h3>@lang('details.sugarcontent')</h3>
                         <p>{{ $bouteille->taux_de_sucre }}</p>
                     </div>
                 </div>
 
                 @if(!empty($bouteille->temperature_fr))
                     <div class="info-simple">
-                        <h3>Température de service</h3>
+                        <h3>@lang('details.servingtemperature')</h3>
                         <p>{{ $bouteille->temperature_fr }}</p>
                     </div>
                 @endif
 
                 @if(!empty($bouteille->aromes_fr))
                     <div class="info-simple">
-                        <h3>Arômes</h3>
+                        <h3>@lang('details.aromas')</h3>
                         <p>{{ $bouteille->aromes_fr }}</p>
                     </div>
                 @endif
                 
                 @if(!empty($bouteille->designation_reglementee_fr))
                     <div class="info-simple">
-                        <h3>Désignation reglementée</h3>
+                        <h3>@lang('details.regulateddesignation')</h3>
                         <p>{{ $bouteille->designation_reglementee_fr }}</p>
                     </div>
                 @endif
 
                 @if(!empty($bouteille->producteur))
                     <div class="info-simple">
-                        <h3>Producteur</h3>
+                        <h3>@lang('details.producer')</h3>
                         <p>{{ $bouteille->producteur }}</p>
                     </div>
                 @endif
 
                 @if(!empty($bouteille->agent_promotionnel))
                     <div class="info-simple">
-                        <h3>Agent romotionnel</h3>
+                        <h3>@lang('details.promotionagent')</h3>
                         <p>{{ $bouteille->agent_promotionnel }}</p>
                     </div>
                 @endif
@@ -97,7 +98,7 @@
 
                 @if(!empty($bouteille->description_fr))
                     <div class="info-detaillee">
-                        <h3>Infos détaillées</h3>
+                        <h3>@lang('details.detailedinformation')</h3>
                         <p>{{ $bouteille->description_fr }}</p>
                     </div>
                     
@@ -108,8 +109,15 @@
                     <section class="info-gouts-container">
 
                         @php
-                            $valeurs = [$bouteille->acidite_fr, $bouteille->sucrosite_fr, $bouteille->corps_fr, $bouteille->bouche_fr, $bouteille->bois_fr];
-                            $nom = ['Acidité', 'Sucrosité', 'Corps', 'Bouche', 'Bois'];
+
+                            $acidity = __('details.acidity');
+                            $sweetness = __('details.sweetness');
+                            $body = __('details.body');
+                            $mouthfeel = __('details.mouthfeel');
+                            $wood = __('details.wood');
+
+                            $valeurs = [$bouteille->{"acidite_" . LaravelLocalization::getCurrentLocale()}, $bouteille->{"sucrosite_" . LaravelLocalization::getCurrentLocale()}, $bouteille->{"corps_" . LaravelLocalization::getCurrentLocale()}, $bouteille->{"bouche_" . LaravelLocalization::getCurrentLocale()}, $bouteille->{"bois_" . LaravelLocalization::getCurrentLocale()}];
+                            $nom = [$acidity, $sweetness, $body, $mouthfeel, $wood];
                             $un = ['discrète', 'demi-sec', 'léger', 'délicate', 'discret'];
                             $deux = ['présente','doux','mi-corsé','généreuse','équilibré'];
                             $trois = ['vive','extra-doux','corsé','enveloppante','marqué'];
@@ -145,14 +153,14 @@
                 @if(!empty($commentaireBouteille->commentaire))
                     <div class="commentaire-existant form-visible">
                             <div class="commentaire">
-                                <h3>Commentaire : </h3>
+                                <h3>@lang('details.comments') : </h3>
                                 <p>{{ $commentaireBouteille->commentaire }}</p>
                             </div>
                         @endif
                         
                         @if(!empty($commentaireBouteille->note))
                             <div class="note">
-                                <h3>Note</h3>
+                                <h3>@lang('details.rating')</h3>
                                 <p>{{ $commentaireBouteille->note }}/5</p>
                             </div>
                         @endif
