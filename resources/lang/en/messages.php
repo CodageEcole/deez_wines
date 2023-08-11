@@ -20,8 +20,6 @@ return [
 
     // Dashboard
     'dashboard' => 'Dashboard',
-    'admin' => 'Administration',
-    'delete_user' => "The user :nomUsager has been deleted succesfully.",
 
     //Profile - Profile information
     'profile' => 'Profile',
@@ -52,21 +50,6 @@ return [
     'view_all_bottles' => 'View all bottles',
     'add' => 'Add',
     'no_results_message' => 'No results for',
-
-    //Filters
-    'filters' => 'Filters',
-    'filter' => 'Filter',
-    'all' => 'All',
-    'red' => 'Red',
-    'white' => 'White',
-    'rose' => 'Rosé',
-    'orange' => 'Orange',
-    'country' => 'Country',
-    'price' => 'Price',
-    'grape_variety' => 'Grape variety',
-    'taste_pill' => 'Pastille de goût',
-    //Sort
-    'sort' => 'Sort',
 
     //Modal - Add Bottle
     'cellar' => 'Cellar',

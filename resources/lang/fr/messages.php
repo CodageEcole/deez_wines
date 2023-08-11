@@ -19,8 +19,6 @@ return [
 
     // Dashboard
     'dashboard' => 'Tableau de bord',
-    'admin' => 'Administration',
-    'delete_user' => "L'usager :nomUsager a été supprimé avec succès.",
 
     // Profile - Profile information
     'profile' => 'Profil',
