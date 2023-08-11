@@ -1,25 +1,14 @@
-.formulairePage>h2{
-    padding-top: 10px;
-    padding: 5px;
-    border-radius: 10px 10px 0 0;
-}
-.formulairePage hr{
-    color: #E2E2E3 ;
-}
-
-.ajoutCellier{
+dialog:not(.modalePage) {
     border: 2px solid var(--dark-brown);
     background-color: var(--light-brown);
     border-radius: 10px;
     min-width: 250px;
-    padding: 10px;
-    min-height: 125px;
 }
 dialog::backdrop{
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.ajoutCellier p {
+dialog p {
     padding: 5px;
     margin: 5px;
     font-size: 20px;
@@ -30,32 +19,33 @@ dialog :is(input, button, span, select){
     color: #848484;
 }
 
-.ajoutCellier form button {
+dialog button {
+    width: 100%;
+    border-radius: 10px;
     border: 2px solid white;
     padding-block: 15px;
+    margin-block: 7px;
     cursor: pointer;
     color: white;
     background-color: var(--dark-brown);
-    padding: 10px;
-}
-.ajoutCellier form * {
-    border-radius: 5px;
     font-size: 1.15em;
-    margin: 5px;
-}
-.ajoutCellier form {
-    margin-top: 1em;
-    display: flex;
-    flex-direction: column;
-    min-width: 100%;
-    min-height: 100%;
-}
-.ajoutCellier form input {
-    padding: 5px;
-    border: 2px solid var(--dark-brown);
 }
 
-.ajoutCellier label {
+dialog input {
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid var(--dark-brown);
+    padding: 10px;
+    margin-block: 7px;
+    padding: 0;
+    height: 30px;
+    font-size: 1.15em;
+}
+dialog input::placeholder {
+    padding: 10px;
+}
+
+dialog label {
     font-size: 1.15em;
     font-weight: bold;
     color: var(--dark-brown);
@@ -75,6 +65,7 @@ dialog :is(input, button, span, select){
     align-items: center;
     justify-content: center;
     padding-inline: 5px;
+    width: 100%;
 }
 .quantity-input>input{
     height: min-content;
@@ -109,6 +100,7 @@ dialog :is(input, button, span, select){
     align-items: center;
     justify-content: center;
 }
+
 /* Styles pour la boîte modale */
 .modalePage {
     position: fixed;
@@ -128,15 +120,40 @@ dialog :is(input, button, span, select){
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #f3F1F1;
+    /* background-color: #f3F1F1; */
     /* padding: 20px; */
     /* border: 1px solid #888; */
     border-radius: 10px;
-    width: fit-content;
+    width: 90%;
 }
+
 .formulairePage select{
     display: flex;
     justify-content: center;
+}
+
+.formulairePage>h2{
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
+    font-size: 22px;
+    color: white;
+    padding-top: 10px;
+    padding: 5px;
+    margin: 0;
+    border-radius: 10px 10px 0 0;
+}
+
+.formulairePage hr{
+    color: #E2E2E3 ;
+}
+
+.cellar-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.cellar-input {
+    margin: auto;
 }
 
 .changerQteBout>form{

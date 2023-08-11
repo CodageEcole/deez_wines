@@ -2,7 +2,7 @@
     <header>
         <h2>{{ __('messages.update_password') }}</h2>
 
-        <p class="mt-1 text-sm text-gray-600">{{ __('messages.update_password_text') }}
+        <p>{{ __('messages.update_password_text') }}
 </p>
     </header>
 
@@ -29,7 +29,7 @@
         </div>
 
         <div>
-            <x-primary-button>{{ __('messages.save') }}</x-primary-button>
+            <x-primary-button>{{ __('messages.save') }}<span class="material-symbols-outlined">check</span></x-primary-button>
 
             @if (session('status') === 'password-updated')
                 <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)">{{ __('messages.saved') }}</p>

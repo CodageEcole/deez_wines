@@ -59,6 +59,7 @@
                 @endif
             @endforeach
         </div>
+
         <div class="deconnexion-app-info">
             <div>
                 <p>DW © Tous Droits Réservés</p>

@@ -19,8 +19,6 @@ return [
 
     // Dashboard
     'dashboard' => 'Tableau de bord',
-    'admin' => 'Administration',
-    'delete_user' => "L'usager :nomUsager a été supprimé avec succès.",
 
     // Profile - Profile information
     'profile' => 'Profil',
@@ -37,9 +35,10 @@ return [
 
     // Profile - Delete Account
     'delete_account' => 'Supprimer le compte',
-    'delete_account_text_small' => "Êtes-vous sûr de vouloir supprimer votre compte ?",
-    'delete_account_text' => "Une fois votre compte supprimé, toutes ses ressources et ses données seront définitivement supprimées. Avant de supprimer votre compte, veuillez télécharger toutes les données ou informations que vous souhaitez conserver.",
+    'delete_account_text_small' => "Êtes-vous sûr de vouloir <strong>supprimer</strong> votre compte?",
+    'delete_account_text' => "Une fois votre compte supprimé, toutes ses ressources et ses données seront <strong>définitivement supprimées</strong>. Avant de supprimer votre compte, veuillez télécharger toutes les données ou informations que vous souhaitez conserver.",
     'cancel' => 'Annuler',
+    'warning' => 'ATTENTION...',
 
     // Search
     'search_bar_message' => 'Saisissez quelque chose ici',
