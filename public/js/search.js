@@ -4,10 +4,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const filtresTrigger = document.querySelector('.filtres-trigger');
     const filtresSideBar = document.querySelector('.filtres-side-bar');
     filtresSideBar.style.display = "none";
-
     filtresTrigger.addEventListener('click', function() {
         filtresSideBar.style.display = "block";
     });
+    let nombreFiltres = document.querySelector('.filtres-trigger span');
     searchInput.addEventListener('input', fetchSearchResults);
     filtresSideBar.addEventListener('input', fetchSearchResults);
 
@@ -89,7 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const responseData = response.data;
             const bouteilles = responseData.data;
             let resultatsHtml = document.querySelector('.resultats');
+            if (bouteilles.length > 0) {
             resultatsHtml.innerHTML = bouteilles[0].nombreBouteilles + " résultats";
+            } else {
+                resultatsHtml.innerHTML = ''; // Clear the results count
+            }
             // Générer le HTML des résultats de recherche
             let resultsHTML = '';
             bouteilles ?
@@ -176,21 +180,16 @@ document.addEventListener('DOMContentLoaded', function () {
             url = createPillHtml(selectedCouleur, url);
         });
 
-        const selectedPays = document.querySelector("#filtre-pays");
-        if (selectedPays.value !== "") {
-            url = createPillHtml(selectedPays, url);
-        }
+        const selectFilters = document.querySelectorAll('.filtres-side-bar select');
 
-        const selectedPrix = document.querySelector("#filtre-prix");
-        if (selectedPrix.value !== "") {
-            url = createPillHtml(selectedPrix, url);
-        }
+        selectFilters.forEach(selectFilter => {
+            const selectedValue = selectFilter.value;
+            if (selectedValue !== "") {
+                console.log(selectFilter);
+                url = createPillHtml(selectFilter, url);
+            }
+        });
 
-        const selectedCepage = document.querySelector("#filtre-cepage");
-        console.log(selectedCepage.value);
-        if (selectedCepage.value !== "") {
-            url = createPillHtml(selectedCepage, url);
-        }
         setupPilluleClickListeners(url);
 
         const existingPillules = document.querySelectorAll(".zone-pillules > div");
@@ -198,17 +197,20 @@ document.addEventListener('DOMContentLoaded', function () {
             const filterValue = pillule.id.split("-")[1];
             const filterInput = document.querySelector(`#filtre-${filterValue}`);
             const isChecked = filterInput.selectedIndex || filterInput.checked;
-
             if (!isChecked) {
                 pillule.remove();
             }
         });
+        nombreFiltres.innerHTML = existingPillules.length > 0 ? " (" + existingPillules.length + ")" : "";
+        console.log(nombreFiltres);
         // Call fetchPaginatedResults only if there's a searchTerm or if filters are applied
-        if (searchTerm || selectedCouleurs.length > 0 || selectedPays.value || selectedPrix.value || selectedCepage.value) {
+        if (searchTerm || selectedCouleurs.length > 0 || Array.from(selectFilters).some(filter => filter.value !== "") || selectedPastille.value) {
             fetchPaginatedResults(url);
         } else {
             // Clear the search results if no searchTerm or filters are applied
             searchResults.innerHTML = '';
+            let resultatsHtml = document.querySelector(".resultats");
+            resultatsHtml.innerHTML = '';
         }
     }
 
@@ -216,7 +218,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!pillule) {
             return url;
         }
-
         let valeurFiltre = pillule.value;
         let nomFiltre;
         if (pillule.type === "checkbox" || pillule.type === "radio") {
@@ -235,19 +236,15 @@ document.addEventListener('DOMContentLoaded', function () {
         let newPillule = document.createElement("div");
         newPillule.id = `pillule-${nomFiltre}`;
         newPillule.innerHTML = `
-        <p>${valeurFiltre}</p>
-        <button>
-        <img src="/icons/x.svg" alt="Croix">
-        </button>
+            <p>${valeurFiltre}</p>
+            <button>
+            <img src="/icons/x.svg" alt="Croix">
+            </button>
         `;
 
-
         zonePillules.appendChild(newPillule);
-        console.log("pré modif url", url);
         url += url.includes("?") ? `&` : `?`;
         url += `${encodeURIComponent(nomFiltre)}=${encodeURIComponent(valeurFiltre)}`;
-        // url += url.includes("?") ? `&${encodeURIComponent(nomFiltre)}=${encodeURIComponent(valeurFiltre)}` : `?${encodeURIComponent(nomFiltre)}=${encodeURIComponent(valeurFiltre)}`;
-        console.log("les couleurs url modif", url);
         return url;
     }
 
@@ -277,7 +274,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 resetFilterInput(filterValue);
                 pillule.remove();
                 fetchSearchResults();
-                // url = createPillHtml(filterValue, url);
             }
         });
     }
