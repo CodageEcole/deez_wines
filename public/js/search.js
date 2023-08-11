@@ -202,7 +202,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
         nombreFiltres.innerHTML = existingPillules.length > 0 ? " (" + existingPillules.length + ")" : "";
-        console.log(nombreFiltres);
         // Call fetchPaginatedResults only if there's a searchTerm or if filters are applied
         if (searchTerm || selectedCouleurs.length > 0 || Array.from(selectFilters).some(filter => filter.value !== "") || selectedPastille.value) {
             fetchPaginatedResults(url);
@@ -212,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let resultatsHtml = document.querySelector(".resultats");
             resultatsHtml.innerHTML = '';
         }
+        console.log(url);
     }
 
     function createPillHtml(pillule, url) {
