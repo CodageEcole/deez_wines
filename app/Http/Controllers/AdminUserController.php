@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
+use App\Models\User;
 use App\Models\Bouteille;
 use App\Models\Cellier;
+use App\Models\CellierQuantiteBouteille;
 
 class AdminUserController extends Controller
 {
@@ -15,15 +17,102 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-
-        $totalBouteilles = Bouteille::count();
+        // Nombre total d'usagers, de celliers et de bouteilles
         $totalUsagers = User::count();
-        $usagersAvecCelliers = User::withCount('celliers')->get();
+        $totalCelliers = Cellier::count();
+        $totalBouteilles = Bouteille::count();
 
-        return view('admin.index', compact('totalBouteilles', 'totalUsagers', 'usagersAvecCelliers'));
-        // return view('admin.index');
+
+        // Nombre moyen de celliers par usager
+        $moyenneCelliersParUsager = $totalCelliers / $totalUsagers;
+
+        // Nombre moyen de bouteilles par cellier et par usager
+        $moyenneBouteillesParCellier = number_format(CellierQuantiteBouteille::avg('quantite'), 2);
+
+
+        $nombreTotalBouteillesDansCelliers = CellierQuantiteBouteille::sum('quantite');
+        $moyenneBouteillesParUsager = $nombreTotalBouteillesDansCelliers / $totalUsagers;
+
+        // Nombre de bouteilles bues dans un temps donné
+        $dateDebut = now()->subDays(30);// Exemple : les 30 derniers jours
+        $totalBouteillesBues = CellierQuantiteBouteille::whereHas('bouteille', function ($query) use ($dateDebut) {
+            $query->where('est_utilisee', true)
+                ->where('updated_at', '>', $dateDebut);
+        })->sum('quantite');
+
+        // Nombre de nouvelles bouteilles ajoutées dans un temps donné
+        $totalBouteillesAjoutees = CellierQuantiteBouteille::where('created_at', '>', $dateDebut)
+            ->sum('quantite');
+
+        // Nombre de nouveaux usagers
+        $nouveauxUsagers = User::where('created_at', '>', $dateDebut)
+            ->count();
+
+        $totalMontantBouteilles = number_format(Bouteille::sum('prix'), 2, '.', ',');
+
+
+        return view('admin.index', compact(
+            'totalUsagers',
+            'totalCelliers',
+            'totalBouteilles',
+            'moyenneCelliersParUsager',
+            'moyenneBouteillesParCellier',
+            'moyenneBouteillesParUsager',
+            'totalBouteillesBues',
+            'totalBouteillesAjoutees',
+            'nouveauxUsagers',
+            'totalMontantBouteilles'
+        ));
     }
 
+    public function celliers()
+    {
+        // Montant total des bouteilles détenues dans tous les celliers
+        $totalMontantCelliers = number_format(CellierQuantiteBouteille::join('bouteilles', 'cellier_quantite_bouteilles.bouteille_id', '=', 'bouteilles.id')->selectRaw('SUM(cellier_quantite_bouteilles.quantite * bouteilles.prix) as totalMontant')->value('totalMontant'),2,'.',','
+        );
+
+
+        // Montant total des bouteilles détenues par chaque usager dans chaque cellier
+        $usersWithCelliers = User::with('celliers.cellierQuantiteBouteille')->get();
+
+        $montantsParUsagerCellier = [];
+        
+        foreach ($usersWithCelliers as $user) {
+            $userTotalBouteilles = 0;
+            $userTotalMontant = 0;
+        
+            foreach ($user->celliers as $cellier) {
+                $montantCellier = $cellier->cellierQuantiteBouteille->sum(function ($bouteille) {
+                    return $bouteille->quantite * $bouteille->bouteille->prix;
+                });
+        
+                $userTotalBouteilles += $cellier->cellierQuantiteBouteille->sum('quantite');
+                $userTotalMontant += $montantCellier;
+        
+                $montantsParUsagerCellier[$user->id][$cellier->id] = [
+                    'montant' => number_format($montantCellier, 2, '.', ','),
+                    'nombre_bouteilles' => $cellier->cellierQuantiteBouteille->sum('quantite')
+                ];
+            }
+        
+            $user->totalBouteilles = $userTotalBouteilles;
+            $user->totalMontant = number_format($userTotalMontant, 2, '.', ',');;
+        }
+
+
+        return view('admin.celliers', compact(
+            'totalMontantCelliers',
+            'usersWithCelliers',
+            'montantsParUsagerCellier'
+        ));
+    }
+
+    public function users()
+    {
+        $usagersAvecCelliers = User::withCount('celliers')->get();
+
+        return view('admin.users', compact('usagersAvecCelliers'));
+    }
     /**
      * Show the form for creating a new resource.
      */

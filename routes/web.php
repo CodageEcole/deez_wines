@@ -77,9 +77,13 @@ Route::group(
     Route::prefix('admin')->middleware('admin')->group(function () {
         Route::resource('bouteilles', AdminBouteilleController::class);
         // Route::resource('stats', AdminUserController::class)->names(['index' => 'admin.stats.index', 'destroy' => 'admin.stats.destroy']);
-        Route::get('stats', [AdminUserController::class, 'index'])->name('admin.stats.index');
-        Route::delete('stats/{user}', [AdminUserController::class, 'destroy'])->name('admin.stats.destroy');
-        Route::resource('celliers', AdminCellierController::class);
+        Route::get('stats', [AdminUserController::class, 'index'])->name('admin.index');
+        // Route::resource('celliers', AdminCellierController::class);
+        Route::get('celliers', [AdminUserController::class, 'celliers'])->name('admin.celliers');
+
+        Route::get('users', [AdminUserController::class, 'users'])->name('admin.users');
+        Route::delete('users/{user}', [AdminUserController::class, 'destroy'])->name('admin.destroy');
+
         Route::resource('bouteilles_personnalisees', AdminBouteillePersonnaliseeController::class);
     });
 
