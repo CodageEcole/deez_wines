@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function fetchSearchResults(event) {
-
+        console.log("Search")
 
         const searchTerm = searchInput?.value.trim() || "";
         let url = "/bouteilles";
@@ -177,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectedCouleurs = document.querySelectorAll("#couleurs input[type=checkbox]:checked");
 
         selectedCouleurs.forEach(selectedCouleur => {
+            console.log("Couleurs")
             url = createPillHtml(selectedCouleur, url);
         });
 

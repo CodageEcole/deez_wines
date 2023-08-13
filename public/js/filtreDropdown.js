@@ -1,17 +1,20 @@
 document.addEventListener("DOMContentLoaded", function() {
-    let filtreButtonCouleurs = document.querySelector(".filtre-button-couleurs");
-    let filtreDropdownCouleurs = document.querySelector(".filtre-dropdown-couleurs");
+    const filters = [
+        { button: ".filtre-button-couleurs", dropdown: ".filtre-dropdown-couleurs" },
+        { button: ".filtre-button-pays", dropdown: ".filtre-dropdown-pays" },
+        { button: ".filtre-button-prix", dropdown: ".filtre-dropdown-prix" },
+        { button: ".filtre-button-cepages", dropdown: ".filtre-dropdown-cepages" },
+        { button: ".filtre-button-pastilles", dropdown: ".filtre-dropdown-pastilles" }
+    ];
 
-    // let filtreButtonPays = document.querySelector(".filtre-button-pays");
-    // let filtreDropdownPays = document.querySelector(".filtre-dropdown-pays");
+    filters.forEach(filter => {
+        const filtreButton = document.querySelector(filter.button);
+        const filtreDropdown = document.querySelector(filter.dropdown);
 
-    filtreButtonCouleurs.addEventListener("click", function(event) {
-        event.preventDefault(); // Pour empêcher que la page reload
-        filtreDropdownCouleurs.classList.toggle("show");
+        filtreButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            filtreDropdown.classList.toggle("show");
+            filtreDropdown.classList.toggle("borderbot");
+        });
     });
-
-    // filtreButtonPays.addEventListener("click", function(event) {
-    //     event.preventDefault(); // Pour empêcher que la page reload
-    //     filtreDropdownPays.classList.toggle("show");
-    // });
 });

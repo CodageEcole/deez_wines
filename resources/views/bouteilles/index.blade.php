@@ -12,6 +12,9 @@
 @push('scripts')
     <script src="{{ asset('js/filtreDropdown.js')}}"></script>
     <script src="{{ asset('js/search.js')}}"></script>
+    <script src="{{ asset('js/plusAnimation.js')}}"></script>
+    {{-- <script src="{{ asset('js/labelTriggerInput.js')}}"></script> --}}
+    {{-- <script src="{{ asset('js/checkboxTriggerBorder.js')}}"></script> --}}
 @endpush
 <header class="rechercheConteneur">
     <input class="rechercheInput" type="text" name="query" id="searchInput" placeholder="@lang('messages.search_bar_message')">
@@ -26,99 +29,130 @@
     <form class="filtres-side-bar" method="GET">
         @csrf
             <div class="filtre">
-                <button class="filtre-button-couleurs">Couleurs</button>
+                <button class="filtre-button-couleurs">Couleurs <img class="plus-couleurs filter-green" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
                 <div id="couleurs" class="filtre filtre-dropdown-couleurs">
                     <div class="label-simple">
                         <label for="filtre-rouge">@lang('messages.red')</label>
-                        <input type="checkbox" name="filtre-rouge" id="filtre-rouge" value="Rouge">
+                        <input class="input-checkbox" type="checkbox" name="filtre-rouge" id="filtre-rouge" value="Rouge">
                     </div>
                     <div class="label-simple">
                         <label for="filtre-blanc">@lang('messages.white')</label>
-                        <input type="checkbox" name="filtre-blanc" id="filtre-blanc" value="Blanc">
+                        <input class="input-checkbox" type="checkbox" name="filtre-blanc" id="filtre-blanc" value="Blanc">
                     </div>
                     <div class="label-simple">
                         <label for="filtre-rose">@lang('messages.rose')</label>
-                        <input type="checkbox" name="filtre-rose" id="filtre-rose" value="Rosé">
+                        <input class="input-checkbox" type="checkbox" name="filtre-rose" id="filtre-rose" value="Rosé">
                     </div>
                     <div class="label-simple">
                         <label for="filtre-orange">@lang('messages.orange')</label>
-                        <input type="checkbox" name="filtre-orange" id="filtre-orange" value="orange">
+                        <input class="input-checkbox" type="checkbox" name="filtre-orange" id="filtre-orange" value="orange">
                     </div>
                 </div>
             </div>
-        
+
             <div class="filtre">
-                <label>@lang('messages.country')</label>
-                <div class="options-list">
-                    <div class="option">
-                        <input type="checkbox" name="filtre-pays" id="filtre-all" value="" checked>
-                        <label for="filtre-all">@lang('messages.all')</label>
-                    </div>
+                <button class="filtre-button-pays">Pays <img class="plus-pays" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
+                <div id="pays" class="filtre filtre-dropdown-pays">
                     @foreach($pays as $p)
-                        <div class="option">
-                            <input type="checkbox" name="filtre-pays-{{$p->pays_fr}}" id="filtre-{{$p->pays_fr}}" value="{{$p->pays_fr}}">
-                            <label for="filtre-{{$p->pays_fr}}">{{$p->pays_fr}}</label>
+                        <div class="label-simple">
+                            <label for="filtre-{{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}">
+                                {{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}
+                            </label>
+                            <input class="input-checkbox" type="checkbox" 
+                                name="filtre-pays-{{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}"
+                                id="filtre-{{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}"
+                                value="{{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}">
                         </div>
                     @endforeach
                 </div>
             </div>
-            
+
+            <div class="filtre">
+                <button class="filtre-button-prix">Prix <img class="plus-prix" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
+                <div id="prix" class="filtre filtre-dropdown-prix">
+                    <div class="label-simple">
+                        <label for="filtre-00-10">@lang('messages.price') 00$ - 10$</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-00-10" value="00-10">
+                    </div>
+                    <div class="label-simple">
+                        <label for="filtre-10-20">@lang('messages.price') 10$ - 20$</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-10-20" value="10-20">
+                    </div>
+                    <div class="label-simple">
+                        <label for="filtre-20-30">@lang('messages.price') 20$ - 30$</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-20-30" value="20-30">
+                    </div>
+                    <div class="label-simple">
+                        <label for="filtre-30-40">@lang('messages.price') 30$ - 40$</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-30-40" value="30-40">
+                    </div>
+                    <div class="label-simple">
+                        <label for="filtre-40-50">@lang('messages.price') 40$ - 50$</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-40-50" value="40-50">
+                    </div>
+                    <div class="label-simple">
+                        <label for="filtre-50-60">@lang('messages.price') 50$ - 60$</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-50-60" value="50-60">
+                    </div>
+                    <div class="label-simple">
+                        <label for="filtre-60+">@lang('messages.price') 60$ +</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-60+" value="60">
+                    </div>
+                </div>
+            </div>
+
         <div class="filtre">
-            <label for="filtre-prix">@lang('messages.price')</label>
-            <select name="filtre-prix" id="filtre-prix">
-                <option value="" selected>@lang('messages.all')</option>
-                <option id="filtre-00-10" value="00-10">00-10</option>
-                <option id="filtre-10-20" value="10-20">10-20</option>
-                <option id="filtre-20-30" value="20-30">20-30</option>
-                <option id="filtre-30-40" value="30-40">30-40</option>
-                <option id="filtre-40-50" value="40-50">40-50</option>
-                <option id="filtre-50-60" value="50-60">50-60</option>
-                <option id="filtre-60+" value="60+">60+</option>
-            </select>
-        </div>
-        <div class="filtre">
-            <label for="filtre-cepage">@lang('messages.grape_variety')</label>
-            <select name="filtre-cepage" id="filtre-cepage">
-                <option value="" selected>@lang('messages.all')</option>
+            <button class="filtre-button-cepages">Cepages <img class="plus-cepages" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
+            <div id="cepages" class="filtre filtre-dropdown-cepages">
                 @foreach($cepages as $c)
-                    <option id="filtre-{{$c}}" value="{{$c}}">{{$c}}</option>
+                    <div class="label-simple">
+                        <label for="filtre-cepages-{{$c}}">{{$c}}</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-cepages-{{$c}}" id="filtre-cepages-{{$c}}" value="{{$c}}">
+                    </div>
                 @endforeach
-            </select>
+            </div>
         </div>
+
         <div class="filtre">
-            <label for="filtre-pastille">@lang('messages.taste_pill')</label>
-            <select name="filtre-pastille" id="filtre-pastille">
-                <option value="" selected>@lang('messages.all')</option>
+            <button class="filtre-button-pastilles">Pastilles de goûts <img class="plus-pastilles" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
+            <div id="pastilles" class="filtre filtre-dropdown-pastilles">
                 @foreach($pastilles as $p)
                     @php
                         $parts = explode(' : ', $p->image_pastille_alt);
                         $pastilleValue = isset($parts[1]) ? $parts[1] : ''; // Get the second part if available
+                        $translatedPastille = "";
+                        $pastilleTableau = [
+                                        'Fruité et léger' => __('pastilles.fl'),
+                                        'Fruité et généreux' => __('pastilles.fmb'),
+                                        'Aromatique et charnu' => __('pastilles.ar'),
+                                        'Aromatique et souple' => __('pastilles.as'),
+                                        'Délicat et léger' => __('pastilles.dl'),
+                                        'Fruité et vif' => __('pastilles.fv'),
+                                        'Aromatique et rond' => __('pastilles.am'),
+                                        'Fruité et doux' => __('pastilles.fs'),
+                                        'Fruité et extra-doux' => __('pastilles.fes'),
+                                    ];
+
+                        $translatedPastille = $pastilleTableau[$pastilleValue] ?? '';
                     @endphp
-                    @if($pastilleValue != '')
-                        <option id="filtre-{{$pastilleValue}}" value="{{$pastilleValue}}">{{$pastilleValue}}</option>
+                    @if($translatedPastille != '')
+                        <div class="label-simple">
+                            <label for="filtre-{{$pastilleValue}}">{{$translatedPastille}}</label>
+                            <input class="input-checkbox" type="checkbox" name="filtre-pastille" id="filtre-{{$pastilleValue}}" value="{{$pastilleValue}}">
+                        </div>
                     @endif
                 @endforeach
-            </select>
+            </div>
         </div>
     </form>
 
-        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+        {{-- @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
             @if($localeCode != LaravelLocalization::getCurrentLocale())
                 <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                     {{ $properties['native'] }}
                 </a>
             @endif
-        @endforeach
-
-
-    {{-- <div class="deconnexion-app-info">
-        <div>
-            <p>DW © Tous Droits Réservés</p>
-        </div>
-        <div>
-            <p>App Version 0.1</p>
-        </div>
-    </div> --}}
+        @endforeach --}}
 </section>
 <div class="overlay-grey-filtre"></div>
 
@@ -131,72 +165,11 @@
         <img src="{{ asset('icons/filter.svg') }}" alt="filtres">
         <p>@lang('messages.filters')<span></span></p>
     </div>
-    {{-- <form class="filtres-side-bar" method="GET">
-        @csrf
-        <div id="couleurs" class="filtre">
-            <label for="filtre-rouge">@lang('messages.red')</label>
-            <input type="checkbox" name="filtre-rouge" id="filtre-rouge" value="Rouge">
-            <label for="filtre-blanc">@lang('messages.white')</label>
-            <input type="checkbox" name="filtre-blanc" id="filtre-blanc" value="Blanc">
-            <label for="filtre-rose">@lang('messages.rose')</label>
-            <input type="checkbox" name="filtre-rose" id="filtre-rose" value="Rosé">
-            <label for="filtre-orange">@lang('messages.orange')</label>
-            <input type="checkbox" name="filtre-orange" id="filtre-orange" value="orange">
-        </div>
-        <div class="filtre">
-            <label for="filtre-pays">@lang('messages.country')</label>
-            <select name="filtre-pays" id="filtre-pays">
-                <option value="" selected>@lang('messages.all')</option>
-                @foreach($pays as $p)
-                    <option id="filtre-{{$p->pays_fr}}" value="{{$p->pays_fr}}">{{$p->pays_fr}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="filtre">
-            <label for="filtre-prix">@lang('messages.price')</label>
-            <select name="filtre-prix" id="filtre-prix">
-                <option value="" selected>@lang('messages.all')</option>
-                <option id="filtre-00-10" value="00-10">00-10</option>
-                <option id="filtre-10-20" value="10-20">10-20</option>
-                <option id="filtre-20-30" value="20-30">20-30</option>
-                <option id="filtre-30-40" value="30-40">30-40</option>
-                <option id="filtre-40-50" value="40-50">40-50</option>
-                <option id="filtre-50-60" value="50-60">50-60</option>
-                <option id="filtre-60+" value="60+">60+</option>
-            </select>
-        </div>
-        <div class="filtre">
-            <label for="filtre-cepage">@lang('messages.grape_variety')</label>
-            <select name="filtre-cepage" id="filtre-cepage">
-                <option value="" selected>@lang('messages.all')</option>
-                @foreach($cepages as $c)
-                    <option id="filtre-{{$c}}" value="{{$c}}">{{$c}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="filtre">
-            <label for="filtre-pastille">@lang('messages.taste_pill')</label>
-            <select name="filtre-pastille" id="filtre-pastille">
-                <option value="" selected>@lang('messages.all')</option>
-                @foreach($pastilles as $p)
-                    @php
-                        $parts = explode(' : ', $p->image_pastille_alt);
-                        $pastilleValue = isset($parts[1]) ? $parts[1] : ''; // Get the second part if available
-                    @endphp
-                    @if($pastilleValue != '')
-                        <option id="filtre-{{$pastilleValue}}" value="{{$pastilleValue}}">{{$pastilleValue}}</option>
-                    @endif
-                @endforeach
-            </select>
-        </div>
-    </form> --}}
     <div class="tris-trigger">
         <img src="{{ asset('icons/sort.svg') }}" alt="tri">
         <p>@lang('messages.sort')</p>
     </div>
 </div>
-{{-- <div class="zone-pillules">
-</div> --}}
 
 <main class="indexBouteilles">
 

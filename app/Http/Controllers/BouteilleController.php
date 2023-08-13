@@ -103,7 +103,11 @@ class BouteilleController extends Controller
         else {
 
             $celliers = Cellier::where('user_id', auth()->id())->get();
-            $pays = Bouteille::select('pays_fr')->distinct()->get()->sortBy('pays_fr');
+
+            $localisation = app()->getLocale(); // Obtenir la localisation actuelle (fr ou en)
+            $paysColumn = ($localisation === 'fr') ? 'pays_fr' : 'pays_en';
+            $pays = Bouteille::select($paysColumn)->distinct()->get()->sortBy($paysColumn);
+
             $pastilles = Bouteille::select('image_pastille_alt')->distinct()->get()->sortBy('image_pastille_alt');
             $similarityThreshold = 80;
             $cepageEntries = Bouteille::select('cepage')
