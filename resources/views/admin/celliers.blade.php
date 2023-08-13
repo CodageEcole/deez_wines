@@ -1,25 +1,25 @@
 @extends('layout.app')
-@section('title', __('messages.admin'))
+@section('title', __('admin.cellars_mgmt'))
 @section('content')
     <main>
         @include('admin.partials.nav')
 
-        <h2>Statistiques sur les celliers</h2>
+        <h2>@lang('admin.stats_cellars')</h2>
 
-        <p>Valeur totale des bouteilles dans tous les celliers : {{ $totalMontantCelliers }} $</p>
+        <p>@lang('admin.stats_cellars') : {{ $totalMontantCelliers }} $</p>
 
-        <h2>Statistiques des celliers par usagers</h2>
+        <h2>@lang('admin.stats_users_cellars')</h2>
         @foreach ($usersWithCelliers as $user)
             <h3>{{ $user->name }}</h3>
-            <p>Nombre total de bouteilles détenues : {{ $user->totalBouteilles }}</p>
-            <p>Valeur totale des celliers : {{ $user->totalMontant }} $</p>
+            <p>@lang('admin.cellars_total_bottles') : {{ $user->totalBouteilles }}</p>
+            <p>@lang('admin.total_value_user_cellars') : {{ $user->totalMontant }} $</p>
             
             <table>
                 <thead>
                     <tr>
-                        <th>Cellier</th>
-                        <th>Montant</th>
-                        <th>Nombre de bouteilles</th>
+                        <th>@lang('admin.tab_cellar')</th>
+                        <th>@lang('admin.tab_amount')</th>
+                        <th>@lang('admin.tab_bottle_qty')</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,5 +34,4 @@
             </table>
         @endforeach
     </main>
-
 @endsection

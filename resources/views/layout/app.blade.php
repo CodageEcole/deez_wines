@@ -47,7 +47,9 @@
         </div>
         <div class="deconnexion-menu">
             <a href="{{ route('profile.edit') }}">Profil</a>
-            <a href="{{ route('admin.index') }}">Administration</a>
+            @if(auth()->user()->role === 'admin')
+            <a href="{{ route('admin.index') }}">@lang('admin.admin')</a>
+            @endif
             <a href="#">Changer vos infos personnelles</a>
             <a href="#">Changer votre mot de passe</a>
             <a href="#">Ajouter une bouteille au répertoire</a>

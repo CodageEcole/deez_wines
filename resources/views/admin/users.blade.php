@@ -1,22 +1,22 @@
 @extends('layout.app')
-@section('title', __('messages.admin'))
+@section('title', __('admin.user_manage'))
 @push('styles')
     <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
 @endpush
 @section('content')
 <main>
     @include('admin.partials.nav')
-    <h1>Gestion des usagers</h1>
+    <h1>@lang('admin.user_manage')</h1>
     @if (session('success'))
         <div class="alert-success" role="alert">{{ session('success') }}</div>
     @endif
     <table>
         <thead>
             <tr>
-                <th>Nom de l'usager</th>
-                <th>id de l'usager</th>
-                <th>Nombre de celliers</th>
-                <th>Actions</th>
+                <th>@lang('admin.user_name')</th>
+                <th>@lang('admin.user_id')</th>
+                <th>@lang('admin.user_cellars_qty')</th>
+                <th>@lang('admin.user_actions')</th>
             </tr>
         </thead>
         <tbody>

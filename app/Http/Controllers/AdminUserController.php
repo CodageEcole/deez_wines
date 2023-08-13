@@ -33,14 +33,9 @@ class AdminUserController extends Controller
         $nombreTotalBouteillesDansCelliers = CellierQuantiteBouteille::sum('quantite');
         $moyenneBouteillesParUsager = $nombreTotalBouteillesDansCelliers / $totalUsagers;
 
-        // Nombre de bouteilles bues dans un temps donné
-        $dateDebut = now()->subDays(30);// Exemple : les 30 derniers jours
-        $totalBouteillesBues = CellierQuantiteBouteille::whereHas('bouteille', function ($query) use ($dateDebut) {
-            $query->where('est_utilisee', true)
-                ->where('updated_at', '>', $dateDebut);
-        })->sum('quantite');
 
         // Nombre de nouvelles bouteilles ajoutées dans un temps donné
+        $dateDebut = now()->subDays(30);// Exemple : les 30 derniers jours
         $totalBouteillesAjoutees = CellierQuantiteBouteille::where('created_at', '>', $dateDebut)
             ->sum('quantite');
 
@@ -58,7 +53,6 @@ class AdminUserController extends Controller
             'moyenneCelliersParUsager',
             'moyenneBouteillesParCellier',
             'moyenneBouteillesParUsager',
-            'totalBouteillesBues',
             'totalBouteillesAjoutees',
             'nouveauxUsagers',
             'totalMontantBouteilles'
