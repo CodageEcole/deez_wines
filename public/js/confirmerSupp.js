@@ -1,35 +1,32 @@
+const boutonsSupp = document.querySelectorAll('.boutonSupp');
 const boiteModale = document.querySelector('.confirmerDel');
-const boutonSupp = document.querySelector('.boutonSupp');
-/* const boutonSupps = document.querySelectorAll('.boutonSupp'); */
 const formulaireDel = document.querySelector('.formulaireDel');
+const boutonAnnuler = boiteModale.querySelector('button:last-of-type');
+const boutonConfirmer = boiteModale.querySelector('button:first-of-type');
 
-const boutonAnnuler = boiteModale.querySelector('button:last-of-type')
-const boutonConfirmer = boiteModale.querySelector('button:first-of-type')
-
-/* boutonSupps.forEach(boutonSupp => {
+// Les boutons de suppressions, unitaire ou multiples
+boutonsSupp.forEach(boutonSupp => {
     boutonSupp.addEventListener("click", function(e){
+
         e.preventDefault();
         boiteModale.showModal();
-    })
-}); */
 
-boutonSupp.addEventListener("click", function(e){
-    e.preventDefault();
-    boiteModale.showModal();
-})
+        boutonConfirmer.addEventListener("click", function(e){
 
-boutonConfirmer.addEventListener("click", function(e){
-    formulaireDel.submit();
-})
+            formulaireDel.submit();
+        });
+    });
+});
 
 boutonAnnuler.addEventListener("click", function(e){
+
     boiteModale.close();
-})
+});
 
 window.addEventListener("click", function(event) {
 
     if (event.target === boiteModale) {
-        // fermeture de la boîte modale
+
         boiteModale.close();
     }
 });

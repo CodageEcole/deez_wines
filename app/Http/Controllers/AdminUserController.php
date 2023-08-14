@@ -157,11 +157,10 @@ class AdminUserController extends Controller
      */
     public function destroy(User $user)
     {
-        // $usager = User::where();
-        
-        $user->forceDelete();
-        $nomUsager = $user->name;
 
-        return redirect()->route('admin.stats.index')->with('success', trans('messages.delete_user', compact('nomUsager')));
+        $nomUsager = $user->name;
+        $user->forceDelete();
+
+        return redirect()->route('admin.users')->with('success', trans('messages.delete_user', compact('nomUsager')));
     }
 }
