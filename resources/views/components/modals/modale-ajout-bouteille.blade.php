@@ -1,7 +1,7 @@
 <dialog id="modal" class="modalePage">
     <form id="modal-form" class="formulairePage" method="POST" action="{{ route('cellier_quantite_bouteille.store') }}">
         <h2 id="modal-title"></h2>
-        <hr>
+        <div class="separation-modal"></div>
         @csrf
         <div class="cellar-group">
             <div class="cellar-input">
@@ -15,21 +15,21 @@
                 </select>
             </div>
         </div>
-        <hr>
+        <div class="separation-modal"></div>
         <div class="quantity-input">
-            <label for="quantite">@lang('messages.quantity')</label>
+            <label class="label-quantite" for="quantite">@lang('messages.quantity')</label>
         </div>
         <div class="plusMinus">
-            <span class="quantity-btn minus-btn" onclick="decrementQuantity()">&#8722;</span>
-            <input name="quantite" type="number" id="quantity" value="1" min="1">
-            <span class="quantity-btn plus-btn" onclick="incrementQuantity()">&#43;</span>
+            <span class="quantity-btn minus-btn" onclick="decrementQuantity()"><img src="{{ asset('icons/minus_icon.svg') }}" alt=""></span>
+            <input class="plus-minus-input" name="quantite" type="number" id="quantity" value="1" min="1">
+            <span class="quantity-btn plus-btn" onclick="incrementQuantity()"><img src="{{ asset('icons/plus_icon.svg') }}" alt=""></span>
         </div>
         <input type="hidden" name="bouteille_id" id="bouteille-id">
         <input type="hidden" name="source_page" value="bouteilles.index">
-        <hr>
+        <div class="separation-modal"></div>
         <div class="modaleActions">
-            <button type="button" class="boutonCellier" onclick="closeModal()">@lang('messages.cancel')</button>
-            <button type="submit" class="boutonCellier">@lang('messages.add')</button>
+            <button type="button" class="boutonCellier-cancel" onclick="closeModal()">@lang('messages.cancel')<span class="material-symbols-outlined">close</span></button>
+            <button type="submit" class="boutonCellier-add">@lang('messages.add')<span class="material-symbols-outlined">check</span></button>
         </div>
     </form>
     <form action="{{ route('liste_achat.show', ['liste_achat' => '1']) }}" method="get">

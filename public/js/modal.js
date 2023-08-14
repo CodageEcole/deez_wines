@@ -57,4 +57,3 @@ function incrementQuantity() {
 function nouveauCellier(){
     modal.showModal();
 }
-

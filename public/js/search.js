@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const filtresSideBar = document.querySelector('.filtres-side-bar');
     filtresSideBar.style.display = "none";
     filtresTrigger.addEventListener('click', function() {
-        filtresSideBar.style.display = "block";
+        filtresSideBar.style.display = "flex";
     });
     let resultatsHtml = document.querySelector(".resultats");
 
@@ -165,8 +165,10 @@ document.addEventListener('DOMContentLoaded', function () {
             searchResults.innerHTML = '<p>Error fetching results. Please try again later.</p>';
         });
     }
+  
+    function fetchSearchResults(event) {
+        console.log("Search")
 
-    function fetchSearchResults() {
         const searchTerm = searchInput?.value.trim() || "";
         let url = "/bouteilles";
         if (searchTerm) {
@@ -176,6 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectedCouleurs = document.querySelectorAll("#couleurs input[type=checkbox]:checked");
 
         selectedCouleurs.forEach(selectedCouleur => {
+            console.log("Couleurs")
             url = createPillHtml(selectedCouleur, url);
         });
 
