@@ -144,7 +144,12 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->update([
+            'name' => $request->input('username'),
+            'email' => $request->input('email'),
+        ]);
+    
+        return redirect()->back()->with('success', 'Utilisateur mis à jour avec succès.');
     }
 
     /**

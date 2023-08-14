@@ -47,8 +47,8 @@
         </div>
         <div class="deconnexion-menu">
             <a href="{{ route('profile.edit') }}">Profil</a>
-            @if(auth()->user()->role === 'admin')
-            <a href="{{ route('admin.index') }}">@lang('admin.admin')</a>
+            @if(auth()->check() && auth()->user()->role === 'admin')
+                <a href="{{ route('admin.index') }}">@lang('admin.admin')</a>
             @endif
             <a href="#">Changer vos infos personnelles</a>
             <a href="#">Changer votre mot de passe</a>

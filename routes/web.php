@@ -82,6 +82,8 @@ Route::group(
         Route::get('celliers', [AdminUserController::class, 'celliers'])->name('admin.celliers');
 
         Route::get('users', [AdminUserController::class, 'users'])->name('admin.users');
+        Route::patch('users/{user}', [AdminUserController::class, 'update'])->name('admin.update');
+
         Route::delete('users/{user}', [AdminUserController::class, 'destroy'])->name('admin.destroy');
 
         Route::resource('bouteilles_personnalisees', AdminBouteillePersonnaliseeController::class);
