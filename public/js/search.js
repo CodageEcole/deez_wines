@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     filtresTrigger.addEventListener('click', function() {
         filtresSideBar.style.display = "flex";
     });
+    let resultatsHtml = document.querySelector(".resultats");
+
     let nombreFiltres = document.querySelector('.filtres-trigger span');
     searchInput.addEventListener('input', fetchSearchResults);
     filtresSideBar.addEventListener('input', fetchSearchResults);
@@ -88,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
             const responseData = response.data;
             const bouteilles = responseData.data;
-            let resultatsHtml = document.querySelector('.resultats');
             if (bouteilles.length > 0) {
             resultatsHtml.innerHTML = bouteilles[0].nombreBouteilles + " résultats";
             } else {
@@ -164,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
             searchResults.innerHTML = '<p>Error fetching results. Please try again later.</p>';
         });
     }
-
+  
     function fetchSearchResults(event) {
         console.log("Search")
 
@@ -186,7 +187,6 @@ document.addEventListener('DOMContentLoaded', function () {
         selectFilters.forEach(selectFilter => {
             const selectedValue = selectFilter.value;
             if (selectedValue !== "") {
-                console.log(selectFilter);
                 url = createPillHtml(selectFilter, url);
             }
         });
@@ -203,14 +203,12 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
         nombreFiltres.innerHTML = existingPillules.length > 0 ? " (" + existingPillules.length + ")" : "";
-        console.log(nombreFiltres);
         // Call fetchPaginatedResults only if there's a searchTerm or if filters are applied
-        if (searchTerm || selectedCouleurs.length > 0 || Array.from(selectFilters).some(filter => filter.value !== "") || selectedPastille.value) {
+        if (searchTerm || selectedCouleurs.length > 0 || Array.from(selectFilters).some(filter => filter.value !== "")) {
             fetchPaginatedResults(url);
         } else {
             // Clear the search results if no searchTerm or filters are applied
             searchResults.innerHTML = '';
-            let resultatsHtml = document.querySelector(".resultats");
             resultatsHtml.innerHTML = '';
         }
     }

@@ -47,6 +47,7 @@
         </div>
         <div class="deconnexion-menu">
             <a href="{{ route('profile.edit') }}">Profil</a>
+            <a href="{{ route('liste_achat.show', ['liste_achat' => '1']) }}">Liste d'achat</a>
             <a href="{{ route('admin.stats.index') }}">Administration</a>
             <a href="#">Changer vos infos personnelles</a>
             <a href="#">Changer votre mot de passe</a>

@@ -40,15 +40,9 @@ class BouteilleController extends Controller
 
         // La recherche en soit
         if ($searchTerm) {
-
             $query->where('nom', 'like', "%$searchTerm%");
         }
 
-        // Par pays
-        // if ($pays) {
-
-        //     $query->where('pays_fr', $pays);
-        // }
 
         // Par pays, avec recherche dans un autre champ pour les pays en anglais
         if ($pays) {
@@ -90,7 +84,7 @@ class BouteilleController extends Controller
     
         // Get paginated results
         $bouteilles = $query->orderBy('nom', 'asc')->paginate(30);
-    
+        
         $message = __('messages.add');
         foreach ($bouteilles as $bouteille) {
             $bouteille->message = $message;
