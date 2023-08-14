@@ -40,4 +40,10 @@ return [
     'user_id' => 'User ID',
     'user_cellars_qty' => 'Number of Cellars',
     'user_actions' => 'Actions',
+
+    // admin validation
+    'update_username' => 'The former username :vieuxNom has been updated to :nouveauNom.',
+    'update_email' => 'The email has been successfully updated to :nouveauEmail.',
+    'update_username_and_email' => 'The name :vieuxNom has been changed to :nouveauNom, along with the email to :nouveauEmail.',
+
 ];

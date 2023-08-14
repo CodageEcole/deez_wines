@@ -41,4 +41,8 @@ return [
     'user_cellars_qty' => 'Nombre de celliers',
     'user_actions' => 'Actions',
 
+    // admin validation
+    'update_username' => 'Le nom :vieuxNom a été mis à jour pour :nouveauNom.',
+    'update_email' => 'Le courriel a été changé pour :nouveauEmail avec succès.',
+    'update_username_and_email' => 'le nom :vieuxNom a été changé pour :nouveauNom, ainsi que le courriel pour :nouveauEmail.',
 ];
