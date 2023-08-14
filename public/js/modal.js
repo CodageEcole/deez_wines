@@ -11,13 +11,14 @@ function openModal(nom, id) {
     let modalTitle = document.querySelector("#modal-title");
     let form = document.querySelector("#modal-form");
     let bouteilleIdInput = document.querySelector("#bouteille-id");
+    let bouteilleIdInput2 = document.querySelector("#bouteille-id-2");
     let quantityInput = document.querySelector("#quantity");
     let quantiteActuelle = document.querySelector("#quantite-actuelle");
     let cellierIdInput = document.querySelector("#cellier-id");
 
     modalTitle.innerText = nom;
     bouteilleIdInput.value = id;
-    
+    bouteilleIdInput2.value = id;
     if(cellierIdInput != null){
         cellierIdInput.value = cellierId;
         quantityInput.value = parseInt(quantiteActuelle.innerHTML);

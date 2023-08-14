@@ -55,4 +55,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Bouteille::class);
     }
+
+    public function listesAchat()
+    {
+        return $this->hasOne(ListeAchat::class);
+    }
+
 }
