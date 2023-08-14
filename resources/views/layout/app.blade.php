@@ -50,10 +50,7 @@
             @if(auth()->check() && auth()->user()->role === 'admin')
                 <a href="{{ route('admin.index') }}">@lang('admin.admin')</a>
             @endif
-            <a href="{{ route('liste_achat.show', ['liste_achat' => '1']) }}">Liste d'achat</a>
-            <a href="#">Changer vos infos personnelles</a>
-            <a href="#">Changer votre mot de passe</a>
-            <a href="#">Ajouter une bouteille au répertoire</a>
+            <a href="{{ route('bouteilles.create', Auth::id()) }}">Ajouter une bouteille au répertoire</a>
             @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                 @if($localeCode != LaravelLocalization::getCurrentLocale())
                     <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
@@ -91,9 +88,9 @@
                 <img class="footer-icon-img" src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Celliers">
                 <p>@lang('messages.cellars')</p>
             </a>
-            <a href="#">
-                <img class="footer-icon-img" src="{{ asset('icons/add_icon_white.svg') }}" alt="Ajouter">
-                <p>@lang('messages.add')</p>
+            <a href="{{ route('liste_achat.show', ['liste_achat' => '1']) }}">
+                <img class="footer-icon-img" src="{{ asset('icons/add_icon_white.svg') }}" alt="Liste_achats">
+                <p>@lang('messages.list')</p>
             </a>
         </div>
     @endif
