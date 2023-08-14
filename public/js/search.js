@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const filtresSideBar = document.querySelector('.filtres-side-bar');
     filtresSideBar.style.display = "none";
     filtresTrigger.addEventListener('click', function() {
-        filtresSideBar.style.display = "block";
+        filtresSideBar.style.display = "flex";
     });
     let nombreFiltres = document.querySelector('.filtres-trigger span');
     searchInput.addEventListener('input', fetchSearchResults);
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function fetchSearchResults(event) {
-
+        console.log("Search")
 
         const searchTerm = searchInput?.value.trim() || "";
         let url = "/bouteilles";
@@ -177,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectedCouleurs = document.querySelectorAll("#couleurs input[type=checkbox]:checked");
 
         selectedCouleurs.forEach(selectedCouleur => {
+            console.log("Couleurs")
             url = createPillHtml(selectedCouleur, url);
         });
 

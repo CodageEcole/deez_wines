@@ -90,4 +90,16 @@ return [
     'delete_bottle' => "Vous avez supprimé :nomBouteille de :nomCellier.",
 
     'new_custom_bottle' => "Votre bouteille :nomBouteille a été ajoutée avec succès.",
+
+    //Filtres
+    'red' => 'Rouge',
+    'white' => 'Blanc',
+    'orange' => 'Orange',
+    'rose' => 'Rosé',
+
+    'filters' => 'Filtres',
+    'country' => 'Pays',
+    'price' => 'Prix',
+    'grape_variety' => 'Cépage',
+    'taste_pill' => 'Pastille de goût'
 ];
