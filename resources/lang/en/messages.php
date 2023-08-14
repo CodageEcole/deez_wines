@@ -92,4 +92,16 @@ return [
 
     'new_custom_bottle' => "Your :nomBouteille bottle has been added succesfully.",
 
+    //Filtres
+    'red' => 'Red',
+    'white' => 'White',
+    'orange' => 'Orange',
+    'rose' => 'Rose',
+
+    'filters' => 'Filters',
+    'country' => 'Country',
+    'price' => 'Price range',
+    'grape_variety' => 'Grape variety',
+    'taste_pill' => 'Taste pill'
+
  ];

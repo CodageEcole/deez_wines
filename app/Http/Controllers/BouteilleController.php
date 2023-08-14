@@ -45,9 +45,17 @@ class BouteilleController extends Controller
         }
 
         // Par pays
-        if ($pays) {
+        // if ($pays) {
 
-            $query->where('pays_fr', $pays);
+        //     $query->where('pays_fr', $pays);
+        // }
+
+        // Par pays, avec recherche dans un autre champ pour les pays en anglais
+        if ($pays) {
+            $query->where(function ($subquery) use ($pays) {
+                $subquery->whereIn('pays_fr', $pays)
+                         ->orWhere('pays_en', $pays);
+            });
         }
 
         // Par couleur, avec recherche dans un autre champ pour les vins orange
@@ -95,7 +103,11 @@ class BouteilleController extends Controller
         else {
 
             $celliers = Cellier::where('user_id', auth()->id())->get();
-            $pays = Bouteille::select('pays_fr')->distinct()->get()->sortBy('pays_fr');
+
+            $localisation = app()->getLocale(); // Obtenir la localisation actuelle (fr ou en)
+            $paysColumn = ($localisation === 'fr') ? 'pays_fr' : 'pays_en';
+            $pays = Bouteille::select($paysColumn)->distinct()->get()->sortBy($paysColumn);
+
             $pastilles = Bouteille::select('image_pastille_alt')->distinct()->get()->sortBy('image_pastille_alt');
             $similarityThreshold = 80;
             $cepageEntries = Bouteille::select('cepage')

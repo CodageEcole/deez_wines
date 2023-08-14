@@ -7,27 +7,31 @@
     height: 60px;
 }
 
-.mobile-nav div > a {
+.mobile-nav div > a
+.filtre-nav div > a {
     text-decoration: none;
 }
 
-.mobile-nav > .deconnexion-div > .deconnexion-button a {
+.mobile-nav > .deconnexion-div > .deconnexion-button a 
+.filtre-nav > .deconnexion-div > .deconnexion-button a {
     color: white;
 }
 
 .mobile-nav .deconnexion-menu > a,
+.filtre-nav .deconnexion-menu > form,
 .mobile-nav > .deconnexion-menu > a,
+.filtre-nav > .deconnexion-menu > form,
 .mobile-nav .deconnexion-app-info {
     font-family: 'MabryPro';
     color: grey;
 }
 
-.mobile-nav {
+.mobile-nav,
+.filtre-nav {
     display: flex;
     flex-direction: column;
     position: fixed;
     top: 0;
-    left: 100%;
     width: 80%;
     margin-top: 90px;
     min-height: calc(100vh - 90px);
@@ -36,8 +40,21 @@
     background-color: white;
 }
 
+.mobile-nav {
+    left: 100%;
+}
+
+.filtre-nav {
+    left: -100%;
+}
+
 .is-active {
     left: 20%;
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1); /* Adjust values as needed */
+}
+
+.is-active-filtre {
+    left: 0%;
     box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1); /* Adjust values as needed */
 }
 
@@ -53,21 +70,28 @@
 } */
 
 .mobile-nav > div > a,
+.filtre-nav > div > a,
 .mobile-nav p,
-.mobile-nav div > p {
+.filtre-nav p,
+.mobile-nav div > p,
+.filtre-nav div > p {
     padding: 15px;
 }
 
-.mobile-nav > div > a {
+.mobile-nav > div > a,
+.filtre-nav > div > a {
     margin: 0 auto 10px;
 }
 
 .mobile-nav p,
-.mobile-nav div > p {
+.filtre-nav p,
+.mobile-nav div > p,
+.filtre-nav div > p {
     margin: 0;
 }
 
-.mobile-nav div:nth-child(3) {
+.mobile-nav div:nth-child(3),
+.filtre-nav div:nth-child(3) {
     margin-top: auto;
 }
 
@@ -92,6 +116,7 @@
 
     font-family: 'Bonobo', 'GelicaLight', sans-serif;
     font-size: 26px;
+    color: white;
 }
 
 .deconnexion-app-info {
@@ -116,17 +141,20 @@
     border-top: 2px solid lightgrey;
 }
 
-.mobile-nav .deconnexion-app-info > div:first-child p {
+.mobile-nav .deconnexion-app-info > div:first-child p,
+.filtre-nav .deconnexion-app-info > div:first-child p {
     font-size: 14px;
 }
 
-.mobile-nav .deconnexion-app-info > div:last-child p {
+.mobile-nav .deconnexion-app-info > div:last-child p,
+.filtre-nav .deconnexion-app-info > div:last-child p {
     font-size: 18px;
 }
 
 /* Overlay */
 
-.overlay-grey {
+.overlay-grey,
+.overlay-grey-filtre {
     position: fixed;
     top: 0;
     left: 0;
@@ -135,6 +163,7 @@
     margin-top: 90px;
     background-color: rgba(0, 0, 0, 0.3);
     display: none;
+    cursor: pointer;
 }
 
 .show {
@@ -142,11 +171,25 @@
     z-index: 2;
 }
 
+/* menu filtre */
+
+.filtre {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
 /* ========== MEDIA ========== */
 
 @media (max-width: 385px) {
 
-    .mobile-nav {
+    .mobile-nav,
+    .filtre-nav {
         margin-top: 70px;
         min-height: calc(100vh - 70px);
         width: 100%;
@@ -157,10 +200,12 @@
     }
 
     .deconnexion-menu a,
-    .mobile-nav .deconnexion-app-info > div:last-child p {
+    .mobile-nav .deconnexion-app-info > div:last-child p,
+    .filtre-nav .deconnexion-app-info > div:last-child p {
         font-size: 16px;
     }
 
+    .filtre-nav > div > a,
     .mobile-nav > div > a {
         margin: 0;
     }
