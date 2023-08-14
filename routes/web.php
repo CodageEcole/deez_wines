@@ -11,6 +11,7 @@ use App\Http\Controllers\CellierController;
 use App\Http\Controllers\BouteilleController;
 use App\Http\Controllers\CellierQuantiteBouteilleController;
 use App\Http\Controllers\CommentaireBouteilleController;
+use App\Http\Controllers\ListeAchatController;
 //* Controlleurs Admin
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminCellierController;
@@ -33,13 +34,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-/* Route::group(
-[
-	'prefix' => LaravelLocalization::setLocale(),
-	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-], function(){ //...
-}); */
-//How to have the locale set to fr-CA be default
 Route::group(
 [
     'prefix' => LaravelLocalization::setLocale(),
@@ -91,6 +85,8 @@ Route::group(
     Route::resource('bouteilles_personnalisees', BouteillePersonnaliseeController::class);
     Route::resource('cellier_quantite_bouteille', CellierQuantiteBouteilleController::class);
     Route::resource('commentaire_bouteille', CommentaireBouteilleController::class);
+    Route::resource('liste_achat', ListeAchatController::class);
+
 
     //* SECTION GLIDE (manipulation d'images)
     Route::get('glide/{path}', function ($path) {

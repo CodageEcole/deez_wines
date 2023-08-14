@@ -1,0 +1,57 @@
+main {
+    margin: 1em;
+}
+/** Div de l'item de la liste*/
+.item-liste {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 95%;
+    margin: 1em;
+}
+/** Le lien du nom de la bouteille*/
+.item-liste a {
+    color: black;
+    text-decoration: none;
+    max-width: 80%;
+}
+/** Zone bouton */
+.item-liste > div {
+    display: flex;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+}
+/** Bouton de suppression */
+.boutons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark-brown);
+    border-radius: 5px;
+}
+.boutons p {
+    padding-left: 5px;
+    margin: 0;
+    color: white;
+}
+.item-liste button {
+    display: inline-block; /* Make the anchor element a block-level container */
+    max-height: 25px;
+    max-width: 25px; /* Set max height to 100% of parent container */
+    text-decoration: none;
+    color: black;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    
+}
+/** Icon de plus et x*/
+.item-liste img {
+    border-radius: 5px;
+    padding: 5px;
+    max-height: 25px;
+    max-width: 25px;
+    object-fit: contain;
+    color: black;
+    background-color: var(--dark-brown);
+}

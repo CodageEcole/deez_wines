@@ -80,6 +80,11 @@ class Bouteille extends Model
         return $this->hasMany(CommentaireBouteille::class);
     }
 
+    public function listesAchat()
+    {
+        return $this->belongsToMany(ListeAchat::class);
+    }
+
     /**
      * The attributes that should be cast.
      *
