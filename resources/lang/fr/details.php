@@ -13,6 +13,7 @@ return [
     'regulateddesignation' => 'Désignation reglementée',
     'promotionagent' => 'Agent promotionnel',
     'aromas' => 'Arômes',
+    'cepage' => 'Cépage',
     'servingtemperature' => 'Température de service',
 
     'detailedinformation' => 'Info détaillés',
@@ -31,7 +32,7 @@ return [
     'sweet' => 'doux',
     'extrasweet' => 'extra-doux',
 
-    'body' => 'Body',
+    'body' => 'Corp',
     'light' => 'léger',
     'mediumbodied' => 'mi-corsé',
     'fullbodied' => 'corsé',
@@ -40,7 +41,7 @@ return [
     'none' => 'aucune',
     'delicate' => 'délicate',
     'generous' => 'généreuse',
-    'mouthfeel' => 'enveloppante',
+    'opulent' => 'enveloppante',
 
     'wood' => 'Bois',
     'none' => 'aucune',

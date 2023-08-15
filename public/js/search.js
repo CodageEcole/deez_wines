@@ -64,12 +64,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     </picture>
                     <section>
                     <a href="/bouteilles/${bouteille.id}"><h2>${bouteille.nom}</h2></a>
-                    <p>
+                    <p class="vignette-info">
                         ${bouteille.couleur_fr ? bouteille.couleur_fr + " | " : ""}
                         ${bouteille.format ? bouteille.format + " | " : ""}
                         ${bouteille.pays_fr ? bouteille.pays_fr + " | " : ""}
-                        ${bouteille.prix + " $"}
                     </p>
+                    <span class="span-prix">${bouteille.prix + " $"}</span>
                     </section>
                     <div class="overlap" data-nom="${bouteille.nom}" data-id="${bouteille.id}" onclick='openModal("${bouteille.nom.replace(/'/g, '&#39;')}","${bouteille.id}")'>
                         <p class="invisible-385px">${bouteille.message}</p>

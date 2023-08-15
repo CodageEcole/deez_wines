@@ -20,7 +20,7 @@
                     @if($cellier->quantite_bouteilles > 0)
                     <div class="division-blanc"></div>
                     <div>
-                        <span>@lang('messages.red') : {{ $cellier->quantiteBouteillesRouges() ?? 0 }}</span><span>@lang('messages.rose') : {{ $cellier->quantiteBouteillesRoses() ?? 0 }}</span><span>@lang('messages.white') : {{ $cellier->quantiteBouteillesBlanches() ?? 0 }}</span><span>@lang('messages.orange') : {{ $cellier->quantiteBouteillesOranges() ?? 0 }}</span>
+                        <span>@lang('messages.red') : {{ $cellier->quantiteBouteillesRouges() ?? 0 }}</span><span>@lang('messages.rose') : {{ $cellier->quantiteBouteillesRoses() ?? 0 }}</span><span>@lang('messages.white') : {{ $cellier->quantiteBouteillesBlanches() ?? 0 }}</span> {{-- <span>@lang('messages.orange') : {{ $cellier->quantiteBouteillesOranges() ?? 0 }}</span> --}}
                     </div>
                     @endif
                 </div>

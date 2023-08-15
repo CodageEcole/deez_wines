@@ -77,8 +77,9 @@ return [
     'name_your_cellar' => 'Name your cellar',
 
     //Modal - Confirm Delete
-    'sure_to_delete' => 'Are you sure you want to delete?',
+    'sure_to_delete' => 'Are you sure you want to delete your cellar?',
     'confirm_deletion' => 'Confirm deletion',
+    'cellar_delete_message' => 'Deleting this cellar will also delete every bottle and information stored in it!',
 
     //Modal - Page Selector
     'page_selector' => 'Page selector',
@@ -139,4 +140,7 @@ return [
 
     //rights
     'rights' => 'DW © All Rights Reserved',
+
+    //modal 
+    'namecellar' => 'Name your cellar'
 ];

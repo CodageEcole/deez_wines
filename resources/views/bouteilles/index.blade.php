@@ -116,7 +116,7 @@
             </div>
 
         <div class="filtre">
-            <button class="filtre-button-pastilles">@lang('messages.taste_pill') <img class="plus-pastilles" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
+            <button class="filtre-button-pastilles">@lang('pastilles.pastille') <img class="plus-pastilles" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
             <div id="pastilles" class="filtre filtre-dropdown-pastilles">
                 @foreach($pastilles as $p)
                     @php
