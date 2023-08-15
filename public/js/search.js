@@ -50,7 +50,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fonction qui crée le HTML d'une carte de vin
     function createCardHtml(bouteille) {
         const pastilleClass = getPastilleClass(bouteille.image_pastille_alt);
+        const paysKey = `pays_${selectedLanguage}`;
+        const couleurKey = `couleur_${selectedLanguage}`;
 
+        console.log('pays key', paysKey)
         //On genere le html de la carte
         const cardHTML = `
             <div class="carte-vin-container">
@@ -65,9 +68,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     <section>
                     <a href="/bouteilles/${bouteille.id}"><h2>${bouteille.nom}</h2></a>
                     <p>
-                        ${bouteille.couleur_fr ? bouteille.couleur_fr + " | " : ""}
+                        ${bouteille[couleurKey] ? bouteille[couleurKey] + " | " : ""}
                         ${bouteille.format ? bouteille.format + " | " : ""}
-                        ${bouteille.pays_fr ? bouteille.pays_fr + " | " : ""}
+                        ${bouteille[paysKey] ? bouteille[paysKey] + " | " : ""}
                         ${bouteille.prix + " $"}
                     </p>
                     </section>
@@ -91,7 +94,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const responseData = response.data;
             const bouteilles = responseData.data;
             if (bouteilles.length > 0) {
-            resultatsHtml.innerHTML = bouteilles[0].nombreBouteilles + " résultats";
+                const resultatsLabel = selectedLanguage === "fr" ? "résultats" : "results";
+                resultatsHtml.innerHTML = `${bouteilles[0].nombreBouteilles} ${resultatsLabel}`;
             } else {
                 resultatsHtml.innerHTML = ''; // Clear the results count
             }
@@ -108,19 +112,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
             let links = responseData.links;
             // Add the pagination links to the searchResults container
-
+            const firstLabel = selectedLanguage === 'fr' ? 'prem.' : 'first';
+            const previousLabel = selectedLanguage === 'fr' ? 'prec.' : 'previous';
+            const nextLabel = selectedLanguage === 'fr' ? 'suiv.' : 'next';
+            const lastLabel = selectedLanguage === 'fr' ? 'dern.' : 'last';
             const paginationHTML = responseData.links
                 ? `
                 <ul class="pagination">
-                    <a class="page-link ${links[0].url ? '' : 'disabled' }" href="${links[1].url}">prem.</a>
+                    <a class="page-link ${links[0].url ? '' : 'disabled' }" href="${links[1].url}">${firstLabel}</a>
 
-                    <a class="page-link ${links[0].url ? '' : 'disabled' }" href="${links[0].url}">prec.</a>
+                    <a class="page-link ${links[0].url ? '' : 'disabled' }" href="${links[0].url}">${previousLabel}</a>
 
                     <input type="number" class="numeroPage" value="${links.some(link => link.active) ? links.find(link => link.active).label : 1}" min="1" max="${links[links.length-2].label}">
 
-                    <a class="page-link ${links[links.length-1].url ? '' : 'disabled' }" href="${links[links.length-1].url}">suiv.</a>
+                    <a class="page-link ${links[links.length-1].url ? '' : 'disabled' }" href="${links[links.length-1].url}">${nextLabel}</a>
                     
-                    <a class="page-link ${links[links.length-2].active ? 'disabled' : '' }" href="${links[links.length-2].url}">dern.</a>
+                    <a class="page-link ${links[links.length-2].active ? 'disabled' : '' }" href="${links[links.length-2].url}">${lastLabel}</a>
                 </ul>
                 `
                 : '';
@@ -215,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
         nomFiltre = pillule.name.replace(/ /g, "_").split("-").slice(1).join("-");;
         let zonePillules = document.querySelector(".zone-pillules");
         let existingPillule = document.querySelector(`#pillule-${nomFiltre}`);
-
+        console.log("test pillule", existingPillule)
 
         if (existingPillule) {
             existingPillule.remove();

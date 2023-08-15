@@ -33,19 +33,19 @@
                 <div id="couleurs" class="filtre filtre-dropdown-couleurs">
                     <div class="label-simple">
                         <label for="filtre-rouge">@lang('messages.red')</label>
-                        <input class="input-checkbox" type="checkbox" name="filtre-rouge" id="filtre-rouge" value="Rouge">
+                        <input class="input-checkbox" type="checkbox" name="filtre-rouge" id="filtre-rouge" value="{{ __('messages.red')}}">
                     </div>
                     <div class="label-simple">
                         <label for="filtre-blanc">@lang('messages.white')</label>
-                        <input class="input-checkbox" type="checkbox" name="filtre-blanc" id="filtre-blanc" value="Blanc">
+                        <input class="input-checkbox" type="checkbox" name="filtre-blanc" id="filtre-blanc" value="{{ __('messages.white')}}">
                     </div>
                     <div class="label-simple">
                         <label for="filtre-rose">@lang('messages.rose')</label>
-                        <input class="input-checkbox" type="checkbox" name="filtre-rose" id="filtre-rose" value="Rosé">
+                        <input class="input-checkbox" type="checkbox" name="filtre-rose" id="filtre-rose" value="{{ __('messages.rose')}}">
                     </div>
                     <div class="label-simple">
                         <label for="filtre-orange">@lang('messages.orange')</label>
-                        <input class="input-checkbox" type="checkbox" name="filtre-orange" id="filtre-orange" value="orange">
+                        <input class="input-checkbox" type="checkbox" name="filtre-orange" id="filtre-orange" value="{{ __('messages.orange')}}">
                     </div>
                 </div>
             </div>
@@ -168,10 +168,12 @@
 <main class="indexBouteilles">
 
 </main>
-
+<script>
+    let selectedLanguage = @json(app()->getLocale());
+</script>
 @include('components.modals.modale-ajout-bouteille')
+@endsection
 @push('scripts')
 <script src="{{ asset('js/modal.js')}}"></script>
 <script src="{{ asset('js/search.js')}}"></script>
 @endpush
-@endsection
