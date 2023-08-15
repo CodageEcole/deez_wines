@@ -184,7 +184,8 @@ class BouteilleController extends Controller
             $query->where(function ($subquery) use ($rouge, $blanc, $rose, $orange) {
 
                 $colors = array_filter([$rouge, $blanc, $rose]);
-                $subquery->whereIn('couleur_fr', $colors);
+                $subquery->whereIn('couleur_fr', $colors)
+                        ->orWhereIn('couleur_en', $colors);
 
                 if ($orange) {
 

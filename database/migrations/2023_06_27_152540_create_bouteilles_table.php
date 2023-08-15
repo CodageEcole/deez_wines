@@ -62,7 +62,7 @@ return new class extends Migration
             $table->string('nom')->nullable();
             $table->string('image_bouteille')->nullable();
             $table->string('image_bouteille_alt')->nullable();
-            $table->string('prix')->nullable();
+            $table->decimal('prix', 10, 2)->nullable();
             $table->string('image_pastille')->nullable();
             $table->string('image_pastille_alt')->nullable();
             $table->text('description_fr')->nullable();
