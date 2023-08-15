@@ -33,7 +33,7 @@
                     {{ $bouteille->{"pays_" . LaravelLocalization::getCurrentLocale()} }}
                 </p>
             </div>
-            <a class="bouton-ajouter" onclick="openModal('{{ $bouteille->nom }}', '{{ $bouteille->id }}')">
+            <a class="bouton-ajouter" onclick="openModal({{ json_encode($bouteille->nom) }}, '{{ $bouteille->id }}')">
                 @lang('details.add')<img src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Plus">
             </a>
 

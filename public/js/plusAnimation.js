@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const plusIcon = document.querySelector(filter.plusSign);
         
         plusButton.addEventListener("click", function(event) {
-            console.log("rotate")
             plusIcon.classList.toggle("rotate");
             plusButton.classList.toggle("colorChange");
         });

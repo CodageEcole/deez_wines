@@ -1,17 +1,9 @@
 const boiteModale = document.querySelector('.confirmerDel');
 const boutonSupp = document.querySelector('.boutonSupp');
-/* const boutonSupps = document.querySelectorAll('.boutonSupp'); */
 const formulaireDel = document.querySelector('.formulaireDel');
 
 const boutonAnnuler = boiteModale.querySelector('button:last-of-type')
 const boutonConfirmer = boiteModale.querySelector('button:first-of-type')
-
-/* boutonSupps.forEach(boutonSupp => {
-    boutonSupp.addEventListener("click", function(e){
-        e.preventDefault();
-        boiteModale.showModal();
-    })
-}); */
 
 boutonSupp.addEventListener("click", function(e){
     e.preventDefault();
