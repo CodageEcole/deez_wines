@@ -53,10 +53,11 @@ class BouteilleController extends Controller
             'slovaquie' => 'Slovaquie',
             'bulgarie' => 'Bulgarie',
             'croatie' => 'Croatie',
-            'etats_unis' => 'United States',
+            'etats_unis' => 'États-Unis',
             'chili' => 'Chile',
             'australie' => 'Australia',
-            'allemagne' => 'Allemagne'
+            'allemagne' => 'Allemagne',
+            'canada' => 'Canada'
         ];
 
         $cleanCountryNamesEn = [
@@ -90,7 +91,8 @@ class BouteilleController extends Controller
             'united_states' => 'United States',
             'chile' => 'Chile',
             'australia' => 'Australia',
-            'germany' => 'Germany'
+            'germany' => 'Germany',
+            'canada' => 'Canada'
         ];
         $localisation = app()->getLocale(); // Obtenir la localisation actuelle (fr ou en)
         $pays = ($localisation === "fr") ? $cleanCountryNamesFr : $cleanCountryNamesEn;
@@ -107,11 +109,22 @@ class BouteilleController extends Controller
         $quaranteCinquante = $request->input('40-50');
         $cinquanteSoixante = $request->input('50-60');
         $plusQueSoixante = $request->input('60');
-        $pastille = $request->pastille;
-
+        $tri = $request->tri;
+        
         // Eloquent query builder
         $query = Bouteille::query();
+        
+        if ($tri) {
+            // Split the $tri parameter into field and direction
+            list($sortField, $sortDirection) = explode('-', $tri);
 
+            // Validate sorting direction
+            $sortDirection = in_array($sortDirection, ['asc', 'desc']) ? $sortDirection : 'asc';
+            // Apply sorting to the query
+            $query->orderBy($sortField, $sortDirection);
+        } else {
+            $query->orderBy('nom', 'asc');
+        }
         // La recherche en soit
         if ($searchTerm) {
             $query->where('nom', 'like', "%$searchTerm%");
@@ -236,22 +249,62 @@ class BouteilleController extends Controller
             });
         }
         
-        // Par cépage
-        /* $query->where('cepage', 'like', '%' . $cepage . '%'); */
-        
 
-        if($pastille){
-            $query->where('image_pastille_alt', 'like', '%' . $pastille . '%');
+        $tastesCorrespondence = [
+            'Aromatique et charnu' => 'Aromatic and robust',
+            'Aromatique et rond' => 'Aromatic and mellow',
+            'Aromatique et souple' => 'Aromatic and supple',
+            'Délicat et léger' => 'Delicate and light',
+            'Fruité et doux' => 'Fruity and sweet',
+            'Fruité et extra-doux' => 'Fruity and extra sweet',
+            'Fruité et généreux' => 'Fruity and medium-bodied',
+            'Fruité et léger' => 'Fruity and light',
+            'Fruité et vif' => 'Fruity and vibrant',
+        ];
+        
+        $selectedTastes = [];
+
+        foreach ($tastesCorrespondence as $frenchTaste => $englishTaste) {
+            $frenchParameter = str_replace(' ', '_', $frenchTaste);
+            $englishParameter = str_replace(' ', '_', $englishTaste);
+            
+            if ($request->has($frenchParameter)) {
+                $selectedTastes[] = $frenchTaste;
+            }
+            
+            if ($request->has($englishParameter)) {
+                $selectedTastes[] = $frenchTaste;
+            }
+        }
+
+        $query->where(function ($subquery) use ($selectedTastes) {
+            foreach ($selectedTastes as $frenchTaste) {
+                $subquery->orWhere('image_pastille_alt', 'LIKE', '%' . $frenchTaste . '%');
+            }
+        });
+
+        if ($tri) {
+            // Split the $tri parameter into field and direction
+            list($sortField, $sortDirection) = explode('-', $tri);
+
+            // Validate sorting direction
+            $sortDirection = in_array($sortDirection, ['asc', 'desc']) ? $sortDirection : 'asc';
+            // Apply sorting to the query
+            $query->orderBy($sortField, $sortDirection);
+        } else {
+            $query->orderBy('nom', 'asc');
         }
     
         // Get paginated results
-        $bouteilles = $query->orderBy('nom', 'asc')->paginate(30);
+        $bouteilles = $query->paginate(30);
         
         $message = __('messages.add');
         foreach ($bouteilles as $bouteille) {
             $bouteille->message = $message;
             $bouteille->nombreBouteilles = $bouteilles->total();
         }
+
+
     
         if ($request->ajax()) {
             return response()->json($bouteilles);
