@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'detail_title' => 'Bottle details',
     'add' => 'Add',
     'country' => 'Country',
     'region' => 'Region',
@@ -46,7 +47,4 @@ return [
     'discreet_wood' => 'discreet',
     'balanced_wood' => 'balanced',
     'dominant_wood' => 'dominant',
-
 ];
-
-?>

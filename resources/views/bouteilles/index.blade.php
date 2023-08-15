@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Recherche')
+@section('title', __('messages.search'))
 @section('content')
 @push('styles')
     <link href=" {{ asset('css/carte-vin-lr.css') }}" rel="stylesheet">
@@ -29,7 +29,7 @@
     <form class="filtres-side-bar" method="GET">
         @csrf
             <div class="filtre">
-                <button class="filtre-button-couleurs">Couleurs <img class="plus-couleurs filter-green" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
+                <button class="filtre-button-couleurs">@lang('messages.colors') <img class="plus-couleurs filter-green" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
                 <div id="couleurs" class="filtre filtre-dropdown-couleurs">
                     <div class="label-simple">
                         <label for="filtre-rouge">@lang('messages.red')</label>
@@ -51,7 +51,7 @@
             </div>
 
             <div class="filtre">
-                <button class="filtre-button-pays">Pays <img class="plus-pays" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
+                <button class="filtre-button-pays">@lang('messages.country') <img class="plus-pays" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
                 <div id="pays" class="filtre filtre-dropdown-pays">
                 @foreach ($pays as $paysClean => $paysOfficiel) 
                     @if($paysOfficiel == 'germany')
@@ -71,37 +71,37 @@
             </div>
 
             <div class="filtre">
-                <button class="filtre-button-prix">Prix <img class="plus-prix" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
+                <button class="filtre-button-prix">@lang('messages.price') <img class="plus-prix" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
                 <div id="prix" class="filtre filtre-dropdown-prix">
                     <div class="label-simple">
-                        <label for="filtre-1-20">Moins De 20$</label>
+                        <label for="filtre-1-20">@lang('messages.less_than_20')</label>
                         <input class="input-checkbox" type="checkbox" name="filtre-1-20" id="filtre-1-20" value="1-20">
                     </div>
                     <div class="label-simple">
-                        <label for="filtre-20-30">20$ - 30$</label>
+                        <label for="filtre-20-30">@lang('messages.20_to_30')</label>
                         <input class="input-checkbox" type="checkbox" name="filtre-20-30" id="filtre-20-30" value="20-30">
                     </div>
                     <div class="label-simple">
-                        <label for="filtre-30-40">30$ - 40$</label>
+                        <label for="filtre-30-40">@lang('messages.30_to_40')</label>
                         <input class="input-checkbox" type="checkbox" name="filtre-30-40" id="filtre-30-40" value="30-40">
                     </div>
                     <div class="label-simple">
-                        <label for="filtre-40-50">40$ - 50$</label>
+                        <label for="filtre-40-50">@lang('messages.40_to_50')</label>
                         <input class="input-checkbox" type="checkbox" name="filtre-40-50" id="filtre-40-50" value="40-50">
                     </div>
                     <div class="label-simple">
-                        <label for="filtre-50-60">50$ - 60$</label>
+                        <label for="filtre-50-60">@lang('messages.50_to_60')</label>
                         <input class="input-checkbox" type="checkbox" name="filtre-50-60" id="filtre-50-60" value="50-60">
                     </div>
                     <div class="label-simple">
-                        <label for="filtre-60+">60$ +</label>
+                        <label for="filtre-60+">@lang('messages.more_than_60')</label>
                         <input class="input-checkbox" type="checkbox" name="filtre-60" id="filtre-60" value="60">
                     </div>
                 </div>
             </div>
 
             <div class="filtre">
-                <button class="filtre-button-cepages">Cepages <img class="plus-cepages" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
+                <button class="filtre-button-cepages">@lang('messages.grape_variety') <img class="plus-cepages" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
                 <div id="cepages" class="filtre filtre-dropdown-cepages">
                     @foreach($cepages as $c)
                         @php
@@ -116,7 +116,7 @@
             </div>
 
         <div class="filtre">
-            <button class="filtre-button-pastilles">Pastilles de goûts <img class="plus-pastilles" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
+            <button class="filtre-button-pastilles">@lang('messages.taste_pill') <img class="plus-pastilles" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
             <div id="pastilles" class="filtre filtre-dropdown-pastilles">
                 @foreach($pastilles as $p)
                     @php

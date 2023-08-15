@@ -48,5 +48,9 @@ return [
     'update_username_and_email' => 'The name :vieuxNom has been changed to :nouveauNom, along with the email to :nouveauEmail.',
 
     // modal admin
-    ''
+    'update_user_title' => 'Update User',
+    'new_username' => 'New Username',
+    'new_email' => 'New Email Address',
+    'modal_update' => 'Update',
+    'modal_close' => 'Close',
 ];

@@ -15,7 +15,6 @@ return [
     'already_registered' => 'Already registered?',
     'send_email' => 'Send Email',
     'logged_in_text' => 'You are logged in!',
-
     'forgot_password_text' => "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
 
     // Dashboard
@@ -44,6 +43,17 @@ return [
     'cancel' => 'Cancel',
     'warning' => 'WARNING !',
 
+    //create bottle
+    'create_title' => 'Create a Custom Bottle',
+    'description' => 'Description',
+    'region' => 'Region',
+    'picture' => 'Image',
+    'create' => 'Create',
+    'place_name' => 'Bottle Name',
+    'place_desc' => 'Bottle Description',
+    'place_country' => 'Bottle Country',
+    'place_region' => 'Bottle Region',
+
     //Search 
     'search_bar_message' => 'Type something here',
     'search' => 'Search',
@@ -59,6 +69,9 @@ return [
     'quantity' => 'Quantity',
     'qty' => 'Qty',
     'cancel' => 'Cancel',
+
+    //modal - Modify Qty
+    'modify_qty' => 'Modify quantity',
 
     //Modal - Add Cellar
     'name_your_cellar' => 'Name your cellar',
@@ -81,19 +94,17 @@ return [
     'delete' => 'Delete',
     'your_bottles' => 'Your bottles',
     'cellars' => 'Cellars',
-
     'back_to_site' => 'Back to site',
+ 
 
     //Validation messages
     'edit_cellar' => "You changed the cellar's name from :vieuxNomCellier to :nouveauNomCellier.",
     'create_cellar' => "The cellar :nomCellier has been created succesfully.",
     'delete_cellar' => "The cellar :nomCellier has been deleted succesfully.",
-
     'add_bottle' => "You added :quantite bottle(s) of :nomBouteille to :nomCellier.",
     'edit_bottle_less' => "You took out :difference :nomBouteille from :nomCellier.",
     'edit_bottle_more' => "You added :difference :nomBouteille to :nomCellier.",
     'delete_bottle' => "You deleled :nomBouteille from :nomCellier.",
-
     'new_custom_bottle' => "Your :nomBouteille bottle has been added succesfully.",
 
     //Filtres
@@ -101,11 +112,31 @@ return [
     'white' => 'White',
     'orange' => 'Orange',
     'rose' => 'Rose',
-
     'filters' => 'Filters',
     'country' => 'Country',
     'price' => 'Price range',
     'grape_variety' => 'Grape variety',
-    'taste_pill' => 'Taste pill'
+    'taste_pill' => 'Taste pill',
+    'colors' => 'Colors',
+    'country' => 'Country',
+    'price' => 'Price',
 
- ];
+    //sort
+    'sort' => 'Sort',
+
+    //price ranges
+    'less_than_20' => 'Less than 20$',
+    '20_to_30' => '20$ - 30$',
+    '30_to_40' => '30$ - 40$',
+    '40_to_50' => '40$ - 50$',
+    '50_to_60' => '50$ - 60$',
+    'more_than_60' => '60$ +',
+
+    //Liste
+    'shopping_list' => 'Your shopping list is empty.',
+    'title_list' => 'Shopping list',
+    'your_list' => 'Your shopping list',
+
+    //rights
+    'rights' => 'DW © All Rights Reserved',
+];

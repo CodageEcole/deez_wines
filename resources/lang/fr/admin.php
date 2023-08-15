@@ -50,5 +50,8 @@ return [
     //modal admin
     'update_user_title' => 'Mise à Jour de l\'utilisateur',
     'new_username' => 'Nouveau Nom d\'Utilisateur',
-    'new_email' => 'Nouvelle Adresse Courriel'
+    'new_email' => 'Nouvelle Adresse Courriel',
+    'modal_update' => 'Mettre à jour',
+    'modal_close' => 'fermer',
+    
 ];

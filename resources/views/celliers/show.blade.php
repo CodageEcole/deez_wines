@@ -36,7 +36,7 @@
 
         @foreach($cellierQuantiteBouteille as $quantiteBouteille)
         <div class="carte-vin-container">
-            @if($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Fruité et vif")
+            {{-- @if($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Fruité et vif")
                 <div class="bande-de-gout-fv"> <span>Fruité et Vif</span> </div>
             @elseif($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Aromatique et charnu")
                 <div class="bande-de-gout-ac"> <span>Aromatique et Charnu</span> </div>
@@ -56,6 +56,27 @@
                 <div class="bande-de-gout-fv"> <span>Fruité et Vif</span> </div>
             @elseif($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Fruité et extra-doux")
                 <div class="bande-de-gout-fed"> <span>Fruité et Extra-Doux</span></div>
+            @endif --}}
+
+            {{-- nouvelle version, mais ça sert à quoi? --}}
+            @php
+                $pastilleMap = [
+                    "Fruité et vif" => ["class" => "bande-de-gout-fv", "text" => "Fruité et Vif"],
+                    "Aromatique et charnu" => ["class" => "bande-de-gout-ac", "text" => "Aromatique et Charnu"],
+                    "Aromatique et rond" => ["class" => "bande-de-gout-ar", "text" => "Aromatique et Rond"],
+                    "Aromatique et souple" => ["class" => "bande-de-gout-as", "text" => "Aromatique et Souple"],
+                    "Délicat et léger" => ["class" => "bande-de-gout-dl", "text" => "Délicat et Léger"],
+                    "Fruité et doux" => ["class" => "bande-de-gout-fd", "text" => "Fruité et Doux"],
+                    "Fruité et généreux" => ["class" => "bande-de-gout-fg", "text" => "Fruité et Généreux"],
+                    "Fruité et léger" => ["class" => "bande-de-gout-fl", "text" => "Fruité et Léger"],
+                    "Fruité et extra-doux" => ["class" => "bande-de-gout-fed", "text" => "Fruité et Extra-Doux"],
+                ];
+            @endphp
+
+            @if(array_key_exists($quantiteBouteille->bouteille->image_pastille_alt, $pastilleMap))
+                <div class="{{ $pastilleMap[$quantiteBouteille->bouteille->image_pastille_alt]['class'] }}">
+                    <span>{{ $pastilleMap[$quantiteBouteille->bouteille->image_pastille_alt]['text'] }}</span>
+                </div>
             @endif
 
             <div class="carte-vin @if(!$quantiteBouteille->bouteille->image_pastille_alt) no-pastille-cellier @endif">
@@ -100,8 +121,6 @@
 @include('components.modals.modale-changer-qte-bouteille')
 @include('components.modals.modale-confirmer-suppression')
 @endsection
-
-{{-- la boîte modale d'ajout de bouteilles au cellier --}}
 @push('scripts')
     <script src="{{ asset('js/changerQuantiteBouteille.js') }}"></script>
     <script src="{{ asset('js/messages.js')}}"></script>

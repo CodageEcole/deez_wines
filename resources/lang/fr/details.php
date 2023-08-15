@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'detail_title' => 'Détails Bouteille',
     'add' => 'Ajouter',
     'country' => 'Pays',
     'region' => 'Région',
@@ -46,7 +47,4 @@ return [
     'discreet_wood' => 'discret',
     'balanced_wood' => 'équilibré',
     'dominant_wood' => 'marqué',
-
 ];
-
-?>

@@ -9,15 +9,14 @@
         <script src="{{ asset('js/hamburger.js')}}"></script>
     @endpush
     @stack('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-Ms5qXNxHPT+B0DnH6X60r0Z9Cxsijp5ecUTM/Lm5prMwQ7PJhqW8wDjhWcSLgG9m" crossorigin="anonymous">
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-Ms5qXNxHPT+B0DnH6X60r0Z9Cxsijp5ecUTM/Lm5prMwQ7PJhqW8wDjhWcSLgG9m" crossorigin="anonymous"> --}}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link href=" {{ asset('css/layout-lr.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/hamburger.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/root.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/messages.css') }}" rel="stylesheet">
     <title>@yield('title')</title>
 </head>
-
-
 <body>
     <header>
         <div class="blue-top"></div>
@@ -25,7 +24,6 @@
             <div class="logo">
                 {{-- <img src="{{ asset('logos/deez_wines_logo_small.svg') }}" alt="Logo"> --}}
             </div>
-            
             @if(!isset($cacherLayout))
                 <div class="search-more">
                     {{-- <a href="#">
@@ -42,16 +40,16 @@
     <section class="mobile-nav">
         <div class="deconnexion-div">
             <div class="deconnexion-button">
-                <a href="{{ route('logout') }}">Déconnexion</a>
+                <a href="{{ route('logout') }}">@lang('messages.log_out')</a>
             </div>
         </div>
         <div class="deconnexion-menu">
-            <a href="{{ route('profile.edit') }}">Profil</a>
+            <a href="{{ route('profile.edit') }}">@lang('messages.profile')</a>
             @if(auth()->check() && auth()->user()->role === 'admin')
                 <a href="{{ route('admin.index') }}">@lang('admin.admin')</a>
             @endif
-            <a href="{{ route('bouteilles.create', Auth::id()) }}">Ajouter une bouteille au répertoire</a>
-            <a href="{{ route('liste_achat.index') }}">Liste d'achat</a>
+            <a href="{{ route('bouteilles.create', Auth::id()) }}">@lang('messages.add_custom_bottle')</a>
+            <a href="{{ route('liste_achat.index') }}">@lang('messages.your_list')</a>
             @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                 @if($localeCode != LaravelLocalization::getCurrentLocale())
                     <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
@@ -63,7 +61,7 @@
 
         <div class="deconnexion-app-info">
             <div>
-                <p>DW © Tous Droits Réservés</p>
+                <p>@lang('messages.rights')</p>
             </div>
             <div>
                 <p>App Version 0.1</p>

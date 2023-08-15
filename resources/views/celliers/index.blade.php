@@ -1,5 +1,5 @@
 @extends('layout.app')
-@section('title', 'Vos Celliers')
+@section('title', __('messages.your_cellars'))
 @push('styles')
     <link href="{{ asset('css/celliers.css') }}" rel="stylesheet">
     <link href="{{ asset('css/modal.css') }}" rel="stylesheet">
@@ -16,11 +16,11 @@
             <a href="{{ route('celliers.show', $cellier->id) }}">
                 <span>{{ ucfirst($cellier->nom) }}</span>
                 <div class="infosCellier">
-                    <span>Bouteilles : {{ $cellier->quantite_bouteilles }}</span>
+                    <span>@lang('messages.your_bottles') : {{ $cellier->quantite_bouteilles }}</span>
                     @if($cellier->quantite_bouteilles > 0)
                     <div class="division-blanc"></div>
                     <div>
-                        <span>Rouge : {{ $cellier->quantiteBouteillesRouges() ?? 0 }}</span><span>Rosé : {{ $cellier->quantiteBouteillesRoses() ?? 0 }}</span><span>Blanc : {{ $cellier->quantiteBouteillesBlanches() ?? 0 }}</span>
+                        <span>@lang('messages.red') : {{ $cellier->quantiteBouteillesRouges() ?? 0 }}</span><span>@lang('messages.rose') : {{ $cellier->quantiteBouteillesRoses() ?? 0 }}</span><span>@lang('messages.white') : {{ $cellier->quantiteBouteillesBlanches() ?? 0 }}</span><span>@lang('messages.orange') : {{ $cellier->quantiteBouteillesOranges() ?? 0 }}</span>
                     </div>
                     @endif
                 </div>
