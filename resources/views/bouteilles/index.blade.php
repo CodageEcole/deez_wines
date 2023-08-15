@@ -168,6 +168,7 @@
 <main class="indexBouteilles">
 
 </main>
+@include('components.modals.modale-tri-bouteilles')
 <script>
     let selectedLanguage = @json(app()->getLocale());
 </script>
