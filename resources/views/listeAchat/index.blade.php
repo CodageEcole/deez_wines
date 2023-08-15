@@ -3,15 +3,16 @@
     <link href="{{ asset('css/modal.css') }}" rel="stylesheet">
     <link href="{{ asset('css/listeAchat.css') }}" rel="stylesheet">
 @endpush
+@section('title', __('messages.title_list'))
 @section('content')
 <main>
     @if (session('success'))
         <div class="alert-success" role="alert">{{ session('success') }}</div>
     @endif
-    <h2>Votre liste d'achat</h2>
+    <h2>@lang('messages.your_list')</h2>
     <div>
-        @if(!$bouteilles)
-            <p>@lang('messages.empty')</p>
+        @if($bouteilles->count() == 0)
+            <p>@lang('messages.shopping_list')</p>
         @else
             @foreach($bouteilles as $bouteilleListe)
                 <div class="item-liste">

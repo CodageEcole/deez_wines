@@ -14,14 +14,13 @@ return [
     'already_registered' => 'Déjà inscrit ?',
     'send_email' => 'Envoyer un email',
     'logged_in_text' => 'Vous êtes connecté !',
-
     'forgot_password_text' => "Mot de passe oublié ? Aucun problème. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
 
     // Dashboard
     'dashboard' => 'Tableau de bord',
 
-        // Bottom nav
-        'list' => 'Liste',
+    // Bottom nav
+    'list' => 'Liste',
 
     // Profile - Profile information
     'profile' => 'Profil',
@@ -43,6 +42,18 @@ return [
     'cancel' => 'Annuler',
     'warning' => 'ATTENTION...',
 
+    //create bottle
+    'create_title' => 'Créer une bouteille personnalisée',
+    'description' => 'Description',
+    'region' => 'Région',
+    'picture' => 'Image',
+    'create' => 'Créer',
+    'place_name' => 'Nom de la bouteille',
+    'place_desc' => 'Description de la bouteille',
+    'place_country' => 'Pays de la bouteille',
+    'place_region' => 'Région de la bouteille',
+
+
     // Search
     'search_bar_message' => 'Saisissez quelque chose ici',
     'search' => 'Rechercher',
@@ -58,6 +69,10 @@ return [
     'quantity' => 'Quantity',
     'qty' => 'Qté',
     'cancel' => 'Annuler',
+
+    //modal - Modify Qty
+    'modify_qty' => 'Modifier la quantité',
+
 
     // Modal - Add Cellar
     'name_your_cellar' => 'Nommez votre cellier',
@@ -80,19 +95,17 @@ return [
     'delete' => 'Supprimer',
     'your_bottles' => 'Vos bouteilles',
     'cellars' => 'Celliers',
-
+    'your_cellars' => 'Your Cellars',
     'back_to_site' => 'Retour au site',
 
     // Validation messages
     'edit_cellar' => "Vous avez changé le nom de votre cellier :vieuxNomCellier pour :nouveauNomCellier.",
     'create_cellar' => "Le cellier :nomCellier a été créé avec succès.",
     'delete_cellar' => "Le cellier :nomCellier a été supprimé avec succès.",
-
     'add_bottle' => "Vous avez ajouté :quantite bouteille(s) de :nomBouteille dans :nomCellier.",
     'edit_bottle_less' => "Vous avez retiré :difference :nomBouteille de :nomCellier.",
     'edit_bottle_more' => "Vous avez ajouté :difference :nomBouteille dans :nomCellier.",
     'delete_bottle' => "Vous avez supprimé :nomBouteille de :nomCellier.",
-
     'new_custom_bottle' => "Votre bouteille :nomBouteille a été ajoutée avec succès.",
 
     //Filtres
@@ -100,10 +113,31 @@ return [
     'white' => 'Blanc',
     'orange' => 'Orange',
     'rose' => 'Rosé',
-
     'filters' => 'Filtres',
     'country' => 'Pays',
     'price' => 'Prix',
     'grape_variety' => 'Cépage',
-    'taste_pill' => 'Pastille de goût'
+    'taste_pill' => 'Pastille de goût',
+    'colors' => 'Couleurs',
+    'country' => 'Pays',
+    'price' => 'Prix',
+
+    //sort
+    'sort' => 'Trier',
+
+    //price ranges
+    'less_than_20' => 'Moins de 20$',
+    '20_to_30' => '20$ - 30$',
+    '30_to_40' => '30$ - 40$',
+    '40_to_50' => '40$ - 50$',
+    '50_to_60' => '50$ - 60$',
+    'more_than_60' => '60$ et +',
+
+    //Liste
+    'shopping_list' => 'Votre liste d\'achat est vide.',
+    'title_list' => 'Liste d\'achat',
+    'your_list' => 'Votre liste d\'achat',
+
+    //rights
+    'rights' => 'DW © Tous Droits Réservés',
 ];

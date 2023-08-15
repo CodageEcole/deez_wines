@@ -26,11 +26,7 @@
                     <td>{{ $usager->id }}</td>
                     <td>{{ $usager->celliers_count }}</td>
                     <td>
-                    <button class="boutonUpdate"
-        data-userid="{{ $usager->id }}"
-        data-username="{{ $usager->name }}"
-        data-email="{{ $usager->email }}"
-        onclick="openUpdateDialog(this)">@lang('admin.update_user')</button>
+                    <button class="boutonUpdate" data-id="{{ $usager->id }}" data-username="{{ $usager->name }}" data-email="{{ $usager->email }}">@lang('admin.update_user')</button>
                     @if($usager->role != 'admin')
                     <form class="formulaireDel" action="{{ route('admin.destroy', $usager->id) }}" method="POST">
                         @csrf
@@ -49,5 +45,6 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('js/confirmerSupp.js')}}"></script>
+    <script src="{{ asset('js/modal.js')}}"></script>
     <script src="{{ asset('js/adminUpdateUser.js')}}"></script>
 @endpush

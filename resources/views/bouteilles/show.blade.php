@@ -11,7 +11,7 @@
 <script src="{{ asset('js/form-zoom.js')}}" defer></script>
 @endpush
 @extends('layout.app')
-@section('title', 'Bouteille')
+@section('title', __('details.detail_title'))
 @section('content')
     
     <main>
@@ -30,9 +30,7 @@
                         $infoVignette = ($bouteille->{"couleur_" . LaravelLocalization::getCurrentLocale()} ? $bouteille->{"couleur_" . LaravelLocalization::getCurrentLocale()} . " | " : "") . ($bouteille->format ? $bouteille->format . " | " : "") . 
                         ($bouteille->{"pays_" . LaravelLocalization::getCurrentLocale()});
                     @endphp
-                <p>
-                   {{ $infoVignette }};
-                </p>
+                <p>{{ $infoVignette }}</p>
             </div>
             <a class="bouton-ajouter" onclick="openModal({{ json_encode($bouteille->nom) }}, '{{ $bouteille->id }}', '{{  $infoVignette }}')">
                 @lang('details.add')<img src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Plus">
@@ -189,10 +187,10 @@
                             @method('PUT')
                     @endif
 
-                        <label for="commentaire">Commentaire : </label>
+                        <label for="commentaire">@lang('details.comments') : </label>
                         <textarea name="commentaire" id="commentaire" cols="30" rows="6" data-commentaire="{{ $commentaireBouteille->commentaire ?? '' }}"></textarea>
                         <input type="hidden" name="bouteille_id" value="{{ $bouteille->id }}">
-                        <label for="note">Note : </label>
+                        <label for="note">@lang('details.rating') : </label>
 
                             <div class="note-etoile">
                             <span class="etoile material-symbols-outlined" data-note="1">wine_bar</span>
@@ -205,7 +203,7 @@
                             <input type="hidden" name="note" id="note" value="0">
 
                             <div class="bouton-submit">
-                                <button type="submit" class="invisible-385px">Ajouter</button><img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
+                                <button type="submit" class="invisible-385px">@lang('details.add')</button><img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
                             </div>
                         </form>
             </div>

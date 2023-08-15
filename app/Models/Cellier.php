@@ -66,6 +66,14 @@ class Cellier extends Model
         ->sum('quantite');
     }
 
+    public function quantiteBouteillesOranges()
+    {
+        return $this->cellierQuantiteBouteille()
+            ->join('bouteilles', 'cellier_quantite_bouteilles.bouteille_id', '=', 'bouteilles.id')
+            ->where('bouteilles.particularite_fr', 'LIKE', '%orange%')
+            ->sum('quantite');
+    }
+
     public function bouteilles()
     {
         return $this->belongsToMany(Bouteille::class, 'cellier_quantite_bouteilles')

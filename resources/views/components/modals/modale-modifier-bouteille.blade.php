@@ -3,7 +3,7 @@
         <h2 id="modal-title"></h2>
         <hr>
         @csrf
-        <label for="quantite">Modifier la quantité</label>
+        <label for="quantite">@lang('messages.modify_qty')</label>
         <div class="quantity-input">
             <span class="quantity-btn minus-btn" onclick="decrementQuantity()">&#8722;</span>
             <input name="quantite" type="number" id="quantity" value="" min="1">

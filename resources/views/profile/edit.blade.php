@@ -7,13 +7,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 @endpush
 @section('content')
-<main class="main-profil">
-        {{-- <h2>
-            {{ __('Profile') }}
-        </h2> --}}
-    @include('profile.partials.update-profile-information-form')
-    @include('profile.partials.update-password-form')
-    @include('profile.partials.delete-user-form')
-
-</main>
-    @endsection
+    <main class="main-profil">
+        @include('profile.partials.update-profile-information-form')
+        @include('profile.partials.update-password-form')
+        @include('profile.partials.delete-user-form')
+    </main>
+@endsection
