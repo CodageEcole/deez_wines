@@ -1,7 +1,10 @@
 <dialog id="modal" class="modalePage">
     <form id="modal-form" class="formulairePage" method="POST" action="{{ route('cellier_quantite_bouteille.store') }}">
-        <h2 id="modal-title"></h2>
-        <div class="separation-modal"></div>
+        <div>
+            <h2 id="modal-title"></h2>
+            <p id="info-vignette"></p>
+        </div>
+        {{-- <div class="separation-modal"></div> --}}
         @csrf
         <div class="cellar-group">
             <div class="cellar-input">
@@ -15,7 +18,7 @@
                 </select>
             </div>
         </div>
-        <div class="separation-modal"></div>
+        {{-- <div class="separation-modal"></div> --}}
         <div class="quantity-input">
             <label class="label-quantite" for="quantite">@lang('messages.quantity')</label>
         </div>
@@ -26,7 +29,7 @@
         </div>
         <input type="hidden" name="bouteille_id" id="bouteille-id">
         <input type="hidden" name="source_page" value="bouteilles.index">
-        <div class="separation-modal"></div>
+        {{-- <div class="separation-modal"></div> --}}
         <div class="modaleActions">
             <button type="button" class="boutonCellier-cancel" onclick="closeModal()">@lang('messages.cancel')<span class="material-symbols-outlined">close</span></button>
             <button type="submit" class="boutonCellier-add">@lang('messages.add')<span class="material-symbols-outlined">check</span></button>

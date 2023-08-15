@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         ${bouteille.couleur_fr ? bouteille.couleur_fr + " | " : ""}
                         ${bouteille.format ? bouteille.format + " | " : ""}
                         ${bouteille.pays_fr ? bouteille.pays_fr + " | " : ""}
-                        ${bouteille.prix ? bouteille.prix + " $" : ""}
+                        ${bouteille.prix + " $"}
                     </p>
                     </section>
                     <div class="overlap" data-nom="${bouteille.nom}" data-id="${bouteille.id}" onclick='openModal("${bouteille.nom.replace(/'/g, '&#39;')}","${bouteille.id}")'>
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
         nombreFiltres.innerHTML = existingPillules.length > 0 ? " (" + existingPillules.length + ")" : "";
         console.log(nombreFiltres);
         // Call fetchPaginatedResults only if there's a searchTerm or if filters are applied
-        if (searchTerm || selectedCouleurs.length > 0 || Array.from(selectFilters).some(filter => filter.value !== "") || selectedPastille.value) {
+        if (searchTerm || selectedCouleurs.length > 0 || Array.from(selectFilters).some(filter => filter.value !== "")) {
             fetchPaginatedResults(url);
         } else {
             // Clear the search results if no searchTerm or filters are applied

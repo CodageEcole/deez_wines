@@ -54,6 +54,7 @@ return [
     //Modal - Add Bottle
     'cellar' => 'Cellar',
     'quantity' => 'Quantity',
+    'qty' => 'Qty',
     'cancel' => 'Cancel',
 
     //Modal - Add Cellar

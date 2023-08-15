@@ -6,7 +6,7 @@ window.addEventListener("click", function(event) {
     }
 });
 
-function openModal(nom, id) {
+function openModal(nom, id, format) {
     let modal = document.querySelector("#modal");
     let modalTitle = document.querySelector("#modal-title");
     let form = document.querySelector("#modal-form");
@@ -14,7 +14,9 @@ function openModal(nom, id) {
     let quantityInput = document.querySelector("#quantity");
     let quantiteActuelle = document.querySelector("#quantite-actuelle");
     let cellierIdInput = document.querySelector("#cellier-id");
+    let infoVignette = document.querySelector("#info-vignette");
 
+    infoVignette.innerHTML = format;
     modalTitle.innerText = nom;
     bouteilleIdInput.value = id;
     

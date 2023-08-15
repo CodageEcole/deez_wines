@@ -19,10 +19,10 @@ return [
     'rating' => 'Rating',
 
     'acidity' => 'Acidity',
-    'none' => 'aucune',
-    'discreet' => 'discrète',
-    'present' => 'présente',
-    'dominant' => '',
+    'none' => 'none',
+    'discreet_acidity' => 'discreet',
+    'present_acidity' => 'present',
+    'dominant_acidity' => 'dominant',
 
     'sweetness' => 'Sweetness',
     'dry' => 'dry',
@@ -37,15 +37,15 @@ return [
 
     'mouthfeel' => 'Mouthfeel',
     'none' => 'none',
-    'discreet' => 'discreet',
-    'balanced' => 'balanced',
-    'dominant' => 'dominant',
+    'delicate' => 'delicate',
+    'generous' => 'generous',
+    'opulent' => 'opulent',
 
     'wood' => 'Wood',
     'none' => 'none',
-    'discreet' => 'discreet',
-    'balanced' => 'balanced',
-    'dominant' => 'dominant',
+    'discreet_wood' => 'discreet',
+    'balanced_wood' => 'balanced',
+    'dominant_wood' => 'dominant',
 
 ];
 
