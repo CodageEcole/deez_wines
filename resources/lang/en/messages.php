@@ -21,6 +21,9 @@ return [
     // Dashboard
     'dashboard' => 'Dashboard',
 
+    // Bottom nav
+    'list' => 'List',
+
     //Profile - Profile information
     'profile' => 'Profile',
     'profile_information' => 'Profile Information',

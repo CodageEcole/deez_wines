@@ -11,6 +11,7 @@ use App\Http\Controllers\CellierController;
 use App\Http\Controllers\BouteilleController;
 use App\Http\Controllers\CellierQuantiteBouteilleController;
 use App\Http\Controllers\CommentaireBouteilleController;
+use App\Http\Controllers\ListeAchatController;
 //* Controlleurs Admin
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminCellierController;
@@ -33,13 +34,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-/* Route::group(
-[
-	'prefix' => LaravelLocalization::setLocale(),
-	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-], function(){ //...
-}); */
-//How to have the locale set to fr-CA be default
 Route::group(
 [
     'prefix' => LaravelLocalization::setLocale(),
@@ -77,9 +71,15 @@ Route::group(
     Route::prefix('admin')->middleware('admin')->group(function () {
         Route::resource('bouteilles', AdminBouteilleController::class);
         // Route::resource('stats', AdminUserController::class)->names(['index' => 'admin.stats.index', 'destroy' => 'admin.stats.destroy']);
-        Route::get('stats', [AdminUserController::class, 'index'])->name('admin.stats.index');
-        Route::delete('stats/{user}', [AdminUserController::class, 'destroy'])->name('admin.stats.destroy');
-        Route::resource('celliers', AdminCellierController::class);
+        Route::get('stats', [AdminUserController::class, 'index'])->name('admin.index');
+        // Route::resource('celliers', AdminCellierController::class);
+        Route::get('celliers', [AdminUserController::class, 'celliers'])->name('admin.celliers');
+
+        Route::get('users', [AdminUserController::class, 'users'])->name('admin.users');
+        Route::patch('users/{user}', [AdminUserController::class, 'update'])->name('admin.update');
+
+        Route::delete('users/{user}', [AdminUserController::class, 'destroy'])->name('admin.destroy');
+
         Route::resource('bouteilles_personnalisees', AdminBouteillePersonnaliseeController::class);
     });
 
@@ -91,6 +91,8 @@ Route::group(
     Route::resource('bouteilles_personnalisees', BouteillePersonnaliseeController::class);
     Route::resource('cellier_quantite_bouteille', CellierQuantiteBouteilleController::class);
     Route::resource('commentaire_bouteille', CommentaireBouteilleController::class);
+    Route::resource('liste_achat', ListeAchatController::class);
+
 
     //* SECTION GLIDE (manipulation d'images)
     Route::get('glide/{path}', function ($path) {

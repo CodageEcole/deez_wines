@@ -75,7 +75,8 @@
                         <p>
                             {{ $quantiteBouteille->bouteille->couleur_fr ? $quantiteBouteille->bouteille->couleur_fr . " | " : $quantiteBouteille->bouteille->couleur_fr }}
                             {{ $quantiteBouteille->bouteille->format ? $quantiteBouteille->bouteille->format . " | " : $quantiteBouteille->bouteille->format }}
-                            {{ $quantiteBouteille->bouteille->pays_fr }}
+                            {{ $quantiteBouteille->bouteille->pays_fr . " | "}}
+                            {{ $quantiteBouteille->bouteille->prix }} $
                         </p>
                         <p>@lang('messages.qty') : <span class="nombreBouteilles">{{ $quantiteBouteille->quantite }}</span></p>
                     </div>

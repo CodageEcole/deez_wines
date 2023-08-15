@@ -1,39 +1,32 @@
 @extends('layout.app')
-@section('title', __('messages.admin'))
+@section('title', __('admin.admin'))
+@push('styles')
+    <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
+@endpush
 @section('content')
 <main>
-    <h2>Statistiques</h2>
-    <p>Nombre total de bouteilles : {{ $totalBouteilles }}</p>
-    <p>Nombre total d'usagers : {{ $totalUsagers }}</p>
-    <h3>Usagers avec leurs celliers :</h3>
-    @if (session('success'))
-        <div class="alert-success" role="alert">{{ session('success') }}</div>
-    @endif
-    <table>
-        <thead>
-            <tr>
-                <th>Nom de l'usager</th>
-                <th>id de l'usager</th>
-                <th>Nombre de celliers</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($usagersAvecCelliers as $usager)
-                <tr>
-                    <td>{{ $usager->name }}</td>
-                    <td>{{ $usager->id }}</td>
-                    <td>{{ $usager->celliers_count }}</td>
-                    <td>
-                        <form action="{{ route('admin.stats.destroy', $usager->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Supprimer</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    @include('admin.partials.nav')
+    <h1>@lang('admin.stats')</h1>
+
+    <h2>@lang('admin.user_stats')</h2>
+    <p>@lang('admin.total_users') : {{ $totalUsagers }}</p>
+    <p>@lang('admin.new_users') : {{ $nouveauxUsagers }}</p>
+
+    <h2>@lang('admin.cellars_stats')</h2>
+    <p>@lang('admin.total_cellars') : {{ $totalCelliers }}</p>
+
+    <h2>@lang('admin.users_cellars_stats')</h2>
+    <p>@lang('admin.avg_user_cellars') : {{ $moyenneCelliersParUsager }}</p>
+    <p>@lang('admin.avg_bottles_cellar') : {{ $moyenneBouteillesParCellier }}</p>
+    <p>@lang('admin.avg_bottles_user') : {{ $moyenneBouteillesParUsager }}</p>
+
+    <h2>@lang('admin.bottle_stats')</h2>
+    <p>@lang('admin.total_bottles') : {{ $totalBouteilles }}</p>
+    <p>@lang('admin.new_bottles_30_days') : {{ $totalBouteillesAjoutees }}</p>
+    <p>@lang('admin.total_value_bottles') : {{ $totalMontantBouteilles }} $</p>
 </main>
+@include('components.modals.modale-confirmer-suppression')
 @endsection
+@push('scripts')
+    <script src="{{ asset('js/confirmerSupp.js')}}"></script>
+@endpush

@@ -11,6 +11,7 @@ function openModal(nom, id, format) {
     let modalTitle = document.querySelector("#modal-title");
     let form = document.querySelector("#modal-form");
     let bouteilleIdInput = document.querySelector("#bouteille-id");
+    let bouteilleIdListe = document.querySelector("#bouteille-id-liste");
     let quantityInput = document.querySelector("#quantity");
     let quantiteActuelle = document.querySelector("#quantite-actuelle");
     let cellierIdInput = document.querySelector("#cellier-id");
@@ -19,7 +20,7 @@ function openModal(nom, id, format) {
     infoVignette.innerHTML = format;
     modalTitle.innerText = nom;
     bouteilleIdInput.value = id;
-    
+    bouteilleIdListe.value = id;
     if(cellierIdInput != null){
         cellierIdInput.value = cellierId;
         quantityInput.value = parseInt(quantiteActuelle.innerHTML);
