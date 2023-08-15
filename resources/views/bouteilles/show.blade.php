@@ -26,14 +26,15 @@
         <div class="description-container">
             <div class="carte-titre">
                 <h2>{{ $bouteille->nom }}</h2>
+                    @php
+                        $infoVignette = ($bouteille->{"couleur_" . LaravelLocalization::getCurrentLocale()} ? $bouteille->{"couleur_" . LaravelLocalization::getCurrentLocale()} . " | " : "") . ($bouteille->format ? $bouteille->format . " | " : "") . 
+                        ($bouteille->{"pays_" . LaravelLocalization::getCurrentLocale()});
+                    @endphp
                 <p>
-                    {{-- {{ $bouteille->couleur_fr ? $bouteille->couleur_fr . " | " : $bouteille->couleur_fr }} --}}
-                    {{ $bouteille->{"couleur_" . LaravelLocalization::getCurrentLocale()} ? $bouteille->{"couleur_" . LaravelLocalization::getCurrentLocale()} . " | " : $bouteille->{"couleur_" . LaravelLocalization::getCurrentLocale()} }}
-                    {{ $bouteille->format ? $bouteille->format . " | " : $bouteille->format }}
-                    {{ $bouteille->{"pays_" . LaravelLocalization::getCurrentLocale()} }}
+                   {{ $infoVignette }};
                 </p>
             </div>
-            <a class="bouton-ajouter" onclick="openModal({{ json_encode($bouteille->nom) }}, '{{ $bouteille->id }}')">
+            <a class="bouton-ajouter" onclick="openModal({{ json_encode($bouteille->nom) }}, '{{ $bouteille->id }}', '{{  $infoVignette }}')">
                 @lang('details.add')<img src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Plus">
             </a>
 
@@ -116,11 +117,17 @@
                             $mouthfeel = __('details.mouthfeel');
                             $wood = __('details.wood');
 
+
+                            // $nom = [$acidity, $sweetness, $body, $mouthfeel, $wood];
+                            // $un = [__('details.discreet'), __('details.semisweet'), __('details.light'), __('details.discreet'), __('details.discreet')];
+                            // $deux = [__('details.present'),__('details.sweet'),__('details.mediumbodied'),__('details.balanced'), __('details.balanced')];
+                            // $trois = [__('details.dominant'),__('details.extrasweet'),__('details.fullbodied'),__('details.dominant'),__('details.dominant')];
+
                             $valeurs = [$bouteille->{"acidite_" . LaravelLocalization::getCurrentLocale()}, $bouteille->{"sucrosite_" . LaravelLocalization::getCurrentLocale()}, $bouteille->{"corps_" . LaravelLocalization::getCurrentLocale()}, $bouteille->{"bouche_" . LaravelLocalization::getCurrentLocale()}, $bouteille->{"bois_" . LaravelLocalization::getCurrentLocale()}];
                             $nom = [$acidity, $sweetness, $body, $mouthfeel, $wood];
-                            $un = ['discrète', 'demi-sec', 'léger', 'délicate', 'discret'];
-                            $deux = ['présente','doux','mi-corsé','généreuse','équilibré'];
-                            $trois = ['vive','extra-doux','corsé','enveloppante','marqué'];
+                            $un = [__('details.discreet_acidity'), __('details.semisweet'), __('details.light'), __('details.delicate'), __('details.discreet_wood')];
+                            $deux = [__('details.present_acidity'),__('details.sweet'),__('details.mediumbodied'),__('details.generous'), __('details.balanced_wood')];
+                            $trois = [__('details.dominant_acidity'),__('details.extrasweet'),__('details.fullbodied'),__('details.opulent'),__('details.dominant_wood')];
 
                             $position = 0;
                         @endphp

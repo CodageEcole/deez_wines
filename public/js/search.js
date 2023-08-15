@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         ${bouteille.couleur_fr ? bouteille.couleur_fr + " | " : ""}
                         ${bouteille.format ? bouteille.format + " | " : ""}
                         ${bouteille.pays_fr ? bouteille.pays_fr + " | " : ""}
-                        ${bouteille.prix ? bouteille.prix + " $" : ""}
+                        ${bouteille.prix + " $"}
                     </p>
                     </section>
                     <div class="overlap" data-nom="${bouteille.nom}" data-id="${bouteille.id}" onclick='openModal("${bouteille.nom.replace(/'/g, '&#39;')}","${bouteille.id}")'>

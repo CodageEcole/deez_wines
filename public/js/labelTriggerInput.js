@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const Labels = document.querySelectorAll(".label-simple");
     const couleursButton = document.querySelector(".filtre-button-couleurs");
-    // const checkboxes = document.querySelectorAll(".input-checkbox");
+    const checkboxes = document.querySelectorAll(".input-checkbox");
 
     Labels.forEach(label => {
         const checkbox = label.closest(".label-simple").querySelector(".input-checkbox");
@@ -19,4 +19,10 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         });
     });
+
+    // checkboxes.forEach(checkbox => {
+    //     checkbox.addEventListener("click", function() {
+    //         console.log("CHeckbox");
+    //     })
+    // })
 });

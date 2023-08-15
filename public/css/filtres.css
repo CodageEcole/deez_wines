@@ -80,10 +80,16 @@
 /* dropdown */
 
 .label-simple {
+    cursor: pointer;
+
     display: flex;
     justify-content: space-between;
     width: calc(90% - 20px);
     padding: 10px;
+}
+
+.label-simple > label {
+    flex-grow: 1;
 }
 
 .options-list {
@@ -204,8 +210,4 @@
     width: 25px;
     height: 25px;
     accent-color: grey;
-}
-
-.label-simple {
-    cursor: pointer;
 }

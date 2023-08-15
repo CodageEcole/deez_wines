@@ -46,6 +46,10 @@
 
 .filtre-nav {
     left: -100%;
+
+    /* overflow nécéssaire au scrolling */
+    bottom: 0;
+    overflow: auto;
 }
 
 .is-active {

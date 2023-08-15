@@ -20,9 +20,9 @@ return [
 
     'acidity' => 'Acidité',
     'none' => 'aucune',
-    'discreet' => 'discreet',
-    'present' => 'present',
-    'dominant' => 'vive',
+    'discreet_acidity' => 'discrète',
+    'present_acidity' => 'présente',
+    'dominant_acidity' => 'vive',
 
     'sweetness' => 'Sucrosité',
     'dry' => 'sec',
@@ -37,15 +37,15 @@ return [
 
     'mouthfeel' => 'Bouche',
     'none' => 'aucune',
-    'discreet' => 'délicate',
-    'balanced' => 'généreuse',
-    'dominant' => 'enveloppante',
+    'delicate' => 'délicate',
+    'generous' => 'généreuse',
+    'mouthfeel' => 'enveloppante',
 
     'wood' => 'Bois',
     'none' => 'aucune',
-    'discreet' => 'discret',
-    'balanced' => 'équilibré',
-    'dominant' => 'marqué',
+    'discreet_wood' => 'discret',
+    'balanced_wood' => 'équilibré',
+    'dominant_wood' => 'marqué',
 
 ];
 

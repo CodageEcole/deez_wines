@@ -55,7 +55,8 @@ return [
 
     // Modal - Add Bottle
     'cellar' => 'Cellier',
-    'quantity' => 'Quantité',
+    'quantity' => 'Quantity',
+    'qty' => 'Qté',
     'cancel' => 'Annuler',
 
     // Modal - Add Cellar

@@ -1,5 +1,5 @@
 const modifierQuantite = document.querySelectorAll('.modifierQuantite');
-const modaleModifier = document.querySelector('.changerQteBout');
+const modaleModifier = document.querySelector('.modalePage');
 const fermerModale = modaleModifier.querySelector('button:last-of-type');
 
 let inputBouteilles = modaleModifier.querySelector('.inputQuantite');

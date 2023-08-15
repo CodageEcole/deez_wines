@@ -4,9 +4,9 @@ dialog:not(.modalePage) {
     border-radius: 10px;
     min-width: 250px;
 }
-dialog::backdrop{
+/* dialog::backdrop{
     background-color: rgba(0, 0, 0, 0.5);
-}
+} */
 
 dialog p {
     padding: 5px;
@@ -22,7 +22,7 @@ dialog :is(input, button, span, select){
 dialog button {
     width: 40%;
     border-radius: 10px;
-    padding-block: 5px;
+    padding-block: 10px;
     margin-block: 7px;
     cursor: pointer;
     color: white;
@@ -51,11 +51,11 @@ dialog button {
 }
 
 .boutonCellier-cancel {
-    background-color: rgb(206, 29, 29);
+    background-color: var(--vivid-red);
 }
 
 .boutonCellier-add {
-    background-color: rgb(45, 215, 45);
+    background-color: var(--vivid-green);
 }
 
 dialog input {
@@ -82,7 +82,7 @@ dialog label {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 5px;
+    /* padding: 5px; */
     gap: 5px;
 }
 
@@ -111,24 +111,27 @@ dialog label {
 
 
 .plusMinus span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     background-color: var(--dark-brown);
     border-radius: 5px;
-    padding: 10px;
+    padding: 15px;
 }
 
 .plusMinus input{
-    /* outline: none; */
+    text-align: center;
     appearance: textfield;
-    height: 60px;
-    width: 4ch;
+    height: 77px;
+    width: 3ch;
     font-size: 36px !important;
     font-family: 'MabryPro';
 }
 
 .plusMinus {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
     justify-content: center;
 }
@@ -162,17 +165,20 @@ dialog label {
 }
 
 .formulairePage {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
     position: absolute;
     top: 0;
     left: 0;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* background-color: #f3F1F1; */
-    /* padding: 20px; */
+    background-color: var(--light-brown);
+    padding: 10px;
     /* border: 1px solid #888; */
     border-radius: 10px;
-    width: 90%;
+    width: 75%;
 }
 
 .formulairePage select {
@@ -180,14 +186,22 @@ dialog label {
     justify-content: center;
 }
 
-.formulairePage > h2 {
-    font-family: 'Bonobo', 'GelicaLight', sans-serif;
-    font-size: 26px;
-    color: white;
+.formulairePage > div > h2,
+.formulairePage > div > p {
     padding-top: 10px;
     padding: 5px;
     margin: 0;
-    border-radius: 10px 10px 0 0;
+    color: var(--dark-brown);
+}
+
+.formulairePage > div > h2 {
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
+    font-size: 26px;
+}
+
+.formulairePage > div > p {
+    font-family: "Mabry Pro";
+    font-size: 18px;
 }
 
 .separation-modal {
@@ -202,13 +216,14 @@ dialog label {
     margin-right: auto;
 }
 
-.label-quantite {
+/* .label-quantite {
     margin: 20px;
-}
+} */
 
 .cellar-group {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 20px;
     justify-content: space-between;
 }
 
@@ -217,7 +232,7 @@ dialog label {
 }
 
 .cellar-group > div:nth-of-type(2) {
-    width: 60%;
+    width: 90%;
 }
 
 .cellar-input {
@@ -231,19 +246,19 @@ dialog label {
 }
 
 .cellar-input > select {
-    width: 90%;
+    width: 100%;
     background-color: var(--dark-brown);
     border: none;
     border-radius: 5px;
     outline: none; 
     appearance: none; 
     -webkit-appearance: none; /* For Safari */
-    padding: 0.5rem; 
+    padding: 1rem; 
     color: white; 
-    font-size: 1rem;
+    font-size: 22px;
 }
 
-.changerQteBout>form{
+/* .changerQteBout>form{
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -253,7 +268,7 @@ dialog label {
 .changerQteBout>form>div{
     display: flex;
     gap: 20px;
-}
+} */
 
 .changerQteBout span{
     font-size: 20px;

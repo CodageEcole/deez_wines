@@ -4,6 +4,7 @@
     <link href=" {{ asset('css/carte-vin-lr.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/cellier-show.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 @endpush
 @section('content')
 <main>
@@ -57,7 +58,7 @@
                 <div class="bande-de-gout-fed"> <span>Fruité et Extra-Doux</span></div>
             @endif
 
-            <div class="carte-vin @if(!$quantiteBouteille->bouteille->image_pastille_alt) no-pastille @endif">
+            <div class="carte-vin @if(!$quantiteBouteille->bouteille->image_pastille_alt) no-pastille-cellier @endif">
                 <picture class="protruding">
                     {{--* Ici j'utilise le glide, le chemin est img/glide/images car c'est l'origine de l'image des bouteilles --}}
                     {{--* Pour une pastille, ce serait img/glide/pastilles/ $image_pastille, environ --}}
@@ -69,7 +70,7 @@
                 </picture>
                 <section>
                     <a href="{{ route('bouteilles.show', $quantiteBouteille->bouteille->id) }}"><h2>{{ $quantiteBouteille->bouteille->nom }}</h2></a>
-                    <div>
+                    <div class="info-multiples-cellier">
                         {{--* Comme ca on ne voit pas les "|" si il n'y a pas de couleur ou de format --}} 
                         <p>
                             {{ $quantiteBouteille->bouteille->couleur_fr ? $quantiteBouteille->bouteille->couleur_fr . " | " : $quantiteBouteille->bouteille->couleur_fr }}
@@ -77,17 +78,17 @@
                             {{ $quantiteBouteille->bouteille->pays_fr . " | "}}
                             {{ $quantiteBouteille->bouteille->prix }} $
                         </p>
-                        <p>@lang('messages.quantity') : <span class="nombreBouteilles">{{ $quantiteBouteille->quantite }}</span></p>
+                        <p>@lang('messages.qty') : <span class="nombreBouteilles">{{ $quantiteBouteille->quantite }}</span></p>
                     </div>
                     <div class="sectionBoutons">
                         <div>
-                            <button class="modifierQuantite boutonCellier espace" data-id="{{ $quantiteBouteille->id }}" data-nombre="{{ $quantiteBouteille->quantite }}">@lang('messages.modify')</button>
+                            <button class="modifierQuantite overlap-cellier-modifier espace" data-id="{{ $quantiteBouteille->id }}" data-nombre="{{ $quantiteBouteille->quantite }}">@lang('messages.modify')<span class="material-symbols-outlined">edit_note</span></button>
                         </div>
                         <form action="{{ route('cellier_quantite_bouteille.destroy', $quantiteBouteille->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <input type="hidden"  name="cellier_id" value="{{ $cellier->id }}">
-                            <button class="boutonCellier espace" type="submit">@lang('messages.delete')</button>
+                            <button class="overlap-cellier-supprimer espace" type="submit">@lang('messages.delete')<span class="material-symbols-outlined">close</span></button>
                         </form>
                     </div>
                 </section>
