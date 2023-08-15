@@ -145,5 +145,9 @@ return [
     'rights' => 'DW © Tous Droits Réservés',
 
     //pagination
-    'first' => 'prem.'
+    'first' => 'prem.',
+
+    //liste d'achat
+    'add_to_list' => "Vous voulez ajouter cette bouteille à votre liste d'achat?",
+    'click_here' => 'Cliquez ici'
 ];

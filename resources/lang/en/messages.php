@@ -143,5 +143,9 @@ return [
     'rights' => 'DW © All Rights Reserved',
 
     //pagination
-    'first' => 'first'
+    'first' => 'first',
+
+    //liste d'achat
+    'add_to_list' => 'Want to add this bottle to your shopping list?',
+    'click_here' => 'Click here'
 ];

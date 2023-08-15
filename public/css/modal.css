@@ -87,7 +87,7 @@ dialog :is(input, button, span, select){
 dialog button {
     width: 40%;
     border-radius: 10px;
-    padding-block: 10px;
+    /* padding-block: 10px; */
     /* margin-block: 7px; */
     cursor: pointer;
     color: white;
@@ -99,13 +99,14 @@ dialog button {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    /* gap: 5px; */
     font-family: "Mabry Pro";
     font-size: 22px;
 
     width: fit-content;
-    padding-left: 10px;
-    padding-right: 10px
+    /* padding-left: 10px;
+    padding-right: 10px */
+    padding: 10px 20px;
 }
 
 .boutonCellier-add .material-symbols-outlined,
@@ -223,7 +224,7 @@ dialog label {
 
 .plusMinus {
     display: flex;
-    gap: 10px; 
+    gap: 25px; 
     align-items: center; 
     justify-content: center;
 }
@@ -268,12 +269,12 @@ dialog label {
     left: 0;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
     background-color: var(--light-brown);
     padding: 10px;
     /* border: 1px solid #888; */
     border-radius: 10px;
-    width: 75%;
+    width: 80%;
 }
 
 .formulairePage select {
@@ -327,7 +328,7 @@ dialog label {
 }
 
 .cellar-group > div:nth-of-type(2) {
-    width: 90%;
+    width: 100%;
 }
 
 .cellar-input {
@@ -341,7 +342,7 @@ dialog label {
 }
 
 .cellar-input > select {
-    width: 100%;
+    width: 85%;
     background-color: var(--dark-brown);
     border: none;
     border-radius: 5px;
@@ -379,6 +380,44 @@ dialog label {
     appearance: textfield;
     width: 3ch;
 }
+/* liste d'achat */
+
+.form-liste-achat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: var(--light-brown);
+    gap: 10px;
+    margin: auto;
+    width: 78%;
+
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 76%;
+}
+
+.form-liste-achat h2,
+.form-liste-achat button {
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
+    margin: 0;
+}
+
+.form-liste-achat h2 {
+    font-size: 18px;
+    color: white;
+}
+
+.form-liste-achat button {
+    font-size: 28px;
+    color: var(--dark-brown);
+    text-decoration: underline;
+    width: fit-content
+    
+}
 
 /* ================= MEDIA ================= */
 
@@ -413,5 +452,13 @@ dialog label {
     .cellar-input > select {
         font-size: 16px;
         padding: 10px;
+    }
+
+    .formulairePage {
+        top: 45%;
+    }
+
+    .form-liste-achat h2 {
+        font-size: 16px;
     }
 }
