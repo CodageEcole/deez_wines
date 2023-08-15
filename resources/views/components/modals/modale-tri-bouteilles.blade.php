@@ -1,8 +1,8 @@
-<dialog class="modaleTri">
+<dialog class="tris-modale modalePage">
     <ul>
-        <li name="tri-nom-asc">Nom Ascendant</li>
-        <li name="tri-nom-desc">Nom Descendant</li>
-        <li name="tri-prix-asc">Prix Ascendant</li>
-        <li name="tri-prix-desc">Prix Descendant</li>
+        <li class="tri" data-tri="nom-asc">Nom Ascendant</li>
+        <li class="tri" data-tri="nom-desc">Nom Descendant</li>
+        <li class="tri" data-tri="prix-asc">Prix Ascendant</li>
+        <li class="tri" data-tri="prix-desc">Prix Descendant</li>
     </ul>
 </dialog>

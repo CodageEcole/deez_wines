@@ -3,10 +3,37 @@ dialog:not(.modalePage) {
     background-color: var(--light-brown);
     border-radius: 10px;
     min-width: 250px;
+    z-index: 1;
 }
 /* dialog::backdrop{
     background-color: rgba(0, 0, 0, 0.5);
 } */
+
+dialog ul {
+    border-radius: 10px;
+    border: 1px solid var(--dark-brown);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    max-width: 200px;
+    padding: 0;
+    margin-inline: auto;
+    text-align: center;
+    background-color: var(--light-brown);
+}
+
+dialog li {
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--dark-brown);
+    border-bottom: 1px solid var(--dark-brown);
+}
+dialog li:last-child {
+    border-bottom: none;
+}
 
 dialog p {
     padding: 5px;

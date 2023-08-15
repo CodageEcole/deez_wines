@@ -13,8 +13,6 @@
     <script src="{{ asset('js/filtreDropdown.js')}}"></script>
     <script src="{{ asset('js/search.js')}}"></script>
     <script src="{{ asset('js/plusAnimation.js')}}"></script>
-    {{-- <script src="{{ asset('js/labelTriggerInput.js')}}"></script> --}}
-    {{-- <script src="{{ asset('js/checkboxTriggerBorder.js')}}"></script> --}}
 @endpush
 <header class="rechercheConteneur">
     <input class="rechercheInput" type="text" name="query" id="searchInput" placeholder="@lang('messages.search_bar_message')">
@@ -136,11 +134,12 @@
                                     ];
 
                         $translatedPastille = $pastilleTableau[$pastilleValue] ?? '';
+                        $pUnderscored = str_replace(' ', '_', $translatedPastille);
                     @endphp
                     @if($translatedPastille != '')
                         <div class="label-simple">
-                            <label for="filtre-{{$pastilleValue}}">{{$translatedPastille}}</label>
-                            <input class="input-checkbox" type="checkbox" name="filtre-pastille" id="filtre-{{$pastilleValue}}" value="{{$pastilleValue}}">
+                            <label for="filtre-{{$pUnderscored}}">{{$translatedPastille}}</label>
+                            <input class="input-checkbox" type="checkbox" name="filtre-{{$pUnderscored}}" id="filtre-{{$pUnderscored}}" value="{{$pastilleValue}}">
                         </div>
                     @endif
                 @endforeach
@@ -171,6 +170,7 @@
 @include('components.modals.modale-tri-bouteilles')
 <script>
     let selectedLanguage = @json(app()->getLocale());
+    let pastilleTableau = @json($pastilleTableau);
 </script>
 @include('components.modals.modale-ajout-bouteille')
 @endsection
