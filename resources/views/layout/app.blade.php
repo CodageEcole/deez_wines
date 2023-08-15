@@ -51,6 +51,7 @@
                 <a href="{{ route('admin.index') }}">@lang('admin.admin')</a>
             @endif
             <a href="{{ route('bouteilles.create', Auth::id()) }}">Ajouter une bouteille au répertoire</a>
+            <a href="{{ route('liste_achat.index') }}">Liste d'achat</a>
             @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                 @if($localeCode != LaravelLocalization::getCurrentLocale())
                     <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">

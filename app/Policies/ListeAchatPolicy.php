@@ -47,7 +47,7 @@ class ListeAchatPolicy
      */
     public function delete(User $user, listeAchat $listeAchat): bool
     {
-        return true;
+        return $user->id === $listeAchat->user_id;
     }
 
     /**
@@ -63,6 +63,6 @@ class ListeAchatPolicy
      */
     public function forceDelete(User $user, listeAchat $listeAchat): bool
     {
-        return false;
+        return true;
     }
 }

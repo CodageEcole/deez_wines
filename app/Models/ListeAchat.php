@@ -14,8 +14,13 @@ class ListeAchat extends Model
         'user_id',
     ];
 
-    public function bouteilles()
+    public function bouteille()
     {
-        return $this->belongsToMany(Bouteille::class);
+        return $this->belongsTo(Bouteille::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

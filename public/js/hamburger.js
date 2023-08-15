@@ -37,7 +37,6 @@ window.onload = function() {
     // fonction filtre
     if(filtreBouton) {
         filtreBouton.addEventListener("click", function() {
-            console.log("Allo")
             menuFiltre.classList.toggle("is-active-filtre");
             overlayGreyFiltre.classList.toggle("show");
         })

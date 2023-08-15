@@ -164,10 +164,10 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error fetching paginated results:', error);
             searchResults.innerHTML = '<p>Error fetching results. Please try again later.</p>';
         });
+
     }
   
     function fetchSearchResults(event) {
-        console.log("Search")
 
         const searchTerm = searchInput?.value.trim() || "";
         let url = "/bouteilles";
@@ -175,42 +175,35 @@ document.addEventListener('DOMContentLoaded', function () {
             url += `?query=${encodeURIComponent(searchTerm)}`;
         }
         
-        const selectedCouleurs = document.querySelectorAll("#couleurs input[type=checkbox]:checked");
-
-        selectedCouleurs.forEach(selectedCouleur => {
-            console.log("Couleurs")
-            url = createPillHtml(selectedCouleur, url);
-        });
-
-        const selectFilters = document.querySelectorAll('.filtres-side-bar select');
-
-        selectFilters.forEach(selectFilter => {
-            const selectedValue = selectFilter.value;
-            if (selectedValue !== "") {
-                url = createPillHtml(selectFilter, url);
-            }
+        const selectedFilters = document.querySelectorAll("input[type=checkbox]:checked");
+        selectedFilters.forEach(selectedFilter => {
+            url = createPillHtml(selectedFilter, url);
         });
 
         setupPilluleClickListeners(url);
 
         const existingPillules = document.querySelectorAll(".zone-pillules > div");
+
         existingPillules.forEach(pillule => {
-            const filterValue = pillule.id.split("-")[1];
+            const filterValue = pillule.id.replace(/ /g, "_").split("-").slice(1).join("-");
+            console.log(filterValue);
             const filterInput = document.querySelector(`#filtre-${filterValue}`);
-            const isChecked = filterInput.selectedIndex || filterInput.checked;
+            console.log(filterInput);
+            const isChecked = filterInput.checked;
             if (!isChecked) {
                 pillule.remove();
             }
         });
         nombreFiltres.innerHTML = existingPillules.length > 0 ? " (" + existingPillules.length + ")" : "";
         // Call fetchPaginatedResults only if there's a searchTerm or if filters are applied
-        if (searchTerm || selectedCouleurs.length > 0 || Array.from(selectFilters).some(filter => filter.value !== "")) {
+        if (searchTerm || selectedFilters.length > 0 ) {
             fetchPaginatedResults(url);
         } else {
             // Clear the search results if no searchTerm or filters are applied
             searchResults.innerHTML = '';
             resultatsHtml.innerHTML = '';
         }
+        console.log(url);
     }
 
     function createPillHtml(pillule, url) {
@@ -219,11 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         let valeurFiltre = pillule.value;
         let nomFiltre;
-        if (pillule.type === "checkbox" || pillule.type === "radio") {
-            nomFiltre = pillule.name.split("-")[1];
-        } else if (pillule.tagName === "SELECT") {
-            nomFiltre = pillule.id.split("-")[1];
-        }
+        nomFiltre = pillule.name.replace(/ /g, "_").split("-").slice(1).join("-");;
         let zonePillules = document.querySelector(".zone-pillules");
         let existingPillule = document.querySelector(`#pillule-${nomFiltre}`);
 
@@ -248,28 +237,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function resetFilterInput(filterValue) {
+        //change the spaces in the filterValue to underscores
+        filterValue = filterValue.replace(/ /g, "_");
         let filterInput = document.querySelector("#filtre-" + filterValue);
-        if (filterInput.type === "checkbox" || filterInput.type === "radio") {
+
+        if (filterInput.type === "checkbox") {
             filterInput.checked = false;
 
             const pillule = document.querySelector(`#pillule-${filterValue}`);
             if (pillule) {
                 pillule.remove();
             }
-        } else if (filterInput.tagName === "SELECT") {
-            filterInput.selectedIndex = 0;
         } else if (filterInput.type === "text") {
             filterInput.value = "";
         }
     }
 
-    function setupPilluleClickListeners(url) {
+    function setupPilluleClickListeners() {
         const zonePillules = document.querySelector(".zone-pillules");
 
         zonePillules.addEventListener("click", function(event) {
             const pillule = event.target.closest(".zone-pillules > div");
             if (pillule) {
-                const filterValue = pillule.id.split("-")[1];
+                const filterValue = pillule.id.replace(/ /g, "_").split("-").slice(1).join("-");;
                 resetFilterInput(filterValue);
                 pillule.remove();
                 fetchSearchResults();

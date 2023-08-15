@@ -7,70 +7,60 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Events\BouteilleAddedToCatalog;
 use Illuminate\Support\Facades\Log;
+use App\Models\Bouteille;
 
 class ListeAchatController extends Controller
 {
-    /* public function __construct()
+    public function __construct()
     {
-        $this->authorizeResource(ListeAchat::class, 'listeAchat');
-    } */
+        $this->authorizeResource(ListeAchat::class, 'liste_achat');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('listeAchat.index');
+        $userId = Auth::id();
+        $bouteilles = ListeAchat::where('user_id', $userId)
+            ->with('bouteille') // Eager load the related 'bouteille' model
+            ->get();
+        $celliers = Auth::user()->celliers;
+        return view('listeAchat.index', compact('bouteilles', 'celliers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Request $request, $liste_achat_id)
-    {
+        $request->validate([
+            'bouteille_id_liste' => 'required|exists:bouteilles,id',
+        ]);
+
         $userId = Auth::id();
-        $bouteilleId = $request->bouteille_id_2;
+        $bouteilleId = $request->bouteille_id_liste;
+        $bouteilleDansListe = ListeAchat::where('user_id', $userId)->where('bouteille_id', $bouteilleId)->exists();
 
-        //event(new BouteilleAddedToCatalog($userId, $bouteilleId));
-        $listeAchat = ListeAchat::find($liste_achat_id);
-        if (!$listeAchat) {
+        if ($bouteilleDansListe) {
+            $message = 'Cette bouteille est déjà dans votre liste d\'achat.';
+        } else {
             $listeAchat = ListeAchat::create([
                 'user_id' => Auth::id(),
+                'bouteille_id' => $bouteilleId,
             ]);
-        }
 
-        //verify if bouteille is already in the list before adding
-        $celliers = Auth::user()->celliers;
-        $bouteilles = $listeAchat->bouteilles;
-        foreach ($bouteilles as $bouteille) {
-            if ($bouteille->id == $bouteilleId) {
-                $message = 'Cette bouteille est déjà dans votre liste d\'achat.';
-                return view('listeAchat.show', compact('listeAchat', 'bouteilles', 'celliers'))->with('success', $message);
+            if ($listeAchat) {
+                $bouteille = Bouteille::where('id', $bouteilleId)->first();
+                $message = "Vous avez ajouté la bouteille $bouteille->nom à votre liste d'achat.";
             }
         }
-        $listeAchat->bouteilles()->attach($bouteilleId);
 
-        if($listeAchat) {
-            $bouteilles = $listeAchat->bouteilles;
-        }
-        $message = trans('message.add');
-        return view('listeAchat.show', compact('listeAchat', 'bouteilles', 'celliers'))->with('success', $message);
+        return redirect()->route('liste_achat.index')->with('success', $message);
     }
+
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -92,6 +82,7 @@ class ListeAchatController extends Controller
      */
     public function destroy(ListeAchat $listeAchat)
     {
-        //
+        $listeAchat->delete();
+        return redirect()->route('liste_achat.index')->with('success', 'La bouteille a été retirée de votre liste d\'achat.');
     }
 }

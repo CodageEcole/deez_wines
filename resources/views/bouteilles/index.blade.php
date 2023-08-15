@@ -59,7 +59,7 @@
                                 {{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}
                             </label>
                             <input class="input-checkbox" type="checkbox" 
-                                name="filtre-pays-{{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}"
+                                name="filtre-{{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}"
                                 id="filtre-{{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}"
                                 value="{{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}">
                         </div>
@@ -71,47 +71,46 @@
                 <button class="filtre-button-prix">Prix <img class="plus-prix" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
                 <div id="prix" class="filtre filtre-dropdown-prix">
                     <div class="label-simple">
-                        <label for="filtre-00-10">@lang('messages.price') 00$ - 10$</label>
-                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-00-10" value="00-10">
+                        <label for="filtre-1-20">Moins De 20$</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-1-20" id="filtre-1-20" value="1-20">
                     </div>
                     <div class="label-simple">
-                        <label for="filtre-10-20">@lang('messages.price') 10$ - 20$</label>
-                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-10-20" value="10-20">
+                        <label for="filtre-20-30">20$ - 30$</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-20-30" id="filtre-20-30" value="20-30">
                     </div>
                     <div class="label-simple">
-                        <label for="filtre-20-30">@lang('messages.price') 20$ - 30$</label>
-                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-20-30" value="20-30">
+                        <label for="filtre-30-40">30$ - 40$</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-30-40" id="filtre-30-40" value="30-40">
                     </div>
                     <div class="label-simple">
-                        <label for="filtre-30-40">@lang('messages.price') 30$ - 40$</label>
-                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-30-40" value="30-40">
+                        <label for="filtre-40-50">40$ - 50$</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-40-50" id="filtre-40-50" value="40-50">
                     </div>
                     <div class="label-simple">
-                        <label for="filtre-40-50">@lang('messages.price') 40$ - 50$</label>
-                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-40-50" value="40-50">
+                        <label for="filtre-50-60">50$ - 60$</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-50-60" id="filtre-50-60" value="50-60">
                     </div>
                     <div class="label-simple">
-                        <label for="filtre-50-60">@lang('messages.price') 50$ - 60$</label>
-                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-50-60" value="50-60">
-                    </div>
-                    <div class="label-simple">
-                        <label for="filtre-60+">@lang('messages.price') 60$ +</label>
-                        <input class="input-checkbox" type="checkbox" name="filtre-prix" id="filtre-60+" value="60">
+                        <label for="filtre-60+">60$ +</label>
+                        <input class="input-checkbox" type="checkbox" name="filtre-60" id="filtre-60" value="60">
                     </div>
                 </div>
             </div>
 
-        <div class="filtre">
-            <button class="filtre-button-cepages">Cepages <img class="plus-cepages" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
-            <div id="cepages" class="filtre filtre-dropdown-cepages">
-                @foreach($cepages as $c)
-                    <div class="label-simple">
-                        <label for="filtre-cepages-{{$c}}">{{$c}}</label>
-                        <input class="input-checkbox" type="checkbox" name="filtre-cepages-{{$c}}" id="filtre-cepages-{{$c}}" value="{{$c}}">
-                    </div>
-                @endforeach
+            <div class="filtre">
+                <button class="filtre-button-cepages">Cepages <img class="plus-cepages" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
+                <div id="cepages" class="filtre filtre-dropdown-cepages">
+                    @foreach($cepages as $c)
+                        @php
+                            $cUnderscored = str_replace(' ', '_', $c);
+                        @endphp
+                        <div class="label-simple">
+                            <label for="filtre-{{$cUnderscored}}">{{$c}}</label>
+                            <input class="input-checkbox" type="checkbox" name="filtre-{{$cUnderscored}}" id="filtre-{{$cUnderscored}}" value="{{$c}}">
+                        </div>
+                    @endforeach
+                </div>
             </div>
-        </div>
 
         <div class="filtre">
             <button class="filtre-button-pastilles">Pastilles de goûts <img class="plus-pastilles" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
@@ -145,14 +144,6 @@
             </div>
         </div>
     </form>
-
-        {{-- @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-            @if($localeCode != LaravelLocalization::getCurrentLocale())
-                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                    {{ $properties['native'] }}
-                </a>
-            @endif
-        @endforeach --}}
 </section>
 <div class="overlay-grey-filtre"></div>
 

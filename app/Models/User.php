@@ -8,7 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Cellier;
-use App\Models\BouteillePersonnalisee;
+use App\Models\ListeAchat;
+
 
 class User extends Authenticatable
 {
@@ -58,7 +59,7 @@ class User extends Authenticatable
 
     public function listesAchat()
     {
-        return $this->hasOne(ListeAchat::class);
+        return $this->hasMany(ListeAchat::class);
     }
 
 }
