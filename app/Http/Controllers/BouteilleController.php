@@ -30,9 +30,13 @@ class BouteilleController extends Controller
         $blanc = $request->blanc;
         $rose = $request->rose;
         $orange = $request->orange;
-        $pays = $request->pays;
-        $prix = $request->prix;
-        $cepage = $request->cepage;
+        
+        $moinsDeVingt = $request->input('1-20');
+        $vingtTrente = $request->input('20-30');
+        $trenteQuarante = $request->input('30-40');
+        $quaranteCinquante = $request->input('40-50');
+        $cinquanteSoixante = $request->input('50-60');
+        $plusQueSoixante = $request->input('60');
         $pastille = $request->pastille;
 
         // Eloquent query builder
@@ -43,12 +47,61 @@ class BouteilleController extends Controller
             $query->where('nom', 'like', "%$searchTerm%");
         }
 
+        $countryFields = [
+            'Afrique_du_Sud', 'Allemagne', 'Argentine', 'Arménie', 'Australie', 
+            'Autriche', 'Brésil', 'Bulgarie', 'Canada', 'Chili', 'Chine', 
+            'Croatie', 'Espagne', 'États-Unis', 'France', 'Grèce', 'Hongrie', 
+            'Israël', 'Italie', 'Liban', 'Luxembourg', 'Maroc', 'Mexique', 
+            'Moldavie', 'Nouvelle_Zélande', 'Portugal', 'Roumanie', 'République_Tchèque', 
+            'Slovacquie', 'Slovénie', 'Suisse', 'Uruguay'
+        ];
 
-        // Par pays, avec recherche dans un autre champ pour les pays en anglais
-        if ($pays) {
-            $query->where(function ($subquery) use ($pays) {
-                $subquery->whereIn('pays_fr', $pays)
-                         ->orWhere('pays_en', $pays);
+        $selectedCountries = [];
+
+        foreach ($countryFields as $field) {
+            if ($request->has($field)) {
+                $countryName = str_replace('_', ' ', $request->input($field));
+                $selectedCountries[] = $countryName;
+            }
+        }
+
+        if (!empty($selectedCountries)) {
+            $query->where(function ($subquery) use ($selectedCountries) {
+                $subquery->whereIn('pays_fr', $selectedCountries)
+                        ->orWhereIn('pays_en', $selectedCountries);
+            });
+        }
+
+        $similarityThreshold = 80;
+        $cepageEntries = Bouteille::select('cepage')
+            ->distinct()
+            ->get()
+            ->pluck('cepage')
+            ->flatMap(function ($cepage) {
+                $cepageArray = explode(', ', $cepage);
+                return array_map(function ($entry) {
+                    return trim(preg_replace('/[0-9%]+/', '', $entry));
+                }, $cepageArray);
+            })
+            ->filter()
+            ->unique()
+            ->sort()
+            ->values();
+
+        $selectedCepages = [];
+
+        foreach ($cepageEntries as $cepage) {
+            $cepageField = str_replace(' ', '_', $cepage);
+            if ($request->has($cepageField)) {
+                $selectedCepages[] = $cepage;
+            }
+        }
+
+        if (!empty($selectedCepages)) {
+            $query->where(function ($subquery) use ($selectedCepages) {
+                foreach ($selectedCepages as $cepage) {
+                    $subquery->orWhere('cepage', 'LIKE', '%' . $cepage . '%');
+                }
             });
         }
 
@@ -68,15 +121,50 @@ class BouteilleController extends Controller
         }
 
         // Filtrer par gamme de prix
-        if ($prix) {
+        $selectedPriceRanges = [];
 
-            list($minPrice, $maxPrice) = explode('-', $prix);
-            $query->whereBetween('prix', [$minPrice, $maxPrice]);
+        if ($moinsDeVingt) {
+            $selectedPriceRanges[] = '1-20';
+        }
+        if ($vingtTrente) {
+            $selectedPriceRanges[] = '20-30';
+        }
+        if ($trenteQuarante) {
+            $selectedPriceRanges[] = '30-40';
+        }
+        if ($quaranteCinquante) {
+            $selectedPriceRanges[] = '40-50';
+        }
+        if ($cinquanteSoixante) {
+            $selectedPriceRanges[] = '50-60';
+        }
+        if ($plusQueSoixante) {
+            $selectedPriceRanges[] = '60';
+        }
+
+        $priceRanges = [
+            '1-20' => [1, 19],
+            '20-30' => [20, 30],
+            '30-40' => [30, 40],
+            '40-50' => [40, 50],
+            '50-60' => [50, 60],
+            '60' => [60, PHP_INT_MAX],
+        ];
+
+        if (!empty($selectedPriceRanges)) {
+            $query->where(function ($subquery) use ($priceRanges, $selectedPriceRanges) {
+                foreach ($selectedPriceRanges as $selectedRange) {
+                    if (isset($priceRanges[$selectedRange])) {
+                        list($minPrice, $maxPrice) = $priceRanges[$selectedRange];
+                        $subquery->orWhereBetween('prix', [$minPrice, $maxPrice]);
+                    }
+                }
+            });
         }
         
-        if($cepage){
-            $query->where('cepage', 'like', '%' . $cepage . '%');
-        }
+        // Par cépage
+        /* $query->where('cepage', 'like', '%' . $cepage . '%'); */
+        
 
         if($pastille){
             $query->where('image_pastille_alt', 'like', '%' . $pastille . '%');
@@ -103,44 +191,7 @@ class BouteilleController extends Controller
             $pays = Bouteille::select($paysColumn)->distinct()->get()->sortBy($paysColumn);
 
             $pastilles = Bouteille::select('image_pastille_alt')->distinct()->get()->sortBy('image_pastille_alt');
-            $similarityThreshold = 80;
-            $cepageEntries = Bouteille::select('cepage')
-                ->distinct()
-                ->get()
-                ->pluck('cepage')
-                ->flatMap(function ($cepage) {
-                    $cepageArray = explode(', ', $cepage);
-                    return array_map(function ($entry) {
-                        return trim(preg_replace('/[0-9%]+/', '', $entry));
-                    }, $cepageArray);
-                })
-                ->filter()
-                ->unique()
-                ->sort()
-                ->values();
-
-            $uniqueCepage = [];
-
-            foreach ($cepageEntries as $cepage) {
-                $isSimilar = false;
-                
-                // Compare the current cepage with existing unique cepages
-                foreach ($uniqueCepage as $existingCepage) {
-                    similar_text($cepage, $existingCepage, $similarityPercentage);
-
-                    // If similarity is above the threshold, mark as similar
-                    if ($similarityPercentage >= $similarityThreshold) {
-                        $isSimilar = true;
-                        break;
-                    }
-                }
-
-                if (!$isSimilar) {
-                    $uniqueCepage[] = $cepage;
-                }
-            }
-
-            $cepages = $uniqueCepage;
+            $cepages = $cepageEntries;
             return view('bouteilles.index', compact('celliers', 'pays', 'cepages', 'pastilles'));
         }
     }

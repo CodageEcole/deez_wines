@@ -32,8 +32,10 @@
             <button type="submit" class="boutonCellier-add">@lang('messages.add')<span class="material-symbols-outlined">check</span></button>
         </div>
     </form>
-    <form action="{{ route('liste_achat.show', ['liste_achat' => '1']) }}" method="get">
-        <input type="hidden" name="bouteille_id_2" id="bouteille-id-2">
+    
+    <form action="{{ route('liste_achat.store') }}" method="post">
+        @csrf
+        <input type="hidden" name="bouteille_id_liste" id="bouteille-id-liste">
         <button type="submit" class="boutonCellier">@lang('messages.add_to_list')</button>
     </form>
 </dialog>

@@ -80,9 +80,9 @@ class Bouteille extends Model
         return $this->hasMany(CommentaireBouteille::class);
     }
 
-    public function listesAchat()
+    public function listeAchats()
     {
-        return $this->belongsToMany(ListeAchat::class);
+        return $this->hasMany(ListeAchat::class);
     }
 
     /**
