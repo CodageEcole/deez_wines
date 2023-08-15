@@ -6,10 +6,6 @@
 @section('content')
 <main>
     @include('admin.partials.nav')
-    {{-- <h2>Statistiques</h2>
-    <p>Nombre total de bouteilles : {{ $totalBouteilles }}</p>
-    <p>Nombre total d'usagers : {{ $totalUsagers }}</p>--}}
-
     <h1>@lang('admin.stats')</h1>
 
     <h2>@lang('admin.user_stats')</h2>

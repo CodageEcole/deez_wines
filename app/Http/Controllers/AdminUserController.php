@@ -144,12 +144,36 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update([
-            'name' => $request->input('username'),
-            'email' => $request->input('email'),
+        $vieuxNom = $user->name;
+        $vieuxEmail = $user->email;
+
+        $validatedData = $request->validate([
+            'username' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
         ]);
+
+        $changementNom = $vieuxNom !== $validatedData['username'];
+        $changementEmail = $vieuxEmail !== $validatedData['email'];
+
+        $user->update([
+            'name' => $validatedData['username'],
+            'email' => $validatedData['email'],
+        ]);
+        
+        $nouveauNom = $user->name;
+        $nouveauEmail = $user->email;
+        
+        $message = '';
     
-        return redirect()->back()->with('success', 'Utilisateur mis à jour avec succès.');
+        if ($changementNom && $changementEmail) {
+            $message = trans('admin.update_username_and_email', compact('vieuxNom', 'nouveauNom', 'vieuxEmail', 'nouveauEmail'));
+        } elseif ($changementNom) {
+            $message = trans('admin.update_username', compact('vieuxNom', 'nouveauNom'));
+        } elseif ($changementEmail) {
+            $message = trans('admin.update_email', compact('vieuxEmail', 'nouveauEmail'));
+        }
+    
+        return redirect()->back()->with('success', $message);
     }
 
     /**
@@ -157,11 +181,10 @@ class AdminUserController extends Controller
      */
     public function destroy(User $user)
     {
-        // $usager = User::where();
-        
-        $user->forceDelete();
-        $nomUsager = $user->name;
 
-        return redirect()->route('admin.stats.index')->with('success', trans('messages.delete_user', compact('nomUsager')));
+        $nomUsager = $user->name;
+        $user->forceDelete();
+
+        return redirect()->route('admin.users')->with('success', trans('messages.delete_user', compact('nomUsager')));
     }
 }

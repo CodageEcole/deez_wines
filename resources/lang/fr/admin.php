@@ -40,5 +40,15 @@ return [
     'user_id' => 'Id de l\'usager',
     'user_cellars_qty' => 'Nombre de celliers',
     'user_actions' => 'Actions',
+    'update_user' => 'Mettre à jour',
 
+    // admin validation
+    'update_username' => 'Le nom :vieuxNom a été mis à jour pour :nouveauNom.',
+    'update_email' => 'Le courriel a été changé pour :nouveauEmail avec succès.',
+    'update_username_and_email' => 'le nom :vieuxNom a été changé pour :nouveauNom, ainsi que le courriel pour :nouveauEmail.',
+
+    //modal admin
+    'update_user_title' => 'Mise à Jour de l\'utilisateur',
+    'new_username' => 'Nouveau Nom d\'Utilisateur',
+    'new_email' => 'Nouvelle Adresse Courriel'
 ];

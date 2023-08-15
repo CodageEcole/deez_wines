@@ -30,6 +30,7 @@ retrait.addEventListener('click', (e) => {
 })
 
 fermerModale.addEventListener('click', (e) => {
+    e.preventDefault();
     modaleModifier.close();
 })
 

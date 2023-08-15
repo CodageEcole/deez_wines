@@ -1,17 +1,17 @@
 <dialog id="updateDialog">
-    <h2>Mettre à Jour l'Utilisateur</h2>
-
-    <form method="POST" action="{{ route('admin.users.update', ['user' => $user->id]) }}">
+    <h2>@lang('admin.update_user_title')</h2>
+    <form id="updateForm" method="POST" action="{{ route('admin.update', ['user' => $usager->id]) }}">
         @csrf
-        @method('PUT') <!-- Utilisation de la méthode PUT -->
-
-        <label for="username">Nouveau Nom d'Utilisateur:</label>
-        <input type="text" id="username" name="username" value="{{ $user->username }}" required><br><br>
-
-        <label for="email">Nouvelle Adresse E-mail:</label>
-        <input type="email" id="email" name="email" value="{{ $user->email }}" required><br><br>
-
-        <button type="submit">Mettre à Jour</button>
+        @method('PATCH')
+        <input type="hidden" id="userId" name="userId">
+        <div>
+            <label for="username">@lang('admin.new_username') :</label>
+            <input type="text" id="username" name="username" required><br><br>
+    
+            <label for="email">@lang('admin.new_email'):</label>
+            <input type="email" id="email" name="email" required><br><br>
+        </div>
+        <button class="boutonCellier espace" type="submit">Mettre à Jour</button>
+        <button class="boutonCellier espace" id="closeDialog">Fermer</button>
     </form>
-    <button id="closeDialog">Fermer</button>
 </dialog>

@@ -20,6 +20,9 @@ return [
     // Dashboard
     'dashboard' => 'Tableau de bord',
 
+        // Bottom nav
+        'list' => 'Liste',
+
     // Profile - Profile information
     'profile' => 'Profil',
     'profile_information' => 'Informations du profil',
