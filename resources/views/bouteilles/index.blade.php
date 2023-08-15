@@ -139,7 +139,7 @@
                     @if($translatedPastille != '')
                         <div class="label-simple">
                             <label for="filtre-{{$pUnderscored}}">{{$translatedPastille}}</label>
-                            <input class="input-checkbox" type="checkbox" name="filtre-{{$pUnderscored}}" id="filtre-{{$pUnderscored}}" value="{{$pastilleValue}}">
+                            <input class="input-checkbox" type="checkbox" name="filtre-{{$pUnderscored}}" id="filtre-{{$pUnderscored}}" value="{{$translatedPastille}}">
                         </div>
                     @endif
                 @endforeach

@@ -60,11 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Fonction qui récupère les labels de pastille pour extraire le nom de la pastille
-    function getPastilleLabel(image_pastille_alt) {
-        const parts = image_pastille_alt.split(":");
-        return parts.length === 2 ? parts[1].trim() : image_pastille_alt;
-    }   
+
 
     // Fonction qui crée le HTML d'une carte de vin
     function createCardHtml(bouteille) {
@@ -194,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     }
-  
+
     function fetchSearchResults(event) {
         const searchTerm = searchInput?.value.trim() || "";
         let url = "/bouteilles";
@@ -242,7 +238,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Fonction qui récupère les labels de pastille pour extraire le nom de la pastille
     function getPastilleLabel(imagePastilleAlt) {
+        if(!imagePastilleAlt){
+            return '';
+        }
+
         const parts = imagePastilleAlt.split(' : ');
         const pastilleValue = parts.length > 1 ? parts[1] : '';
         
@@ -282,7 +283,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function resetFilterInput(filterValue) {
         //change the spaces in the filterValue to underscores
         filterValue = filterValue.replace(/ /g, "_");
-        console.log(filterValue);
         let filterInput = document.querySelector("#filtre-" + filterValue);
 
         if (filterInput.type === "checkbox") {
