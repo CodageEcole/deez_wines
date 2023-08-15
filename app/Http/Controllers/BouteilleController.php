@@ -25,6 +25,76 @@ class BouteilleController extends Controller
      */
     public function index(Request $request)
     {
+        $cleanCountryNamesFr = [
+            'espagne' => 'Espagne',
+            'italie' => 'Italie',
+            'argentine' => 'Argentine',
+            'portugal' => 'Portugal',
+            'afrique_du_sud' => 'Afrique du Sud',
+            'nouvelle_zelande' => 'Nouvelle-Zélande',
+            'grece' => 'Grèce',
+            'autriche' => 'Autriche',
+            'armenie' => 'Arménie (République d\')',
+            'israel' => 'Israël',
+            'uruguay' => 'Uruguay',
+            'roumanie' => 'Roumanie',
+            'liban' => 'Liban',
+            'hongrie' => 'Hongrie',
+            'moldavie' => 'Moldavie',
+            'slovenie' => 'Slovénie',
+            'maroc' => 'Maroc',
+            'suisse' => 'Suisse',
+            'georgie' => 'Géorgie',
+            'luxembourg' => 'Luxembourg',
+            'mexique' => 'Mexique',
+            'republique_tcheque' => 'République Tchèque',
+            'chine' => 'Chine',
+            'bresil' => 'Brésil',
+            'slovaquie' => 'Slovaquie',
+            'bulgarie' => 'Bulgarie',
+            'croatie' => 'Croatie',
+            'etats_unis' => 'United States',
+            'chili' => 'Chile',
+            'australie' => 'Australia',
+            'allemagne' => 'Allemagne'
+        ];
+
+        $cleanCountryNamesEn = [
+            'spain' => 'Spain',
+            'italy' => 'Italy',
+            'argentina' => 'Argentina',
+            'portugal' => 'Portugal',
+            'south_africa' => 'South Africa',
+            'new_zealand' => 'New Zealand',
+            'greece' => 'Greece',
+            'austria' => 'Austria',
+            'armenia' => 'Armenia',
+            'israel' => 'Israel',
+            'uruguay' => 'Uruguay',
+            'romania' => 'Romania',
+            'lebanon' => 'Lebanon',
+            'hungary' => 'Hungary',
+            'moldova_republic_of' => 'Moldova, Republic of',
+            'slovenia' => 'Slovenia',
+            'morocco' => 'Morocco',
+            'switzerland' => 'Switzerland',
+            'georgia' => 'Georgia',
+            'luxembourg' => 'Luxembourg',
+            'mexico' => 'Mexico',
+            'czech_republic' => 'Czech Republic',
+            'china' => 'China',
+            'brazil' => 'Brazil',
+            'slovakia' => 'Slovakia',
+            'bulgaria' => 'Bulgaria',
+            'croatia' => 'Croatia',
+            'united_states' => 'United States',
+            'chile' => 'Chile',
+            'australia' => 'Australia',
+            'germany' => 'Germany'
+        ];
+        $localisation = app()->getLocale(); // Obtenir la localisation actuelle (fr ou en)
+        $pays = ($localisation === "fr") ? $cleanCountryNamesFr : $cleanCountryNamesEn;
+
         $searchTerm = $request->input('query');
         $rouge = $request->rouge;
         $blanc = $request->blanc;
@@ -47,21 +117,11 @@ class BouteilleController extends Controller
             $query->where('nom', 'like', "%$searchTerm%");
         }
 
-        $countryFields = [
-            'Afrique_du_Sud', 'Allemagne', 'Argentine', "Arménie (République d')", 'Australie', 
-            'Autriche', 'Brésil', 'Bulgarie', 'Canada', 'Chili', 'Chine', 
-            'Croatie', 'Espagne', 'États-Unis', 'France', 'Géorgie', 'Grèce', 'Hongrie', 
-            'Israël', 'Italie', 'Liban', 'Luxembourg', 'Maroc', 'Mexique', 
-            'Moldavie', 'Nouvelle_Zélande', 'Portugal', 'Roumanie', 'République_Tchèque', 
-            'Slovaquie', 'Slovénie', 'Suisse', 'Uruguay'
-        ];
-
         $selectedCountries = [];
 
-        foreach ($countryFields as $field) {
-            if ($request->has($field)) {
-                $countryName = str_replace('_', ' ', $request->input($field));
-                $selectedCountries[] = $countryName;
+        foreach ($pays as $paysClean => $paysOfficiel) {
+            if ($request->has($paysClean)) {
+                $selectedCountries[] = $paysOfficiel;
             }
         }
 
@@ -199,10 +259,8 @@ class BouteilleController extends Controller
 
             $celliers = Cellier::where('user_id', auth()->id())->get();
 
-            $localisation = app()->getLocale(); // Obtenir la localisation actuelle (fr ou en)
-            $paysColumn = ($localisation === 'fr') ? 'pays_fr' : 'pays_en';
-            $pays = Bouteille::select($paysColumn)->distinct()->get()->sortBy($paysColumn);
-
+            
+            
             $pastilles = Bouteille::select('image_pastille_alt')->distinct()->get()->sortBy('image_pastille_alt');
             $cepages = $cepageEntries;
             return view('bouteilles.index', compact('celliers', 'pays', 'cepages', 'pastilles'));

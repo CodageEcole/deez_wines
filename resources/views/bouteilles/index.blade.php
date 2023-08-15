@@ -53,22 +53,18 @@
             <div class="filtre">
                 <button class="filtre-button-pays">Pays <img class="plus-pays" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
                 <div id="pays" class="filtre filtre-dropdown-pays">
-                @foreach($pays as $p)
-                    @if($p->pays_fr == 'germany')
+                @foreach ($pays as $paysClean => $paysOfficiel) 
+                    @if($paysOfficiel == 'germany')
                         @continue
                     @endif
-                    @php
-                        $locale = LaravelLocalization::getCurrentLocale();
-                        $sanitizedLabel = preg_replace("/[^A-Za-z0-9_èéàçôûâîêë]/", '', str_replace(' ', '_', ($locale == 'fr') ? $p->pays_fr : $p->pays_en));
-                    @endphp
                     <div class="label-simple">
-                        <label for="filtre-{{ $sanitizedLabel }}">
-                            {{ ($locale == 'fr') ? $p->pays_fr : $p->pays_en }}
+                        <label for="filtre-{{ $paysClean }}">
+                            {{ $paysOfficiel }}
                         </label>
                         <input class="input-checkbox" type="checkbox" 
-                            name="filtre-{{ $sanitizedLabel }}"
-                            id="filtre-{{ $sanitizedLabel }}"
-                            value="{{ ($locale == 'fr') ? $p->pays_fr : $p->pays_en }}">
+                            name="filtre-{{ $paysClean }}"
+                            id="filtre-{{ $paysClean }}"
+                            value="{{ $paysOfficiel }}">
                     </div>
                 @endforeach
                 </div>
