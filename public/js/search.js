@@ -239,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function resetFilterInput(filterValue) {
         //change the spaces in the filterValue to underscores
         filterValue = filterValue.replace(/ /g, "_");
+        console.log(filterValue);
         let filterInput = document.querySelector("#filtre-" + filterValue);
 
         if (filterInput.type === "checkbox") {

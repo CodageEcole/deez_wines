@@ -53,17 +53,24 @@
             <div class="filtre">
                 <button class="filtre-button-pays">Pays <img class="plus-pays" src="{{ asset('icons/plus_icon_grey.svg') }}" alt="Ouvrir"></button>
                 <div id="pays" class="filtre filtre-dropdown-pays">
-                    @foreach($pays as $p)
-                        <div class="label-simple">
-                            <label for="filtre-{{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}">
-                                {{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}
-                            </label>
-                            <input class="input-checkbox" type="checkbox" 
-                                name="filtre-{{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}"
-                                id="filtre-{{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}"
-                                value="{{ (LaravelLocalization::getCurrentLocale() == 'fr') ? $p->pays_fr : $p->pays_en }}">
-                        </div>
-                    @endforeach
+                @foreach($pays as $p)
+                    @if($p->pays_fr == 'germany')
+                        @continue
+                    @endif
+                    @php
+                        $locale = LaravelLocalization::getCurrentLocale();
+                        $sanitizedLabel = preg_replace("/[^A-Za-z0-9_èéàçôûâîêë]/", '', str_replace(' ', '_', ($locale == 'fr') ? $p->pays_fr : $p->pays_en));
+                    @endphp
+                    <div class="label-simple">
+                        <label for="filtre-{{ $sanitizedLabel }}">
+                            {{ ($locale == 'fr') ? $p->pays_fr : $p->pays_en }}
+                        </label>
+                        <input class="input-checkbox" type="checkbox" 
+                            name="filtre-{{ $sanitizedLabel }}"
+                            id="filtre-{{ $sanitizedLabel }}"
+                            value="{{ ($locale == 'fr') ? $p->pays_fr : $p->pays_en }}">
+                    </div>
+                @endforeach
                 </div>
             </div>
 

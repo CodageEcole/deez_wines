@@ -48,12 +48,12 @@ class BouteilleController extends Controller
         }
 
         $countryFields = [
-            'Afrique_du_Sud', 'Allemagne', 'Argentine', 'Arménie', 'Australie', 
+            'Afrique_du_Sud', 'Allemagne', 'Argentine', "Arménie (République d')", 'Australie', 
             'Autriche', 'Brésil', 'Bulgarie', 'Canada', 'Chili', 'Chine', 
-            'Croatie', 'Espagne', 'États-Unis', 'France', 'Grèce', 'Hongrie', 
+            'Croatie', 'Espagne', 'États-Unis', 'France', 'Géorgie', 'Grèce', 'Hongrie', 
             'Israël', 'Italie', 'Liban', 'Luxembourg', 'Maroc', 'Mexique', 
             'Moldavie', 'Nouvelle_Zélande', 'Portugal', 'Roumanie', 'République_Tchèque', 
-            'Slovacquie', 'Slovénie', 'Suisse', 'Uruguay'
+            'Slovaquie', 'Slovénie', 'Suisse', 'Uruguay'
         ];
 
         $selectedCountries = [];
@@ -72,7 +72,6 @@ class BouteilleController extends Controller
             });
         }
 
-        $similarityThreshold = 80;
         $cepageEntries = Bouteille::select('cepage')
             ->distinct()
             ->get()
@@ -80,7 +79,21 @@ class BouteilleController extends Controller
             ->flatMap(function ($cepage) {
                 $cepageArray = explode(', ', $cepage);
                 return array_map(function ($entry) {
-                    return trim(preg_replace('/[0-9%]+/', '', $entry));
+                                    // Convertir les codes Unicode en caractères
+                    $cleanedEntry = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($matches) {
+                        return mb_convert_encoding(pack('H*', $matches[1]), 'UTF-8', 'UTF-16BE');
+                    }, $entry);
+
+                    // Supprimer les caractères spéciaux U+A0 (espaces insécables)
+                    $cleanedEntry = str_replace("\u{A0}", '', $cleanedEntry);
+
+                    // Supprimer les caractères non alphabétiques, espaces, tirets et parenthèses
+                    $cleanedEntry = preg_replace('/[^\p{L}\s\-()]+/u', '', $cleanedEntry);
+
+                    // Supprimer les espaces insécables en utilisant \s
+                    $cleanedEntry = preg_replace('/\s+/u', ' ', $cleanedEntry);
+
+                    return trim($cleanedEntry);
                 }, $cepageArray);
             })
             ->filter()

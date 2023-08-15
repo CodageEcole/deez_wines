@@ -89,7 +89,7 @@
                 <img class="footer-icon-img" src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Celliers">
                 <p>@lang('messages.cellars')</p>
             </a>
-            <a href="{{ route('liste_achat.show', ['liste_achat' => '1']) }}">
+            <a href="{{ route('liste_achat.index') }}">
                 <img class="footer-icon-img" src="{{ asset('icons/add_icon_white.svg') }}" alt="Liste_achats">
                 <p>@lang('messages.list')</p>
             </a>
