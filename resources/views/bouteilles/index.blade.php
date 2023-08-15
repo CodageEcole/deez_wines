@@ -168,7 +168,7 @@
 <main class="indexBouteilles">
 
 </main>
-
+@include('components.modals.modale-tri-bouteilles')
 @include('components.modals.modale-ajout-bouteille')
 @push('scripts')
 <script src="{{ asset('js/modal.js')}}"></script>
