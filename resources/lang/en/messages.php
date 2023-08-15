@@ -121,6 +121,7 @@ return [
     'country' => 'Country',
     'price' => 'Price',
 
+
     //sort
     'sort' => 'Sort',
 
@@ -139,4 +140,7 @@ return [
 
     //rights
     'rights' => 'DW © All Rights Reserved',
+
+    //pagination
+    'first' => 'first'
 ];

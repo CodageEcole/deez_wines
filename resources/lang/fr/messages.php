@@ -140,4 +140,7 @@ return [
 
     //rights
     'rights' => 'DW © Tous Droits Réservés',
+
+    //pagination
+    'first' => 'prem.'
 ];
