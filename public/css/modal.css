@@ -5,6 +5,7 @@ dialog:not(.modalePage) {
     min-width: 250px;
     margin-left: var(--back-to-card-margin);
     margin-right: var(--back-to-card-margin);
+    z-index: 1;
 }
 
 .ajoutCellier h2,
@@ -72,6 +73,9 @@ dialog:not(.modalePage) {
 .cancel-button span {
     color: white;
 }
+/* dialog::backdrop{
+    background-color: rgba(0, 0, 0, 0.5);
+} */
 
 dialog p {
     padding: 5px;

@@ -8,10 +8,29 @@ document.addEventListener('DOMContentLoaded', function () {
         filtresSideBar.style.display = "flex";
     });
     let resultatsHtml = document.querySelector(".resultats");
-
+    const trisTrigger = document.querySelector('.tris-trigger');
+    const trisModale = document.querySelector('.tris-modale');
+    trisTrigger.addEventListener('click', function() {
+        trisModale.show();
+    });
+    let trisTriggerP = document.querySelector('.tris-trigger p');
+    let tris = document.querySelectorAll(".tris-modale li");
+    tris.forEach(tri => {
+        tri.addEventListener('click', function(e) {
+            trisTriggerP.innerHTML = tri.innerHTML;
+            fetchSearchResults(e);
+            trisModale.close();
+        }); 
+    });
     let nombreFiltres = document.querySelector('.filtres-trigger span');
-    searchInput.addEventListener('input', fetchSearchResults);
-    filtresSideBar.addEventListener('input', fetchSearchResults);
+    searchInput.addEventListener('input', function () {
+        trisTriggerP.innerHTML = selectedLanguage === "fr" ? "Trier" : "Sort";
+        fetchSearchResults()
+    });
+    filtresSideBar.addEventListener('input', function () {
+        trisTriggerP.innerHTML = selectedLanguage === "fr" ? "Trier" : "Sorts";
+        fetchSearchResults()
+    });
 
     // Fonction qui récupère les images de pastille
     function getPastilleClass(image_pastille_alt) {
@@ -41,23 +60,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Fonction qui récupère les labels de pastille pour extraire le nom de la pastille
-    function getPastilleLabel(image_pastille_alt) {
-        const parts = image_pastille_alt.split(":");
-        return parts.length === 2 ? parts[1].trim() : image_pastille_alt;
-    }   
+
 
     // Fonction qui crée le HTML d'une carte de vin
     function createCardHtml(bouteille) {
         const pastilleClass = getPastilleClass(bouteille.image_pastille_alt);
+        const pastilleLabel = getPastilleLabel(bouteille.image_pastille_alt);
         const paysKey = `pays_${selectedLanguage}`;
         const couleurKey = `couleur_${selectedLanguage}`;
-
-        console.log('pays key', paysKey)
         //On genere le html de la carte
         const cardHTML = `
             <div class="carte-vin-container">
-                ${pastilleClass ? `<div class="bande-de-gout-${pastilleClass}"><span>${getPastilleLabel(bouteille.image_pastille_alt)}</span></div>` : ''}
+                ${pastilleClass ? `<div class="bande-de-gout-${pastilleClass}"><span>${pastilleLabel}</span></div>` : ''}
                 <div class="carte-vin ${!bouteille.image_pastille_alt ? 'no-pastille' : ''}">
                     <picture class="protruding">
                     ${bouteille.est_personnalisee
@@ -169,20 +183,32 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         })
         .catch(error => {
+            const errorMessage = selectedLanguage === 'fr'
+                ? "Erreur lors de la récupération des résultats. Veuillez réessayer plus tard."
+                : "Error fetching results. Please try again later.";
             console.error('Error fetching paginated results:', error);
-            searchResults.innerHTML = '<p>Error fetching results. Please try again later.</p>';
+            searchResults.innerHTML = `<p>${errorMessage}</p>`;
         });
 
     }
-  
-    function fetchSearchResults(event) {
 
+    function fetchSearchResults(event) {
         const searchTerm = searchInput?.value.trim() || "";
         let url = "/bouteilles";
+
         if (searchTerm) {
             url += `?query=${encodeURIComponent(searchTerm)}`;
         }
-        
+
+        // Add sortField to the URL only if a sort is selected
+        const selectedSort = document.querySelector('.tris-trigger p');
+        const sortField = selectedSort.dataset.tri;
+    
+        if (event && event.target.classList.contains("tri")) {
+            url += url.includes("?") ? `&` : `?`;
+            url += `tri=${encodeURIComponent(event.target.dataset.tri)}`;
+        }
+
         const selectedFilters = document.querySelectorAll("input[type=checkbox]:checked");
         selectedFilters.forEach(selectedFilter => {
             url = createPillHtml(selectedFilter, url);
@@ -194,24 +220,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
         existingPillules.forEach(pillule => {
             const filterValue = pillule.id.replace(/ /g, "_").split("-").slice(1).join("-");
-            console.log(filterValue);
             const filterInput = document.querySelector(`#filtre-${filterValue}`);
-            console.log(filterInput);
             const isChecked = filterInput.checked;
             if (!isChecked) {
                 pillule.remove();
             }
         });
+            
         nombreFiltres.innerHTML = existingPillules.length > 0 ? " (" + existingPillules.length + ")" : "";
+
         // Call fetchPaginatedResults only if there's a searchTerm or if filters are applied
-        if (searchTerm || selectedFilters.length > 0 ) {
+        if (searchTerm || selectedFilters.length > 0 || (event && event.target.classList.contains("tri"))) {
             fetchPaginatedResults(url);
         } else {
             // Clear the search results if no searchTerm or filters are applied
             searchResults.innerHTML = '';
             resultatsHtml.innerHTML = '';
         }
-        console.log(url);
+    }
+
+    // Fonction qui récupère les labels de pastille pour extraire le nom de la pastille
+    function getPastilleLabel(imagePastilleAlt) {
+        if(!imagePastilleAlt){
+            return '';
+        }
+
+        const parts = imagePastilleAlt.split(' : ');
+        const pastilleValue = parts.length > 1 ? parts[1] : '';
+        
+        // Utiliser le tableau pastilleTableau pour obtenir la traduction appropriée
+        return pastilleTableau[pastilleValue] || pastilleValue;
     }
 
     function createPillHtml(pillule, url) {
@@ -223,7 +261,6 @@ document.addEventListener('DOMContentLoaded', function () {
         nomFiltre = pillule.name.replace(/ /g, "_").split("-").slice(1).join("-");;
         let zonePillules = document.querySelector(".zone-pillules");
         let existingPillule = document.querySelector(`#pillule-${nomFiltre}`);
-        console.log("test pillule", existingPillule)
 
         if (existingPillule) {
             existingPillule.remove();
@@ -247,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function resetFilterInput(filterValue) {
         //change the spaces in the filterValue to underscores
         filterValue = filterValue.replace(/ /g, "_");
-        console.log(filterValue);
         let filterInput = document.querySelector("#filtre-" + filterValue);
 
         if (filterInput.type === "checkbox") {
@@ -270,6 +306,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (pillule) {
                 const filterValue = pillule.id.replace(/ /g, "_").split("-").slice(1).join("-");;
                 resetFilterInput(filterValue);
+                trisTriggerP.innerHTML = selectedLanguage === "fr" ? "Trier" : "Sort";
                 pillule.remove();
                 fetchSearchResults();
             }
