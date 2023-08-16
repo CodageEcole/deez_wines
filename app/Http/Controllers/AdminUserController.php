@@ -185,6 +185,6 @@ class AdminUserController extends Controller
         $nomUsager = $user->name;
         $user->forceDelete();
 
-        return redirect()->route('admin.users')->with('success', trans('messages.delete_user', compact('nomUsager')));
+        return redirect()->route('admin.users')->with('success', trans('admin.delete_user', compact('nomUsager')));
     }
 }
