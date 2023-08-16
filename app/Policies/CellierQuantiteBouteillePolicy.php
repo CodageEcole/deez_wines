@@ -45,7 +45,7 @@ class CellierQuantiteBouteillePolicy
      */
     public function delete(User $user, CellierQuantiteBouteille $cellierQuantiteBouteille): bool
     {
-        return $user->id === $cellierQuantiteBouteille->user_id || $user->role === 'user';
+        return $user->id === $cellierQuantiteBouteille->user_id || $user->role === 'user' || $user->role === 'admin';
     }
 
     /**
