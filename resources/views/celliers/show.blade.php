@@ -4,7 +4,7 @@
     <link href=" {{ asset('css/carte-vin-lr.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/cellier-show.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href=" {{ asset('css/auth.css') }}" rel="stylesheet">
 @endpush
 @section('content')
 <main>
@@ -46,40 +46,19 @@
 
         @foreach($cellierQuantiteBouteille as $quantiteBouteille)
         <div class="carte-vin-container">
-            {{-- @if($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Fruité et vif")
-                <div class="bande-de-gout-fv"> <span>Fruité et Vif</span> </div>
-            @elseif($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Aromatique et charnu")
-                <div class="bande-de-gout-ac"> <span>Aromatique et Charnu</span> </div>
-            @elseif($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Aromatique et rond")
-                <div class="bande-de-gout-ar"> <span>Aromatique et Rond</span> </div>
-            @elseif($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Aromatique et souple")
-                <div class="bande-de-gout-as"> <span>Aromatique et Souple</span> </div>
-            @elseif($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Délicat et léger")
-                <div class="bande-de-gout-dl">  <span>Délicat et Léger</span></div>
-            @elseif($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Fruité et doux")
-                <div class="bande-de-gout-fd"> <span>Fruité et Doux</span> </div>
-            @elseif($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Fruité et généreux")
-                <div class="bande-de-gout-fg"> <span>Fruité et Généreux</span> </div>
-            @elseif($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Fruité et léger")
-                <div class="bande-de-gout-fl"> <span>Fruité et Léger</span> </div>
-            @elseif($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Fruité et vif")
-                <div class="bande-de-gout-fv"> <span>Fruité et Vif</span> </div>
-            @elseif($quantiteBouteille->bouteille->image_pastille_alt == "Pastille de goût : Fruité et extra-doux")
-                <div class="bande-de-gout-fed"> <span>Fruité et Extra-Doux</span></div>
-            @endif --}}
 
             {{-- nouvelle version, mais ça sert à quoi? --}}
             @php
                 $pastilleMap = [
-                    "Fruité et vif" => ["class" => "bande-de-gout-fv", "text" => "Fruité et Vif"],
-                    "Aromatique et charnu" => ["class" => "bande-de-gout-ac", "text" => "Aromatique et Charnu"],
-                    "Aromatique et rond" => ["class" => "bande-de-gout-ar", "text" => "Aromatique et Rond"],
-                    "Aromatique et souple" => ["class" => "bande-de-gout-as", "text" => "Aromatique et Souple"],
-                    "Délicat et léger" => ["class" => "bande-de-gout-dl", "text" => "Délicat et Léger"],
-                    "Fruité et doux" => ["class" => "bande-de-gout-fd", "text" => "Fruité et Doux"],
-                    "Fruité et généreux" => ["class" => "bande-de-gout-fg", "text" => "Fruité et Généreux"],
-                    "Fruité et léger" => ["class" => "bande-de-gout-fl", "text" => "Fruité et Léger"],
-                    "Fruité et extra-doux" => ["class" => "bande-de-gout-fed", "text" => "Fruité et Extra-Doux"],
+                    "Pastille de goût : Fruité et vif" => ["class" => "bande-de-gout-fv", "text" => "Fruité et Vif"],
+                    "Pastille de goût : Aromatique et charnu" => ["class" => "bande-de-gout-ac", "text" => "Aromatique et Charnu"],
+                    "Pastille de goût : Aromatique et rond" => ["class" => "bande-de-gout-ar", "text" => "Aromatique et Rond"],
+                    "Pastille de goût : Aromatique et souple" => ["class" => "bande-de-gout-as", "text" => "Aromatique et Souple"],
+                    "Pastille de goût : Délicat et léger" => ["class" => "bande-de-gout-dl", "text" => "Délicat et Léger"],
+                    "Pastille de goût : Fruité et doux" => ["class" => "bande-de-gout-fd", "text" => "Fruité et Doux"],
+                    "Pastille de goût : Fruité et généreux" => ["class" => "bande-de-gout-fg", "text" => "Fruité et Généreux"],
+                    "Pastille de goût : Fruité et léger" => ["class" => "bande-de-gout-fl", "text" => "Fruité et Léger"],
+                    "Pastille de goût : Fruité et extra-doux" => ["class" => "bande-de-gout-fed", "text" => "Fruité et Extra-Doux"],
                 ];
             @endphp
 

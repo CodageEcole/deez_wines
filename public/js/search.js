@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             trisModale.close();
         }); 
     });
-    let nombreFiltres = document.querySelector('.filtres-trigger span');
+    let nombreFiltres = document.querySelector('.filtres-trigger .span-number');
     searchInput.addEventListener('input', function () {
         trisTriggerP.innerHTML = selectedLanguage === "fr" ? "Trier" : "Sort";
         fetchSearchResults()
@@ -81,12 +81,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     </picture>
                     <section>
                     <a href="/bouteilles/${bouteille.id}"><h2>${bouteille.nom}</h2></a>
-                    <p>
-                        ${bouteille[couleurKey] ? bouteille[couleurKey] + " | " : ""}
+                    <p class="vignette-info">
+                        ${bouteille.couleur_fr ? bouteille.couleur_fr + " | " : ""}
                         ${bouteille.format ? bouteille.format + " | " : ""}
                         ${bouteille[paysKey] ? bouteille[paysKey] + " | " : ""}
-                        ${bouteille.prix + " $"}
                     </p>
+                    <span class="span-prix">${bouteille.prix + " $"}</span>
                     </section>
                     <div class="overlap" data-nom="${bouteille.nom}" data-id="${bouteille.id}" onclick='openModal("${bouteille.nom.replace(/'/g, '&#39;')}","${bouteille.id}")'>
                         <p class="invisible-385px">${bouteille.message}</p>
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
             
-        nombreFiltres.innerHTML = existingPillules.length > 0 ? " (" + existingPillules.length + ")" : "";
+        nombreFiltres.innerHTML = existingPillules.length > 0 ? "  (" + existingPillules.length + ")" : "";
 
         // Call fetchPaginatedResults only if there's a searchTerm or if filters are applied
         if (searchTerm || selectedFilters.length > 0 || (event && event.target.classList.contains("tri"))) {

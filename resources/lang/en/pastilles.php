@@ -11,7 +11,7 @@ return [
     'fs' => 'Fruity and sweet',
     'fes' => 'Fruity and extra sweet',
 
-    'pastilles' => 'Taste tag'
+    'pastille' => 'Taste tag'
 ];
 
 ?>

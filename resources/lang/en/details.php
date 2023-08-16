@@ -13,6 +13,7 @@ return [
     'regulateddesignation' => 'Regulated designation',
     'promotionagent' => 'Promotion agent',
     'aromas' => 'Aromas',
+    'cepage' => 'Grape variety',
     'servingtemperature' => 'Serving temperature',
 
     'detailedinformation' => 'Detailed info',

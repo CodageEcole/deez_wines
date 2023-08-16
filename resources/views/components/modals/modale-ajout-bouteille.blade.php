@@ -36,9 +36,10 @@
         </div>
     </form>
     
-    <form action="{{ route('liste_achat.store') }}" method="post">
+    <form class="form-liste-achat" action="{{ route('liste_achat.store') }}" method="post">
         @csrf
         <input type="hidden" name="bouteille_id_liste" id="bouteille-id-liste">
-        <button type="submit" class="boutonCellier">@lang('messages.add_to_list')</button>
+        <h2>@lang('messages.add_to_list')</h2>
+        <button type="submit" class="boutonCellier">@lang('messages.click_here')</button>
     </form>
 </dialog>

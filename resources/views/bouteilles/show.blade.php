@@ -32,11 +32,12 @@
                     @endphp
                 <p>{{ $infoVignette }}</p>
             </div>
-            <a class="bouton-ajouter" onclick="openModal({{ json_encode($bouteille->nom) }}, '{{ $bouteille->id }}', '{{  $infoVignette }}')">
+            <a class="bouton-ajouter" onclick='openModal("{{ $bouteille->nom }}", "{{ $bouteille->id }}", "{{  $infoVignette }}")'>
                 @lang('details.add')<img src="{{ asset('icons/cellier_icon_white.svg') }}" alt="Plus">
             </a>
 
             <div class="informations">
+                <h3><img src="{{ asset('icons/dollar_icon.svg') }}" alt=""> {{ $bouteille->prix }}</h3>
                 <div class="info-double">
                     <div>
                         <h3>@lang('details.region')</h3>
@@ -62,6 +63,13 @@
                     <div class="info-simple">
                         <h3>@lang('details.servingtemperature')</h3>
                         <p>{{ $bouteille->temperature_fr }}</p>
+                    </div>
+                @endif
+
+                @if(!empty($bouteille->cepage))
+                    <div class="info-simple">
+                        <h3>@lang('details.cepage')</h3>
+                        <p>{{ $bouteille->cepage }}</p>
                     </div>
                 @endif
 
