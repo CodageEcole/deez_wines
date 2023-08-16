@@ -1,6 +1,7 @@
 @extends('layout.app')
 @push('styles')
     <link href="{{ asset('css/modal.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/auth.css') }}" rel="stylesheet">
     <link href="{{ asset('css/listeAchat.css') }}" rel="stylesheet">
 @endpush
 @section('title', __('messages.title_list'))
@@ -31,7 +32,7 @@
                         <form class="formulaireDel" action="{{ route('liste_achat.destroy', $bouteilleListe->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button class="boutonSupp" type="submit"><img src="{{ asset('icons/x.svg') }}" alt=""></button>
+                            <button class="boutonSupp" type="submit" data-text="@lang('supprimer.del_bottle')" data-title="@lang('supprimer.del_bottle_title')"><img src="{{ asset('icons/x.svg') }}" alt=""></button>
                         </form>
                     </div>
                     @endif
