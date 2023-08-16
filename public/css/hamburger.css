@@ -24,6 +24,7 @@
 .mobile-nav .deconnexion-app-info {
     font-family: 'MabryPro';
     color: grey;
+    text-decoration: none;
 }
 
 .mobile-nav,

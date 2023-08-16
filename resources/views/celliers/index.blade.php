@@ -16,7 +16,7 @@
     </div>
 @endif
 @if(count($celliers) == 0)
-    <section class="cellier">
+    <section class="cellier no-cellier-box">
         <p>@lang('messages.no_cellar')</p>
     </section>
 @endif

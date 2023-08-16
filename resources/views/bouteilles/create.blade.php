@@ -6,6 +6,7 @@
 @endpush
 @section('content')
 <main class="creerCellier">
+    <h2>@lang('messages.create_title')</h2>
     <form class="form-full-size" method="POST" action="{{ route('bouteilles.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="form-input">
@@ -28,7 +29,7 @@
             <label for="image_bouteille">@lang('messages.picture')</label>
             <input type="file" id="image_bouteille" name="image_bouteille" accept="image/png, image/jpeg">
         </div>
-        <button class="boutonCellier espace" type="submit" value="Créer" aria-label="Parcourir">@lang('messages.create')</button>
+        <button class="boutonCellier espace bouton-creer" type="submit" value="Créer" aria-label="Parcourir">@lang('messages.create')<span class="material-symbols-outlined">add_circle</span></button>
     </form>
 </main>
 @endsection
