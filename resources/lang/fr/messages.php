@@ -97,8 +97,8 @@ return [
     'modify' => 'Modifier',
     'delete' => 'Supprimer',
     'your_bottles' => 'Vos bouteilles',
+    'your_cellars' => 'Vos celliers',
     'cellars' => 'Celliers',
-    'your_cellars' => 'Your Cellars',
     'back_to_site' => 'Retour au site',
     'no_cellar' => 'On dirait bien que vous n\'avez pas de cellier, créez-en un en cliquant sur le bouton ci-dessous !',
 

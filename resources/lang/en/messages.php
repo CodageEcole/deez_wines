@@ -94,10 +94,10 @@ return [
     'modify' => 'Modify',
     'delete' => 'Delete',
     'your_bottles' => 'Your bottles',
+    'your_cellars' => 'Your cellars',
     'cellars' => 'Cellars',
     'back_to_site' => 'Back to site',
     'no_cellar' => 'It looks like you don\'t have a cellar, create one by clicking on the button below!',
- 
 
     //Validation messages
     'edit_cellar' => "You changed the cellar's name from :vieuxNomCellier to :nouveauNomCellier.",
