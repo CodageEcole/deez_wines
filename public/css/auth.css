@@ -86,8 +86,16 @@ label {
     cursor: pointer;
 
     font-family: "MabryPro";
-    font-size: 24px;
     color: white;
+}
+
+.loginForm button {
+    font-size: 24px;
+}
+
+.cancel-button,
+.profilSupprimergs {
+    font-size: 16px;
 }
 
 form > div > .profilSupprimergs,

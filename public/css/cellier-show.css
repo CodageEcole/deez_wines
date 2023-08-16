@@ -69,12 +69,21 @@
     align-items: center;
     background-color: var(--vivid-red);
     padding: 5px;
+    border-radius: 5px;
+}
+
+.boutonSupp-cellier {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--vivid-red);
+    padding: 5px;
     width: 35px;
     height: 35px;
     border-radius: 5px;
 }
 
-.boutonSupp img {
+.boutonSupp-cellier img {
     width: 20px;
     height: 20px;
 }
@@ -152,6 +161,7 @@
 .overlap-cellier-supprimer {
     bottom: 10px;
     left: 75px;
+    width: auto;
 
     background-color: var(--vivid-red);
 }
