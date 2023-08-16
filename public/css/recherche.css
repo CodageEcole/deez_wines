@@ -9,9 +9,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 70px;
-    border-bottom: 1px solid var(--dark-brown);
-    background-color: var(--light-grey);
+    min-height: 55px;
+    background-color: var(--light-brown);
 }
 
 .rechercheInput {   

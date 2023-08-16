@@ -1,5 +1,8 @@
 <dialog class="confirmerDel">
-    <p>@lang('messages.sure_to_delete')</p>
-    <button>@lang('messages.confirm_deletion')</button>
-    <button>@lang('messages.cancel')</button>
+    <h2>@lang('messages.sure_to_delete')</h2>
+    <p>@lang('messages.cellar_delete_message')</p>
+    <div>
+        <button class="profilSupprimergs">@lang('messages.confirm_deletion')<span class="material-symbols-outlined">report</span></button>
+        <button class="cancel-button">@lang('messages.cancel')<span class="material-symbols-outlined">close</span></button>
+    </div>
 </dialog>

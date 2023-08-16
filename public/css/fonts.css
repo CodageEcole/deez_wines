@@ -29,6 +29,13 @@
 }
 
 @font-face {
+    font-family: 'Maax';
+    src: url('/fonts/MaaxTrial-Bold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Bonobo';
     src: url('/fonts/Bonobo-Regular.ttf') format('truetype');
     font-weight: normal;
@@ -45,7 +52,8 @@
                    U+002D, /* - */
                    U+002F, /* / */
                    U+0027, /* ' */
-                   U+0034; /* 4 */
+                   U+0034, /* 4 */
+                   U+0024; /* $ */
 }
 
 @font-face {

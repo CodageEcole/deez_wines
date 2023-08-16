@@ -73,7 +73,7 @@ main {
 
 h2 {
     font-family: 'Bonobo', 'GelicaLight', sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: normal;
     color: black;
     letter-spacing: 1px;
@@ -85,11 +85,20 @@ a {
     text-decoration: none;
 }
 
-p {
+p, .span-prix {
+    display: flex;
+    flex-wrap: wrap;
     font-family: 'MabryPro';
     font-size: 15px;
-    margin-top: 10px;
     margin-bottom: 0;
+}
+
+p {
+    margin-top: 5px;
+}
+
+.span-prix {
+    margin-top: 5px;
 }
 
 /* ========== Bande de Gout ========== */

@@ -19,6 +19,8 @@ h2 {
 }
 /** Le lien du nom de la bouteille*/
 .item-liste a {
+    font-family: "MabryPro";
+    font-size: 18px;
     color: black;
     text-decoration: none;
     max-width: 80%;
@@ -33,19 +35,19 @@ h2 {
 }
 /** Bouton de suppression */
 .boutons {
+    cursor: pointer;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-color: white;
+    gap: 10px;
+    padding: 5px;
     border-radius: 5px;
-    border: 1px solid black;
-    margin-right: 10px;
+    background-color: var(--dark-brown);
 }
 .boutons p {
-    margin-block: 6px;
-    margin-inline: 8px;
-    color: black;
-    background-color: white;
+    font-size: 12px;
+    font-family: 'MabryPro';
+    color: white;
+    margin: 0;
 }
 .item-liste button {
     display: inline-block; /* Make the anchor element a block-level container */

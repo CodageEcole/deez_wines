@@ -1,35 +1,36 @@
 .filtres-tris-conteneur {
     display: flex;
     gap: 10px;
-    margin: 10px;
-    margin-top: 0;
+    margin: 0;
     max-width: 100%;
     max-height: 100px;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 0 15px 10px 15px;
+    background-color: var(--light-brown);
 }
 .filtres-tris-conteneur > * {
     min-width: 50%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     border-radius: 5px;
-    background-color: var(--light-brown);
-    padding-block: 10px;
+    background-color: var(--dark-brown);
+    padding-block: 8px;
 }
 .filtres-tris-conteneur > * img {
-    max-width: 40px;
-    max-height: 40px;
+    max-width: 30px;
+    max-height: 30px;
+    
 }
-
 .filtres-side-bar {
     /* display: flex; */
     flex-direction: column;
 }
 
 .resultats {
-    margin-inline: auto;
+    margin: auto;
+    padding-bottom: 10px;
 }
 .zone-pillules {
     margin-inline: 10px;
@@ -204,10 +205,48 @@
     transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
 }
 
+.filtres-trigger p,
+.tris-trigger p {
+    font-size: 20px;
+    margin-top: 0;
+    color: white;
+}
+
 /* input */
 
 .input-checkbox {
     width: 25px;
     height: 25px;
     accent-color: grey;
+}
+
+.material-symbols-outlined {
+    color: white;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+}
+
+.filtres-trigger p {
+    display: block;
+}
+
+.tris-trigger > p .material-symbols-outlined {
+    display: none;
+}
+
+/* ================= MEDIA ================= */
+
+@media (max-width: 385px) {
+
+    .filtres-trigger p,
+    .tris-trigger p {
+        font-size: 14px;
+    }
+
+    .tri .material-symbols-outlined {
+        display: none;
+    }
 }

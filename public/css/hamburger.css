@@ -1,10 +1,10 @@
 .hamburger {
-    height: 60px !important;
+    height: 45px !important;
     cursor: pointer;
 }
 
 .hamburger img {
-    height: 60px;
+    height: 45px;
 }
 
 .mobile-nav div > a
@@ -33,8 +33,8 @@
     position: fixed;
     top: 0;
     width: 80%;
-    margin-top: 90px;
-    min-height: calc(100vh - 90px);
+    margin-top: 75px;
+    min-height: calc(100vh - 75px);
     z-index: 3;
     transition: 0.2s;
     background-color: white;
@@ -155,6 +155,10 @@
     font-size: 18px;
 }
 
+.mobile-nav .humans > a {
+    color: unset;
+}
+
 /* Overlay */
 
 .overlay-grey,
@@ -163,8 +167,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100% - 90px);
-    margin-top: 90px;
+    height: calc(100% - 75px);
+    margin-top: 75px;
     background-color: rgba(0, 0, 0, 0.3);
     display: none;
     cursor: pointer;

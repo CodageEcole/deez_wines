@@ -75,11 +75,14 @@ return [
 
 
     // Modal - Add Cellar
-    'name_your_cellar' => 'Nommez votre cellier',
+    'name_your_cellar' => 'Ex : Maison',
+    'namecellar' => 'Nommez votre cellier',
 
     // Modal - Confirm Delete
-    'sure_to_delete' => 'Are you sure you want to delete?',
-    'confirm_deletion' => 'Confirm deletion',
+    'sure_to_delete' => 'Êtes-vous certain de vouloir supprimer votre cellier?',
+    'confirm_deletion' => 'confirmer la supression',
+    'cellar_delete_message' => 'Supprimer ce cellier suprrimera définitivement tous les bouteilles qui y sont présente!',
+
 
     // Modal - Page Selector
     'page_selector' => 'Sélecteur de page',
@@ -143,5 +146,9 @@ return [
     'rights' => 'DW © Tous Droits Réservés',
 
     //pagination
-    'first' => 'prem.'
+    'first' => 'prem.',
+
+    //liste d'achat
+    'add_to_list' => "Vous voulez ajouter cette bouteille à votre liste d'achat?",
+    'click_here' => 'Cliquez ici'
 ];

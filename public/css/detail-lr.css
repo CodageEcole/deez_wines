@@ -108,6 +108,21 @@ main {
     margin-right: 45px;
 }
 
+.informations > h3 {
+    display: flex;
+    align-items: center;
+    font-family: "Maax", "Bonobo";
+    font-size: 32px;
+    font-weight: bolder;
+    margin: 0;
+}
+
+.informations > h3 > img {
+    filter: brightness(0);
+    margin-right: 5px;
+    height: 25px;
+}
+
 .carte-titre p,
 .info-modal {
     margin: 0;
@@ -258,6 +273,8 @@ form,
     padding: 10px;
     background-color: var(--light-brown);
     gap: 10px;
+    margin: auto;
+    width: 90%;
 }
 
 form label,

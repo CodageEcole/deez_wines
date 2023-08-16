@@ -13,7 +13,6 @@ body{
     width: 100%;
     min-width: var(--smoll-phone-w);
     max-width: var(--desktop-w);
-    
 }
 
 button {
@@ -64,7 +63,7 @@ footer {
 
 nav:not(.pagination) {
     display: flex;
-    /* height: 70px; */
+    height: 45px;
 }
 
 nav:not(.pagination) a,
