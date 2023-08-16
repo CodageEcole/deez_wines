@@ -94,7 +94,7 @@
                         <div>
                             <button class="modifierQuantite overlap-cellier-modifier espace" data-id="{{ $quantiteBouteille->id }}" data-nombre="{{ $quantiteBouteille->quantite }}">@lang('messages.modify')<span class="material-symbols-outlined">edit_note</span></button>
                         </div>
-                        <form action="{{ route('cellier_quantite_bouteille.destroy', $quantiteBouteille->id)}}" method="POST">
+                        <form class="formulaireDel" action="{{ route('cellier_quantite_bouteille.destroy', $quantiteBouteille->id)}}" method="POST">
                             @csrf
                             @method('DELETE')
                             <input type="hidden"  name="cellier_id" value="{{ $cellier->id }}">
