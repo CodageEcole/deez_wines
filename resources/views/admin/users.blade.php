@@ -2,6 +2,7 @@
 @section('title', __('admin.user_manage'))
 @push('styles')
     <link href=" {{ asset('css/modal.css') }}" rel="stylesheet">
+    <link href=" {{ asset('css/auth.css') }}" rel="stylesheet">
 @endpush
 @section('content')
 <main>
@@ -31,7 +32,7 @@
                     <form class="formulaireDel" action="{{ route('admin.destroy', $usager->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button class="boutonSupp" type="submit" onclick="openModal()">@lang('messages.delete_account')</button>
+                        <button class="boutonSupp" type="submit" onclick="openModal()" data-text="@lang('supprimer.del_user')" data-title="@lang('supprimer.del_user_title')">@lang('messages.delete_account')</button>
                     </form>
                     @endif
                     </td>

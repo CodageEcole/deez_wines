@@ -28,7 +28,7 @@
         <form class="formulaireDel" action="{{ route('celliers.destroy', $cellier->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button class="x-icon boutonSupp" type="submit" onclick="openModal()"><img src="{{ asset('icons/x.svg') }}" alt=""></button>
+            <button class="x-icon boutonSupp" type="submit" onclick="openModal()" data-text="@lang('supprimer.del_cellar')" data-title="@lang('supprimer.del_cellar_title')"><img src="{{ asset('icons/x.svg') }}" alt=""></button>
         </form>
     </div>
     <div>
@@ -97,7 +97,7 @@
                             @csrf
                             @method('DELETE')
                             <input type="hidden"  name="cellier_id" value="{{ $cellier->id }}">
-                            <button class="overlap-cellier-supprimer espace boutonSupp" type="submit">@lang('messages.delete')<span class="material-symbols-outlined">close</span></button>
+                            <button class="overlap-cellier-supprimer espace boutonSupp" type="submit" data-text="@lang('supprimer.del_bottle')" data-title="@lang('supprimer.del_bottle_title')">@lang('messages.delete')<span class="material-symbols-outlined">close</span></button>
                         </form>
                     </div>
                 </section>
