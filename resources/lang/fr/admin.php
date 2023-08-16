@@ -41,6 +41,7 @@ return [
     'user_cellars_qty' => 'Nombre de celliers',
     'user_actions' => 'Actions',
     'update_user' => 'Mettre à jour',
+    'delete_user' => 'L\'utilisateur :nomUsager a été supprimé avec succès',
 
     // admin validation
     'update_username' => 'Le nom :vieuxNom a été mis à jour pour :nouveauNom.',

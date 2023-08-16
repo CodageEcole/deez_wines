@@ -41,6 +41,7 @@ return [
     'user_cellars_qty' => 'Number of Cellars',
     'user_actions' => 'Actions',
     'update_user' => 'Update infos',
+    'delete_user' => 'User :nomUsager has been sucessfully deleted',
 
     // admin validation
     'update_username' => 'The former username :vieuxNom has been updated to :nouveauNom.',

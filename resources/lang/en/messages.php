@@ -106,7 +106,7 @@ return [
     'add_bottle' => "You added :quantite bottle(s) of :nomBouteille to :nomCellier.",
     'edit_bottle_less' => "You took out :difference :nomBouteille from :nomCellier.",
     'edit_bottle_more' => "You added :difference :nomBouteille to :nomCellier.",
-    'delete_bottle' => "You deleled :nomBouteille from :nomCellier.",
+    'delete_bottle' => "You deleted :nomBouteille from :nomCellier.",
     'new_custom_bottle' => "Your :nomBouteille bottle has been added succesfully.",
 
     //Filtres
