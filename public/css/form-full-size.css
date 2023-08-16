@@ -29,7 +29,9 @@
   outline: none;
 }
 .form-input input:focus, .form-input textarea:focus {
+    color: grey;
     outline: none;
+    font-family: "MabryPro";
     background-color: white;
 }
 .form-input input::placeholder, .form-input textarea::placeholder {
