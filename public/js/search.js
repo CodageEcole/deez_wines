@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', function () {
     trisTrigger.addEventListener('click', function() {
         trisModale.show();
     });
+    document.addEventListener('click', function(event) {
+        if (!trisTrigger.contains(event.target)) {
+            trisModale.close();
+        }
+    });
     let trisTriggerP = document.querySelector('.tris-trigger p');
     let tris = document.querySelectorAll(".tris-modale li");
     tris.forEach(tri => {
