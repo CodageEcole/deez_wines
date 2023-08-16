@@ -97,6 +97,7 @@ return [
     'cellars' => 'Celliers',
     'your_cellars' => 'Your Cellars',
     'back_to_site' => 'Retour au site',
+    'no_cellar' => 'On dirait bien que vous n\'avez pas de cellier, créez-en un en cliquant sur le bouton ci-dessous !',
 
     // Validation messages
     'edit_cellar' => "Vous avez changé le nom de votre cellier :vieuxNomCellier pour :nouveauNomCellier.",
