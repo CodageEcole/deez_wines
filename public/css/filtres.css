@@ -232,3 +232,21 @@
 .filtres-trigger p {
     display: block;
 }
+
+.tris-trigger > p .material-symbols-outlined {
+    display: none;
+}
+
+/* ================= MEDIA ================= */
+
+@media (max-width: 385px) {
+
+    .filtres-trigger p,
+    .tris-trigger p {
+        font-size: 14px;
+    }
+
+    .tri .material-symbols-outlined {
+        display: none;
+    }
+}

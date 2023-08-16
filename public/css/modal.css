@@ -8,6 +8,80 @@ dialog:not(.modalePage) {
     z-index: 1;
 }
 
+dialog:not(.modalePage) {
+    background-color: var(--light-brown);
+    border-radius: 10px;
+    min-width: 250px;
+    z-index: 1;
+}
+
+dialog {
+    border: 2px solid var(--dark-brown);
+}
+
+.tris-modale ul {
+    position: absolute;
+    left: 46%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.tris-modale ul {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    /* max-width: 240px; */
+    width: 240px;
+    padding: 10px 0 10px 0;
+    margin-inline: auto;
+    text-align: center;
+    background-color: var(--light-brown);
+    gap: 15px;
+}
+
+.tris-modale li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-family: "MabryPro";
+    font-size: 20px;
+    color: white;
+    background-color: var(--dark-brown);
+    border-radius: 10px;
+    width: 80%;
+}
+
+.tris-modale li > span {
+    margin-left: 5px;
+}
+
+.tris-modale p {
+    padding: 5px;
+    margin: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--dark-brown);
+}
+
+dialog :is(input, button, span, select) {
+    color: #848484;
+}
+
+dialog button {
+    width: 40%;
+    border-radius: 10px;
+    padding-block: 10px;
+    margin-block: 7px;
+    cursor: pointer;
+    color: white;
+    font-size: 1.15em;
+}
+
 .ajoutCellier {
     position: absolute;
     top: 50%;
@@ -73,7 +147,8 @@ dialog:not(.modalePage) {
     color: white;
 }
 
-.confirmerDel .profilSupprimergs {
+.confirmerDel .profilSupprimergs,
+.confirmerDel .cancel-button {
     margin: 0;
 }
 
@@ -427,7 +502,8 @@ dialog label {
     font-size: 28px;
     color: var(--dark-brown);
     text-decoration: underline;
-    width: fit-content
+    width: fit-content;
+    background-color: var(--light-brown);
     
 }
 
@@ -468,9 +544,17 @@ dialog label {
 
     .formulairePage {
         top: 45%;
+        gap: 5px;
     }
 
     .form-liste-achat h2 {
         font-size: 16px;
+    }
+
+    .cellar-group {
+        gap: 10px;
+    }
+    .form-liste-achat {
+        gap: 0;
     }
 }
