@@ -32,16 +32,16 @@
         <!-- Remember Me -->
         <div>
             <label for="remember_me">
-                <input id="remember_me" type="checkbox" name="remember">
-                <span>{{ __('messages.remember_me') }}</span>
+                <input class="input-remember" id="remember_me" type="checkbox" name="remember">
+                <span class="span-remember">{{ __('messages.remember_me') }}</span>
             </label>
         </div>
         <div class="loginActions">
             <div>
                 @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}">{{ __('messages.forgot_password') }}</a>
+                <a class="underline" href="{{ route('password.request') }}">{{ __('messages.forgot_password') }}</a>
                 @endif
-                <a href="{{ route('register')}}">{{ __('messages.create_account') }}</a>
+                <a class="underline" href="{{ route('register')}}">{{ __('messages.create_account') }}</a>
             </div>
             <x-primary-button>{{ __('messages.log_in') }}</x-primary-button>
         </div>
