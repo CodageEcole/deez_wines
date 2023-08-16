@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
         newPillule.innerHTML = `
             <p>${valeurFiltre}</p>
             <button>
-            <img src="/icons/x.svg" alt="Croix">
+            <img src="/icons/x_grey.svg" alt="Croix">
             </button>
         `;
 

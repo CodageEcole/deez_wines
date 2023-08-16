@@ -29,8 +29,16 @@
 }
 
 .resultats {
-    margin: auto;
-    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--light-brown);
+    width: 100%;
+    margin: 0;
+    padding-bottom: 5px;
+    font-family: "MabryPro";
+    font-weight: normal;
+    color: white;
 }
 .zone-pillules {
     margin-inline: 10px;
