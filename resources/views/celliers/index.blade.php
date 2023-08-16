@@ -8,7 +8,12 @@
 
 
 @if (session('success'))
-    <div class="alert-success extra-margin" role="alert">{{ session('success') }}</div>
+    <div class="alert alert-success extra-margin alert-dismissible fade show" role="alert">
+        <p>{{ session('success') }}</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">X</span>
+        </button>
+    </div>
 @endif
 @if(count($celliers) == 0)
     <section class="cellier">
