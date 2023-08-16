@@ -32,7 +32,7 @@
                     <form class="formulaireDel" action="{{ route('admin.destroy', $usager->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button class="boutonSupp" type="submit" onclick="openModal()" data-text="@lang('supprimer.del_user')" data-title="@lang('supprimer.del_user_title')">@lang('messages.delete_account')</button>
+                        <button class="boutonSupp" type="submit" data-text="@lang('supprimer.del_user')" data-title="@lang('supprimer.del_user_title')">@lang('messages.delete_account')</button>
                     </form>
                     @endif
                     </td>
@@ -46,6 +46,5 @@
 @endsection
 @push('scripts')
     <script src="{{ asset('js/confirmerSupp.js')}}"></script>
-    <script src="{{ asset('js/modal.js')}}"></script>
     <script src="{{ asset('js/adminUpdateUser.js')}}"></script>
 @endpush
