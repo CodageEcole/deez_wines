@@ -26,7 +26,7 @@
                     @if(count($celliers) > 0)
                     <div>
                         <div class="boutons" data-nom="{{ $bouteilleListe->bouteille->nom }}" data-id="{{ $bouteilleListe->bouteille->id }}" onclick='openModal("{{ $bouteilleListe->bouteille->nom }}","{{ $bouteilleListe->bouteille->id }}")'>
-                            <p>@lang('messages.add')</p>
+                            <p>@lang('messages.add')</p><img src="{{ asset('icons/plus_icon.svg') }}" alt="">
                         </div>
                         <form class="formulaireDel" action="{{ route('liste_achat.destroy', $bouteilleListe->id) }}" method="POST">
                             @csrf

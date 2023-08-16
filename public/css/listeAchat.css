@@ -5,6 +5,7 @@ main {
 }
 h2 {
     margin-left: 0.5em;
+    font-family: 'Bonobo', 'GelicaLight', sans-serif;
 }
 /** Div de l'item de la liste*/
 .item-liste {
@@ -59,13 +60,40 @@ h2 {
     margin-left: 5px;
     
 }
+
+.formulaireDel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    margin-left: 5px;
+    border-radius: 5px;
+
+    background-color: var(--dark-brown);
+}
+
+.formulaireDel .boutonSupp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 25px;
+    max-width: 25px;
+    text-decoration: none;
+    margin-left: 0;
+    margin-bottom: 0;
+}
+
+.formulaireDel .boutonSupp img {
+    padding: 5px;
+    max-height: 12px;
+    max-width: 12px;
+}
 /** Icon de plus et x*/
 .item-liste img {
     border-radius: 5px;
     padding: 5px;
-    max-height: 25px;
-    max-width: 25px;
+    max-height: 15px;
+    max-width: 15px;
     object-fit: contain;
-    color: black;
-    background-color: white;
 }

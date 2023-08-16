@@ -21,7 +21,7 @@
             @csrf
             @method('PUT')
             <input class="input-edit-nom" type="text" name="nom" id="nom" value="{{ $cellier->nom }}">
-            <div class="crayon-edit-icon"><img src="{{ asset('icons/edit_pen.svg') }}" alt="crayon modification"></div>
+            <div class="crayon-edit-icon"><span class="material-symbols-outlined">edit_note</span></div>
             <button type="submit" class="bouton-annuler">@lang('messages.cancel')</button>
             <button type="submit" class="bouton-enregistrer">@lang('messages.save')</button>
         </form>
@@ -32,21 +32,20 @@
         </form>
     </div>
     <div>
-        <h2>@lang('messages.your_bottles')</h2>
-        <a class="boutonCellier espace" href="{{ route('bouteilles.create', Auth::id()) }}">@lang('messages.add_custom_bottle')</a>
-    
+        <h2 class="your-bottles">@lang('messages.your_bottles')</h2>
+        
         @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <p>{{ session('success') }}</p>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">X</span>
-                </button>
-            </div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>{{ session('success') }}</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">X</span>
+            </button>
+        </div>
         @endif
-
+        
         @foreach($cellierQuantiteBouteille as $quantiteBouteille)
         <div class="carte-vin-container">
-
+            
             {{-- nouvelle version, mais ça sert à quoi? --}}
             @php
                 $pastilleMap = [
@@ -60,23 +59,23 @@
                     "Pastille de goût : Fruité et léger" => ["class" => "bande-de-gout-fl", "text" => "Fruité et Léger"],
                     "Pastille de goût : Fruité et extra-doux" => ["class" => "bande-de-gout-fed", "text" => "Fruité et Extra-Doux"],
                 ];
-            @endphp
+                @endphp
 
             @if(array_key_exists($quantiteBouteille->bouteille->image_pastille_alt, $pastilleMap))
-                <div class="{{ $pastilleMap[$quantiteBouteille->bouteille->image_pastille_alt]['class'] }}">
-                    <span>{{ $pastilleMap[$quantiteBouteille->bouteille->image_pastille_alt]['text'] }}</span>
-                </div>
+            <div class="{{ $pastilleMap[$quantiteBouteille->bouteille->image_pastille_alt]['class'] }}">
+                <span>{{ $pastilleMap[$quantiteBouteille->bouteille->image_pastille_alt]['text'] }}</span>
+            </div>
             @endif
-
+            
             <div class="carte-vin @if(!$quantiteBouteille->bouteille->image_pastille_alt) no-pastille-cellier @endif">
                 <picture class="protruding">
                     {{--* Ici j'utilise le glide, le chemin est img/glide/images car c'est l'origine de l'image des bouteilles --}}
                     {{--* Pour une pastille, ce serait img/glide/pastilles/ $image_pastille, environ --}}
-                @if($quantiteBouteille->bouteille->est_personnalisee)
+                    @if($quantiteBouteille->bouteille->est_personnalisee)
                     <img src="{{ url('glide/imagesPersonnalisees/'. $quantiteBouteille->bouteille->image_bouteille . '?p=maquette') }}" alt="{{ $quantiteBouteille->bouteille->nom }}">
-                @else
-                        <img src="{{ url('glide/images/'. $quantiteBouteille->bouteille->image_bouteille . '?p=maquette') }}" alt="{{ $quantiteBouteille->bouteille->image_bouteille_alt }}">
-                @endif
+                    @else
+                    <img src="{{ url('glide/images/'. $quantiteBouteille->bouteille->image_bouteille . '?p=maquette') }}" alt="{{ $quantiteBouteille->bouteille->image_bouteille_alt }}">
+                    @endif
                 </picture>
                 <section>
                     <a href="{{ route('bouteilles.show', $quantiteBouteille->bouteille->id) }}"><h2>{{ $quantiteBouteille->bouteille->nom }}</h2></a>
@@ -103,9 +102,10 @@
                     </div>
                 </section>
             </div>
-            </div>
+        </div>
         @endforeach
     </div>
+    <a class="boutonCellier espace" href="{{ route('bouteilles.create', Auth::id()) }}">@lang('messages.add_custom_bottle')</a>
 </main>
 @include('components.modals.modale-changer-qte-bouteille')
 @include('components.modals.modale-confirmer-suppression')
