@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             trisModale.close();
         }); 
     });
-    let nombreFiltres = document.querySelector('.filtres-trigger span');
+    let nombreFiltres = document.querySelector('.filtres-trigger .span-number');
     searchInput.addEventListener('input', function () {
         trisTriggerP.innerHTML = selectedLanguage === "fr" ? "Trier" : "Sort";
         fetchSearchResults()
@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         ${bouteille.couleur_fr ? bouteille.couleur_fr + " | " : ""}
                         ${bouteille.format ? bouteille.format + " | " : ""}
                         ${bouteille[paysKey] ? bouteille[paysKey] + " | " : ""}
-                        ${bouteille.prix + " $"}
                     </p>
                     <span class="span-prix">${bouteille.prix + " $"}</span>
                     </section>
@@ -227,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
             
-        nombreFiltres.innerHTML = existingPillules.length > 0 ? " (" + existingPillules.length + ")" : "";
+        nombreFiltres.innerHTML = existingPillules.length > 0 ? "  (" + existingPillules.length + ")" : "";
 
         // Call fetchPaginatedResults only if there's a searchTerm or if filters are applied
         if (searchTerm || selectedFilters.length > 0 || (event && event.target.classList.contains("tri"))) {

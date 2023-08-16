@@ -80,7 +80,7 @@ return [
 
     // Modal - Confirm Delete
     'sure_to_delete' => 'Êtes-vous certain de vouloir supprimer votre cellier?',
-    'confirm_deletion' => 'Confirm deletion',
+    'confirm_deletion' => 'confirmer la supression',
     'cellar_delete_message' => 'Supprimer ce cellier suprrimera définitivement tous les bouteilles qui y sont présente!',
 
 

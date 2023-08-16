@@ -151,18 +151,19 @@
 
 {{-- FIN -- SECTION MENU FILTRE SIDE --}}
 
-<h3 class="resultats"></h3>
 
 <div class="filtres-tris-conteneur">
     <div class="filtres-trigger">
-        <img src="{{ asset('icons/filter.svg') }}" alt="filtres">
-        <p>@lang('messages.filters')<span></span></p>
+        <span class="material-symbols-outlined">filter_list</span>
+        <p>@lang('messages.filters')<span class="span-number"></span></p>
     </div>
     <div class="tris-trigger">
-        <img src="{{ asset('icons/sort.svg') }}" alt="tri">
+        <span class="material-symbols-outlined">sort</span>
         <p>@lang('messages.sort')</p>
     </div>
 </div>
+
+<h3 class="resultats"></h3>
 
 <main class="indexBouteilles">
 
