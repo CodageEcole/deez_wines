@@ -15,6 +15,7 @@
     <link href=" {{ asset('css/hamburger.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/root.css') }}" rel="stylesheet">
     <link href=" {{ asset('css/messages.css') }}" rel="stylesheet">
+    <link rel="author" href="humans.txt" />
     <title>@yield('title')</title>
 </head>
 <body>
@@ -65,6 +66,7 @@
             </div>
             <div>
                 <p>App Version 0.1</p>
+                <p class="humans"><a href="{{ route('humans.txt') }}" target="_blank">humans.txt</a></p>
             </div>
         </div>
     </section>

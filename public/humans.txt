@@ -8,7 +8,7 @@
     OpSec: Émile Daignault
     Site: none
     Twitter: none
-    Location: St-Calixe, Québec, Canada.
+    Location: Saint-Calixte-de-Kilkenny, Québec, Canada.
 
     The artist formerly known as: Louis Roby
     Site: none
@@ -33,7 +33,7 @@
         Laravel
     Créé avec:
         VS Code
-        Monster Energy drinks! 
+        Monster Energy drinks!
 
-    Notre premier site (un peu) plus sérieux conçu dans
+    Notre premier site (un peu) plus sÃ©rieux conçu dans
     le cadre de notre projet web final en formation de Développement web!

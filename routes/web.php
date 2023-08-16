@@ -34,6 +34,12 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/humans.txt', function () {
+    return response(file_get_contents(public_path('humans.txt')), 200)
+        ->header('Content-Type', 'text/plain; charset=UTF-8');
+})->name('humans.txt');
+
 Route::group(
 [
     'prefix' => LaravelLocalization::setLocale(),
