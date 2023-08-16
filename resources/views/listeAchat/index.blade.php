@@ -7,7 +7,12 @@
 @section('content')
 <main>
     @if (session('success'))
-        <div class="alert-success" role="alert">{{ session('success') }}</div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>{{ session('success') }}</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">X</span>
+            </button>
+        </div>
     @endif
     <h2>@lang('messages.your_list')</h2>
     <div class="liste-achat">
