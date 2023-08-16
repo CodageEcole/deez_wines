@@ -14,27 +14,31 @@ function toggleShadows(element, target, classActive) {
     element.addEventListener("click", function() {
         target.classList.toggle(classActive);
         element.classList.toggle("show");
-        menuIcon.src = window.location.origin + "/icons/more_icon.svg";
+        if(menuIcon) {
+            menuIcon.src = window.location.origin + "/icons/more_icon.svg";
+        }
     });
 }
 
 window.onload = function() {
     // Fonction pour le bouton de menu
-    menuBouton.addEventListener("click", function() {
-        if (menuFiltre && menuFiltre.classList.contains("is-active-filtre")) {
-            menuFiltre.classList.remove("is-active-filtre");
-            overlayGreyFiltre.classList.remove("show");
-            menuIcon.src = window.location.origin + "/icons/more_icon.svg";
-        } else if (menuMobile.classList.contains("is-active")) {
-            menuMobile.classList.remove("is-active");
-            overlayGrey.classList.remove("show");
-            menuIcon.src = window.location.origin + "/icons/more_icon.svg";
-        } else {
-            menuMobile.classList.toggle("is-active");
-            overlayGrey.classList.toggle("show");
-            menuIcon.src = window.location.origin + "/icons/right_arrow.svg";
-        }
-    });
+    if(menuBouton) {
+        menuBouton.addEventListener("click", function() {
+            if (menuFiltre && menuFiltre.classList.contains("is-active-filtre")) {
+                menuFiltre.classList.remove("is-active-filtre");
+                overlayGreyFiltre.classList.remove("show");
+                menuIcon.src = window.location.origin + "/icons/more_icon.svg";
+            } else if (menuMobile.classList.contains("is-active")) {
+                menuMobile.classList.remove("is-active");
+                overlayGrey.classList.remove("show");
+                menuIcon.src = window.location.origin + "/icons/more_icon.svg";
+            } else {
+                menuMobile.classList.toggle("is-active");
+                overlayGrey.classList.toggle("show");
+                menuIcon.src = window.location.origin + "/icons/right_arrow.svg";
+            }
+        });
+    }
 
     // Fonction pour le menu filtre
     if (filtreBouton) {
