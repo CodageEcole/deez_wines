@@ -7,12 +7,18 @@
 @section('content')
 <main>
     @if (session('success'))
-        <div class="alert-success" role="alert">{{ session('success') }}</div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>{{ session('success') }}</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">X</span>
+            </button>
+        </div>
     @endif
     <h2>@lang('messages.your_list')</h2>
-    <div>
+    <div class="liste-achat">
         @if($bouteilles->count() == 0)
             <p>@lang('messages.shopping_list')</p>
+            <a href="{{ route('bouteilles.index') }}" class="bouton">@lang('messages.view_all_bottles')</a>
         @else
             @foreach($bouteilles as $bouteilleListe)
                 <div class="item-liste">
@@ -21,7 +27,6 @@
                     <div>
                         <div class="boutons" data-nom="{{ $bouteilleListe->bouteille->nom }}" data-id="{{ $bouteilleListe->bouteille->id }}" onclick='openModal("{{ $bouteilleListe->bouteille->nom }}","{{ $bouteilleListe->bouteille->id }}")'>
                             <p>@lang('messages.add')</p>
-                            <img src="{{ asset('icons/plus_icon.svg') }}" alt="Plus">
                         </div>
                         <form class="formulaireDel" action="{{ route('liste_achat.destroy', $bouteilleListe->id) }}" method="POST">
                             @csrf

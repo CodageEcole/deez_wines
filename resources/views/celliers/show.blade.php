@@ -9,7 +9,12 @@
 @section('content')
 <main>
     @if (session('edit-cellier'))
-        <div class="alert-success" role="alert">{{ session('edit-cellier') }}</div>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <p>{{ session('edit-cellier') }}</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">X</span>
+            </button>
+        </div>
     @endif
     <div class="header-nom-cellier">
         <form class="form-modifier" action="{{ route('celliers.update', $cellier->id) }}" method="POST">
@@ -31,7 +36,12 @@
         <a class="boutonCellier espace" href="{{ route('bouteilles.create', Auth::id()) }}">@lang('messages.add_custom_bottle')</a>
     
         @if (session('success'))
-            <div class="alert-success" role="alert">{{ session('success') }}</div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <p>{{ session('success') }}</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
         @endif
 
         @foreach($cellierQuantiteBouteille as $quantiteBouteille)
@@ -88,7 +98,7 @@
                             @csrf
                             @method('DELETE')
                             <input type="hidden"  name="cellier_id" value="{{ $cellier->id }}">
-                            <button class="overlap-cellier-supprimer espace" type="submit">@lang('messages.delete')<span class="material-symbols-outlined">close</span></button>
+                            <button class="overlap-cellier-supprimer espace boutonSupp" type="submit">@lang('messages.delete')<span class="material-symbols-outlined">close</span></button>
                         </form>
                     </div>
                 </section>
