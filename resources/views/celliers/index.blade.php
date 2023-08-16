@@ -8,7 +8,12 @@
 
 
 @if (session('success'))
-    <div class="alert-success" role="alert">{{ session('success') }}</div>
+    <div class="alert-success extra-margin" role="alert">{{ session('success') }}</div>
+@endif
+@if(count($celliers) == 0)
+    <section class="cellier">
+        <p>@lang('messages.no_cellar')</p>
+    </section>
 @endif
 <main class="celliers">
     @foreach($celliers as $cellier)
