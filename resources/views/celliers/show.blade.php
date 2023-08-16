@@ -28,7 +28,7 @@
         <form class="formulaireDel" action="{{ route('celliers.destroy', $cellier->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button class="x-icon boutonSupp" type="submit" onclick="openModal()" data-text="@lang('supprimer.del_cellar')" data-title="@lang('supprimer.del_cellar_title')"><img src="{{ asset('icons/x.svg') }}" alt=""></button>
+            <button class="boutonSupp" type="submit" onclick="openModal()" data-text="@lang('supprimer.del_cellar')" data-title="@lang('supprimer.del_cellar_title')"><img src="{{ asset('icons/x.svg') }}" alt=""></button>
         </form>
     </div>
     <div>

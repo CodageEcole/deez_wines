@@ -63,15 +63,26 @@
     border: none;
     cursor: pointer;
 }
-.x-icon img {
+.boutonSupp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--vivid-red);
+    padding: 5px;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+}
+
+.boutonSupp img {
     width: 20px;
     height: 20px;
 }
-.x-icon {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+
+.supression-cellier {
+
 }
+
 .form-modifier .input-edit-nom {
     height: 30px;
     border: 1px solid grey;
