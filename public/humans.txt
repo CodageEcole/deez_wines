@@ -5,7 +5,7 @@
     Twitter: none
     Location: Mascouche, Québec, Canada.
 
-    OpSec: Émile Daignault
+    OpSec: Émile Daigneault
     Site: none
     Twitter: none
     Location: Saint-Calixte-de-Kilkenny, Québec, Canada.
@@ -35,5 +35,5 @@
         VS Code
         Monster Energy drinks!
 
-    Notre premier site (un peu) plus sÃ©rieux conçu dans
+    Notre premier site (un peu) plus sérieux conçu dans
     le cadre de notre projet web final en formation de Développement web!
