@@ -126,6 +126,10 @@ return [
 
     //sort
     'sort' => 'Sort',
+    'name_asc' => 'Name ascending',
+    'name_desc' => 'Name descending',
+    'price_asc' => 'Price ascending',
+    'price_desc' => 'Price descending',
 
     //price ranges
     'less_than_20' => 'Less than 20$',
