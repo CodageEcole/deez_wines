@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <section>
                     <a href="/bouteilles/${bouteille.id}"><h2>${bouteille.nom}</h2></a>
                     <p class="vignette-info">
-                        ${bouteille.couleur_fr ? bouteille.couleur_fr + " | " : ""}
+                        ${bouteille[couleurKey] ? bouteille[couleurKey] + " | " : ""}
                         ${bouteille.format ? bouteille.format + " | " : ""}
                         ${bouteille[paysKey] ? bouteille[paysKey] + " | " : ""}
                     </p>
