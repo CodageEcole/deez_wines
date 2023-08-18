@@ -148,7 +148,7 @@ nav .logo img {
 
 .footer-icon-tray p {
     font-family: 'MabryPro';
-    font-size: 16px;
+    font-size: 14px;
     color: white;
 
     margin-bottom: 0;
@@ -156,8 +156,8 @@ nav .logo img {
 }
 
 .footer-icon-img {
-    width: 60px;
-    height: 60px;
+    width: 45px;
+    height: 45px;
 }
 
 /* ========== MEDIA ========== */
