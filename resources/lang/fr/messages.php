@@ -128,6 +128,10 @@ return [
 
     //sort
     'sort' => 'Trier',
+    'name_asc' => 'Nom croissant',
+    'name_desc' => 'Nom décroissant',
+    'price_asc' => 'Prix croissant',
+    'price_desc' => 'Prix décroissant',
 
     //price ranges
     'less_than_20' => 'Moins de 20$',
