@@ -77,10 +77,6 @@
     <footer class="footer">
     @if(!isset($cacherLayout))
         <div class="footer-icon-tray">
-            <a href="{{ route('profile.edit') }}">
-                <img class="footer-icon-img" src="{{ asset('icons/profil_icon_white.svg') }}" alt="Profil">
-                <p>@lang('messages.profile')</p>
-            </a>
             <a href="{{ route('bouteilles.index') }}">
                 <img class="footer-icon-img" src="{{ asset('icons/catalogue_icon_white.svg') }}" alt="Catalogue">
                 <p>@lang('messages.search')</p>
@@ -92,6 +88,10 @@
             <a href="{{ route('liste_achat.index') }}">
                 <img class="footer-icon-img" src="{{ asset('icons/add_icon_white.svg') }}" alt="Liste_achats">
                 <p>@lang('messages.list')</p>
+            </a>
+            <a href="{{ route('profile.edit') }}">
+                <img class="footer-icon-img" src="{{ asset('icons/profil_icon_white.svg') }}" alt="Profil">
+                <p>@lang('messages.profile')</p>
             </a>
         </div>
     @endif
